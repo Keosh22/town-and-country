@@ -1,3 +1,4 @@
+// Side bar collapse button
 const chevronsElement = document.getElementById("chevron-right");
 
 const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
@@ -7,8 +8,17 @@ sidebarBtnToggler.addEventListener('click', () => {
 });
 
 
-
-
 function rotateChevrons(){
   chevronsElement.classList.toggle("sidebar-toggler-left");
 }
+
+
+
+// Sidebar dropwdown chevron
+$(document).ready(function() {
+  $(".sidebar-dropdown-btn").on('click', function(){
+    $(".bxs-chevron-up").toggleClass("rotate-chevron-up");
+    $(".btn-dashboard-dropdown").toggleClass("btn-dashboard-toggle");
+    $(".sidebar-dropdown").toggleClass("sidebar-dropdown-toggle");
+  });
+});

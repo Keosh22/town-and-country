@@ -4,3 +4,146 @@
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
 }
+.wrapper{
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  overflow: hidden;
+}
+#sidebar{
+  max-width: 264px;
+  min-width: 264px;
+  background-color: #064420;
+ 
+}
+.main{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+.navbar{
+  background-color: #E4EFE7;
+}
+
+/* SIDE BAR */
+.sidebar-logo{
+  margin: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+.logo{
+  display: flex;
+  align-items: center;
+}
+.sidebar-logo a{
+  text-decoration: none;
+  color: #FAF1E6;
+  font-size: 2rem;
+}
+.logo-img{
+  height: 110px;
+}
+/* END */
+
+
+/* NAV BAR */
+
+/*------------------ sidebar collapse button-----------------------*/
+#sidebar-toggler-btn{
+  border: none;
+  background-color: transparent;
+  
+}
+.sidebar-toggler-left{
+ transform: rotate(180deg);
+ transition: 0.2s ease;
+}
+
+.sidebar-nav{
+  flex-grow: 1;
+  list-style: none;
+  padding-left: 0;
+  
+}
+.sidebar-link{
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+}
+.bxs-dashboard,
+.bxs-home
+{
+  margin-right: 10px;
+  vertical-align: middle;
+  font-size: 1.75rem;
+}
+.sidebar-link,
+.bxs-dashboard{
+  color: #FDFAF6;
+}
+/* .sidebar-item:hover{
+  background-color: #013b19;
+  opacity: 0.;
+  transition: 0.2s ease;
+} */
+
+
+
+/* SIDEBAR DROP DOWN */
+.sidebar-dropdown{
+  transition: 0.2s ease;
+}
+.sidebar-dropdown-toggle{
+  background-color: #013b19;
+  transition: 0.2s ease;
+}
+.bxs-chevron-up{
+  right: 5px;
+  top: 12px;
+  position: absolute;
+  margin-right: 10px;
+}
+.btn-dashboard,
+.btn-dashboard-dropdown{
+  text-align: left;
+  position: relative;
+}
+.btn-dashboard-dropdown:hover,
+.btn-dashboard:hover{
+  background-color: #013b19;
+  transition: 0.2s ease;
+}
+.btn-dashboard-toggle{
+  background-color: #013b19;
+  transition: 0.2s ease;
+}
+.btn-dropdown{
+  text-align: left;
+}
+.btn-dropdown:hover{
+  background-color: #003115;
+  transition: 0.2s ease;
+}
+.sidebar-link-dropdown{
+  margin-left: 30px;
+  text-decoration: none;
+  color: #FDFAF6;
+}
+.rotate-chevron-up{
+  transform: rotate(180deg);
+  transition: 0.2s ease;
+}
+
+
+
+
+/*------------------ Accordion Dropdown-----------------------*/
+
+
+
+
+
+
+
