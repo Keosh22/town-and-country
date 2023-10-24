@@ -12,11 +12,18 @@
   width: 100%;
   overflow: hidden;
 }
+.main{
+  background-color: #D9D9D9;
+}
 #sidebar{
   max-width: 264px;
   min-width: 264px;
   background-color: #064420;
- 
+  transition: 0.6s ease;
+}
+#sidebar.collapsed{
+  margin-left: -264px;
+
 }
 .main{
   display: flex;

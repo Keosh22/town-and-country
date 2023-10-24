@@ -7,7 +7,7 @@ include("../includes/header.php");
   <div class="wrapper">
 
     <!-- Side bar -->
-    <aside id="sidebar" class="collapse show">
+    <aside id="sidebar">
       <div class="h-100">
         <div class="sidebar-logo">
           <a href="#"><img class="logo-img" src="../img/logo.png" alt=""></a>
@@ -163,20 +163,38 @@ include("../includes/header.php");
     <div class="main">
       <!-- Nav bar -->
       <div class="navbar navbar-expand-lg">
-        <button id="sidebar-toggler-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+        <div class="container-fluid">
+        <button id="sidebar-toggler-btn" type="button">
           <i id="chevron-right" class="bx bx-chevrons-right fs-3"></i>
         </button>
+        <a href="#" class="navbar-brand">Sample Table</a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
           <i class="bx bx-menu"></i>
         </button>
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          </ul>
+          <div class="nav-item dropdown me-4">
+            <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - Name</a>
+            <ul class="dropdown-menu">
+              <li><a href="#" class="dropdown-item">Profile</a></li>
+              <li><a href="#" class="dropdown-item">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="#" class="dropdown-item">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+        </div>
+
       </div>
 
 
       <!-- ------------SAMPLE TABLE ------------ -->
       <section class="intro">
-        <div class="bg-image h-100" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/tables/img4.jpg');">
-          <div class="mask d-flex align-items-center h-100" style="background-color: rgba(25, 185, 234,.25);">
-            <div class="container">
+        <div class="bg-image h-100">
+          <div class="mask d-flex align-items-center h-100">
+            <div class="container mt-5">
               <div class="row justify-content-center">
                 <div class="col-12">
                   <div class="card">
