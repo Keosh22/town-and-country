@@ -4,6 +4,8 @@
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
 }
+
+/* Initial style */
 .wrapper{
   display: flex;
   align-items: stretch;
@@ -27,6 +29,7 @@
   background-color: #E4EFE7;
 }
 
+
 /* SIDE BAR */
 .sidebar-logo{
   margin: 1rem 2rem;
@@ -45,10 +48,10 @@
 .logo-img{
   height: 110px;
 }
-/* END */
 
 
-/* NAV BAR */
+
+
 
 /*------------------ sidebar collapse button-----------------------*/
 #sidebar-toggler-btn{
@@ -72,8 +75,11 @@
   font-size: 1.1rem;
   display: block;
 }
+
+/* Button left Icon */
 .bxs-dashboard,
-.bxs-home
+.bxs-home,
+.bxs-dollar-circle
 {
   margin-right: 10px;
   vertical-align: middle;
@@ -89,22 +95,38 @@
   transition: 0.2s ease;
 } */
 
+/* Chevron up */
+.sidebar-link[data-bs-toggle="collapse"]::after{
+  border: solid;
+  border-width: 0 .075rem .075rem 0;
+  content: "";
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.4rem;
+  transform: rotate(-135deg);
+  transition: all .2s ease-out;
+}
+.sidebar-link[data-bs-toggle="collapse"].collapsed::after{
+  transform: rotate(45deg);
+  transition: all .2s ease-out;
+}
+
+
 
 
 /* SIDEBAR DROP DOWN */
 .sidebar-dropdown{
   transition: 0.2s ease;
+  background-color: #013b19;
 }
-.sidebar-dropdown-toggle{
+
+/* .sidebar-dropdown-toggle{
   background-color: #013b19;
   transition: 0.2s ease;
-}
-.bxs-chevron-up{
-  right: 5px;
-  top: 12px;
-  position: absolute;
-  margin-right: 10px;
-}
+} */
+
 .btn-dashboard,
 .btn-dashboard-dropdown{
   text-align: left;
@@ -115,10 +137,10 @@
   background-color: #013b19;
   transition: 0.2s ease;
 }
-.btn-dashboard-toggle{
+/* .btn-dashboard-toggle{
   background-color: #013b19;
   transition: 0.2s ease;
-}
+} */
 .btn-dropdown{
   text-align: left;
 }
@@ -139,7 +161,7 @@
 
 
 
-/*------------------ Accordion Dropdown-----------------------*/
+
 
 
 
