@@ -21,7 +21,7 @@ include("../includes/header.php");
             </div>
           </li>
 
-          <!----------- Dropdown sidebar ---------->
+          <!------------------------- Dropdown sidebar ---------------------->
           <li class="sidebar-item">
             <!-- Homeowners dropdown -->
             <div class="d-grid">
@@ -60,7 +60,8 @@ include("../includes/header.php");
               </div>
             </li>
           </ul>
-          <!-- Payments Dropdown -->
+
+          <!-------- Payments Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-dashboard-dropdown">
@@ -68,47 +69,177 @@ include("../includes/header.php");
               </button>
             </div>
           </li>
+
+          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-payments" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Monthly Dues</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Membership Fee</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Construction Bond</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Construction Clearance</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Material Delivery</a>
+                </button>
+              </div>
+            </li>
+          </ul>
+
+          <!-------- Collections Dropdown -------->
           <li class="sidebar-item">
-            <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-payments" data-bs-parent="#sidebar">
-              <li class="sidebar-item">
-                <div class="d-grid">
-                  <button class="btn btn-dropdown">
-                    <a href="#" class="sidebar-link-dropdown">Monthly Dues</a>
-                  </button>
-                </div>
-              </li>
-              <li class="sidebar-item">
-                <div class="d-grid">
-                  <button class="btn btn-dropdown">
-                    <a href="#" class="sidebar-link-dropdown">Membership Fee</a>
-                  </button>
-                </div>
-              </li>
-              <li class="sidebar-item">
-                <div class="d-grid">
-                  <button class="btn btn-dropdown">
-                    <a href="#" class="sidebar-link-dropdown">Construction Bond</a>
-                  </button>
-                </div>
-              </li>
-              <li class="sidebar-item">
-                <div class="d-grid">
-                  <button class="btn btn-dropdown">
-                    <a href="#" class="sidebar-link-dropdown">Construction Clearance</a>
-                  </button>
-                </div>
-              </li>
-              <li class="sidebar-item">
-                <div class="d-grid">
-                  <button class="btn btn-dropdown">
-                    <a href="#" class="sidebar-link-dropdown">Material Delivery</a>
-                  </button>
-                </div>
-              </li>
-            </ul>
+            <div class="d-grid">
+              <button class="btn btn-dashboard-dropdown">
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-collections"><i class="bx bxs-collection"></i>Collections</a>
+              </button>
+            </div>
+          </li>
+          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-collections" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">
+                    Add collection
+                  </a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">
+                    Update collection
+                  </a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">
+                    Delete collection
+                  </a>
+                </button>
+              </div>
+            </li>
+          </ul>
 
 
-            <!-- --------- Dropdown sidebar/Payments --------
+          <!-------- Services Dropdown -------->
+          <li class="sidebar-item">
+            <div class="d-grid">
+              <button class="btn btn-dashboard-dropdown">
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-services"><i class="bx bxs-wrench"></i>Services</a>
+              </button>
+            </div>
+          </li>
+          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-services" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Maintenance list</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Promotions list</a>
+                </button>
+              </div>
+            </li>
+          </ul>
+
+
+          <!-------- User Management Dropdown -------->
+          <li class="sidebar-item">
+            <div class="d-grid">
+              <button class="btn btn-dashboard-dropdown">
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-users"><i class="bx bxs-user-circle"></i>User Management</a>
+              </button>
+            </div>
+          </li>
+          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-users" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Add user</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Update user</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Delete user</a>
+                </button>
+              </div>
+            </li>
+          </ul>
+
+          <!-------- History Log Dropdown -------->
+          <li class="sidebar-item">
+            <div class="d-grid">
+              <button class="btn btn-dashboard-dropdown">
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-history"><i class="bx bx-history"></i>History Log</a>
+              </button>
+            </div>
+          </li>
+          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-history" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Log in history</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Transaction history</a>
+                </button>
+              </div>
+            </li>
+          </ul>
+
+
+
+
+
+
+
+
+
+
+          <!-- --------- Dropdown sidebar/Payments --------
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-dashboard-dropdown">
@@ -134,7 +265,7 @@ include("../includes/header.php");
 
 
 
-            <!-- <div class="accordion accordion-flush" id="accordionParent">
+          <!-- <div class="accordion accordion-flush" id="accordionParent">
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button class="accordion-button  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionCollapse">
@@ -159,35 +290,40 @@ include("../includes/header.php");
         </ul>
     </aside>
 
-    <!-- Main body content -->
+    <!------------------- Main body content ---------->
     <div class="main">
-      <!-- Nav bar -->
-      <div class="navbar navbar-expand-lg">
+      <!--------------------- Nav bar -------------------->
+      <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-        <button id="sidebar-toggler-btn" type="button">
-          <i id="chevron-right" class="bx bx-chevrons-right fs-3"></i>
-        </button>
-        <a href="#" class="navbar-brand">Sample Table</a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
-          <i class="bx bx-menu"></i>
-        </button>
-        <div class="navbar-collapse collapse" id="navbar-collapse">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-          </ul>
-          <div class="nav-item dropdown me-4">
-            <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - Name</a>
-            <ul class="dropdown-menu">
-              <li><a href="#" class="dropdown-item">Profile</a></li>
-              <li><a href="#" class="dropdown-item">Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a href="#" class="dropdown-item">Logout</a></li>
+          <button id="sidebar-toggler-btn" type="button">
+            <i id="chevron-right" class="bx bx-chevrons-right fs-3"></i>
+          </button> 
+          <a href="#" class="navbar-brand">Sample Table</a>
+     <!-- Hamburger Menu -->
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
+            <i class="bx bx-menu"></i>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
             </ul>
+            <div class="mx-auto"></div>
+            <div class="nav-item dropdown me-4">
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - Name</a>
+              <ul class="dropdown-menu">
+                <li><a href="#" class="dropdown-item">Profile</a></li>
+                <li><a href="#" class="dropdown-item">Settings</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a href="#" class="dropdown-item">Logout</a></li>
+              </ul>
+            </div>
+            
           </div>
         </div>
-        </div>
 
-      </div>
+      </nav>
 
 
       <!-- ------------SAMPLE TABLE ------------ -->

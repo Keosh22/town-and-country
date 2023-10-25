@@ -16,6 +16,7 @@
   background-color: #D9D9D9;
 }
 #sidebar{
+ 
   max-width: 264px;
   min-width: 264px;
   background-color: #064420;
@@ -32,10 +33,9 @@
   width: 100%;
   overflow: hidden;
 }
-.navbar{
+.navbar{ 
   background-color: #E4EFE7;
 }
-
 
 /* SIDE BAR */
 .sidebar-logo{
@@ -86,7 +86,11 @@
 /* Button left Icon */
 .bxs-dashboard,
 .bxs-home,
-.bxs-dollar-circle
+.bxs-dollar-circle,
+.bxs-collection,
+.bxs-wrench,
+.bxs-user-circle,
+.bx-history
 {
   margin-right: 10px;
   vertical-align: middle;
@@ -111,7 +115,7 @@
   padding: 2px;
   position: absolute;
   right: 1.5rem;
-  top: 1.4rem;
+  top: 1rem;
   transform: rotate(-135deg);
   transition: all .2s ease-out;
 }
