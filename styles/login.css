@@ -62,7 +62,9 @@ Poppins - font-family: 'Poppins', sans-serif;
     width: 200px;
 }
 
-
+.right-side{
+    overflow: auto;
+}
 
 form{
     display: flex;
@@ -152,7 +154,7 @@ form{
 
 @media (width < 433px){
     .main-row{
-        margin-top: -6rem;
+        margin-top: -2rem;
 
     }
 
@@ -162,6 +164,10 @@ form{
 
     .right-side{
         height: 400px;
+    }
+
+    .main-row{
+        gap: 4rem;
     }
 }
 /* @media (width < 433px){

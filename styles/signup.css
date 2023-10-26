@@ -56,6 +56,7 @@ Poppins - font-family: 'Poppins', sans-serif;
 .right-side{
     background-color: white;
     border-radius: 50px;
+    overflow: auto;
 }
 
 .left-side img{
@@ -92,15 +93,22 @@ form{
     background-color: #064420;
 }
 
-@media (width < 767px){
+@media (width < 768px){
+    
+
     .left-side .title{
         font-size: 2.5em;
     }
 
+    .input-group{
+        margin-bottom: 2rem;
+    }
 
     .left-side img{
         width: 200px;
     }
+
+
 
         
     body{
@@ -120,9 +128,7 @@ form{
  .main-row{
         border-radius: 0px;
     }
-    .left-side{
-        height: 300px;
-    }
+
     
     body{
         background-color: #064420;
@@ -136,10 +142,6 @@ form{
         width: 150px;
     }
 
-    .left-side{
-        margin-top: -3rem;
-        margin-bottom: -5rem;
-    }
 
     .main-row{
         display: flex;
@@ -157,13 +159,15 @@ form{
 
 @media (width < 433px){
     .main-row{
-        margin-top: -6rem;
+        margin-top: 1rem;
 
     }
 
     .left-side .title{
        display: none;
     }
+
+
 
     .right-side{
 

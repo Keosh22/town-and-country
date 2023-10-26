@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="/styles/signup.css">
 </head>
 <body>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container-xxl d-flex justify-content-center align-items-center min-vh-100">
 
         <div class="row main-row">
 
-            <div class="col-md-6 col-lg-8 col-xs-12 left-side d-flex flex-column align-items-center justify-content-center ">
+            <div class="col-md-6 col-lg-6 col-xs-12 left-side d-flex flex-column align-items-center justify-content-center ">
                 <img src="/img/logo.png">
                 <h1 class="header-text text-center mb-5 title" >Town and Country Heights Subdivision</h1>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xs-12 right-side d-flex flex-column align-items-center justify-content-center justify-content-lg-center">
+            <div class="col-md-6 col-lg-6 col-xs-12 right-side d-flex flex-column align-items-center justify-content-center justify-content-lg-center">
                <div class="row">
                 <div class="header-text text-center mb-1">
                     <img src="login.png" class="img-fluid"  alt="">
