@@ -56,6 +56,7 @@ Poppins - font-family: 'Poppins', sans-serif;
 .header-text h1{
     font-weight: 700;
     color: #064420;
+    font-size: 3.2em;
 }
 
 .left-side img{
@@ -76,6 +77,14 @@ form{
 .right-side input, .right-side button  {
     border-radius: 20px;
 }
+.left-side img{
+    width: 250px;
+}
+
+.right-side img{
+    width: 100px;
+}
+
 
 .form-control:active{
     border-color: #064420;
@@ -94,6 +103,13 @@ form{
 
 .forgot-password a{
     color: #064420;
+}
+@media (width < 992px){
+    .header-text h1{
+        font-weight: 700;
+        color: #064420;
+        font-size: 2em;
+    }
 }
 
 @media (width < 767px){

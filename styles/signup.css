@@ -16,6 +16,7 @@ Poppins - font-family: 'Poppins', sans-serif;
 
 */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 
 *{
@@ -48,11 +49,11 @@ Poppins - font-family: 'Poppins', sans-serif;
 
 }
 
-.right-side .row .header-text h1{
+.header-text h1{
     font-weight: 700;
     color: #064420;
+    font-size: 2em;
 }
-
 .right-side{
     background-color: white;
     border-radius: 50px;
@@ -159,8 +160,13 @@ form{
 
 @media (width < 433px){
     .main-row{
-        margin-top: 1rem;
+        margin-top: -1rem;
 
+    }
+
+    .left-side{
+        margin-top: 0rem;
+        margin-bottom: 1rem;
     }
 
     .left-side .title{
