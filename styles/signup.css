@@ -1,4 +1,26 @@
+/* Color USED
 
+Green  - #064420
+
+Light Green - #E4EFE7
+
+White - #FDFAF6
+
+Cream - #FAF1E6
+
+FONTS
+Poppins - font-family: 'Poppins', sans-serif;
+
+
+
+
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
 
 .main-row{
     background-color: #064420;
@@ -12,6 +34,7 @@
 
 }
 
+
 .left-side{
     gap: rem;
     text-align: center;
@@ -21,7 +44,13 @@
     font-size: 3em;
     width: 70%;
     color: white;
+    font-weight: 700;
 
+}
+
+.right-side .row .header-text h1{
+    font-weight: 700;
+    color: #064420;
 }
 
 .right-side{
@@ -37,8 +66,30 @@
     width: 100px;
 }
 
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
 .right-side input, .right-side button  {
     border-radius: 20px;
+}
+
+
+
+
+.signup-btn{
+ 
+    background-color: #FAF1E6;
+    color: #064420;
+    border: none;
+    
+}
+
+.signup-btn:hover{
+    background-color: #064420;
 }
 
 @media (width < 767px){
@@ -57,6 +108,8 @@
     }
 
 
+
+    
 
 
 

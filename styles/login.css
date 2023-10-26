@@ -1,4 +1,28 @@
+/* Color USED
 
+Green  - #064420
+
+Light Green - #E4EFE7
+
+White - #FDFAF6
+
+Cream - #FAF1E6
+
+FONTS
+Poppins - font-family: 'Poppins', sans-serif;
+
+
+
+
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+
+*{
+    font-family: 'Poppins', sans-serif;
+    
+}
 
 .main-row{
     background-color: #064420;
@@ -13,7 +37,7 @@
 }
 
 .left-side{
-    gap: rem;
+    gap: 1rem;
     text-align: center;
 }
 
@@ -29,13 +53,16 @@
     border-radius: 50px;
 }
 
-.left-side img{
-    width: 250px;
+.header-text h1{
+    font-weight: 700;
+    color: #064420;
 }
 
-.right-side img{
-    width: 100px;
+.left-side img{
+    width: 200px;
 }
+
+
 
 form{
     display: flex;
@@ -48,10 +75,30 @@ form{
     border-radius: 20px;
 }
 
+.form-control:active{
+    border-color: #064420;
+}
+
+.login-btn{
+    background-color: #FAF1E6;
+    color: #064420;
+    border: none;
+    
+}
+
+.login-btn:hover{
+    background-color: #064420;
+}
+
+.forgot-password a{
+    color: #064420;
+}
+
 @media (width < 767px){
     .left-side .title{
         font-size: 2.5em;
     }
+
 
 
     .left-side img{

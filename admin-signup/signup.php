@@ -14,7 +14,7 @@
 
             <div class="col-md-6 col-lg-8 col-xs-12 left-side d-flex flex-column align-items-center justify-content-center ">
                 <img src="/img/logo.png">
-                <h3 class="header-text text-center mb-5 title" >Town and Country Heights Subdivision</h3>
+                <h1 class="header-text text-center mb-5 title" >Town and Country Heights Subdivision</h1>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xs-12 right-side d-flex flex-column align-items-center justify-content-center justify-content-lg-center">
@@ -28,7 +28,7 @@
 
                <div class="input-group d-flex justify-content-center ">
                     
-                    <form action="" class="">
+                    <form action="" class="form-group gap-3">
                         <div class="group gap-1">
                             <p class="fs-6 fw-lighter mb-1">Personal Information</p>   
                             <div class="row">
@@ -38,11 +38,21 @@
                                 </div>
     
                                 <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                                    <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" placeholder="Lastname">
+                                    <input type="text" class="form-control" id="lastname"  placeholder="Lastname">
                                 </div>
-    
+
                                 <div class="col-xs-12 mb-3">
                                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
+                                </div>
+                                <div class="col-xs-12 mb-3">
+                                    <small>Phone Number</small>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                        <div class="input-group-text">+63</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="912-345-6789">
+                                    </div>
+
                                 </div>
                             </div>
     
@@ -67,7 +77,7 @@
                             </div>
                         </div>
 
-                        <div class="group">
+                        <div class="group gap-1">
                             <p class="fs-6 fw-lighter lh-lg mb-1">Create account</p>   
 
                             <div class="row">
@@ -83,16 +93,10 @@
                                 <div class="ccol-12 col-xs-12 mt-3">
                                     <input type="text" class="form-control" id="confirm-password" aria-describedby="" placeholder="Confirm Password">
                                 </div>
-                            </div>
-                            
-                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 mt-3">
-                            <button type="button" class="btn btn-primary btn-lg">SIGNUP</button>
-                            </div>
+                            </div>                        
+                        </div>
 
-                        
-                            
-                        </div>
-                        </div>
+                        <button type="submit" class="signup-btn btn btn-primary">SIGNUP</button>
 
                     </form>
                </div>
