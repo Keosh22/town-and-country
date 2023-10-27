@@ -1,5 +1,6 @@
 <?php
 include("../includes/header.php");
+session_start();
 ?>
 
 <body>
@@ -309,14 +310,14 @@ include("../includes/header.php");
             </ul>
             <div class="mx-auto"></div>
             <div class="nav-item dropdown me-4">
-              <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - Name</a>
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - <?php echo $_SESSION['firstname']; ?></a>
               <ul class="dropdown-menu">
                 <li><a href="#" class="dropdown-item">Profile</a></li>
                 <li><a href="#" class="dropdown-item">Settings</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a href="#" class="dropdown-item">Logout</a></li>
+                <li><a href="../admin-login/logout.php" class="dropdown-item">Logout</a></li>
               </ul>
             </div>
             

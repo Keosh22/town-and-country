@@ -2,10 +2,10 @@
 const chevronsElement = document.getElementById("chevron-right");
 const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
 
-sidebarBtnToggler.addEventListener('click', () => {
-  rotateChevrons();
-  document.querySelector("#sidebar").classList.toggle("collapsed")
-});
+// sidebarBtnToggler.addEventListener('click', () => {
+//   rotateChevrons();
+//   document.querySelector("#sidebar").classList.toggle("collapsed")
+// });
 
 function rotateChevrons(){
   chevronsElement.classList.toggle("sidebar-toggler-left");

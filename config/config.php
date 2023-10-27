@@ -3,6 +3,6 @@
   define("HOST", "localhost");
   define("USER", "root");
   define("PASS", "");
-  define("DBNAME", "Name");
+  define("DBNAME", "town_and_country_db");
 
 ?>

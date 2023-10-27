@@ -14,12 +14,28 @@
   <!-- Box Icon -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
+
+
+
+  <!------------- CSS Styles  ------------------->
+
   <!-- General CSS styles -->
   <link rel="stylesheet" href="../styles/general.css">
   <title>TCH System</title>
 
   <!-- Admin dashboard CSS styles -->
   <link rel="stylesheet" href="../styles/admin-dashboard.css">
+
+   <!-- Login CSS -->
+   <link rel="stylesheet" href="../styles/login.css">
+
+   <!-- Signup CSS -->
+   <link rel="stylesheet" href="../styles/signup.css">
+
+
+
+
+
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
