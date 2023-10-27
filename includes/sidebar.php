@@ -1,5 +1,4 @@
-<body>
-  <div class="wrapper">
+
 
     <!-- Side bar -->
     <aside id="sidebar">
@@ -180,7 +179,7 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Add user</a>
+                  <a href="../admin-panel/user/manage-user.php" class="sidebar-link-dropdown">Add user</a>
                 </button>
               </div>
             </li>
