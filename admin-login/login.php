@@ -13,16 +13,16 @@
 
         <div class="row main-row">
 
-            <div class="col-sm-8 left-side d-flex flex-column align-items-center justify-content-center ">
+            <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6 col-sm-12 left-side d-flex flex-column align-items-center justify-content-center ">
                 <img src="/img/logo.png" class="img-fluid" alt="">
-                <h3 class="header-text text-center mb-5 title" >Town and Country Heights Subdivision</h3>
+                <h1 class="h1 header-text text-center mb-5 title" >Town and Country Heights Subdivision</h1>
             </div>
 
-            <div class="col-sm-4 right-side d-flex flex-column align-items-center justify-content-center justify-content-lg-center">
+            <div class="col-xxl-6 col-xl-6 col-l-6  col-md-6 col-sm-12 right-side d-flex flex-column align-items-center justify-content-center justify-content-lg-center">
                <div class="row">
                 <div class="header-text text-center mb-5">
                     <img src="/img/login.png" class="img-fluid"  alt="">
-                    <h1>WELCOME</h1>
+                    <h1 class="h1">WELCOME</h1>
                  
                 </div>
                </div>
