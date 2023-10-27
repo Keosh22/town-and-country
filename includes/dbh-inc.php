@@ -2,7 +2,12 @@
 
 // creating data source name
 
-$dsn = "mysql:host=localhost; port=3308; dbname=practice";
+
+// take note, I have a different port configuration on my pc. 
+// baguhin niyo to if hindi port 3308 gamit niyo
+// default is 3307
+$dsn = "mysql:host=localhost; port=3308; dbname=tch";
+
 $dbusername = "lesthuuur";
 $dbpassword = "lesthuuur23";
 

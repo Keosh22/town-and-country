@@ -36,13 +36,13 @@
 
                 <!-- FORMS -->
                <div class="input-group d-flex justify-content-center text-center">
-                    <form>
+                    <form action="/includes/loginHandler.php" method="post">
                         <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+                            <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
                         </div>
 
                         <div class="form-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
 
                         <!-- SUBMIT BUTTON -->
