@@ -1,7 +1,7 @@
 <!-- HEADER -->
-<?php include("../includes/header.php"); ?>
+<?php require_once("../includes/header.php"); ?>
 <!-- SERVER -->
-<?php include("../libs/server.php"); ?>
+<?php require_once("../libs/server.php"); ?>
 
 <?php
 $server = new Server; // Open/Close connection
