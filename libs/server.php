@@ -120,7 +120,7 @@
     // if naka hindi naka login hindi maka direct sa dashboard page
   public function userAuthentication(){
     if(empty($_SESSION['auth'])){
-      echo "<script>window.location.href='../admin-login/login.php'</script>";
+      echo "<script>window.location.href='../admin/index.php'</script>";
     }
   }
   

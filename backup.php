@@ -317,7 +317,7 @@ session_start();
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a href="../admin-login/logout.php" class="dropdown-item">Logout</a></li>
+                <li><a href="../admin/index.php" class="dropdown-item">Logout</a></li>
               </ul>
             </div>
             

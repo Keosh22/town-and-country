@@ -69,7 +69,7 @@ if (isset($_POST['login_submit'])) {
 
                 <!-- FORMS -->
                 <div class="input-group d-flex justify-content-center text-center">
-                    <form action="login.php" method="post">
+                    <form action="index.php" method="post">
                         <div class="form-group">
                             <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
                         </div>
