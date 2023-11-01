@@ -2,10 +2,13 @@
 <?php
 require_once("../libs/server.php");
 require_once("../includes/header.php");
+
+?>
+
+<?php
 session_start();
 $server = new Server;
 $server->userAuthentication();
-
 
 ?>
 
@@ -15,6 +18,7 @@ $server->userAuthentication();
 <?php
 require_once("../includes/sidebar.php");
 ?>
+
 
 <!-------------- Main body content ---------->
 <div class="main">

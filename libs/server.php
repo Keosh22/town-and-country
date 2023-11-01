@@ -1,5 +1,5 @@
 <?php 
- require_once("../config/config.php");
+ require_once('../config.php');
 ?>
 
 <?php
@@ -113,7 +113,7 @@
     // if naka login na, hindi na makakabalik sa log in page ulit
 
     if(isset($_SESSION['user_id'])){
-      echo "<script>window.location.href='../admin-panel/index.php'</script>";
+      echo "<script>window.location.href='../admin-panel/dashboard.php'</script>";
     }   
   }
 

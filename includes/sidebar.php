@@ -10,7 +10,7 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard">
-                <a href="#" class="sidebar-link "><i class="bx bxs-dashboard"></i>Dashboard</a>
+                <a href="../admin-panel/dashboard.php" class="sidebar-link "><i class="bx bxs-dashboard"></i>Dashboard</a>
               </button>
             </div>
           </li>
@@ -175,6 +175,13 @@
           <!-------- User Management Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
+              <button class="btn btn-sidebar btn-dashboard">
+                <a href="../admin-panel/user.php" class="sidebar-link "><i class="bx bxs-user-circle"></i>User Management</a>
+              </button>
+            </div>
+          </li>
+          <!-- <li class="sidebar-item">
+            <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown">
                 <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-users"><i class="bx bxs-user-circle"></i>User Management</a>
               </button>
@@ -184,7 +191,7 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="../admin-panel/user/manage-user.php" class="sidebar-link-dropdown">Add user</a>
+                  <a href="#" class="sidebar-link-dropdown"></a>
                 </button>
               </div>
             </li>
@@ -202,7 +209,7 @@
                 </button>
               </div>
             </li>
-          </ul>
+          </ul> -->
 
           <!-------- History Log Dropdown -------->
           <li class="sidebar-item">
