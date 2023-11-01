@@ -11,6 +11,22 @@ function rotateChevrons(){
   chevronsElement.classList.toggle("sidebar-toggler-left");
 }
 
+$(document).ready(function (){
+  $("button.btn-sidebar").on('click', function (){
+    $("button.btn-sidebar").removeClass("active");
+    $(this).addClass("active");
+  
+  });
+})
+
+$(document).ready(function(){
+  $("button.btn-dropdown").on('click', function (){
+    $("button.btn-dropdown").removeClass("active-dropdown");
+      $(this).addClass("active-dropdown");
+  
+});
+});
+
 
 
 // Sidebar dropwdown chevron

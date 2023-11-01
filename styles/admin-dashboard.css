@@ -60,6 +60,7 @@
 
 
 
+
 /*------------------ sidebar collapse button-----------------------*/
 #sidebar-toggler-btn{
   border: none;
@@ -81,6 +82,7 @@
   text-decoration: none;
   font-size: 1.1rem;
   display: block;
+  padding: 6px 12px;
 }
 
 /* Button left Icon */
@@ -114,7 +116,7 @@
   display: inline-block;
   padding: 2px;
   position: absolute;
-  right: 1.5rem;
+  right: 1.2rem;
   top: 1rem;
   transform: rotate(-135deg);
   transition: all .2s ease-out;
@@ -140,9 +142,13 @@
 
 .btn-dashboard,
 .btn-dashboard-dropdown{
+  padding: 0px;
   text-align: left;
   position: relative;
+  border: 2px solid transparent !important;
 }
+
+
 .btn-dashboard-dropdown:hover,
 .btn-dashboard:hover{
   background-color: #013b19;
@@ -153,10 +159,11 @@
   transition: 0.2s ease;
 } */
 .btn-dropdown{
+  border: 2px solid transparent !important;
   text-align: left;
 }
 .btn-dropdown:hover{
-  background-color: #003115;
+  background-color: #3C6E71;
   transition: 0.2s ease;
 }
 .sidebar-link-dropdown{
@@ -166,6 +173,18 @@
 }
 .rotate-chevron-up{
   transform: rotate(180deg);
+  transition: 0.2s ease;
+}
+
+.active{
+  border-left: 2px solid white !important;
+  background-color: #284B63 !important;
+  transition: 0.2s ease;
+}
+
+.active-dropdown{
+  border-left: 2px solid white !important;
+  background-color: #3C6E71 !important;
   transition: 0.2s ease;
 }
 

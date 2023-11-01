@@ -9,7 +9,7 @@
         <ul class="sidebar-nav">
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-dashboard">
+              <button class="btn btn-sidebar btn-dashboard">
                 <a href="#" class="sidebar-link "><i class="bx bxs-dashboard"></i>Dashboard</a>
               </button>
             </div>
@@ -19,7 +19,7 @@
           <li class="sidebar-item">
             <!-- Homeowners dropdown -->
             <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown btn-homeowners">
+              <button class="btn btn-sidebar btn-dashboard-dropdown btn-homeowners">
                 <a href="#" class="sidebar-link collapsed homeowners-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-homeowners"><i class="bx bxs-home"></i>Homeowners</i></a>
               </button>
             </div>
@@ -58,10 +58,15 @@
           <!-------- Payments Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown">
+              <button class="btn btn-sidebar btn-dashboard-dropdown">
                 <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-payments"><i class="bx bxs-dollar-circle"></i>Payments</a>
               </button>
             </div>
+            
+             
+                <!-- <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-payments"><div class="d-grid"><button class="btn btn-dashboard-dropdown"><i class="bx bxs-dollar-circle"></i>Payments</button></div></a> -->
+           
+           
           </li>
 
           <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-payments" data-bs-parent="#sidebar">
@@ -105,7 +110,7 @@
           <!-------- Collections Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown">
+              <button class="btn btn-sidebar btn-dashboard-dropdown">
                 <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-collections"><i class="bx bxs-collection"></i>Collections</a>
               </button>
             </div>
@@ -144,7 +149,7 @@
           <!-------- Services Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown">
+              <button class="btn btn-sidebar btn-dashboard-dropdown">
                 <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-services"><i class="bx bxs-wrench"></i>Services</a>
               </button>
             </div>
@@ -170,7 +175,7 @@
           <!-------- User Management Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown">
+              <button class="btn btn-sidebar btn-dashboard-dropdown">
                 <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-users"><i class="bx bxs-user-circle"></i>User Management</a>
               </button>
             </div>
@@ -202,7 +207,7 @@
           <!-------- History Log Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown">
+              <button class="btn btn-sidebar btn-dashboard-dropdown">
                 <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-history"><i class="bx bx-history"></i>History Log</a>
               </button>
             </div>
