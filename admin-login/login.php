@@ -6,7 +6,7 @@
 <?php
 $server = new Server; // Open/Close connection
 session_start();
-$server->validateSession();
+$server->validateSessionLogin();
 
 ?>
 
@@ -32,7 +32,7 @@ if (isset($_POST['login_submit'])) {
 
         // kahit hindi ka na mag bindParam, pwede mo na rekta sa loob ng array ($data)
         $data = ["username" =>  $login_Username];
-        $path = "../admin-panel/admin-dashboard.php";
+        $path = "../admin-panel/index.php";
         $pass = $login_Pass;
         $server->login($query, $data, $pass, $path);
     }

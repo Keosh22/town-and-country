@@ -71,19 +71,21 @@
      $stmt->execute($data);
      
     
+      
+
+    if ($stmt->rowCount() > 0){
       while($result = $stmt->fetch()){
         $username = $result['username'];
         $password = $result['password'];
         $firstname = $result['firstname'];
         $user_id = $result['id'];
       }
-
-    if ($stmt->rowCount() > 0){
       if(password_verify($pass,$password)){
 
         $_SESSION['username'] = $username;
         $_SESSION['user_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
+        $_SESSION['auth'] = true;
 
         
         header("location:".$path."");
@@ -107,10 +109,18 @@
 
 
   // ------------------------- SESSION VALIDATION FUNCTION --------------------------
-  public function validateSession(){
+  public function validateSessionLogin(){
     // if naka login na, hindi na makakabalik sa log in page ulit
+
     if(isset($_SESSION['user_id'])){
-      echo "<script>window.location.href='../admin-panel/admin-dashboard.php'</script>";
+      echo "<script>window.location.href='../admin-panel/index.php'</script>";
+    }   
+  }
+
+    // if naka hindi naka login hindi maka direct sa dashboard page
+  public function userAuthentication(){
+    if(empty($_SESSION['auth'])){
+      echo "<script>window.location.href='../admin-login/login.php'</script>";
     }
   }
   

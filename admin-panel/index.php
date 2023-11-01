@@ -1,6 +1,12 @@
+
 <?php
+require_once("../libs/server.php");
 require_once("../includes/header.php");
 session_start();
+$server = new Server;
+$server->userAuthentication();
+
+
 ?>
 
 <body>
