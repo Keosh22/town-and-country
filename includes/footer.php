@@ -6,6 +6,42 @@
 <!-- Sweet Alert Script -->
 <script src="../libraries/sweetalert.js"></script>
 
+<!-- DataTables CDN -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+
+
+<script>
+  $(document).ready( function () {
+  const dataTable = $('#myTable').DataTable({
+    "paging": true,
+    "processing": true,
+    "serverSide": true,
+    "order": [],
+    "info": true,
+    "ajax": {
+      url:"../ajax/fetch.php",
+      type:"POST",
+      "dataSrc": "",
+    },
+    "columDefs": [
+      {
+      "targets": [0,3,4],
+      "orderable":false,
+      },
+  ],
+
+  });
+  
+  });
+</script>
+
+
+
+
+
+
 <?php
 // ----------------- Pop up Alert ---------------- 
 if (isset($_SESSION['status']) && $_SESSION['status'] != "") {

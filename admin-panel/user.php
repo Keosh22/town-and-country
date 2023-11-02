@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("../libs/server.php");
 require_once("../includes/header.php");
 
@@ -14,75 +14,89 @@ $server->userAuthentication();
 
 <body>
 
-<div class="wrapper">
-<!-- SIDEBAR -->
-<?php
-require_once("../includes/sidebar.php");
+	<div class="wrapper">
+		<!-- SIDEBAR -->
+		<?php
+		require_once("../includes/sidebar.php");
 
-?>
+		?>
 
-<!-------------- Main body content ---------->
-<div class="main">
+		<!-------------- Main body content ---------->
+		<div class="main">
 
-<!-- NAVBAR -->
-<?php
-  require_once("../includes/navbar.php");
-  ?>
+			<!-- NAVBAR -->
+			<?php
+			require_once("../includes/navbar.php");
+			?>
 
-	<main class="content px-3 py-2">
-		<!-- conten header -->
-		<section class="content-header d-flex justify-content-between align-items-center">
-			<h2 class="">User Management</h2>
-			<ol class="breadcrumb mb-0">
-			<li class="breadcrumb-item"><a href="#">Home</a></li>
-			<li class="breadcrumb-item">User Management</li>
-		</ol>
-		</section>
-		
+			<main class="content px-3 py-2">
+				<!-- conten header -->
+				<section class="content-header d-flex justify-content-between align-items-center mb-3">
+					<h2 class="">User Management</h2>
+					<ol class="breadcrumb mb-0">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item">User Management</li>
+					</ol>
+				</section>
 
 
-		<section class="content">
-   
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Borrow</a>
-            </div>
-            <div class="box-body">
-              <table id="example1" class="table table-bordered">
-                <thead>
-                  <th class="hidden"></th>
-                  <th>Date</th>
-                  <th>Student ID</th>
-                  <th>Name</th>
-                  <th>ISBN</th>
-                  <th>Title</th>
-                  <th>Status</th>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>  
-		
-		
-		
-	</main>
+				<section class="main-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="box">
+
+								<div class="header-box container-fluid d-flex align-items-center">
+									<a href="#" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Borrow</a>
+								</div>
+
+								<div class="body-box">
+								
+								<!-- Table -->
+								<table id="myTable" class="table table-striped">
+									<thead>
+										<tr class="table-primary">
+											<th width="30%">ID</th>
+											<th width="50%">Username</th>
+											<th width="30%">Email</th>
+											<th width="30%">Phone</th>
+											<th scope="col" width="5%">Edit</th>
+											<th scope="col" width="5%" >Delete</th>
+										</tr>
+									</thead>
+								</table>
+									
 
 
 
+								</div>
+
+								<!-- box end here -->
+							</div>
+						</div>
+					</div>
+
+				</section>
 
 
-<!-- wrapper end here -->
-</div>
-</div>
 
-<!-- FOOTER -->
-<?php
-include("../includes/footer.php");
-?>
 
+
+
+
+
+
+
+			</main>
+
+
+
+
+
+			<!-- wrapper end here -->
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<?php
+	include("../includes/footer.php");
+	?>
