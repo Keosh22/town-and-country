@@ -101,6 +101,7 @@ require_once("../includes/sidebar.php");
 </div>
 </div>
 
+<!-- FOOTER -->
 <?php
 include("../includes/footer.php");
 ?>

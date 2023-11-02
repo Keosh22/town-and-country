@@ -9,7 +9,7 @@
         <ul class="sidebar-nav">
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-sidebar btn-dashboard">
+              <button class="btn dashboard-btn btn-sidebar btn-dashboard">
                 <a href="../admin-panel/dashboard.php" class="sidebar-link "><i class="bx bxs-dashboard"></i>Dashboard</a>
               </button>
             </div>
@@ -20,15 +20,15 @@
             <!-- Homeowners dropdown -->
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown btn-homeowners">
-                <a href="#" class="sidebar-link collapsed homeowners-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-homeowners"><i class="bx bxs-home"></i>Homeowners</i></a>
+                <a href="#" class="sidebar-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-homeowners"><i class="bx bxs-home"></i>Homeowners</i></a>
               </button>
             </div>
           </li>
           <ul id="sidebar-dropdown-homeowners" class="sidebar-dropdown collapse list-unstyled" data-bs-parent="#sidebar">
             <li class="sidebar-item">
               <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Homeowners List</a>
+                <button class="btn  btn-dropdown">
+                  <a href="../admin-panel/homeowners-list.php" class="sidebar-link-dropdown">Homeowners List</a>
                 </button>
               </div>
             </li>
@@ -175,7 +175,7 @@
           <!-------- User Management Dropdown -------->
           <li class="sidebar-item">
             <div class="d-grid">
-              <button class="btn btn-sidebar btn-dashboard">
+              <button class="btn user-btn btn-sidebar btn-dashboard">
                 <a href="../admin-panel/user.php" class="sidebar-link "><i class="bx bxs-user-circle"></i>User Management</a>
               </button>
             </div>

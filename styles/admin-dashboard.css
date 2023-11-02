@@ -187,6 +187,23 @@
   background-color: #3C6E71 !important;
   transition: 0.2s ease;
 }
+.a{
+  background-color: lightblue !important;
+}
+h2{
+  margin: 0;
+}
+.breadcrumb-item a{
+  text-decoration: none;
+  color: #3C6E71;
+}
+
+
+
+
+
+/* USER MANAGEMENT */
+
 
 
 
