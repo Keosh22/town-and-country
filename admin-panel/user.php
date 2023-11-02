@@ -46,7 +46,7 @@ $server->userAuthentication();
 							<div class="box">
 
 								<div class="header-box container-fluid d-flex align-items-center">
-									<a href="#" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Borrow</a>
+									<a href="#" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
 								</div>
 
 								<div class="body-box">
