@@ -105,7 +105,7 @@
     }
   }
 
-  public function fetch($query){
+  public function fetchJson($query){
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute();
@@ -133,6 +133,25 @@ $output = array(
 );
 
 echo json_encode($output);
+
+  }
+
+  public function fetch($query){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute();
+    while($result = $stmt->fetch()){
+      $id = $result['id'];
+      $username = $result['username'];
+      $email = $result['email'];
+      $phone = $result['phone_number'];
+    }
+    echo '<tr>
+    <td> <?php echo $row["id"] ?> </td>
+    <td> <?php echo $row["username"] ?> </td>
+    <td> <?php echo $row["email"] ?> </td>
+    <td> <?php echo $row["phone_number"] ?> </td>
+</tr>';
 
   }
 

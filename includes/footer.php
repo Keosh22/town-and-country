@@ -14,25 +14,25 @@
 
 <script>
   $(document).ready( function () {
-  const dataTable = $('#myTable').DataTable({
-    "paging": true,
-    "processing": true,
-    "serverSide": true,
-    "order": [],
-    "info": true,
-    "ajax": {
-      url:"../ajax/fetch.php",
-      type:"POST",
-      "dataSrc": "",
-    },
-    "columDefs": [
-      {
-      "targets": [0,3,4],
-      "orderable":false,
-      },
-  ],
+    // $('#myTable').DataTable();
+  // const dataTable = $('#myTable').DataTable({
+  //   "paging": true,
+  //   "processing": true,
+  //   "serverSide": true,
+  //   "order": [],
+  //   "info": true,
+  //   "ajax": {
+  //     url:"../fetch.php",
+  //     type:"POST",
+  //   },
+  //   "columDefs": [
+  //     {
+  //     "targets": [0,3,4],
+  //     "orderable":false,
+  //     },
+  // ],
 
-  });
+  // });
   
   });
 </script>

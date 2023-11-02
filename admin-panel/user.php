@@ -50,21 +50,50 @@ $server->userAuthentication();
 								</div>
 
 								<div class="body-box">
-								
-								<!-- Table -->
-								<table id="myTable" class="table table-striped">
-									<thead>
-										<tr class="table-primary">
-											<th width="30%">ID</th>
-											<th width="50%">Username</th>
-											<th width="30%">Email</th>
-											<th width="30%">Phone</th>
-											<th scope="col" width="5%">Edit</th>
-											<th scope="col" width="5%" >Delete</th>
-										</tr>
-									</thead>
-								</table>
-									
+
+									<!-- Table -->
+									<table id="myTable" class="table table-striped">
+										<thead>
+											<tr>
+												<th width="30%">ID</th>
+												<th width="50%">Username</th>
+												<th width="30%">Email</th>
+												<th width="30%">Phone</th>
+												<th scope="col" width="5%">Edit</th>
+												<th scope="col" width="5%">Delete</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<?php
+											$query = "SELECT * FROM admin_users";
+											$connection = $server->openConn();
+											$stmt = $connection->prepare($query);
+											$stmt->execute();
+											while ($result = $stmt->fetch()) {
+												$id = $result['id'];
+												$username = $result['username'];
+												$email = $result['email'];
+												$phone = $result['phone_number'];
+											
+											
+											?>
+											<tr>
+											<td> <?php echo $result["id"] ?> </td>
+											<td> <?php echo $result["username"] ?> </td>
+											<td> <?php echo $result["email"] ?> </td>
+											<td> <?php echo $result["phone_number"] ?> </td>
+											<td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary btn-sm update">Edit</button></td>
+											<td><button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-sm delete">Delete</button></td>
+											</tr>
+											<?php  
+											}
+											?>
+											
+
+										</tbody>
+									</table>
+
 
 
 
