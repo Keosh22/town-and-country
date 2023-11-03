@@ -46,20 +46,25 @@ $server->userAuthentication();
 							<div class="box">
 
 								<div class="header-box container-fluid d-flex align-items-center">
-									<a href="#" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+									<!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addnew">Add user</button> -->
+									<a href="#addnew" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+
+									
 								</div>
 
-								<div class="body-box">
+								<div class="body-box shadow-sm">
 
-									<!-- Table -->
-									<table id="myTable" class="table table-striped">
+								<div class="table-responsive ">
+								<table id="myTable" class="table table-striped table-bordered ">
 										<thead>
 											<tr>
-												<th width="30%">ID</th>
-												<th width="50%">Username</th>
-												<th width="30%">Email</th>
+												<th width="10%">ID</th>
+												<th width="20%">Username</th>
+												<th width="30%">Firstname</th>
+												<th width="30%">Lastname</th>
+												<th width="50%">Email</th>
 												<th width="30%">Phone</th>
-												<th scope="col" width="5%">Edit</th>
+												<th scope="col" width="5%">Update</th>
 												<th scope="col" width="5%">Delete</th>
 											</tr>
 										</thead>
@@ -73,6 +78,8 @@ $server->userAuthentication();
 											while ($result = $stmt->fetch()) {
 												$id = $result['id'];
 												$username = $result['username'];
+												$firstname = $result['firstname'];
+												$lastname = $result['lastname'];
 												$email = $result['email'];
 												$phone = $result['phone_number'];
 											
@@ -81,6 +88,8 @@ $server->userAuthentication();
 											<tr>
 											<td> <?php echo $result["id"] ?> </td>
 											<td> <?php echo $result["username"] ?> </td>
+											<td> <?php echo $result["firstname"] ?> </td>
+											<td> <?php echo $result["lastname"] ?> </td>
 											<td> <?php echo $result["email"] ?> </td>
 											<td> <?php echo $result["phone_number"] ?> </td>
 											<td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary btn-sm update">Edit</button></td>
@@ -93,7 +102,9 @@ $server->userAuthentication();
 
 										</tbody>
 									</table>
-
+								</div>
+									<!-- Table -->
+									
 
 
 
@@ -124,7 +135,9 @@ $server->userAuthentication();
 			<!-- wrapper end here -->
 		</div>
 	</div>
-
+	<?php
+	include("../admin-panel/user_register_modal.php");
+	?>			
 	<!-- FOOTER -->
 	<?php
 	include("../includes/footer.php");

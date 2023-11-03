@@ -204,9 +204,9 @@ h2{
 
 /* Data Table */
 .header-box{
-  height: 50px;
+  height: 55px;
   background-color: white;
-  border: none;
+ border-top: solid 2px #284B63;
 }
 .bx-plus{
   vertical-align: middle;
