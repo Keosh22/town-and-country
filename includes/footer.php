@@ -56,8 +56,11 @@ if (isset($_SESSION['status']) && $_SESSION['status'] != "") {
       .then((buttons) => {
         if (buttons) {
           <?php
-          session_unset();
-          session_destroy();
+          unset($_SESSION['status']);
+          unset($_SESSION['text']);
+          unset($_SESSION['status_code']);
+          // session_unset();
+          // session_destroy();
           ?>
         }
       });

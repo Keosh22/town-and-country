@@ -28,7 +28,7 @@ if (isset($_POST['login_submit'])) {
         $_SESSION['status_code'] = "warning";
     } else {
 
-        echo $login_Pass;
+        
         $query = "SELECT * FROM admin_users WHERE username = :username";
 
         // kahit hindi ka na mag bindParam, pwede mo na rekta sa loob ng array ($data)

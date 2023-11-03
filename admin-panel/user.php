@@ -39,6 +39,7 @@ $server->userAuthentication();
 					</ol>
 				</section>
 
+				
 
 				<section class="main-content">
 					<div class="row">
@@ -92,8 +93,8 @@ $server->userAuthentication();
 											<td> <?php echo $result["lastname"] ?> </td>
 											<td> <?php echo $result["email"] ?> </td>
 											<td> <?php echo $result["phone_number"] ?> </td>
-											<td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary btn-sm update">Edit</button></td>
-											<td><button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-sm delete">Delete</button></td>
+											<td><button type="button" name="update" id="" class="btn btn-primary btn-sm update">Edit</button></td>
+											<td><button type="button" name="delete" id="" class="btn btn-danger btn-sm delete">Delete</button></td>
 											</tr>
 											<?php  
 											}

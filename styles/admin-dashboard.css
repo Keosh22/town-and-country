@@ -217,6 +217,16 @@ h2{
 }
 
 
+/* USER REGISTER MODAL */
+.input-danger{
+  border-color: #dc3545;
+}
+
+.input-success{
+  border-color: #28a745;
+}
+
+
 
 
 

@@ -142,36 +142,36 @@ class Server
 
 
 
-  public function fetchJson($query)
-  {
-    $connection = $this->conn;
-    $stmt = $connection->prepare($query);
-    $stmt->execute();
-    $output = array();
+  // public function fetchJson($query)
+  // {
+  //   $connection = $this->conn;
+  //   $stmt = $connection->prepare($query);
+  //   $stmt->execute();
+  //   $output = array();
 
-    $result = $stmt->fetchAll();
-    $data = array();
-    $filtered_rows = $stmt->rowCount();
-    foreach ($result as $row) {
-      $sub_array = array();
+  //   $result = $stmt->fetchAll();
+  //   $data = array();
+  //   $filtered_rows = $stmt->rowCount();
+  //   foreach ($result as $row) {
+  //     $sub_array = array();
 
-      $sub_array[] = $row['id'];
-      $sub_array[] = $row['username'];
-      $sub_array[] = $row['email'];
-      $sub_array[] = $row['phone'];
-      $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
-      $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
-      $data[] = $sub_array;
-    }
-    $output = array(
-      "draw"  => intval($_POST["draw"]),
-      "recordsTotal" => $filtered_rows,
-      "recordsFiltered" => 100,
-      "data" => $data
-    );
+  //     $sub_array[] = $row['id'];
+  //     $sub_array[] = $row['username'];
+  //     $sub_array[] = $row['email'];
+  //     $sub_array[] = $row['phone'];
+  //     $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
+  //     $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
+  //     $data[] = $sub_array;
+  //   }
+  //   $output = array(
+  //     "draw"  => intval($_POST["draw"]),
+  //     "recordsTotal" => $filtered_rows,
+  //     "recordsFiltered" => 100,
+  //     "data" => $data
+  //   );
 
-    echo json_encode($output);
-  }
+  //   echo json_encode($output);
+  // }
 
   public function fetch($query)
   {
@@ -190,6 +190,22 @@ class Server
     <td> <?php echo $row["email"] ?> </td>
     <td> <?php echo $row["phone_number"] ?> </td>
 </tr>';
+  }
+
+  public function checkUsername($query,$data,$path){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $rowCount = $stmt->rowCount();
+
+    if ($rowCount > 0){
+      
+      header("location:" . $path . "");
+      
+      return true;
+    } else {
+      return false;
+    }
   }
 
 
