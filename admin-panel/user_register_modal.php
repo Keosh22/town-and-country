@@ -64,44 +64,55 @@ if (isset($_POST['register'])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body mx-3">
         <!-- Form -->
 
         <form method="POST" action="user_register_modal.php" id="form_input">
-          <div class="form-group">
-            <label for="firstname" class="col-sm-3 control-label">Firstname</label>
 
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="firstname" name="firstname" required>
+          <div class="row">
+            <div class="col">
+              <!-- FIRSTNAME -->
+              <div class="form-group">
+                <label for="firstname" class="col-sm-3 control-label">Firstname</label>
+                <div class="">
+                  <input type="text" class="form-control" id="firstname" name="firstname" required>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <!-- LASTNAME -->
+              <div class="form-group">
+                <label for="lastname" class="col-sm-3 control-label">Lastname</label>
+                <div class="">
+                  <input type="text" class="form-control" id="lastname" name="lastname" required>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="lastname" class="col-sm-3 control-label">Lastname</label>
 
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="lastname" name="lastname" required>
-            </div>
-          </div>
+          <!-- EMAIL -->
           <div class="form-group">
             <label for="email" class="col-sm-3 control-label">Email</label>
 
-            <div class="col-sm-9">
+            <div class="">
               <input type="text" class="form-control" id="email" name="email" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="phone_number" class="col-sm-3 control-label">Phone number</label>
+            <label for="phone_number" class=" control-label">Phone number</label>
 
-            <div class="col-sm-9">
+            <div class="">
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
           </div>
 
           <!----- USERNAME -->
+
           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
 
-            <div class="col-sm-9">
+            <div class=" input-group flex-nowrap">
+              <span class="input-group-text">@</span>
               <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div id="usernameHelpBlock"></div>
@@ -112,7 +123,7 @@ if (isset($_POST['register'])) {
             <!-- label -->
             <label for="password" class="col-sm-3 control-label">Password</label>
             <!-- input -->
-            <div class="col-sm-9 d-flex align-items-center" id="formText">
+            <div class=" d-flex align-items-center" id="formText">
               <input type="password" class="form-control password-input" id="password" name="password" required>
               <span class="toggle-password"><i toggle="#confirm_password" class='bx bx-show password-icon'></i></span>
             </div>
@@ -124,7 +135,7 @@ if (isset($_POST['register'])) {
             <!-- label -->
             <label for="confirm_password" class="control-label  d-inline-block confirm-password-input ">Confirm Password</label>
             <!-- input -->
-            <div class="col-sm-9 d-flex align-items-center">
+            <div class=" d-flex align-items-center">
               <input type="password" class="form-control confirm-password-input " id="confirm_password" name="confirm_password" required>
               <!-- show icon -->
               <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show confirm-password-icon'></i></span>
@@ -135,7 +146,7 @@ if (isset($_POST['register'])) {
           <!-- CHOOSE FILE -->
           <div class="form-group">
             <label for="photo" class=" col-sm-3 form-label">Photo</label>
-            <div class="col-sm-9">
+            <div class="">
               <input class="form-control" type="file" id="photo" name="photo">
             </div>
           </div>
@@ -164,8 +175,11 @@ if (isset($_POST['register'])) {
       $(".confirm-password-input").removeClass("input-danger");
       $("#register").prop("disabled", true);
       $("#usernameHelpBlock").empty().append('<div id="usernameHelpBlock"></div>');
-
+      $("#username").removeClass("input-danger");
+      $("#username").removeClass("input-success");
     })
+
+
 
     // Strong Password Validation
     $("#password").on('keyup', function() {
@@ -193,7 +207,9 @@ if (isset($_POST['register'])) {
       }
     });
 
-    
+
+
+
     // Confirm Password Validation
     $("#confirm_password,#password").on('keyup', function() {
       var confirmPassword = $("#confirm_password").val().trim();
@@ -215,20 +231,24 @@ if (isset($_POST['register'])) {
     });
 
 
+
     // USERNAME VALIDATION AJAX REQUEST
     $("#username").on('keyup', function() {
       var username = $(this).val();
       $.ajax({
         url: '../libs/validation_username.php',
         method: 'POST',
-        data: {username: username},
-        success: function(respone){
+        data: {
+          username: username
+        },
+        success: function(respone) {
           $("#usernameHelpBlock").html(respone);
         }
       });
     });
 
-// show icon 
+
+    // show icon 
     $(".toggle-password").on('click', function() {
       $(".password-icon").toggleClass("bx-show bx-hide");
       var input = $("#password");
@@ -238,7 +258,7 @@ if (isset($_POST['register'])) {
         input.attr("type", "password");
       }
     });
-// show Icon
+    // show Icon
     $(".toggle-confirm-password").on('click', function() {
       $(".confirm-password-icon").toggleClass("bx-show bx-hide");
       var input = $("#confirm_password");
