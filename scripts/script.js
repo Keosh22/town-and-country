@@ -11,6 +11,8 @@ function rotateChevrons(){
   chevronsElement.classList.toggle("sidebar-toggler-left");
 }
 
+
+
 // $(document).ready(function (){
 //   $("button.btn-sidebar").on('click', function (){
 //     $("button.btn-sidebar").removeClass("active");

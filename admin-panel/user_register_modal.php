@@ -19,15 +19,14 @@ if (isset($_POST['register'])) {
   $queryUsername = "SELECT * FROM admin_users WHERE username = :username";
   $dataUsername = ["username" => $username];
   $path = "../admin-panel/user.php";
-  $result = $server->checkUsername($queryUsername,$dataUsername, $path);
-  
-  if($result){
-    
+  $result = $server->checkUsername($queryUsername, $dataUsername, $path);
+
+  if ($result) {
   }
-  
+
   // if (empty($username) || empty($password) || empty($firstname) || empty($lastname) || empty($email) || empty($phone_number)) {
-  
-   
+
+
   // } 
   else {
     $query = "INSERT INTO admin_users (username,password,firstname,lastname,email,phone_number) VALUES (:username, :password, :firstname, :lastname, :email, :phone_number)";
@@ -97,45 +96,53 @@ if (isset($_POST['register'])) {
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
           </div>
+
+          <!----- USERNAME -->
           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
 
             <div class="col-sm-9">
               <input type="text" class="form-control" id="username" name="username" required>
             </div>
+            <div id="usernameHelpBlock"></div>
           </div>
 
+          <!----- PASSWORD ----->
           <div class="form-group ">
+            <!-- label -->
             <label for="password" class="col-sm-3 control-label">Password</label>
-
-            <div class="col-sm-9" id="formText">
+            <!-- input -->
+            <div class="col-sm-9 d-flex align-items-center" id="formText">
               <input type="password" class="form-control password-input" id="password" name="password" required>
+              <span class="toggle-password"><i toggle="#confirm_password" class='bx bx-show password-icon'></i></span>
             </div>
-
             <div id="passwordHelpBlock"></div>
-
-
           </div>
+
+          <!----- CONFIRM PASSWORD ----->
           <div class="form-group">
+            <!-- label -->
             <label for="confirm_password" class="control-label  d-inline-block confirm-password-input ">Confirm Password</label>
-
-            <div class="col-sm-9">
+            <!-- input -->
+            <div class="col-sm-9 d-flex align-items-center">
               <input type="password" class="form-control confirm-password-input " id="confirm_password" name="confirm_password" required>
-              <div id="confirmpasswordHelpBlock"></div>
+              <!-- show icon -->
+              <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show confirm-password-icon'></i></span>
             </div>
+            <div id="confirmpasswordHelpBlock"></div>
           </div>
 
+          <!-- CHOOSE FILE -->
           <div class="form-group">
-            <label for="photo" class=" col-sm-3 control-label">Photo</label>
-
+            <label for="photo" class=" col-sm-3 form-label">Photo</label>
             <div class="col-sm-9">
-              <input type="file" id="photo" name="photo">
+              <input class="form-control" type="file" id="photo" name="photo">
             </div>
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-        <button type="submit" class="btn btn-primary btn-flat" name="register"  class="register" id="register" disabled ><i class="fa fa-save"></i> Register</button>
+        <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register" disabled><i class="fa fa-save"></i> Register</button>
         </form>
       </div>
     </div>
@@ -156,6 +163,7 @@ if (isset($_POST['register'])) {
       $(".confirm-password-input").removeClass("input-success");
       $(".confirm-password-input").removeClass("input-danger");
       $("#register").prop("disabled", true);
+      $("#usernameHelpBlock").empty().append('<div id="usernameHelpBlock"></div>');
 
     })
 
@@ -185,6 +193,7 @@ if (isset($_POST['register'])) {
       }
     });
 
+    
     // Confirm Password Validation
     $("#confirm_password,#password").on('keyup', function() {
       var confirmPassword = $("#confirm_password").val().trim();
@@ -195,7 +204,7 @@ if (isset($_POST['register'])) {
         $(".confirm-password-input").addClass("input-success");
 
         $(".confirm-password-input").removeClass("input-danger");
-        
+
         $("#confirmpasswordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-success">Password Matched</div>');
       } else {
         $("#register").prop("disabled", true);
@@ -205,14 +214,40 @@ if (isset($_POST['register'])) {
       }
     });
 
-    $("#username").on('blur', function(){
-      <?php
 
-         
-      ?>
+    // USERNAME VALIDATION AJAX REQUEST
+    $("#username").on('keyup', function() {
+      var username = $(this).val();
+      $.ajax({
+        url: '../libs/validation_username.php',
+        method: 'POST',
+        data: {username: username},
+        success: function(respone){
+          $("#usernameHelpBlock").html(respone);
+        }
+      });
     });
 
-
+// show icon 
+    $(".toggle-password").on('click', function() {
+      $(".password-icon").toggleClass("bx-show bx-hide");
+      var input = $("#password");
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
+// show Icon
+    $(".toggle-confirm-password").on('click', function() {
+      $(".confirm-password-icon").toggleClass("bx-show bx-hide");
+      var input = $("#confirm_password");
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
 
 
 

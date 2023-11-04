@@ -225,7 +225,15 @@ h2{
 .input-success{
   border-color: #28a745;
 }
-
+.bx-show,
+.bx-hide{
+  cursor: pointer;
+  position: relative;
+  float: right;
+  margin-left: -70px;
+  margin-right: 10px;
+  
+}
 
 
 
