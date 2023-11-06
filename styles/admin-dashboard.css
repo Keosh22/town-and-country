@@ -5,18 +5,32 @@
   font-family: Poppins, sans-serif;
 }
 
+body{
+  background-color: #e6e6e6;
+}
 /* Initial style */
 .wrapper{
   display: flex;
   align-items: stretch;
   width: 100%;
   overflow: hidden;
+  
 }
 .main{
   background-color: #e6e6e6;
+  margin-left: 264px;
+
+  transition: 0.6s ease;
+}
+.main-collapsed{
+  margin-left: 0px;
+  transition: 0.6s ease;
+
 }
 #sidebar{
- 
+  position: fixed;
+  top: 0;
+  bottom: 0;
   max-width: 264px;
   min-width: 264px;
   background-color: #064420;
@@ -29,7 +43,7 @@
 .main{
   display: flex;
   flex-direction: column;
-  height: 100vh;
+ 
   width: 100%;
   overflow: hidden;
 }
@@ -65,12 +79,12 @@
 #sidebar-toggler-btn{
   border: none;
   background-color: transparent;
-  
 }
 .sidebar-toggler-left{
  transform: rotate(180deg);
  transition: 0.2s ease;
 }
+
 
 .sidebar-nav{
   flex-grow: 1;
@@ -206,7 +220,7 @@ h2{
 .header-box{
   height: 55px;
   background-color: white;
- border-top: solid 2px #284B63;
+ border-top: solid 3px #284B63;
 }
 .bx-plus{
   vertical-align: middle;
@@ -232,6 +246,22 @@ h2{
   float: right;
   margin-left: -70px;
   margin-right: 10px;
+}
+
+
+/* CARD PROFILE */
+.card{
+  border-top: 3px solid #284B63 ;
+}
+
+.divider{
+  border-top: 2px solid #6c757d;
+}
+.profile-photo{
+  height: 200px;
+  width: 220px;
+  object-fit: cover;
+  padding: 0;
 }
 
 

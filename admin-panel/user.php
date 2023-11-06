@@ -18,7 +18,6 @@ $server->userAuthentication();
 		<!-- SIDEBAR -->
 		<?php
 		require_once("../includes/sidebar.php");
-
 		?>
 
 		<!-------------- Main body content ---------->
@@ -30,7 +29,7 @@ $server->userAuthentication();
 			?>
 
 			<main class="content px-3 py-2">
-				<!-- conten header -->
+				<!-- content header -->
 				<section class="content-header d-flex justify-content-between align-items-center mb-3">
 					<h2 class="">User Management</h2>
 					<ol class="breadcrumb mb-0">

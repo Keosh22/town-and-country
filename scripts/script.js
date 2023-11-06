@@ -5,6 +5,7 @@ const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
 sidebarBtnToggler.addEventListener('click', () => {
   rotateChevrons();
   document.querySelector("#sidebar").classList.toggle("collapsed")
+  document.querySelector(".main").classList.toggle("main-collapsed")
 });
 
 function rotateChevrons(){

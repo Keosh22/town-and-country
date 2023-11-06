@@ -128,6 +128,17 @@ class Server
     header("location:" . $path . "");
   }
 
+  public function update($query, $data, $path){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    
+    if($stmt->rowCount()){
+
+     header("location:". $path ."");
+    }
+  }
+
 
 
 
@@ -221,7 +232,7 @@ class Server
     }
   }
 
-  // if naka hindi naka login hindi maka direct sa dashboard page
+  // if naka hindi naka login hindi maka direct sa admin page
   public function userAuthentication()
   {
     if (empty($_SESSION['auth'])) {

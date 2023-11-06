@@ -16,7 +16,7 @@
             <div class="nav-item dropdown me-4">
               <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - <?php echo $_SESSION['firstname']; ?></a>
               <ul class="dropdown-menu">
-                <li><a href="#" class="dropdown-item">Profile</a></li>
+                <li><a href="../admin-panel/profile.php" class="dropdown-item">Profile</a></li>
                 <li><a href="#" class="dropdown-item">Settings</a></li>
                 <li>
                   <hr class="dropdown-divider">

@@ -1,9 +1,6 @@
 <?php 
 require_once("../libs/server.php");
 require_once("../includes/header.php");
-
-
-
 ?>
 
 <?php
@@ -12,13 +9,12 @@ $server = new Server;
 $server->userAuthentication();
 ?>
 
+<!-- Body starts here -->
 <body>
-
 <div class="wrapper">
 <!-- SIDEBAR -->
 <?php
 require_once("../includes/sidebar.php");
-
 ?>
 
 <!-------------- Main body content ---------->
@@ -27,7 +23,6 @@ require_once("../includes/sidebar.php");
 <!-- NAVBAR -->
 <?php
   require_once("../includes/navbar.php");
- 
   ?>
 
 

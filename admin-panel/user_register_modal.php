@@ -15,7 +15,11 @@ if (isset($_POST['register'])) {
   $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
   $phone_number = $_POST['phone_number'];
+  // $filename = $_FILES["photo"]["name"];
+  // $tmpName = $_FILES["photo"]["tmp_name"];
 
+  move_uploaded_file($tmpName,"uploads/". $filename);
+  // Username Validation
   $queryUsername = "SELECT * FROM admin_users WHERE username = :username";
   $dataUsername = ["username" => $username];
   $path = "../admin-panel/user.php";

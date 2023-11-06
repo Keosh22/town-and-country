@@ -2,7 +2,7 @@
 
     <!-- Side bar -->
     <aside id="sidebar">
-      <div class="h-100">
+      <div class="">
         <div class="sidebar-logo">
           <a href="#"><img class="logo-img" src="../img/logo.png" alt=""></a>
         </div>
@@ -294,4 +294,5 @@
             </div>
           </div> -->
         </ul>
+      </div>
     </aside>
