@@ -263,7 +263,14 @@ h2{
   object-fit: cover;
   padding: 0;
 }
-
+.bx-show-changepass {
+  cursor: pointer;
+  position: relative;
+  float: right;
+  margin-left: -70px;
+  margin-right: 10px;
+  margin-top: -27px;
+}
 
 
 

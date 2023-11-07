@@ -114,13 +114,13 @@ if (isset($_POST['register'])) {
 
           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
+      
 
-            <div class=" input-group flex-nowrap">
-              <span class="input-group-text">@</span>
               <input type="text" class="form-control" id="username" name="username" required>
-            </div>
+            
             <div id="usernameHelpBlock"></div>
           </div>
+          
 
           <!----- PASSWORD ----->
           <div class="form-group ">
@@ -140,7 +140,7 @@ if (isset($_POST['register'])) {
             <label for="confirm_password" class="control-label  d-inline-block confirm-password-input ">Confirm Password</label>
             <!-- input -->
             <div class=" d-flex align-items-center">
-              <input type="password" class="form-control confirm-password-input " id="confirm_password" name="confirm_password" required>
+              <input type="password" class="form-control confirm-password-input " id="confirm_password" name="confirm_password" required disabled>
               <!-- show icon -->
               <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show confirm-password-icon'></i></span>
             </div>
@@ -190,7 +190,7 @@ if (isset($_POST['register'])) {
       var password = $("#password").val().trim();
       var number = /([0-9])/;
       var alphabets = /([a-zA-Z])/;
-      var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<,.])/;
+      var special_characters = /([!, @, $, %, ^, &, *, +, #,.])/;
 
       if (password.length <= 7 || password === "") {
         $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div>');
@@ -200,10 +200,13 @@ if (isset($_POST['register'])) {
       } else {
         $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock"></div>');
         if (password.match(number) && password.match(alphabets) && password.match(special_characters)) {
+          $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-success">Strong password</div>');
+          $("#confirm_password").prop("disabled", false);
           $(".password-input").addClass("input-success");
         } else {
+          $("#confirm_password").prop("disabled", true);
           $("#register").prop("disabled", true);
-          $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div>');
+          $("#passwordHelpBlock").empty().append('<div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div>');
           $(".password-input").removeClass("input-success");
           $(".password-input").addClass("input-danger");
           $(this).focus();
@@ -240,7 +243,7 @@ if (isset($_POST['register'])) {
     $("#username").on('keyup', function() {
       var username = $(this).val();
       $.ajax({
-        url: '../libs/validation_username.php',
+        url: '../ajax/validation_username.php',
         method: 'POST',
         data: {
           username: username

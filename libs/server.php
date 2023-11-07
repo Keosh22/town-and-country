@@ -85,6 +85,7 @@ class Server
       if (password_verify($pass, $password)) {
 
         $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password;
         $_SESSION['user_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['auth'] = true;
@@ -138,6 +139,23 @@ class Server
      
     }
     header("location:". $path ."");
+  }
+
+  public function updateUser($query, $data, $path){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+
+    if($stmt->rowCount() > 0){
+      $_SESSION['status'] = "Change Password Success!";
+      $_SESSION['text'] = "Your password has been successfully updated.";
+      $_SESSION['status_code'] = "success";
+    } else {
+      $_SESSION['status'] = "Change Password Failed!";
+      $_SESSION['text'] = "Unable to change your password. Please try again.";
+      $_SESSION['status_code'] = "danger";
+    }
+header("location:" . $path . "");
   }
 
 
