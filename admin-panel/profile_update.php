@@ -16,8 +16,8 @@ if(isset($_POST['update_info'])){
   $email = filter_input(INPUT_POST,'email', FILTER_SANITIZE_EMAIL);
   $phone = $_POST['phone_number'];
   $id = $_SESSION['user_id'];
-
-  $query = "UPDATE admin_users SET firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number WHERE id = :id";
+  if(!empty($firstname) || !empty($lastname) || !empty($email) || !empty($phone)){
+$query = "UPDATE admin_users SET firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number WHERE id = :id";
   $data = [
     "firstname" => $firstname,
     "lastname" => $lastname,
@@ -28,11 +28,10 @@ if(isset($_POST['update_info'])){
   $path = "../admin-panel/profile.php";
 
   $server->update($query, $data, $path);
-  
-} else {
+  }  else {
 
 }
-
+}
 
 
 ?>

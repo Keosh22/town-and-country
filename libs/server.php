@@ -135,8 +135,9 @@ class Server
     
     if($stmt->rowCount()){
 
-     header("location:". $path ."");
+     
     }
+    header("location:". $path ."");
   }
 
 
