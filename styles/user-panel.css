@@ -1,0 +1,64 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+body{
+  margin-top: 70px;
+  background-image: url("../img/town_and_country_heights.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.input:focus{
+  outline: red;
+}
+form .form-control:focus{
+  outline: none;
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
+}
+
+.link{
+  color: #271c19;
+  transition: 0.3s ease;
+}
+.link:hover{
+  color: #e78fb3;
+}
+.row-register{
+  min-height: 85vh;
+}
+
+/* NAV BAR */
+.color{
+  background-color: #064420;
+}
+
+.nav-link{
+  color: #fffffe;
+  transition: 0.3s ease;
+}
+
+.nav-link:hover{
+ color: #284B63;
+}
+.navbar-collapse{
+  transition: 0.3s ease;
+}
+.navbar-logo{
+  height: 45px;
+  width: 45px;
+  object-fit: contain;
+}
+.wrapper-container{
+  min-height: 100vh;
+  background: rgba(39, 39, 39, 0.4);
+}
+
+
+
+
+

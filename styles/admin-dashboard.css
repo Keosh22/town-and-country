@@ -6,7 +6,10 @@
 }
 
 body{
-  background-color: #e6e6e6;
+  background-image: url("../img/town_and_country_heights.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 /* Initial style */
 .wrapper{

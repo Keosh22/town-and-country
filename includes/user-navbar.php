@@ -1,6 +1,7 @@
-<nav class="navbar navbar-expand-md fixed-top">
+
+<nav class="navbar navbar-expand-md fixed-top color">
   <div class="container-fluid">
-    <a href="#" class="navbar-brand fs-4" style="color: #fffffe;">LOGO</a>
+    <a href="#" class="navbar-brand"><img class="navbar-logo" src="./img/logo.png"></a>
 
     <!-- Hamburger menu Button -->
    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle"><i class="bx bx-menu bx-sm" style="color:#fffffe;"></i></button>
