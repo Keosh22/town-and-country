@@ -59,6 +59,7 @@ $server->userAuthentication();
 										<thead>
 											<tr>
 												<th width="10%">ID</th>
+												<th width="20%">Photo</th>
 												<th width="20%">Username</th>
 												<th width="30%">Firstname</th>
 												<th width="30%">Lastname</th>
@@ -82,11 +83,17 @@ $server->userAuthentication();
 												$lastname = $result['lastname'];
 												$email = $result['email'];
 												$phone = $result['phone_number'];
+												$photo = $result['photo'];
 											
 											
 											?>
 											<tr>
 											<td> <?php echo $result["id"] ?> </td>
+											<td><div class="profile-container"><img class="profile-image" src="../uploads/<?php if($photo == ""){
+                    echo'default-profile.png';
+                  }else{
+                    echo $photo;
+                  } ?>"></div></td>
 											<td> <?php echo $result["username"] ?> </td>
 											<td> <?php echo $result["firstname"] ?> </td>
 											<td> <?php echo $result["lastname"] ?> </td>

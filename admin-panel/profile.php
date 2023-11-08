@@ -29,6 +29,7 @@ if ($rowCount > 0) {
     $lastname = $result['lastname'];
     $email = $result['email'];
     $phone = $result['phone_number'];
+    $photo = $result['photo'];
   }
 }
 
@@ -63,12 +64,35 @@ if ($rowCount > 0) {
           </div>
           <div class="card-body">
             <div class="container-fluid">
-              <form method="POST" action="profile_update.php">
-                <p class="card-title fs-5 text-secondary divider personal-info">Personal Information</p>
-                <div class="row mb-3 justify-content-center">
-                  <img src="../uploads/default-profile.png" class="profile-photo rounded-circle shadow">
-                  <p class="text-secondary text-center personal-info">ID #: <?php echo $id; ?></p>
+
+              <p class="card-title fs-5 text-secondary divider personal-info">Personal Information</p>
+              <div class="row mb-3 justify-content-center">
+
+                <div class="row profile-container justify-content-center">
+                  <img src="../uploads/<?php if($photo == ""){
+                    echo'default-profile.png';
+                  }else{
+                    echo $photo;
+                  } ?>" class="profile-photo rounded-circle shadow">
                 </div>
+
+
+                <p class="text-secondary text-center personal-info">ID #: <?php echo $id; ?></p>
+                <div class="col-sm-4">
+                  <label for="photo" class="form-label">Change photo:</label>
+
+                  <!-- Change Profile Picture -->
+                  <form method="POST" action="profile_photo.php" enctype="multipart/form-data">
+                    <div class="d-flex gap-3">
+                      <input type="file" name="photo" class="form-control" required>
+                      <input class="btn btn-success " type="submit" name="change_photo" value="Change"></input>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <form method="POST" action="profile_update.php">
                 <div class="row gap-3">
                   <div class="col">
                     <label for="firstname" class="form-label">Firstname</label>
@@ -93,11 +117,6 @@ if ($rowCount > 0) {
                     <input type="text" class="form-control" name="phone_number" id="phone_number" value="<?php echo $phone; ?>" required>
                   </div>
                 </div>
-                <div class="col">
-                  <label for="photo" class="form-label">Change photo</label>
-                  <input type="file" id="photo" name="input" class="form-control" value="" required>
-                </div>
-
                 <div class="d-flex justify-content-end">
                   <input type="submit" class="btn btn-primary" name="update_info" value="Update">
                 </div>
@@ -157,6 +176,7 @@ if ($rowCount > 0) {
 
   <script>
     $(document).ready(function() {
+
       // ajax for current password mathced validation
       $("#current_password").on('keyup', function() {
         var current_password = $(this).val();
@@ -171,6 +191,25 @@ if ($rowCount > 0) {
           }
         });
       });
+
+
+      // ajax for Change profile picture
+      // $("#change_photo").on('click', function() {
+      //   var file_data = $("#photo").prop("files")[0];
+      //   var photo = new FormData();
+      //   form_data.append('file', file_data);
+      //   alert(photo);
+      //   $.ajax({
+      //     url: "../admin-panel/profile_photo.php",
+      //     method: "POST",
+      //     data: {
+      //       photo: photo
+      //     },
+      //     success: function(response) {
+      //       $(".profile-container").html(response);
+      //     }
+      //   });
+      // });
 
 
       // 

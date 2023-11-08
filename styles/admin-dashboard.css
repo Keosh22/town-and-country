@@ -229,6 +229,14 @@ h2{
 .body-box{
   background-color: white;
 }
+.profile-image{
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+
+
 
 
 /* USER REGISTER MODAL */

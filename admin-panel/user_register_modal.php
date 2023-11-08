@@ -18,7 +18,7 @@ if (isset($_POST['register'])) {
   // $filename = $_FILES["photo"]["name"];
   // $tmpName = $_FILES["photo"]["tmp_name"];
 
-  move_uploaded_file($tmpName,"uploads/". $filename);
+
   // Username Validation
   $queryUsername = "SELECT * FROM admin_users WHERE username = :username";
   $dataUsername = ["username" => $username];
@@ -148,12 +148,12 @@ if (isset($_POST['register'])) {
           </div>
 
           <!-- CHOOSE FILE -->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="photo" class=" col-sm-3 form-label">Photo</label>
             <div class="">
               <input class="form-control" type="file" id="photo" name="photo">
             </div>
-          </div>
+          </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>

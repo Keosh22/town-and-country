@@ -123,7 +123,7 @@ class Server
     } else {
       $_SESSION['status'] = "Registration Failed!";
       $_SESSION['text'] = "Unable to register account. Please try again.";
-      $_SESSION['status_code'] = "danger";
+      $_SESSION['status_code'] = "error";
     }
 
     header("location:" . $path . "");
@@ -141,6 +141,7 @@ class Server
     header("location:". $path ."");
   }
 
+  // UpdatePassword
   public function updateUser($query, $data, $path){
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
@@ -153,55 +154,30 @@ class Server
     } else {
       $_SESSION['status'] = "Change Password Failed!";
       $_SESSION['text'] = "Unable to change your password. Please try again.";
-      $_SESSION['status_code'] = "danger";
+      $_SESSION['status_code'] = "error";
     }
 header("location:" . $path . "");
   }
 
+  // Update Profile Picture
+  public function updatePhoto($query, $data, $path){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
 
+    if($stmt->rowCount() > 0){
+      $_SESSION['status'] = "Change Photo Success!";
+      $_SESSION['text'] = "Your profile picture has been successfully updated.";
+      $_SESSION['status_code'] = "success";
+    } else{
+      $_SESSION['status'] = "Change Photo Failed!";
+      $_SESSION['text'] = "Unable to change your profile picture. Please try again.";
+      $_SESSION['status_code'] = "error";
+    }
+    header("location:" . $path . "");
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  // public function fetchJson($query)
-  // {
-  //   $connection = $this->conn;
-  //   $stmt = $connection->prepare($query);
-  //   $stmt->execute();
-  //   $output = array();
-
-  //   $result = $stmt->fetchAll();
-  //   $data = array();
-  //   $filtered_rows = $stmt->rowCount();
-  //   foreach ($result as $row) {
-  //     $sub_array = array();
-
-  //     $sub_array[] = $row['id'];
-  //     $sub_array[] = $row['username'];
-  //     $sub_array[] = $row['email'];
-  //     $sub_array[] = $row['phone'];
-  //     $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
-  //     $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
-  //     $data[] = $sub_array;
-  //   }
-  //   $output = array(
-  //     "draw"  => intval($_POST["draw"]),
-  //     "recordsTotal" => $filtered_rows,
-  //     "recordsFiltered" => 100,
-  //     "data" => $data
-  //   );
-
-  //   echo json_encode($output);
-  // }
+  
 
   public function fetch($query)
   {
@@ -259,5 +235,35 @@ header("location:" . $path . "");
     }
   }
 }
+// public function fetchJson($query)
+  // {
+  //   $connection = $this->conn;
+  //   $stmt = $connection->prepare($query);
+  //   $stmt->execute();
+  //   $output = array();
+
+  //   $result = $stmt->fetchAll();
+  //   $data = array();
+  //   $filtered_rows = $stmt->rowCount();
+  //   foreach ($result as $row) {
+  //     $sub_array = array();
+
+  //     $sub_array[] = $row['id'];
+  //     $sub_array[] = $row['username'];
+  //     $sub_array[] = $row['email'];
+  //     $sub_array[] = $row['phone'];
+  //     $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
+  //     $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
+  //     $data[] = $sub_array;
+  //   }
+  //   $output = array(
+  //     "draw"  => intval($_POST["draw"]),
+  //     "recordsTotal" => $filtered_rows,
+  //     "recordsFiltered" => 100,
+  //     "data" => $data
+  //   );
+
+  //   echo json_encode($output);
+  // }
 
 ?>
