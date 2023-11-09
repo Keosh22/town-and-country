@@ -10,7 +10,6 @@ session_start();
 
 if(isset($_POST['change_photo'])){
   // PHOTO
-  echo "baliw";
   $name = $_FILES['photo']['name'];
   $size = $_FILES['photo']['size'];
   $type = $_FILES['photo']['type'];

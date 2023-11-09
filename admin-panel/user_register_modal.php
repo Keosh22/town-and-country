@@ -25,6 +25,15 @@ if (isset($_POST['register'])) {
   $path = "../admin-panel/user.php";
   $result = $server->checkUsername($queryUsername, $dataUsername, $path);
 
+
+
+
+
+
+
+
+
+
   if ($result) {
   }
 
@@ -33,20 +42,43 @@ if (isset($_POST['register'])) {
 
   // } 
   else {
-    $query = "INSERT INTO admin_users (username,password,firstname,lastname,email,phone_number) VALUES (:username, :password, :firstname, :lastname, :email, :phone_number)";
+    // Account Number generator
+    $queryAccountNumber = "SELECT * FROM admin_users ORDER BY account_number DESC LIMIT 1";
+    $connection = $server->openConn();
+    $stmt = $connection->prepare($queryAccountNumber);
+    $stmt->execute();
 
-    $data = [
-      "username" => $username,
-      "password" => $password,
-      "firstname" => $firstname,
-      "lastname" => $lastname,
-      "email" => $email,
-      "phone_number" => $phone_number
-    ];
+    if ($rowCount = $stmt->rowCount() > 0) {
+      if ($row = $stmt->fetch()) {
+        // TCH001
+        $id = $row['account_number'];
+        // 001
+        $get_number = str_replace("TCH", "", $id);
+        // 001 + 1 = 2
+        $id_increment = $get_number + 1;
+        // Add 0 to the left max. 3 digits
+        $get_string = str_pad($id_increment, 3, 0, STR_PAD_LEFT);
 
-    $path = "../admin-panel/user.php";
+        $account_number = "TCH" . $get_string;
 
-    $server->register($query, $data, $path);
+        // Insert data 
+        $query = "INSERT INTO admin_users (account_number,username,password,firstname,lastname,email,phone_number) VALUES (:account_number, :username, :password, :firstname, :lastname, :email, :phone_number)";
+
+        $data = [
+          "account_number" => $account_number,
+          "username" => $username,
+          "password" => $password,
+          "firstname" => $firstname,
+          "lastname" => $lastname,
+          "email" => $email,
+          "phone_number" => $phone_number
+        ];
+
+        $path = "../admin-panel/user.php";
+
+        $server->register($query, $data, $path);
+      }
+    }
   }
 }
 
@@ -72,6 +104,11 @@ if (isset($_POST['register'])) {
         <!-- Form -->
 
         <form method="POST" action="user_register_modal.php" id="form_input">
+
+          <!-- <div class="form-group">
+            <label for="account_number" class="col-sm-4 control-label">Account Number</label>
+            <input type="text" class="form-control" id="account_number" name="account_number" disabled>
+          </div> -->
 
           <div class="row">
             <div class="col">
@@ -114,13 +151,13 @@ if (isset($_POST['register'])) {
 
           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
-      
 
-              <input type="text" class="form-control" id="username" name="username" required>
-            
+
+            <input type="text" class="form-control" id="username" name="username" required>
+
             <div id="usernameHelpBlock"></div>
           </div>
-          
+
 
           <!----- PASSWORD ----->
           <div class="form-group ">

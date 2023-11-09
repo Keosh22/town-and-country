@@ -24,6 +24,7 @@ $rowCount = $stmt->rowCount();
 if ($rowCount > 0) {
   while ($result = $stmt->fetch()) {
     $id = $result['id'];
+    $account_number = $result['account_number'];
     $username = $result['username'];
     $firstname = $result['firstname'];
     $lastname = $result['lastname'];
@@ -77,7 +78,7 @@ if ($rowCount > 0) {
                 </div>
 
 
-                <p class="text-secondary text-center personal-info">ID #: <?php echo $id; ?></p>
+                <p class="text-secondary text-center personal-info">ID # - <?php echo $account_number; ?></p>
                 <div class="col-sm-4">
                   <label for="photo" class="form-label">Change photo:</label>
 

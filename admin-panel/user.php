@@ -1,9 +1,6 @@
 <?php
 require_once("../libs/server.php");
 require_once("../includes/header.php");
-
-
-
 ?>
 
 <?php
@@ -58,15 +55,15 @@ $server->userAuthentication();
 								<table id="myTable" class="table table-striped table-bordered ">
 										<thead>
 											<tr>
-												<th width="10%">ID</th>
+											
+												<th width="10%">Acc.#</th>
 												<th width="20%">Photo</th>
 												<th width="20%">Username</th>
 												<th width="30%">Firstname</th>
 												<th width="30%">Lastname</th>
 												<th width="50%">Email</th>
 												<th width="30%">Phone</th>
-												<th scope="col" width="5%">Update</th>
-												<th scope="col" width="5%">Delete</th>
+												<th scope="col" width="5%">Action</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -78,6 +75,7 @@ $server->userAuthentication();
 											$stmt->execute();
 											while ($result = $stmt->fetch()) {
 												$id = $result['id'];
+												$account_number = $result['account_number'];
 												$username = $result['username'];
 												$firstname = $result['firstname'];
 												$lastname = $result['lastname'];
@@ -88,7 +86,8 @@ $server->userAuthentication();
 											
 											?>
 											<tr>
-											<td> <?php echo $result["id"] ?> </td>
+											
+											<td> <?php echo $result["account_number"] ?> </td>
 											<td><div class="profile-container"><img class="profile-image" src="../uploads/<?php if($photo == ""){
                     echo'default-profile.png';
                   }else{
@@ -99,7 +98,6 @@ $server->userAuthentication();
 											<td> <?php echo $result["lastname"] ?> </td>
 											<td> <?php echo $result["email"] ?> </td>
 											<td> <?php echo $result["phone_number"] ?> </td>
-											<td><button type="button" name="update" id="" class="btn btn-primary btn-sm update">Edit</button></td>
 											<td><button type="button" name="delete" id="" class="btn btn-danger btn-sm delete">Delete</button></td>
 											</tr>
 											<?php  

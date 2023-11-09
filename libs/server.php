@@ -198,6 +198,7 @@ header("location:" . $path . "");
 </tr>';
   }
 
+
   public function checkUsername($query,$data,$path){
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
@@ -213,6 +214,25 @@ header("location:" . $path . "");
       return false;
     }
   }
+
+  public function checkAccountNumber($query){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute();
+    $rowCount = $stmt->rowCount();
+
+    if ($rowCount > 0){
+      
+      
+      
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+
+  
 
 
 
