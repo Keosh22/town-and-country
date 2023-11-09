@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2023 at 04:37 PM
+-- Generation Time: Nov 09, 2023 at 02:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -35,16 +35,16 @@ CREATE TABLE `admin_users` (
   `lastname` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone_number` varchar(100) NOT NULL,
-  `street` varchar(100) NOT NULL,
-  `phase` varchar(100) NOT NULL
+  `photo` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin_users`
 --
 
-INSERT INTO `admin_users` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `phone_number`, `street`, `phase`) VALUES
-(3, 'admin', '$2y$10$GoBvWGM/0WQOUec..PWkweL6pENueq0pXk/HuTmMiJ.RUZWl8.aU6', 'Ken Joshua', '', '', '', '', '');
+INSERT INTO `admin_users` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `phone_number`, `photo`) VALUES
+(15, 'admin', '$2y$10$HMlHVNodXcaqncOcMAAiEuhgbIhifsqeUyLPYjib9kaaVTlqQr//6', 'KEN JOSHUA', 'BUENAVIDES', 'KENJOSHUABUENAVIDES@GMAIL.COM', '09771778411', 'IMG_20231004_205532_(2_x_2_inch).jpg'),
+(18, 'Kirby', '$2y$10$B4nvLQp.W56AHiIt9/dLMOR/SAVa8D5IkZCjx4gQv0YJRFL1T.2T2', 'Michael Kirby', 'Rivera', 'kirbyrivera@gmail.com', '09123456789', '387467491_1032635598167678_2495845338663066655_n (1).jpg');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +64,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `admin_users`
 --
 ALTER TABLE `admin_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
