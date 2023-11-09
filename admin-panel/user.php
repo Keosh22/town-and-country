@@ -45,6 +45,7 @@ $server->userAuthentication();
 								<div class="header-box container-fluid d-flex align-items-center">
 									<!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addnew">Add user</button> -->
 									<a href="#addnew" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+									
 
 									
 								</div>
@@ -98,7 +99,7 @@ $server->userAuthentication();
 											<td> <?php echo $result["lastname"] ?> </td>
 											<td> <?php echo $result["email"] ?> </td>
 											<td> <?php echo $result["phone_number"] ?> </td>
-											<td><button type="button" name="delete" id="" class="btn btn-danger btn-sm delete">Delete</button></td>
+											<td>	<a data-id="<?php echo $result["id"] ?>" class="btn btn-danger btn-sm delete" id="delete">Delete</a>
 											</tr>
 											<?php  
 											}
@@ -141,8 +142,46 @@ $server->userAuthentication();
 		</div>
 	</div>
 	<?php
+	// Register Modal
 	include("../admin-panel/user_register_modal.php");
+	// Delete Modal
+	include("../admin-panel/user_delete_modal.php");
 	?>			
+
+	<!-- Delete Modal -->
+		<script>
+
+			$(document).ready(function(){
+				$(".delete").on('click', function (){
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not able to recover this account!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true
+					})
+					.then((willDelete) =>{
+						
+					});
+				});
+
+
+				$(".delete").on('click', function(){
+					$("#deleteUser").modal("show");
+						var id = $(this).attr("data-id");
+						$("#delete_id").val(id);
+				});
+
+
+
+			});
+
+
+
+
+		</script>								
+
+
 	<!-- FOOTER -->
 	<?php
 	include("../includes/footer.php");

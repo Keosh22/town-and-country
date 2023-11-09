@@ -108,6 +108,37 @@ class Server
     }
   }
 
+
+  // Verify passowrd when deleting account
+  public function verifyPassword($query, $data, $pass, $path)
+  {
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+
+
+    if ($stmt->rowCount() > 0) {
+      while ($result = $stmt->fetch()) {
+    
+        $password = $result['password'];
+      
+      }
+      if (password_verify($pass, $password)) {
+        return true;
+      }
+      // Pup op alert if password doesn't exist
+      else {
+       
+      }
+    }
+    // Pop up alert if Username doesn't exist.
+    else {
+      
+    }
+    header("location:" . $path . "");
+  }
+
+
   // ------------ REGISTER ACCOUNT ADMIN ---------------
   public function register($query, $data, $path)
   {
@@ -129,25 +160,47 @@ class Server
     header("location:" . $path . "");
   }
 
-  public function update($query, $data, $path){
+  public function update($query, $data, $path)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
-    
-    if($stmt->rowCount()){
 
-     
+    if ($stmt->rowCount()) {
     }
-    header("location:". $path ."");
+    header("location:" . $path . "");
   }
 
-  // UpdatePassword
-  public function updateUser($query, $data, $path){
+
+  // DELETE ACCOUNT
+  public function delete($query, $data, $path)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
 
-    if($stmt->rowCount() > 0){
+    if ($stmt->rowCount()) {
+      $_SESSION['status'] = "Account Deleted";
+      $_SESSION['text'] = "The account has been permanently deleted";
+      $_SESSION['status_code'] = "success";
+    } else {
+      $_SESSION['status'] = "Account Deletion Failed!";
+      $_SESSION['text'] = "You input a wrong password";
+      $_SESSION['status_code'] = "error";
+    }
+    header("location:" . $path . "");
+  }
+
+
+
+  // UpdatePassword
+  public function updateUser($query, $data, $path)
+  {
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+
+    if ($stmt->rowCount() > 0) {
       $_SESSION['status'] = "Change Password Success!";
       $_SESSION['text'] = "Your password has been successfully updated.";
       $_SESSION['status_code'] = "success";
@@ -156,20 +209,21 @@ class Server
       $_SESSION['text'] = "Unable to change your password. Please try again.";
       $_SESSION['status_code'] = "error";
     }
-header("location:" . $path . "");
+    header("location:" . $path . "");
   }
 
   // Update Profile Picture
-  public function updatePhoto($query, $data, $path){
+  public function updatePhoto($query, $data, $path)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
 
-    if($stmt->rowCount() > 0){
+    if ($stmt->rowCount() > 0) {
       $_SESSION['status'] = "Change Photo Success!";
       $_SESSION['text'] = "Your profile picture has been successfully updated.";
       $_SESSION['status_code'] = "success";
-    } else{
+    } else {
       $_SESSION['status'] = "Change Photo Failed!";
       $_SESSION['text'] = "Unable to change your profile picture. Please try again.";
       $_SESSION['status_code'] = "error";
@@ -177,7 +231,7 @@ header("location:" . $path . "");
     header("location:" . $path . "");
   }
 
-  
+
 
   public function fetch($query)
   {
@@ -199,40 +253,42 @@ header("location:" . $path . "");
   }
 
 
-  public function checkUsername($query,$data,$path){
+  public function checkUsername($query, $data, $path)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
     $rowCount = $stmt->rowCount();
 
-    if ($rowCount > 0){
-      
+    if ($rowCount > 0) {
+
       header("location:" . $path . "");
-      
+
       return true;
     } else {
       return false;
     }
   }
 
-  public function checkAccountNumber($query){
+  public function checkAccountNumber($query)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute();
     $rowCount = $stmt->rowCount();
 
-    if ($rowCount > 0){
-      
-      
-      
+    if ($rowCount > 0) {
+
+
+
       return true;
     } else {
       return false;
     }
   }
-  
 
-  
+
+
 
 
 
@@ -256,34 +312,34 @@ header("location:" . $path . "");
   }
 }
 // public function fetchJson($query)
-  // {
-  //   $connection = $this->conn;
-  //   $stmt = $connection->prepare($query);
-  //   $stmt->execute();
-  //   $output = array();
+// {
+//   $connection = $this->conn;
+//   $stmt = $connection->prepare($query);
+//   $stmt->execute();
+//   $output = array();
 
-  //   $result = $stmt->fetchAll();
-  //   $data = array();
-  //   $filtered_rows = $stmt->rowCount();
-  //   foreach ($result as $row) {
-  //     $sub_array = array();
+//   $result = $stmt->fetchAll();
+//   $data = array();
+//   $filtered_rows = $stmt->rowCount();
+//   foreach ($result as $row) {
+//     $sub_array = array();
 
-  //     $sub_array[] = $row['id'];
-  //     $sub_array[] = $row['username'];
-  //     $sub_array[] = $row['email'];
-  //     $sub_array[] = $row['phone'];
-  //     $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
-  //     $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
-  //     $data[] = $sub_array;
-  //   }
-  //   $output = array(
-  //     "draw"  => intval($_POST["draw"]),
-  //     "recordsTotal" => $filtered_rows,
-  //     "recordsFiltered" => 100,
-  //     "data" => $data
-  //   );
+//     $sub_array[] = $row['id'];
+//     $sub_array[] = $row['username'];
+//     $sub_array[] = $row['email'];
+//     $sub_array[] = $row['phone'];
+//     $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
+//     $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
+//     $data[] = $sub_array;
+//   }
+//   $output = array(
+//     "draw"  => intval($_POST["draw"]),
+//     "recordsTotal" => $filtered_rows,
+//     "recordsFiltered" => 100,
+//     "data" => $data
+//   );
 
-  //   echo json_encode($output);
-  // }
+//   echo json_encode($output);
+// }
 
 ?>

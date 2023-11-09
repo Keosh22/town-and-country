@@ -197,6 +197,7 @@ if (isset($_POST['register'])) {
         <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register" disabled><i class="fa fa-save"></i> Register</button>
         </form>
       </div>
+      
     </div>
   </div>
 </div>
