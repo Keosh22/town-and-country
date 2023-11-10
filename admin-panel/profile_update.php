@@ -20,7 +20,7 @@ if (isset($_POST['update_info'])) {
   
 
   if (!empty($firstname) || !empty($lastname) || !empty($email) || !empty($phone)) {
-
+    
     $query = "UPDATE admin_users SET firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number  WHERE id = :id";
     $data = [
       "firstname" => $firstname,
@@ -30,6 +30,10 @@ if (isset($_POST['update_info'])) {
       "id" => $id
     ];
     $path = "../admin-panel/profile.php";
+
+    $_SESSION['status'] = "Update Success!";
+    $_SESSION['text'] = "Your account has been updated successfully.";
+    $_SESSION['status_code'] = "success";
 
     $server->update($query, $data, $path);
 
