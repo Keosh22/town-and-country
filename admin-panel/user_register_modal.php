@@ -193,8 +193,8 @@ if (isset($_POST['register'])) {
           </div> -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-        <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register" disabled><i class="fa fa-save"></i> Register</button>
+        <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register" disabled>Register</button>
         </form>
       </div>
       
