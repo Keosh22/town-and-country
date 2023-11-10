@@ -77,18 +77,21 @@ class Server
 
     if ($stmt->rowCount() > 0) {
       while ($result = $stmt->fetch()) {
-        $username = $result['username'];
+        // $username = $result['username'];
         $password = $result['password'];
         $firstname = $result['firstname'];
         $user_id = $result['id'];
       }
       if (password_verify($pass, $password)) {
 
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
+        // $_SESSION['username'] = $username;
+        // $_SESSION['password'] = $password;
         $_SESSION['user_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
-        $_SESSION['auth'] = true;
+
+        // pass the value to adminAuthentication()
+        // para
+        $_SESSION['admin_auth'] = true;
 
 
         header("location:" . $path . "");
@@ -233,24 +236,6 @@ class Server
 
 
 
-  public function fetch($query)
-  {
-    $connection = $this->conn;
-    $stmt = $connection->prepare($query);
-    $stmt->execute();
-    while ($result = $stmt->fetch()) {
-      $id = $result['id'];
-      $username = $result['username'];
-      $email = $result['email'];
-      $phone = $result['phone_number'];
-    }
-    echo '<tr>
-    <td> <?php echo $row["id"] ?> </td>
-    <td> <?php echo $row["username"] ?> </td>
-    <td> <?php echo $row["email"] ?> </td>
-    <td> <?php echo $row["phone_number"] ?> </td>
-</tr>';
-  }
 
 
   public function checkUsername($query, $data, $path)
@@ -294,52 +279,24 @@ class Server
 
 
   // ------------------------- SESSION VALIDATION FUNCTION --------------------------
-  public function validateSessionLogin()
-  {
-    // if naka login na, hindi na makakabalik sa log in page ulit
 
+
+    // if naka login na, hindi na makakabalik sa log in page ulit
+  public function adminSessionLogin()
+  {
     if (isset($_SESSION['user_id'])) {
       echo "<script>window.location.href='../admin-panel/dashboard.php'</script>";
     }
   }
 
-  // if naka hindi naka login hindi maka direct sa admin page
-  public function userAuthentication()
+
+  // if hindi naka login, hindi makaka access sa admin page, then babalik lang sa login page
+  public function adminAuthentication()
   {
-    if (empty($_SESSION['auth'])) {
+    if (empty($_SESSION['admin_auth'])) {
       echo "<script>window.location.href='../admin/index.php'</script>";
     }
   }
 }
-// public function fetchJson($query)
-// {
-//   $connection = $this->conn;
-//   $stmt = $connection->prepare($query);
-//   $stmt->execute();
-//   $output = array();
-
-//   $result = $stmt->fetchAll();
-//   $data = array();
-//   $filtered_rows = $stmt->rowCount();
-//   foreach ($result as $row) {
-//     $sub_array = array();
-
-//     $sub_array[] = $row['id'];
-//     $sub_array[] = $row['username'];
-//     $sub_array[] = $row['email'];
-//     $sub_array[] = $row['phone'];
-//     $sub_array[] = '	<button type="button" name="update" id="' . $row["id"] . '" class="btn btn-primary btn-sm update">Edit</button>';
-//     $sub_array[] = '<button type="button" name="delete" id="' . $row["id"] . '" class="btn btn-danger btn-sm delete">Delete</button>';
-//     $data[] = $sub_array;
-//   }
-//   $output = array(
-//     "draw"  => intval($_POST["draw"]),
-//     "recordsTotal" => $filtered_rows,
-//     "recordsFiltered" => 100,
-//     "data" => $data
-//   );
-
-//   echo json_encode($output);
-// }
 
 ?>

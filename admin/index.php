@@ -6,7 +6,7 @@
 <?php
 $server = new Server; // Open/Close connection
 session_start();
-$server->validateSessionLogin();
+$server->adminSessionLogin();
 
 
 ?>

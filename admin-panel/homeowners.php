@@ -6,7 +6,7 @@ require_once("../includes/header.php");
 <?php
 session_start();
 $server = new Server;
-$server->userAuthentication();
+$server->adminAuthentication();
 ?>
 
 
