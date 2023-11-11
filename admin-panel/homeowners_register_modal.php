@@ -3,8 +3,23 @@ require_once("../libs/server.php");
 ?>
 
 <?php
-session_start();
+
 $server = new Server;
+
+if(isset($_POST['register'])){
+  $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
+  $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
+  $middle_initial = filter_input(INPUT_POST, 'middle_initial', FILTER_SANITIZE_SPECIAL_CHARS);
+  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+  $phone_number = filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
+  $blk = filter_input(INPUT_POST, 'blk', FILTER_SANITIZE_SPECIAL_CHARS);
+  $lot = filter_input(INPUT_POST, 'lot', FILTER_SANITIZE_SPECIAL_CHARS);
+  $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
+  $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
+  $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+  $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+  $confirm_password = filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_SPECIAL_CHARS);
+}
 ?>
 
 
@@ -20,7 +35,7 @@ $server = new Server;
       </div>
 
       <div class="modal-body mx-3">
-        <form action="row" method="POST" id="form-input">
+        <form action="" method="POST" id="form-input">
 
           <div class="row gy-3">
             <p class="fs-5 text-secondary divider personal-info mt-4">Personal Information</p>
@@ -46,33 +61,36 @@ $server = new Server;
             </div>
             <div class="col-3">
               <label for="blk" class="form-label">Blk#</label>
-              <input type="text" class="form-control" id="blk" name="blk">
+              <input type="text" class="form-control" id="blk" name="blk" required>
             </div>
             <div class="col-3">
               <label for="lot" class="form-label">Lot#</label>
-              <input type="text" class="form-control" id="lot" name="lot">
+              <input type="text" class="form-control" id="lot" name="lot" required>
             </div>
             <div class="col-6">
               <label for="street" class="form-label">Street</label>
-              <input type="text" class="form-control" id="street" name="street">
+              <select name="street" id="street" class="form-select" required>
+                <option></option>
+                <option>Jackfruit</option>
+                <option>Golden Shower</option>
+              </select>
             </div>
             <div class="col-md-6">
               <label for="phase" class="form-label">Phase#</label>
-              <select name="phase" id="phase" class="form-select">
+              <select name="phase" id="phase" class="form-select" required>
               <option value=""></option>
-                <option value="1">Phase 1</option>
-                <option value="2">Phase 2</option>
-                <option value="3">Phase 3</option>
-                <option value="4">Phase 4</option>
+                <option value="PH1">Phase 1</option>
+                <option value="PH2">Phase 2</option>
+                <option value="PH3">Phase 3</option>
               </select>
             </div>
             <div class="col-md-6">
               <label for="status" class="form-label">Status</label>
               <select name="status" id="status" class="form-select" required>
               <option value=""></option>
-                <option value="1">Member</option>
-                <option value="2">Non-member</option>
-                <option value="3">Tenant</option>
+                <option value="Member">Member</option>
+                <option value="Non-member">Non-member</option>
+                <option value="Tenant">Tenant</option>
               </select>
             </div>
 
@@ -82,15 +100,15 @@ $server = new Server;
                 <label for="username" class="form-label">Username</label>
                 <div class="input-group">
                   <span class="input-group-text" id="username">@</span>
-                  <input type="text" class="form-control" id="username" name="username">
+                  <input type="text" class="form-control" id="username" name="username" required>
                 </div>
               </div>
               <div class="col-lg-6">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password" required>
               </div>
               <div class="col-lg-6"><label for="confirm_password" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
               </div>
 
               <div class="modal-footer">
@@ -104,3 +122,11 @@ $server = new Server;
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+   $("#addHomeowners").on('hidden.bs.modal', function(e){
+    $("#form-input").find("input[type=text], input[type=password], select[class=form-select]").val("");
+   });  
+  });
+</script>

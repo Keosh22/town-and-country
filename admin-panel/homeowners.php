@@ -45,38 +45,52 @@ $server->adminAuthentication();
 							<div class="box">
 								<!-- 	HEADER TABLE -->
 								<div class="header-box container-fluid d-flex align-items-center">
-									<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="bx bx-plus bx-xs bx-tada-hover"></i>Add user</a>
+									<!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addnew">Add user</button> -->
+									<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
 								</div>
 
 								<div class="body-box shadow-sm">
-									<div class="table-responsive">
-										<table class="table table-striped table border">
+
+									<div class="table-responsive mx-2">
+										<table id="homeownersTable" class="table table-striped" style="width:100%">
 											<thead>
 												<tr>
-													<th>Acc.#</th>
-													<th>Name</th>
-													<th>Email</th>
-													<th>Phone #</th>
-													<th>House #</th>
-													<th>Street</th>
-													<th>Phase</th>
-													<th>Status</th>
+													<th width="10%">Acc.#</th>
+													<th width="20%">Photo</th>
+													<th width="20%">Username</th>
+													<th width="30%">Fullname</th>
+													<th width="30%">Address</th>
+													<th width="50%">Email</th>
+													<th width="30%">Phone</th>
 													<th scope="col" width="5%">Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													
-												</tr>
+
+
 											</tbody>
+											<tfoot>
+												<tr>
+													<th width="10%">Acc.#</th>
+													<th width="20%">Photo</th>
+													<th width="20%">Username</th>
+													<th width="30%">Fullname</th>
+													<th width="30%">Address</th>
+													<th width="50%">Email</th>
+													<th width="30%">Phone</th>
+													<th scope="col" width="5%">Action</th>
+												</tr>
+											</tfoot>
 										</table>
-									</div>
+										</div>
+									<!-- Table -->
 								</div>
 
-
+								<!-- box end here -->
 							</div>
 						</div>
 					</div>
+			
 				</section>
 
 
@@ -94,8 +108,14 @@ $server->adminAuthentication();
 	<?php
 	// Register Homeowners Modal
 	include("../admin-panel/homeowners_register_modal.php");
-	
 	?>
+
+
+	<script>
+		$(document).ready(function() {
+			$("#homeownersTable").DataTable();
+		});
+	</script>
 	<!-- FOOTER -->
 	<?php
 	include("../includes/footer.php");

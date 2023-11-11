@@ -4,7 +4,6 @@
           <button id="sidebar-toggler-btn" type="button">
             <i id="chevron-right" class="bx bx-chevrons-right fs-3"></i>
           </button> 
-          <a href="#" class="navbar-brand">Sample Table</a>
      <!-- Hamburger Menu -->
           <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
             <i class="bx bx-menu"></i>

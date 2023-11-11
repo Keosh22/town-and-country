@@ -49,11 +49,10 @@ $server->adminAuthentication();
 
 								<div class="body-box shadow-sm">
 
-									<div class="table-responsive ">
-										<table id="" class="table table-striped table-bordered ">
+									<div class="table-responsive mx-2">
+										<table id="usersTable" class="table table-striped" style="width:100%">
 											<thead>
 												<tr>
-
 													<th width="10%">Acc.#</th>
 													<th width="20%">Photo</th>
 													<th width="20%">Username</th>
@@ -66,7 +65,7 @@ $server->adminAuthentication();
 											</thead>
 											<tbody>
 
-												<?php
+											<?php
 												$query = "SELECT * FROM admin_users";
 												$connection = $server->openConn();
 												$stmt = $connection->prepare($query);
@@ -103,9 +102,19 @@ $server->adminAuthentication();
 												<?php
 												}
 												?>
-
-
 											</tbody>
+											<tfoot>
+												<tr>
+													<th width="10%">Acc.#</th>
+													<th width="20%">Photo</th>
+													<th width="20%">Username</th>
+													<th width="30%">Firstname</th>
+													<th width="30%">Lastname</th>
+													<th width="50%">Email</th>
+													<th width="30%">Phone</th>
+													<th scope="col" width="5%">Action</th>
+												</tr>
+											</tfoot>
 										</table>
 									</div>
 									<!-- Table -->
@@ -150,6 +159,9 @@ $server->adminAuthentication();
 	<!-- Delete Modal -->
 	<script>
 		$(document).ready(function() {
+
+			$("#usersTable").DataTable();
+
 			$(".delete").on('click', function() {
 				swal({
 						title: "Are you sure?",

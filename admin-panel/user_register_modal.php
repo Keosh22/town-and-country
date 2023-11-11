@@ -5,8 +5,7 @@ require_once("../libs/server.php");
 
 <?php
 
-$server = new Server;
-
+$server = new Server; 
 if (isset($_POST['register'])) {
   $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -31,7 +30,7 @@ if (isset($_POST['register'])) {
 
 
 
-
+  
 
 
   if ($result) {
@@ -50,16 +49,16 @@ if (isset($_POST['register'])) {
 
     if ($rowCount = $stmt->rowCount() > 0) {
       if ($row = $stmt->fetch()) {
-        // TCH001
+        // ADM001
         $id = $row['account_number'];
         // 001
-        $get_number = str_replace("TCH", "", $id);
+        $get_number = str_replace("ADM", "", $id);
         // 001 + 1 = 2
         $id_increment = $get_number + 1;
         // Add 0 to the left max. 3 digits
         $get_string = str_pad($id_increment, 3, 0, STR_PAD_LEFT);
 
-        $account_number = "TCH" . $get_string;
+        $account_number = "ADM" . $get_string;
 
         // Insert data 
         $query = "INSERT INTO admin_users (account_number,username,password,firstname,lastname,email,phone_number) VALUES (:account_number, :username, :password, :firstname, :lastname, :email, :phone_number)";
@@ -212,7 +211,7 @@ if (isset($_POST['register'])) {
       $("#confirmpasswordHelpBlock").empty().append('<div id="passwordHelpBlock"></div>');
       $(".password-input").removeClass("input-success");
       $(".password-input").removeClass("input-danger");
-      $('#form_input').find("input[type=text], input[type=password] , textarea").val("");
+      $('#form_input').find("input[type=text], input[type=password]").val("");
       $(".confirm-password-input").removeClass("input-success");
       $(".confirm-password-input").removeClass("input-danger");
       $("#register").prop("disabled", true);
