@@ -226,7 +226,7 @@ if (isset($_POST['register'])) {
     $("#password").on('keyup', function() {
       var password = $("#password").val().trim();
       var number = /([0-9])/;
-      var alphabets = /([a-zA-Z])/;
+      var alphabets = /([A-Z])/;
       var special_characters = /([!, @, $, %, ^, &, *, +, #,.])/;
 
       if (password.length <= 7 || password === "") {
