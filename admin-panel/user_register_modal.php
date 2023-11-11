@@ -19,10 +19,10 @@ if (isset($_POST['register'])) {
 
 
   // Username Validation
-  $queryUsername = "SELECT * FROM admin_users WHERE username = :username";
-  $dataUsername = ["username" => $username];
-  $path = "../admin-panel/user.php";
-  $result = $server->checkUsername($queryUsername, $dataUsername, $path);
+  // $queryUsername = "SELECT * FROM admin_users WHERE username = :username";
+  // $dataUsername = ["username" => $username];
+  // $path = "../admin-panel/user.php";
+  // $result = $server->checkUsername($queryUsername, $dataUsername, $path);
 
 
 
@@ -33,7 +33,7 @@ if (isset($_POST['register'])) {
   
 
 
-  if ($result) {
+  if (empty($username) && empty($password) && empty($confirm_password) && empty($firstname) && empty($email) && empty($email) && empty($phone_number)) {
   }
 
   // if (empty($username) || empty($password) || empty($firstname) || empty($lastname) || empty($email) || empty($phone_number)) {
@@ -165,7 +165,7 @@ if (isset($_POST['register'])) {
             <!-- input -->
             <div class=" d-flex align-items-center" id="formText">
               <input type="password" class="form-control password-input" id="password" name="password" required>
-              <span class="toggle-password"><i toggle="#confirm_password" class='bx bx-show password-icon'></i></span>
+              <span class="toggle-password"><i toggle="#confirm_password" class='bx bx-hide password-icon'></i></span>
             </div>
             <div id="passwordHelpBlock"></div>
           </div>
@@ -178,7 +178,7 @@ if (isset($_POST['register'])) {
             <div class=" d-flex align-items-center">
               <input type="password" class="form-control confirm-password-input " id="confirm_password" name="confirm_password" required disabled>
               <!-- show icon -->
-              <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show confirm-password-icon'></i></span>
+              <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-hide confirm-password-icon'></i></span>
             </div>
             <div id="confirmpasswordHelpBlock"></div>
           </div>
@@ -286,7 +286,7 @@ if (isset($_POST['register'])) {
           username: username
         },
         success: function(respone) {
-          $("#usernameHelpBlock").html(respone);
+         
         }
       });
     });
@@ -294,7 +294,7 @@ if (isset($_POST['register'])) {
 
     // show icon 
     $(".toggle-password").on('click', function() {
-      $(".password-icon").toggleClass("bx-show bx-hide");
+      $(".password-icon").toggleClass("bx-hide bx-show");
       var input = $("#password");
       if (input.attr("type") == "password") {
         input.attr("type", "text");
@@ -304,7 +304,7 @@ if (isset($_POST['register'])) {
     });
     // show Icon
     $(".toggle-confirm-password").on('click', function() {
-      $(".confirm-password-icon").toggleClass("bx-show bx-hide");
+      $(".confirm-password-icon").toggleClass("bx-hide bx-show");
       var input = $("#confirm_password");
       if (input.attr("type") == "password") {
         input.attr("type", "text");

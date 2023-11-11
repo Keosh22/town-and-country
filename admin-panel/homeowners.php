@@ -57,15 +57,60 @@ $server->adminAuthentication();
 												<tr>
 													<th width="10%">Acc.#</th>
 													<th width="20%">Photo</th>
-													<th width="20%">Username</th>
-													<th width="30%">Fullname</th>
-													<th width="30%">Address</th>
-													<th width="50%">Email</th>
-													<th width="30%">Phone</th>
+													<th width="40%">Fullname</th>
+													<th width="40%">Address</th>
+													<th width="20%">Email</th>
+													<th width="20%">Phone</th>
+													<th width="20%">Status</th>
 													<th scope="col" width="5%">Action</th>
 												</tr>
 											</thead>
 											<tbody>
+
+												<?php
+												$query = "SELECT * FROM homeowners_users";
+												$connection = $server->openConn();
+												$stmt = $connection->prepare($query);
+												$stmt->execute();
+												while ($result = $stmt->fetch()) {
+													$account_number = $result['account_number'];
+													$firstname = $result['firstname'];
+													$lastname = $result['lastname'];
+													$middle_initial = $result['middle_initial'];
+													$blk = $result['blk'];
+													$lot = $result['lot'];
+													$street = $result['street'];
+													$phase = $result['phase'];
+													$status = $result['status'];
+													$email = $result['email'];
+													$phone_number = $result['phone_number'];
+
+												?>
+													<tr>
+														<td><?php echo $account_number; ?></td>
+														<td>
+															<div class="profile-container"><img class="profile-image" src="../uploads/default-profile.png"></div>
+														</td>
+														<td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
+														<td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?></td>
+														<td><?php echo $email; ?></td>
+														<td><?php echo $phone_number; ?></td>
+														<td><span class="badge rounded-pill text-bg-success"><?php echo $status; ?></span></td>
+														<td>
+															<div class="dropdown">
+																<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
+																<ul class="dropdown-menu">
+																	<li><a href="#" class="dropdown-item">View</a></li>
+																	<li><a href="" class="dropdown-item">Edit</a></li>
+																	<li><a href="" class="dropdown-item">Delete</a></li>
+																</ul>
+															</div>
+														</td>
+
+													</tr>
+												<?php
+												}
+												?>
 
 
 											</tbody>
@@ -73,16 +118,16 @@ $server->adminAuthentication();
 												<tr>
 													<th width="10%">Acc.#</th>
 													<th width="20%">Photo</th>
-													<th width="20%">Username</th>
-													<th width="30%">Fullname</th>
-													<th width="30%">Address</th>
-													<th width="50%">Email</th>
+													<th width="40%">Fullname</th>
+													<th width="40%">Address</th>
+													<th width="20%">Email</th>
 													<th width="30%">Phone</th>
+													<th width="30%">Status</th>
 													<th scope="col" width="5%">Action</th>
 												</tr>
 											</tfoot>
 										</table>
-										</div>
+									</div>
 									<!-- Table -->
 								</div>
 
@@ -90,7 +135,7 @@ $server->adminAuthentication();
 							</div>
 						</div>
 					</div>
-			
+
 				</section>
 
 
@@ -119,4 +164,5 @@ $server->adminAuthentication();
 	<!-- FOOTER -->
 	<?php
 	include("../includes/footer.php");
+
 	?>

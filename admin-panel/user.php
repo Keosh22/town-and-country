@@ -65,7 +65,7 @@ $server->adminAuthentication();
 											</thead>
 											<tbody>
 
-											<?php
+												<?php
 												$query = "SELECT * FROM admin_users";
 												$connection = $server->openConn();
 												$stmt = $connection->prepare($query);
