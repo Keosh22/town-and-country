@@ -28,7 +28,7 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn  btn-dropdown">
-                  <a href="../admin-panel/homeowners-list.php" class="sidebar-link-dropdown">Homeowners List</a>
+                  <a href="../admin-panel/homeowners.php" class="sidebar-link-dropdown">Homeowners List</a>
                 </button>
               </div>
             </li>

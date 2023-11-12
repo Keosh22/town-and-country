@@ -218,8 +218,8 @@ if ($rowCount > 0) {
         var password = $("#new_password").val().trim();
         var current_password = $("#current_password").val().trim();
         var number = /([0-9])/;
-        var alphabet = /([a-zA-Z])/;
-        var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<,.])/;
+        var alphabet = /([A-Z])/;
+        var special_characters = /([!, @, $, %, ^, &, *, +, #,.])/;
 
         // Strong pasword validation
         if (password.length <= 7 || password === "") {
