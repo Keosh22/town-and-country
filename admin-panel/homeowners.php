@@ -84,6 +84,7 @@ $server->adminAuthentication();
 													$status = $result['status'];
 													$email = $result['email'];
 													$phone_number = $result['phone_number'];
+													$tenant_name = $result['tenant_name'];
 
 												?>
 													<tr>
@@ -91,11 +92,43 @@ $server->adminAuthentication();
 														<td>
 															<div class="profile-container"><img class="profile-image" src="../uploads/default-profile.png"></div>
 														</td>
-														<td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
+														<td>
+															<?php 
+															if($tenant_name == ""){
+																$tenant_name = "";
+															} else {
+																$tenant_name = "Tenant: ". $tenant_name;
+															}
+															echo $firstname . " " . $middle_initial . " " . $lastname. "<br><p class='text-info'>".$tenant_name."</p>"; 
+															?>
+														</td>
 														<td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?></td>
 														<td><?php echo $email; ?></td>
 														<td><?php echo $phone_number; ?></td>
-														<td><span class="badge rounded-pill text-bg-success"><?php echo $status; ?></span></td>
+														<td>
+															<?php
+															if($status == 'Member'){
+																?>
+																<span class="badge rounded-pill text-bg-success"><?php echo $status; ?></span>
+																<?php
+															} elseif ($status == 'Non-member') {
+																?>
+																<span class="badge rounded-pill text-bg-danger"><?php echo $status; ?></span>
+																<?php
+															} elseif($status == 'Tenant - Member') {
+																?>
+																<span class="badge rounded-pill text-bg-warning">Tenant</span>
+																<span class="badge rounded-pill text-bg-success">Member</span>
+																<?php
+															} elseif($status == 'Tenant - Non-member'){
+																?>
+																<span class="badge rounded-pill text-bg-warning">Tenant</span>
+																<span class="badge rounded-pill text-bg-danger">Non-Member</span>
+																<?php
+															}
+														
+														  ?>
+													</td>
 														<td>
 															<div class="dropdown">
 																<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>

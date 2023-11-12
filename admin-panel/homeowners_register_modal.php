@@ -23,12 +23,13 @@ if (isset($_POST['register'])) {
   $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
   $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
-
+  $tenant_name = filter_input(INPUT_POST, 'tenant_name', FILTER_SANITIZE_SPECIAL_CHARS);
+  
 
 
   if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
   } else {
-    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status)";
+    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status, tenant_name ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status, :tenant_name)";
     $data = [
       "account_number" => $account_number,
       "username" => $username,
@@ -42,7 +43,8 @@ if (isset($_POST['register'])) {
       "lot" => $lot,
       "street" => $street,
       "phase" => $phase,
-      "status" => $status
+      "status" => $status,
+      "tenant_name" => $tenant_name
     ];
     $path = "../admin-panel/homeowners.php";
     $server->register($query, $data, $path);
@@ -66,7 +68,17 @@ if (isset($_POST['register'])) {
         <form action="homeowners_register_modal.php" method="POST" id="form-input">
 
           <div class="row gy-3">
-            <p class="fs-5 text-secondary divider personal-info mt-4">Personal Information</p>
+            <p class="fs-5 text-secondary divider personal-info mt-3 mb-0">Personal Information</p>
+            <!-- <div class="col-12">
+            <button class="btn btn-success" type="button" id="add_tenant" data-bs-toggle="collapse" data-bs-target="#tenantCollapse" >Add Tenant</button>
+            </div> -->
+           
+            <div class="col-12">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="add_tenant" name="radioDefault" data-bs-toggle="collapse" data-bs-target="#tenantCollapse">
+                <label for="tenant" class="form-check-label text-primary">Add Tenant</label>
+              </div>
+            </div>
             <div class="col-md-5">
               <label for="firstname" class="form-label">Firstname</label>
               <input type="text" class="form-control" id="firstname" name="firstname" required>
@@ -79,6 +91,25 @@ if (isset($_POST['register'])) {
               <label for="middle_initial" class="form-label">M.I.</label>
               <input type="text" class="form-control" id="middle_initial" name="middle_initial" required>
             </div>
+
+            <!-- Tenant collaspable card -->
+            <div class="collapse" id="tenantCollapse">
+              <div class="col-12">
+                <div class="card card-body shadow-sm">
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="fs-5 text-danger">Tenant's Information</p>
+                    </div>
+                    <div class="col-12">
+                      <label for="tenant" class="form-label">Fullname</label>
+                      <input type="text" class="form-control" id="tenant_name" name="tenant_name">
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="col-md-6">
               <label for="email" class="form-label">Email</label>
               <input type="text" class="form-control" id="email" name="email" required>
@@ -86,6 +117,25 @@ if (isset($_POST['register'])) {
             <div class="col-md-6">
               <label for="phone_number" class="form-label">Phone Number</label>
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="col-md-6">
+              <label for="phase" class="form-label">Phase#</label>
+              <select name="phase" id="phase" class="form-select" required>
+                <option value=""></option>
+                <option value="PH1">Phase 1</option>
+                <option value="PH2">Phase 2</option>
+                <option value="PH3">Phase 3</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="status" class="form-label">Status</label>
+              <select name="status" id="status" class="form-select" required>
+                <option value=""></option>
+                <option value="Member">Member</option>
+                <option value="Non-member">Non-member</option>
+                <option value="Tenant - Member">Tenant - Member</option>
+                <option value="Tenant - Non-member">Tenant - Non-member</option>
+              </select>
             </div>
             <div class="col-3">
               <label for="blk" class="form-label">Blk#</label>
@@ -103,24 +153,6 @@ if (isset($_POST['register'])) {
                 <option>Golden Shower</option>
               </select>
             </div>
-            <div class="col-md-6">
-              <label for="phase" class="form-label">Phase#</label>
-              <select name="phase" id="phase" class="form-select" required>
-                <option value=""></option>
-                <option value="PH1">Phase 1</option>
-                <option value="PH2">Phase 2</option>
-                <option value="PH3">Phase 3</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="status" class="form-label">Status</label>
-              <select name="status" id="status" class="form-select" required>
-                <option value=""></option>
-                <option value="Member">Member</option>
-                <option value="Non-member">Non-member</option>
-                <option value="Tenant">Tenant</option>
-              </select>
-            </div>
 
             <div class="row">
               <p class="fs-5 text-secondary divider personal-info mt-4">Account Information</p>
@@ -128,17 +160,17 @@ if (isset($_POST['register'])) {
                 <label for="username" class="form-label">Username</label>
                 <div class="input-group">
                   <span class="input-group-text" id="#username">@</span>
-                  <input value="" type="text" class="form-control" id="username" name="username" required>
+                  <input type="text" class="form-control" id="username" name="username" required readonly>
                 </div>
               </div>
               <div class="col-lg-6">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control password-input" id="password" name="password" required>
+                <input type="password" class="form-control password-input" id="password" name="password" required readonly>
                 <span toggle="#password" class="toggle-password"><i class="bx bx-hide bx-show-changepass password-icon"></i></span>
                 <div id="passwordHelpBlock"></div>
               </div>
               <div class="col-lg-6"><label for="confirm_password" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required readonly>
                 <span class="toggle-confirm-password"><i toggle="#confirm_password" class="bx bx-hide bx-show-changepass confirm-password-icon"></i>
                 </span>
                 <div id="confirmpasswordHelpBlock"></div>
@@ -147,7 +179,7 @@ if (isset($_POST['register'])) {
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register" disabled>Register</button>
+                <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register">Register</button>
               </div>
             </div>
         </form>
@@ -165,21 +197,38 @@ if (isset($_POST['register'])) {
       $(".password-input").removeClass("input-success");
       $(".password-input").removeClass("input-danger");
       $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock"></div>');
-      $("#register").prop('disabled', true);
+      // $("#register").prop('disabled', true);
       $(".confirm-password-input").removeClass("input-success");
       $(".confirm-password-input").removeClass("input-danger");
       $("#confirmpasswordHelpBlock").empty().append('<div id="confirmpasswordHelpBlock"></div>');
+      $("#add_tenant").prop('checked', false);
+      $('#tenantCollapse').collapse('hide');
       
+
     });
 
 
+    // When modal is show
     $("#addHomeowners").on('show.bs.modal', function(e) {
-      
       // Show Account number
       $.ajax({
         url: '../ajax/homeowners_acc_generator.php',
+        type: 'POST',
+        dataType: 'JSON',
         success: function(response) {
-          $("#username").prop('value', response);
+          // $("#username").prop('value', response);
+          var len = response.length;
+          for (var i = 0; i < len; i++) {
+            var account_number = response[i].account_number;
+            var default_pass = response[i].default_pass;
+            console.log(account_number);
+            console.log(default_pass);
+
+            $("#username").prop('value', account_number);
+            $("#password").prop('value', default_pass);
+            $("#confirm_password").prop('value', default_pass);
+
+          }
         }
       });
     });
@@ -214,6 +263,7 @@ if (isset($_POST['register'])) {
       var number = /([0-9])/;
       var alphabet = /([A-Z])/;
       var chars = /([!, @, $, %, ^, &, *, +, #,.])/;
+
 
       // Checked if password is 8 char long
       if (password.length <= 7) {
@@ -254,6 +304,14 @@ if (isset($_POST['register'])) {
         }
 
       }
+    });
+
+
+
+    // Status on changed
+    $("#status").on('change', function() {
+      var status = $("#status").val();
+
     });
 
 
