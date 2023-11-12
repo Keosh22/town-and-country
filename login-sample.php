@@ -24,10 +24,6 @@
 
   <!------------- CSS Styles  ------------------->
 
-
-
- 
-
      <!-- USER PAGE CSS -->
      <link rel="stylesheet" href="./styles/user-panel.css">
 

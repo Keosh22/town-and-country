@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+require_once('config.php');
 ?>
 
 <?php
@@ -10,7 +10,7 @@ require_once('../config.php');
 // @Param string   $path - redirect path
 // If maiksi lang code integrate mo na lang din sa mismong file nya like yung sa login.php
 // yung signup si admin lang makakapg register ng account then si user na bahala mag inputs ng personal info. 
-// sorry na par nagulo ko yung code HAHAHAHA
+
 
 
 
