@@ -26,7 +26,7 @@ if (isset($_POST['login_submit'])) {
         $_SESSION['text'] = "Please fill all the fields!";
         $_SESSION['status_code'] = "warning";
     } else {        
-        $query = "SELECT * FROM users WHERE username = :username";
+        $query = "SELECT * FROM homeowners_users WHERE username = :username"; //Updated DB 'homeowners_users' table
         $data = ["username" =>  $login_Username];
         $path = "./home.php";
         $pass = $login_Pass;

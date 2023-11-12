@@ -6,7 +6,7 @@ require "../includes/user-header.php";
     <div class="container-fluid d-flex flex-column justify-content-center">
       <div class="row row-logo">
         <div class="col-sm-12 main-logo d-flex justify-content-center">
-          <img src="/img/logo.png" alt="">
+          <img src="../img/logo.png" alt="">
         </div>
       </div>
 
