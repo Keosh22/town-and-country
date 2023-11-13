@@ -21,7 +21,6 @@ class Server
   private $pass = LESPASS;
   private $host = HOST;
   private $dbname = DBNAME;
-  private $lesDBname = LESDBNAME;
   private $port = PORT;
   private $dsn;
   private $conn;
@@ -49,7 +48,7 @@ class Server
 
     try {
       // ken pabago nalng to ah HAHAHAH 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->lesDBname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
     } catch (PDOException $e) {
       die("connection failed" . $e->getMessage());
