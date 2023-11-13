@@ -1,232 +1,239 @@
 
-body{
-    width: 100%;
-    background-image: url("../img/town_and_country_heights.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-
-nav{
-    font-family: 'Poppins', sans-serif;
-    width: inherit;
-    background-color: #064420;
-    height: 60px;
-    position: sticky;
-    display: flex;
-    align-items: center;
-    position: sticky;
-    top: 0; /* Adjust the value to control where the navigation bar sticks */
-     /* Set your desired background color */
-    z-index: 100;
-}
-
-.nav-container{
-    width: 90%;
-}
-
-.user{
-    color: white;
-}
-
-.logo img{
-    height: 40px;
-}
-
-
-.main-logo img{
-    height: 200px;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-main{
-    
-    min-height: 100vh;
-    width: 95%;
-    margin: auto;
-    
-    background-color: rgba(6, 68, 32, 0.8);
-    color: white;
-    font-family: 'Poppins', sans-serif;
-}
-
-.col-title h1{
-    font-size: 2.5em;
-}
-
-.row .transaction-icon{
-    height: 100px;
-    width: 100%;
-}
-
-.features{
-    /* height: 200px;
-    width: 200px; */
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1rem;
-}
-
-.features i{
-    color: white;
-}
-
-.fa-regular{
-    color: white;
-}
-
-
-
-
-
-
-
-
-/* RESPONSIVE */
-
-@media (width < 576px){
-    .main-logo img{
-        height: 150px;
-     
-    }
-    .features i{
-        font-size: 3em;
-    }
-    .features p{
-        font-size: 1em;
+    body{
+        width: 100%;
+        background-image: url("../img/town_and_country_heights.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
-    .col-title h1{
-        font-size: 1.2em;
+
+    nav{
+        font-family: 'Poppins', sans-serif;
+        width: inherit;
+        background-color: #064420;
+        height: 60px;
+        position: sticky;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0; /* Adjust the value to control where the navigation bar sticks */
+        /* Set your desired background color */
+        z-index: 100;
     }
 
-    .col-title p{
-        font-size: .8em;
-    }
-    .features i {
-        color: black;
-        opacity: 100%;
-        transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
-    }
-    
-
-    
-    .features:hover i {
-        color: blue;
-        font-size: 3.2em; /* Adjust the size as needed */
-    }
-    
-    .features:hover p {
-        color: blue;
-    }
-    
-}
-
-@media (min-width: 576px) and (max-width:768px){
-    .features i{
-        font-size:3.5em;
-    }
-    .main-logo img{
-        height: 175px;
-     
-    }
-    .features p{
-        font-size: 1.4em;
-    }
-    
-    .col-title h1{
-        font-size: 1.3em;
-    }
-    .col-title p{
-        font-size: 1.1em;
-    }
-    .features i {
-        color: black;
-        opacity: 100%;
-        transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
-    }
-    
-
-    .features:hover i {
-        color: blue;
-        font-size: 3.8em; /* Adjust the size as needed */
-    }
-    
-    .features:hover p {
-        color: blue;
-    }
-    
-}
-
-
-@media (min-width: 768px) and (max-width:1200px){
-    .features i{
-        font-size: 4em;
-    }
-    .features p{
-        font-size: 1.6em;
-    }
-    .col-title h1{
-        font-size: 2em;
-    }
-    .col-title p{
-        font-size: 1.3em;
-    }
-    .features i {
-        color: black;
-        opacity: 100%;
-        transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
+    .outside-container{
+        border: solid 2px black;
+        padding: 2rem;
     }
 
-    .features:hover i {
-        color: blue;
-        font-size: 4.3em; /* Adjust the size as needed */
+    .nav-container{
+        width: 90%;
     }
-    
-    .features:hover p {
-        color: blue;
-    }
-    
-}
 
-@media (width > 1200px){
-    .features i{
-        font-size: 5em;
+    .user{
+        color: white;
     }
+
+    .logo img{
+        height: 40px;
+    }
+
+
     .main-logo img{
         height: 200px;
-     
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
-    .features p{
-        font-size: 2em;
+    main{
+        
+        min-height: 100vh;
+        width: 95%;
+        margin: auto;
+        
+        background-color: rgba(6, 68, 32, 0.8);
+        color: white;
+        font-family: 'Poppins', sans-serif;
     }
 
-    
     .col-title h1{
-        font-size: 3.5em;
+        font-size: 2.5em;
     }
 
-    .col-title p{
-        font-size: 1.5em;
+    .row .transaction-icon{
+        height: 100px;
+        width: 100%;
+    }
+
+    .features{
+        /* height: 200px;
+        width: 200px; */
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        transition: transform 0.3s ease;
     }
     .features i {
-        color: black;
-        opacity: 100%;
+        color: white;
         transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
     }
-    
-    
-    .features:hover i {
-        color: blue;
-        font-size: 6.5em; /* Adjust the size as needed */
+
+    /* RESPONSIVE */
+
+    @media (width < 576px){
+        .main-logo img{
+            height: 150px;
+        
+        }
+        .features i{
+            font-size: 3em;
+        }
+        .features p{
+            font-size: 1em;
+        }
+
+        .col-title h1{
+            font-size: 1.2em;
+        }
+
+        .col-title p{
+            font-size: .8em;
+        }
+        .features i {
+            color: black;
+            opacity: 100%;
+            transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
+        }
+        
+
+        
+        .features:hover i {
+            color: #ffd700 !important;
+            font-size: 3.2em; /* Adjust the size as needed */
+        }
+        
+        .features:hover p {
+            color: #ffd700;
+        }
+        
     }
-    
-    .features:hover p {
-        color: blue;
+
+    @media (min-width: 576px) and (max-width:768px){
+        nav{
+            height: 60px;
+        }
+        .features i{
+            font-size:3.5em;
+        }
+        .main-logo img{
+            height: 175px;
+        
+        }
+        .features p{
+            font-size: 1.4em;
+        }
+        
+        .col-title h1{
+            font-size: 1.3em;
+        }
+        .col-title p{
+            font-size: 1.1em;
+        }
+        .features i {
+            color: black;
+            opacity: 100%;
+            transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
+        }
+        
+
+        .features:hover i {
+            color: #ffd700 important;
+            font-size: 3.8em; /* Adjust the size as needed */
+        }
+        
+        .features:hover p {
+            color: #ffd700 !important;
+        }
+        
     }
-    
-}
+
+
+    @media (min-width: 768px) and (max-width:1200px){
+        nav{
+            height: 65px;
+        }
+        .features i{
+            font-size: 4em;
+        }
+        .features p{
+            font-size: 1.6em;
+        }
+        .col-title h1{
+            font-size: 2em;
+        }
+        .col-title p{
+            font-size: 1.3em;
+        }
+        .features i {
+            color: black;
+            opacity: 100%;
+            transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
+        }
+
+        .features:hover i {
+            color: #ffd700 !important;
+            font-size: 4.3em; /* Adjust the size as needed */
+        }
+        
+        .features:hover p {
+            color: #ffd700;
+        }
+        
+    }
+
+    @media (width > 1200px){
+        .logo img{
+            height: 50px;
+        }
+        nav{
+            height: 70px;
+        }
+        .features i{
+            font-size: 5em;
+        }
+        .main-logo img{
+            height: 200px;
+        
+        }
+
+        .features p{
+            font-size: 2em;
+        }
+
+        
+        .col-title h1{
+            font-size: 3.5em;
+        }
+
+        .col-title p{
+            font-size: 1.5em;
+        }
+        .features i {
+            color: black;
+            opacity: 100%;
+            transition: font-size 0.3s ease; /* Add a smooth transition effect for font-size */
+        }
+        
+        
+        .features:hover i {
+            color: #ffd700;
+            font-size: 6.5em; /* Adjust the size as needed */
+        }
+        
+        .features:hover p {
+            color: #ffd700;
+        }
+        
+    }
