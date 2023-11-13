@@ -15,7 +15,7 @@ if(isset($_POST['change_photo'])){
   $type = $_FILES['photo']['type'];
   $temp = $_FILES['photo']['tmp_name'];
   $folder = "../uploads/" . $name;
-  $id = $_SESSION['user_id'];
+  $id = $_SESSION['admin_id'];
   
 
 

@@ -4,13 +4,13 @@
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
 }
-
 body{
   background-image: url("../img/town_and_country_heights.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
 /* Initial style */
 .wrapper{
   display: flex;

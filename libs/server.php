@@ -1,5 +1,5 @@
 <?php
-require_once('./config.php');
+require_once('config.php');
 ?>
 
 <?php
@@ -10,18 +10,22 @@ require_once('./config.php');
 // @Param string   $path - redirect path
 // If maiksi lang code integrate mo na lang din sa mismong file nya like yung sa login.php
 // yung signup si admin lang makakapg register ng account then si user na bahala mag inputs ng personal info. 
-// sorry na par nagulo ko yung code HAHAHAHA
+
 
 
 
 class Server
 {
  // pati to pa change, iba kasi configuration ng database natin
+  // private $user = LESUSER; 
+  // private $pass = LESPASS;
+  // private $lesDBname = LESDBNAME;
+  // private $port = PORT;
+
   private $user = LESUSER; 
   private $pass = LESPASS;
   private $host = HOST;
   private $dbname = DBNAME;
-  private $lesDBname = LESDBNAME;
   private $port = PORT;
   private $dsn;
   private $conn;
@@ -48,8 +52,10 @@ class Server
   {
 
     try {
-      // ken pabago nalng to ah HAHAHAH 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->lesDBname, $this->user, $this->pass, $this->option);
+      //ken pabago nalng to ah HAHAHAH 
+      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
     } catch (PDOException $e) {
       die("connection failed" . $e->getMessage());
@@ -76,8 +82,6 @@ class Server
     if ($stmt->rowCount() > 0) {
         while ($result = $stmt->fetch()) {
             $password = $result['pwd']; // Change 'pwd' to 'password' if needed
-            $username = $result["username"];
-            $userID = $result["id"];
         }
 
         if (password_verify($pass, $password)) {
@@ -121,7 +125,7 @@ class Server
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;
-        $_SESSION['user_id'] = $user_id;
+        $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
 
         // pass the value to adminAuthentication()
@@ -321,7 +325,7 @@ class Server
     // if naka login na, hindi na makakabalik sa log in page ulit
   public function adminSessionLogin()
   {
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['admin_id'])) {
       echo "<script>window.location.href='../admin-panel/dashboard.php'</script>";
     }
   }

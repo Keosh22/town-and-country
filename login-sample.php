@@ -1,37 +1,3 @@
-<!-- HEADER -->
-<?php //require_once("./includes/header.php"); ?>
-<!-- SERVER -->
-<?php require_once("./libs/server.php"); ?>
-
-<?php
-$userserver = new Server; // Open/Close connection
-session_start();
-//$userserver->adminSessionLogin();
-?>
-
-
-<?php
-// Set HTTP request to POST method if login btn is clicked
-if (isset($_POST['login'])) {
-
-
-    $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-    $login_Pass = $_POST["password"];
-    
-    if (empty($login_Username) || empty($login_Pass)) {
-
-        $_SESSION['status'] = "Login Failed!";
-        $_SESSION['text'] = "Please fill all the fields!";
-        $_SESSION['status_code'] = "warning";
-    } else {        
-        $query = "SELECT * FROM users WHERE username = :username";
-        $data = ["username" =>  $login_Username];
-        $path = "./user/home.php";
-        $pass = $login_Pass;
-        $userserver->userLogin($query, $data, $pass, $path);
-    }
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,10 +23,6 @@ if (isset($_POST['login'])) {
 
 
   <!------------- CSS Styles  ------------------->
-
-
-
- 
 
      <!-- USER PAGE CSS -->
      <link rel="stylesheet" href="./styles/user-panel.css">

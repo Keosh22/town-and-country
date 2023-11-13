@@ -15,7 +15,7 @@ if (isset($_POST['update_info'])) {
   $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
   $phone = $_POST['phone_number'];
-  $id = $_SESSION['user_id'];
+  $id = $_SESSION['admin_id'];
 
   
 
