@@ -128,7 +128,7 @@ class Server
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
-        
+
         // pass the value to adminAuthentication()
         // para
         $_SESSION['admin_auth'] = true;
@@ -330,6 +330,36 @@ class Server
   }
 
 
+  public function insertActivityLog($action)
+  {
+
+    $account_number = $_SESSION['account_number'];
+    $firstname = $_SESSION['firstname'];
+    $time_log = date("Y-m-d H:i:sA", strtotime("now"));
+
+    $query = "INSERT INTO activity_log (account_number, firstname, action, date) VALUES (:account_number, :firstname, :action, :date)";
+    $data = [
+      "account_number" => $account_number,
+      "firstname" => $firstname,
+      "action" => $action,
+      "date" => $time_log
+    ];
+
+
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $rowCount = $stmt->rowCount();
+
+
+
+    if ($rowCount) {
+    } else {
+      $_SESSION['status'] = "Warning";
+      $_SESSION['text'] = "Something went wrong.";
+      $_SESSION['status_code'] = "warning";
+    }
+  }
 
 
 
