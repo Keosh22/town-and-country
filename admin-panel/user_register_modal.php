@@ -151,7 +151,6 @@ if (isset($_POST['register'])) {
           <div class="form-group">
             <label for="username" class="col-sm-3 control-label">Username</label>
 
-
             <input type="text" class="form-control" id="username" name="username" required>
 
             <div id="usernameHelpBlock"></div>
@@ -278,7 +277,9 @@ if (isset($_POST['register'])) {
 
     // USERNAME VALIDATION AJAX REQUEST
     $("#username").on('keyup', function() {
+
       var username = $(this).val();
+  
       $.ajax({
         url: '../ajax/validation_username.php',
         method: 'POST',
@@ -286,7 +287,7 @@ if (isset($_POST['register'])) {
           username: username
         },
         success: function(respone) {
-         
+         $("#usernameHelpBlock").html(respone);
         }
       });
     });
