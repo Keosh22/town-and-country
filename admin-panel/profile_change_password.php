@@ -11,7 +11,7 @@ if(isset($_POST['change_password'])){
   $current_pass = $_POST['current_password'];
   $new_pass = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
   $confirm_pass = $_POST['confirm_password'];
-  $id = $_SESSION['user_id'];
+  $id = $_SESSION['admin_id'];
   
 
   if(empty($current_pass) || empty($new_pass) || empty($confirm_pass) || empty($id) || empty($password) ){

@@ -11,35 +11,6 @@
   <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
 
-<script>
-  $(document).ready( function () {
-    // $('#myTable').DataTable();
-  // const dataTable = $('#myTable').DataTable({
-  //   "paging": true,
-  //   "processing": true,
-  //   "serverSide": true,
-  //   "order": [],
-  //   "info": true,
-  //   "ajax": {
-  //     url:"../fetch.php",
-  //     type:"POST",
-  //   },
-  //   "columDefs": [
-  //     {
-  //     "targets": [0,3,4],
-  //     "orderable":false,
-  //     },
-  // ],
-
-  // });
-  
-  });
-</script>
-
-
-
-
-
 
 <?php
 // ----------------- Pop up Alert ---------------- 
