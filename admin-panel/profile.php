@@ -12,7 +12,7 @@ $server->adminAuthentication();
 
 <?php
 
-$id = $_SESSION['user_id'];
+$id = $_SESSION['admin_id'];
 $query = "SELECT * FROM admin_users WHERE id = :id";
 $data = ["id" => $id];
 $connection = $server->openConn();

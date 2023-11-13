@@ -8,7 +8,7 @@ session_start();
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
   $current_password = $_POST['current_password'];
-  $id = $_SESSION['user_id'];
+  $id = $_SESSION['admin_id'];
   $query = "SELECT * FROM admin_users WHERE id = :id";
   $data = [
     "id" => $id

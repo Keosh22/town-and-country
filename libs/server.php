@@ -122,7 +122,7 @@ class Server
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;
-        $_SESSION['user_id'] = $user_id;
+        $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
 
         // pass the value to adminAuthentication()
@@ -322,7 +322,7 @@ class Server
     // if naka login na, hindi na makakabalik sa log in page ulit
   public function adminSessionLogin()
   {
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['admin_id'])) {
       echo "<script>window.location.href='../admin-panel/dashboard.php'</script>";
     }
   }
