@@ -19,9 +19,12 @@ require "../includes/user-header.php";
     
       <div class="row  justify-content-center gap-1 ">
         
-        <div class="col-xl-3 col-md-4 features transaction d-flex flex-column align-items-center justify-content-center  text-center" >
-          <i class="far fa-file-lines"style="color: white;" ></i>
-          <p>TRANSACTION</p>
+        <div class="col-xl-3 col-md-4 transaction d-flex flex-column align-items-center justify-content-center  text-center" >
+          <div class="inner features">
+            <i class="far fa-file-lines"style="color: white;" ></i>
+            <p>TRANSACTION</p>
+          </div>
+
         </div>
 
         
