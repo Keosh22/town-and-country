@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+require_once('./config.php');
 ?>
 
 <?php
@@ -76,10 +76,14 @@ class Server
     if ($stmt->rowCount() > 0) {
         while ($result = $stmt->fetch()) {
             $password = $result['pwd']; // Change 'pwd' to 'password' if needed
+            $username = $result["username"];
+            $userID = $result["id"];
         }
 
         if (password_verify($pass, $password)) {
             // Password is correct
+            $_SESSION["username"] = $username;
+            $_SESSION["userID"] =$userID;
             header("location:" . $path . "");
         } else {
             // Password is incorrect

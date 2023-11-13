@@ -13,9 +13,13 @@ nav{
     width: inherit;
     background-color: #064420;
     height: 60px;
-    
+    position: sticky;
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0; /* Adjust the value to control where the navigation bar sticks */
+     /* Set your desired background color */
+    z-index: 100;
 }
 
 .nav-container{
