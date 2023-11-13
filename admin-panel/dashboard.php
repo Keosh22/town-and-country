@@ -26,6 +26,7 @@ $server->adminAuthentication();
 
 			<!-- NAVBAR -->
 			<?php
+			
 			require_once("../includes/navbar.php");
 			?>
 

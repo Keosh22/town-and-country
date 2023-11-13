@@ -1,16 +1,5 @@
 // Side bar collapse button
-const chevronsElement = document.getElementById("chevron-right");
-const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
 
-sidebarBtnToggler.addEventListener('click', () => {
-  rotateChevrons();
-  document.querySelector("#sidebar").classList.toggle("collapsed")
-  document.querySelector(".main").classList.toggle("main-collapsed")
-});
-
-function rotateChevrons(){
-  chevronsElement.classList.toggle("sidebar-toggler-left");
-}
 
 
 
@@ -87,6 +76,20 @@ $(document).ready(function(){
       $(this).addClass("active-dropdown");
       
 });
+
+
+const chevronsElement = document.getElementById("chevron-right");
+const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
+
+sidebarBtnToggler.addEventListener('click', () => {
+  rotateChevrons();
+  document.querySelector("#sidebar").classList.toggle("collapsed")
+  document.querySelector(".main").classList.toggle("main-collapsed")
+});
+
+function rotateChevrons(){
+  chevronsElement.classList.toggle("sidebar-toggler-left");
+}
 });
 
 
