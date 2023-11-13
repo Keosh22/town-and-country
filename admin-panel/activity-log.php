@@ -1,8 +1,9 @@
 <?php
+
 require_once("../libs/server.php");
 require_once("../includes/header.php");
 ?>
-<?php  
+<?php
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 ?>
@@ -59,7 +60,10 @@ $server->adminAuthentication();
                           <th width="10%">#</th>
                           <th width="20%">Name</th>
                           <th width="20%">Date & Time</th>
-                          <th width="50%">Action</th>
+                          <th width="30%">Action</th>
+                          <th width="20%"></th>
+
+
                         </tr>
                       </thead>
                       <tbody>
@@ -77,8 +81,26 @@ $server->adminAuthentication();
                           <tr>
                             <td><?php echo $account_number; ?></td>
                             <td><?php echo $firstname; ?></td>
-                            <td><?php echo date("m/d/y - h:i:sA",strtotime($date)); ?></td>
+                            <td><?php echo date("m/d/y - h:i:sA", strtotime($date)); ?></td>
                             <td><?php echo $action; ?></td>
+                            <td>
+                              <?php
+                              if (str_contains($action, "Logged in")) {
+                              ?>
+                              <span class="badge rounded-pill text-bg-primary">Logged in</span>
+                              <?php
+                              } elseif (str_contains($action, "Logged out")){
+                                ?>
+                               <span class="badge rounded-pill text-bg-warning">Logged out</span>
+                              <?php
+                              } elseif(str_contains($action, "Delete")){
+                                ?>
+                               <span class="badge rounded-pill text-bg-danger">Deleted</span>
+                              <?php
+                              }
+
+                              ?>
+                            </td>
                           </tr>
                         <?php
                         }
@@ -90,7 +112,8 @@ $server->adminAuthentication();
                           <th width="10%">#</th>
                           <th width="20%">Name</th>
                           <th width="20%">Date & Time</th>
-                          <th width="50%">Action</th>
+                          <th width="30%">Action</th>
+                          <th width="20%"></th>
                         </tr>
                       </tfoot>
                     </table>
@@ -135,7 +158,7 @@ $server->adminAuthentication();
 
       $("#usersTable").DataTable();
 
-      $("#refresh").on('click', function () {
+      $("#refresh").on('click', function() {
         location.reload(true);
       });
       // $(".delete").on('click', function() {
