@@ -4,7 +4,6 @@ require_once("../libs/server.php");
 ?>
 <?php  
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
-
 ?>
 
 <?php

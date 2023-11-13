@@ -127,6 +127,8 @@ class Server
         // $_SESSION['password'] = $password;
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
+        $_SESSION['account_number'] = $account_number;
+        
         // pass the value to adminAuthentication()
         // para
         $_SESSION['admin_auth'] = true;
@@ -134,9 +136,9 @@ class Server
         // Activity log
         $action = "Logged in the system";
         $time_log = date("Y-m-d H:i:sA", strtotime("now"));
-        $query_log = "INSERT INTO activity_log (admin_id, firstname, action, date) VALUES (:admin_id, :firstname, :action, :date)";
+        $query_log = "INSERT INTO activity_log (account_number, firstname, action, date) VALUES (:account_number, :firstname, :action, :date)";
         $data_log = [
-          "admin_id" => $account_number,
+          "account_number" => $account_number,
           "firstname" => $firstname,
           "action" => $action,
           "date" => $time_log

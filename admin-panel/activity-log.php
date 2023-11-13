@@ -47,7 +47,7 @@ $server->adminAuthentication();
                 <!-- 	HEADER TABLE -->
                 <div class="header-box container-fluid d-flex align-items-center">
                   <!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addnew">Add user</button> -->
-                  <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-refresh bx-xs bx-tada-hover'></i>Refresh</a>
+                  <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat" id="refresh"><i class='bx bx-refresh bx-xs bx-tada-hover'></i>Refresh</a>
                 </div>
 
                 <div class="body-box shadow-sm">
@@ -64,20 +64,20 @@ $server->adminAuthentication();
                       </thead>
                       <tbody>
                         <?php
-                        $query = "SELECT * FROM activity_log ORDER BY date ASC";
+                        $query = "SELECT * FROM activity_log ORDER BY date DESC";
                         $connection = $server->openConn();
                         $stmt = $connection->prepare($query);
                         $stmt->execute();
                         while ($result = $stmt->fetch()) {
-                          $admin_id = $result['admin_id'];
+                          $account_number = $result['account_number'];
                           $firstname = $result['firstname'];
                           $action = $result['action'];
                           $date = $result['date'];
                         ?>
                           <tr>
-                            <td><?php echo $admin_id; ?></td>
+                            <td><?php echo $account_number; ?></td>
                             <td><?php echo $firstname; ?></td>
-                            <td><?php echo date("d/m/y h:i:sA",strtotime($date)); ?></td>
+                            <td><?php echo date("m/d/y - h:i:sA",strtotime($date)); ?></td>
                             <td><?php echo $action; ?></td>
                           </tr>
                         <?php
@@ -135,6 +135,9 @@ $server->adminAuthentication();
 
       $("#usersTable").DataTable();
 
+      $("#refresh").on('click', function () {
+        location.reload(true);
+      });
       // $(".delete").on('click', function() {
       // 	swal({
       // 			title: "Are you sure?",
