@@ -1,5 +1,7 @@
 <?php
 require_once('config.php');
+DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
+
 ?>
 
 <?php
@@ -16,13 +18,13 @@ require_once('config.php');
 
 class Server
 {
- // pati to pa change, iba kasi configuration ng database natin
+  // pati to pa change, iba kasi configuration ng database natin
   // private $user = LESUSER; 
   // private $pass = LESPASS;
   // private $lesDBname = LESDBNAME;
   // private $port = PORT;
 
-  private $user = USER; 
+  private $user = USER;
   private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
@@ -73,32 +75,32 @@ class Server
   }
 
   public function userLogin($query, $data, $pass, $path)
-{
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
 
     if ($stmt->rowCount() > 0) {
-        while ($result = $stmt->fetch()) {
-            $password = $result['password']; // Change 'pwd' to 'password' if needed
-        }
+      while ($result = $stmt->fetch()) {
+        $password = $result['password']; // Change 'pwd' to 'password' if needed
+      }
 
-        if (password_verify($pass, $password)) {
-            // Password is correct
-            header("location:" . $path . "");
-        } else {
-            // Password is incorrect
-            $_SESSION['status'] = "Login Failed!";
-            $_SESSION['text'] = "Wrong Password";
-            $_SESSION['status_code'] = "error";
-        }
-    } else {
-        // Username doesn't exist
+      if (password_verify($pass, $password)) {
+        // Password is correct
+        header("location:" . $path . "");
+      } else {
+        // Password is incorrect
         $_SESSION['status'] = "Login Failed!";
-        $_SESSION['text'] = "Username doesn't exist.";
+        $_SESSION['text'] = "Wrong Password";
         $_SESSION['status_code'] = "error";
+      }
+    } else {
+      // Username doesn't exist
+      $_SESSION['status'] = "Login Failed!";
+      $_SESSION['text'] = "Username doesn't exist.";
+      $_SESSION['status_code'] = "error";
     }
-}
+  }
 
 
   // ------------------------- LOGIN FUNCTION --------------------------
@@ -117,6 +119,7 @@ class Server
         $password = $result['password'];
         $firstname = $result['firstname'];
         $user_id = $result['id'];
+        $account_number = $result['account_number'];
       }
       if (password_verify($pass, $password)) {
 
@@ -124,10 +127,29 @@ class Server
         // $_SESSION['password'] = $password;
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
-
         // pass the value to adminAuthentication()
         // para
         $_SESSION['admin_auth'] = true;
+
+        // Activity log
+        $action = "Logged in the system";
+        $time_log = date("Y-m-d H:i:sA", strtotime("now"));
+        $query_log = "INSERT INTO activity_log (admin_id, firstname, action, date) VALUES (:admin_id, :firstname, :action, :date)";
+        $data_log = [
+          "admin_id" => $account_number,
+          "firstname" => $firstname,
+          "action" => $action,
+          "date" => $time_log
+        ];
+        $stmt = $connection->prepare($query_log);
+        $stmt->execute($data_log);
+        $count = $stmt->rowCount();
+        if ($count > 0) {
+        } else {
+          $_SESSION['status'] = "Warning";
+          $_SESSION['text'] = "Something went wrong.";
+          $_SESSION['status_code'] = "warning";
+        }
 
 
         header("location:" . $path . "");
@@ -158,21 +180,18 @@ class Server
 
     if ($stmt->rowCount() > 0) {
       while ($result = $stmt->fetch()) {
-    
+
         $password = $result['password'];
-      
       }
       if (password_verify($pass, $password)) {
         return true;
       }
       // Pup op alert if password doesn't exist
       else {
-       
       }
     }
     // Pop up alert if Username doesn't exist.
     else {
-      
     }
     header("location:" . $path . "");
   }
@@ -197,8 +216,6 @@ class Server
       $_SESSION['status_code'] = "error";
       header("location:" . $path . "");
     }
-
-    
   }
 
   public function update($query, $data, $path)
@@ -319,7 +336,7 @@ class Server
   // ------------------------- SESSION VALIDATION FUNCTION --------------------------
 
 
-    // if naka login na, hindi na makakabalik sa log in page ulit
+  // if naka login na, hindi na makakabalik sa log in page ulit
   public function adminSessionLogin()
   {
     if (isset($_SESSION['admin_id'])) {

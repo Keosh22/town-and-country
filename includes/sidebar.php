@@ -10,7 +10,7 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn dashboard-btn btn-sidebar btn-dashboard">
-                <a href="../admin-panel/dashboard.php" class="sidebar-link "><i class="bx bxs-dashboard"></i>Dashboard</a>
+                <a href="../admin-panel/dashboard.php" class="sidebar-link "><i class="bx bxs-dashboard bx-tada-hover"></i>Dashboard</a>
               </button>
             </div>
           </li>
@@ -20,7 +20,7 @@
             <!-- Homeowners dropdown -->
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown btn-homeowners">
-                <a href="#" class="sidebar-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-homeowners"><i class="bx bxs-home"></i>Homeowners</i></a>
+                <a href="#" class="sidebar-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-homeowners"><i class="bx bxs-home bx-tada-hover"></i>Homeowners</i></a>
               </button>
             </div>
           </li>
@@ -59,7 +59,7 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown">
-                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-payments"><i class="bx bxs-dollar-circle"></i>Payments</a>
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-payments"><i class="bx bxs-dollar-circle bx-tada-hover"></i>Payments</a>
               </button>
             </div>
             
@@ -111,7 +111,7 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown">
-                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-collections"><i class="bx bxs-collection"></i>Collections</a>
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-collections"><i class="bx bxs-collection bx-tada-hover"></i>Collections</a>
               </button>
             </div>
           </li>
@@ -150,7 +150,7 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown">
-                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-services"><i class="bx bxs-wrench"></i>Services</a>
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-services"><i class="bx bxs-wrench bx-tada-hover"></i>Services</a>
               </button>
             </div>
           </li>
@@ -176,7 +176,7 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn user-btn btn-sidebar btn-dashboard">
-                <a href="../admin-panel/user.php" class="sidebar-link "><i class="bx bxs-user-circle"></i>User Management</a>
+                <a href="../admin-panel/user.php" class="sidebar-link "><i class="bx bxs-user-circle bx-tada-hover"></i>User Management</a>
               </button>
             </div>
           </li>
@@ -215,11 +215,11 @@
           <li class="sidebar-item">
             <div class="d-grid">
               <button class="btn btn-sidebar btn-dashboard-dropdown">
-                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-history"><i class="bx bx-history"></i>History Log</a>
+                <a href="../admin-panel/activity-log.php" class="sidebar-link collapsed sidebar-dropdown-btn"><i class="bx bx-history bx-tada-hover"></i>Activity Log</a>
               </button>
             </div>
           </li>
-          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-history" data-bs-parent="#sidebar">
+          <!-- <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-history" data-bs-parent="#sidebar">
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
@@ -234,7 +234,7 @@
                 </button>
               </div>
             </li>
-          </ul>
+          </ul> -->
 
 
 

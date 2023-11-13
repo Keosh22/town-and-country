@@ -226,7 +226,8 @@ h2{
   background-color: white;
  border-top: solid 3px #284B63;
 }
-.bx-plus{
+.bx-plus,
+.bx-refresh{
   vertical-align: middle;
   margin-right: 3px;
 }

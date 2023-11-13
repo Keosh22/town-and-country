@@ -1,7 +1,11 @@
-<!-- HEADER -->
-<?php require_once("../includes/header.php"); ?>
-<!-- SERVER -->
-<?php require_once("../libs/server.php"); ?>
+<?php 
+require_once("../includes/header.php"); 
+require_once("../libs/server.php"); 
+?>
+<?php  
+DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
+
+?>
 
 <?php
 $server = new Server; // Open/Close connection
@@ -30,7 +34,6 @@ if (isset($_POST['login_submit'])) {
 
         
         $query = "SELECT * FROM admin_users WHERE username = :username";
-
         // kahit hindi ka na mag bindParam, pwede mo na rekta sa loob ng array ($data)
         $data = ["username" =>  $login_Username];
         $path = "../admin-panel/dashboard.php";
