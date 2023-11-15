@@ -19,16 +19,16 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  // private $user = LESUSER; 
-  // private $pass = LESPASS;
-  // private $lesDBname = LESDBNAME;
-  // private $port = PORT;
+  private $user = LESUSER; 
+  private $pass = LESPASS;
+  private $lesDBname = LESDBNAME;
+  private $port = PORT;
 
-  private $user = USER; 
-  private $pass = PASS;
+  // private $user = USER; 
+  // private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
-  private $port = PORT;
+  // private $port = PORT;
   private $dsn;
   private $conn;
   private $option = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
@@ -81,11 +81,15 @@ class Server
 
     if ($stmt->rowCount() > 0) {
         while ($result = $stmt->fetch()) {
-            $password = $result['password']; // Change 'pwd' to 'password' if needed
+            $password = $result['pwd']; // Change 'pwd' to 'password' if needed
+            $user_id = $result["id"];
+            $username = $result["username"];
         }
 
         if (password_verify($pass, $password)) {
             // Password is correct
+            $_SESSION["username"] = $username;
+            $_SESSION["user_id"] = $user_id;
             header("location:" . $path . "");
         } else {
             // Password is incorrect

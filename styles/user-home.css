@@ -32,6 +32,11 @@
 
     .user{
         color: white;
+        margin-bottom: 0 !important;
+    }
+    .user p{
+        font-size: 1.4em;
+        margin-bottom: 0;
     }
 
     .logo img{
@@ -78,6 +83,11 @@
         color: white;
         transition: font-size 0.3s ease; 
         
+    }
+
+
+    .features:hover {
+        cursor: pointer;
     }
 
     /* RESPONSIVE */

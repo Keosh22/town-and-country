@@ -1,5 +1,6 @@
 <?php
 require "../includes/user-header.php";
+
 ?>
 
   <main>
@@ -48,8 +49,8 @@ require "../includes/user-header.php";
         </div>
 
         <div class="col-xl-3 col-md-4 features d-flex flex-column align-items-center justify-content-center text-center">
-          <i class="fa-regular fa-user" style="color: white;"></i>
-          <p>PROFILE</p>
+        <i class="fa-solid fa-rectangle-ad" style="color:white;"></i>
+          <p>PROMOTIONAL</p>
         </div>
 
       </div>

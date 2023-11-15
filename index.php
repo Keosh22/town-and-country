@@ -1,5 +1,6 @@
 <!-- HEADER -->
-<?php //require_once("./includes/header.php"); ?>
+<?php 
+//require_once("./includes/user-header.php"); ?>
 <!-- SERVER -->
 <?php require_once("./libs/server.php"); ?>
 
@@ -70,19 +71,23 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
-
+<!-- 
 <div class="wrapper-container">
 
 
 
 <nav class="navbar navbar-expand-md fixed-top  color">
   <div class="container-fluid ">
-    <a href="#" class="navbar-brand"><img class="navbar-logo" src="./img/logo.png"></a>
+    <a href="#" class="navbar-brand"><img class="navbar-logo" src="./img/logo.png"></a> 
+-->
 
     <!-- Hamburger menu Button -->
-   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle"><i class="bx bx-menu bx-sm" style="color:#fffffe;"></i></button>
+   <!--
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle"><i class="bx bx-menu bx-sm" style="color:#fffffe;"></i></button>
+     -->
 
    <!-- Navbar collapse -->
+<!--    
   <div class="collapse navbar-collapse ms-5" id="toggle">
     <ul class="navbar-nav align-items-center">
       <li class="navbar-item">
@@ -102,13 +107,13 @@ if (isset($_POST['login'])) {
 
   </div>
  </nav>
-
+ -->
 
 
 
 <div class="row row-register justify-content-center align-items-center overflow-hidden">
     <div class="col-lg-5 col-md-6 col-sm-7 col-8 bg-white shadow-lg rounded">
-      <h2 class="text-center mt-3">Sign In</h2>
+      <h2 class="text-center mt-3">Log In</h2>
       <p class="text-center text-muted">Town and Country Heights</p>
 
       <!-- Login Form -->
@@ -130,7 +135,7 @@ if (isset($_POST['login'])) {
             <label for="checkbox">Remember me</label>
           </div>
           <div class="col-6 text-end">
-            <a href="#" class="link-underline link-underline-opacity-0 text-muted link-primary">|Forgot Password?</a>
+            <a href="#" class="link-underline link-underline-opacity-0 text-muted link-primary">Forgot Password?</a>
           </div>
         </div>
       </form>

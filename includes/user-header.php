@@ -21,7 +21,7 @@
         </div>
 
         <div class="col-6 d-flex user align-items-center justify-content-end">
-          <p><?= $_SESSION["userID"]?>-<?= $_SESSION["username"]?> </p>
+          <p><?= $_SESSION["user_id"]?>-<?= $_SESSION["username"]?> </p>
         </div>
 
       </div>
