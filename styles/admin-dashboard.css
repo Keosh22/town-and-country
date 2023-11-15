@@ -29,7 +29,6 @@ body{
 .main-collapsed{
   margin-left: 0px;
   transition: 0.6s ease;
-
 }
 #sidebar{
   position: fixed;

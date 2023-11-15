@@ -70,11 +70,11 @@ if ($rowCount > 0) {
               <div class="row mb-3 justify-content-center">
 
                 <div class="row profile-container justify-content-center">
-                  <img src="../uploads/<?php if($photo == ""){
-                    echo'default-profile.png';
-                  }else{
-                    echo $photo;
-                  } ?>" class="profile-photo rounded-circle shadow">
+                  <img src="../uploads/<?php if ($photo == "") {
+                                          echo 'default-profile.png';
+                                        } else {
+                                          echo $photo;
+                                        } ?>" class="profile-photo rounded-circle shadow">
                 </div>
 
 
@@ -148,10 +148,17 @@ if ($rowCount > 0) {
                     <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show bx-show-changepass confirm-password-icon'></i></span>
                     <div id="confirmPasswordHelpBlock"></div>
                   </div>
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" value="" id="showPassword">
+                      <label for="showPassword" class="form-check-label text-secondary">Show password</label>
+                    </div>
+                  </div>
                 </div>
                 <div class="d-flex justify-content-end mt-2">
                   <input type="submit" class="btn btn-primary" id="change_password" name="change_password" value="Update" disabled>
                 </div>
+
               </form>
 
 
@@ -177,7 +184,7 @@ if ($rowCount > 0) {
 
   <script>
     $(document).ready(function() {
-
+      $("#confirm_password").prop("disabled", true);
       // ajax for current password mathced validation
       $("#current_password").on('keyup', function() {
         var current_password = $(this).val();
@@ -223,7 +230,7 @@ if ($rowCount > 0) {
 
         // Strong pasword validation
         if (password.length <= 7 || password === "") {
-          $("#newPasswordHelpBlock").empty().append('<div id="newPasswordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div>');
+          $("#newPasswordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div> ');
 
           $("#new_password").removeClass("input-success");
           $("#new_password").addClass("input-danger");
@@ -251,7 +258,7 @@ if ($rowCount > 0) {
               $("#newPasswordHelpBlock").empty().append('<div id="newPasswordHelpBlock"></div>');
             }
           } else {
-            $("#newPasswordHelpBlock").empty().append('<div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div>');
+            $("#newPasswordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div> ');
             $("#new_password").removeClass("input-success");
             $("#new_password").addClass("input-danger");
           }
@@ -299,8 +306,7 @@ if ($rowCount > 0) {
       });
 
       // show icon 
-      $(".toggle-current-password").on('click', function() {
-        $(".current-password-icon").toggleClass("bx-show bx-hide");
+      $("#showPassword").on('click', function() {
         var input = $("#current_password");
         if (input.attr("type") == "password") {
           input.attr("type", "text");
@@ -308,24 +314,23 @@ if ($rowCount > 0) {
           input.attr("type", "password");
         }
       });
-      // show icon 
-      $(".toggle-password").on('click', function() {
-        $(".password-icon").toggleClass("bx-show bx-hide");
+      // password show password
+      $("#showPassword").on('click', function() {
         var input = $("#new_password");
-        if (input.attr("type") == "password") {
-          input.attr("type", "text");
+        if (input.attr('type') == "password") {
+          input.attr('type', 'text');
         } else {
-          input.attr("type", "password");
+          input.attr('type', 'password');
         }
       });
-      // show Icon
-      $(".toggle-confirm-password").on('click', function() {
-        $(".confirm-password-icon").toggleClass("bx-show bx-hide");
+
+      // confirm password show password
+      $("#showPassword").on('click', function() {
         var input = $("#confirm_password");
-        if (input.attr("type") == "password") {
-          input.attr("type", "text");
+        if (input.attr('type') == "password") {
+          input.attr('type', 'text');
         } else {
-          input.attr("type", "password");
+          input.attr('type', 'password')
         }
       });
 

@@ -96,5 +96,5 @@ if (isset($_POST['login_submit'])) {
 
     <!-- FOOTER -->
     <?php
-    include(DIR . "includes/footer.php");
+    include("../includes/footer.php");
     ?>
