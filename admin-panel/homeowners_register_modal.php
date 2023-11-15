@@ -24,7 +24,7 @@ if (isset($_POST['register'])) {
   $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
   $tenant_name = filter_input(INPUT_POST, 'tenant_name', FILTER_SANITIZE_SPECIAL_CHARS);
-  
+
 
 
   if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
@@ -72,10 +72,10 @@ if (isset($_POST['register'])) {
             <!-- <div class="col-12">
             <button class="btn btn-success" type="button" id="add_tenant" data-bs-toggle="collapse" data-bs-target="#tenantCollapse" >Add Tenant</button>
             </div> -->
-           
+
             <div class="col-12">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="add_tenant" name="radioDefault" data-bs-toggle="collapse" data-bs-target="#tenantCollapse">
+              <div class="form-check form-switch">
+                <input type="checkbox" role="switch" class="form-check-input" id="add_tenant" name="radioDefault" data-bs-toggle="collapse" data-bs-target="#tenantCollapse">
                 <label for="tenant" class="form-check-label text-primary">Add Tenant</label>
               </div>
             </div>
@@ -104,7 +104,7 @@ if (isset($_POST['register'])) {
                       <label for="tenant" class="form-label">Fullname</label>
                       <input type="text" class="form-control" id="tenant_name" name="tenant_name">
                     </div>
-                    
+
                   </div>
                 </div>
               </div>
@@ -166,14 +166,21 @@ if (isset($_POST['register'])) {
               <div class="col-lg-6">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control password-input" id="password" name="password" required readonly>
-                <span toggle="#password" class="toggle-password"><i class="bx bx-hide bx-show-changepass password-icon"></i></span>
+                <!-- <span toggle="#password" class="toggle-password"><i class="bx bx-hide bx-show-changepass password-icon"></i></span> -->
                 <div id="passwordHelpBlock"></div>
               </div>
-              <div class="col-lg-6"><label for="confirm_password" class="form-label">Confirm Password</label>
+              <div class="col-lg-6">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" required readonly>
-                <span class="toggle-confirm-password"><i toggle="#confirm_password" class="bx bx-hide bx-show-changepass confirm-password-icon"></i>
-                </span>
+                <!-- <span class="toggle-confirm-password"><i toggle="#confirm_password" class="bx bx-hide bx-show-changepass confirm-password-icon"></i>
+                </span> -->
                 <div id="confirmpasswordHelpBlock"></div>
+              </div>
+              <div class="col mt-2">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" value="" id="showPassword">
+                  <label for="showPassword" class="form-check-label text-secondary">Show password</label>
+                </div>
               </div>
 
 
@@ -202,8 +209,11 @@ if (isset($_POST['register'])) {
       $(".confirm-password-input").removeClass("input-danger");
       $("#confirmpasswordHelpBlock").empty().append('<div id="confirmpasswordHelpBlock"></div>');
       $("#add_tenant").prop('checked', false);
+      $("#showPassword").prop('checked', false);
       $('#tenantCollapse').collapse('hide');
-      
+      $("#password").attr('type', "password");
+      $("#confirm_password").attr('type', "password");
+
 
     });
 
@@ -235,8 +245,8 @@ if (isset($_POST['register'])) {
 
 
     // password show password
-    $(".toggle-password").on('click', function() {
-      $(".password-icon").toggleClass("bx-hide bx-show");
+    $("#showPassword").on('click', function() {
+
       var input = $("#password");
 
       if (input.attr('type') == "password") {
@@ -247,8 +257,8 @@ if (isset($_POST['register'])) {
     });
 
     // confirm password show password
-    $(".toggle-confirm-password").on('click', function() {
-      $(".confirm-password-icon").toggleClass("bx-hide bx-show");
+    $("#showPassword").on('click', function() {
+
       var input = $("#confirm_password");
       if (input.attr('type') == "password") {
         input.attr('type', 'text');
@@ -256,6 +266,16 @@ if (isset($_POST['register'])) {
         input.attr('type', 'password')
       }
     });
+
+    // $(".toggle-confirm-password").on('click', function() {
+    //   $(".confirm-password-icon").toggleClass("bx-hide bx-show");
+    //   var input = $("#confirm_password");
+    //   if (input.attr('type') == "password") {
+    //     input.attr('type', 'text');
+    //   } else {
+    //     input.attr('type', 'password')
+    //   }
+    // });
 
     // password validation
     $("#password,#confirm_password").on('keyup', function() {
@@ -268,7 +288,7 @@ if (isset($_POST['register'])) {
       // Checked if password is 8 char long
       if (password.length <= 7) {
         $("#register").prop('disabled', true);
-        $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div>');
+        $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div> ');
         $(".password-input").removeClass("input-success");
         $(".password-input").addClass("input-danger");
       } else {
@@ -282,7 +302,7 @@ if (isset($_POST['register'])) {
           $(".password-input").addClass("input-success");
         } else {
           $("#register").prop('disabled', true);
-          $("#passwordHelpBlock").empty().append('<div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain uppercase letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div>');
+          $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock" class="form-text text-danger">Your password must be 8-20 characters long</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain letters and numbers.</div> <div id="newPasswordHelpBlock" class="form-text text-danger">Must be contain special symbols (!, @, $, %, ^, &, *, +, #, .)</div> ');
           $(".password-input").removeClass("input-success");
           $(".password-input").addClass("input-danger");
         }

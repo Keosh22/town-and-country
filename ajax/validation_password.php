@@ -15,6 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   ];
   $response = '
   <div class="form-text text-danger">Current password not matched</div>
+  
   ';
   $button = '<script>
   $("#change_password").prop("disabled", true);
