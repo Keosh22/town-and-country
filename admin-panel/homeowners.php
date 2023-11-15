@@ -45,8 +45,10 @@ $server->adminAuthentication();
 							<div class="box">
 								<!-- 	HEADER TABLE -->
 								<div class="header-box container-fluid d-flex align-items-center">
-									<!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addnew">Add user</button> -->
-									<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+									<div class="col">
+										<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+									</div>
+
 								</div>
 
 								<div class="body-box shadow-sm">
@@ -73,6 +75,7 @@ $server->adminAuthentication();
 												$stmt = $connection->prepare($query);
 												$stmt->execute();
 												while ($result = $stmt->fetch()) {
+													$homeowners_id = $result['id'];
 													$account_number = $result['account_number'];
 													$firstname = $result['firstname'];
 													$lastname = $result['lastname'];
@@ -93,13 +96,13 @@ $server->adminAuthentication();
 															<div class="profile-container"><img class="profile-image" src="../uploads/default-profile.png"></div>
 														</td>
 														<td>
-															<?php 
-															if($tenant_name == ""){
+															<?php
+															if ($tenant_name == "") {
 																$tenant_name = "";
 															} else {
-																$tenant_name = "Tenant: ". $tenant_name;
+																$tenant_name = "Tenant: " . $tenant_name;
 															}
-															echo $firstname . " " . $middle_initial . " " . $lastname. "<br><p class='text-info'>".$tenant_name."</p>"; 
+															echo $firstname . " " . $middle_initial . " " . $lastname . "<br><p class='text-info'>" . $tenant_name . "</p>";
 															?>
 														</td>
 														<td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?></td>
@@ -107,33 +110,34 @@ $server->adminAuthentication();
 														<td><?php echo $phone_number; ?></td>
 														<td>
 															<?php
-															if($status == 'Member'){
-																?>
+															if ($status == 'Member') {
+															?>
 																<span class="badge rounded-pill text-bg-success"><?php echo $status; ?></span>
-																<?php
+															<?php
 															} elseif ($status == 'Non-member') {
-																?>
+															?>
 																<span class="badge rounded-pill text-bg-danger"><?php echo $status; ?></span>
-																<?php
-															} elseif($status == 'Tenant - Member') {
-																?>
+															<?php
+															} elseif ($status == 'Tenant - Member') {
+															?>
 																<span class="badge rounded-pill text-bg-warning">Tenant</span>
 																<span class="badge rounded-pill text-bg-success">Member</span>
-																<?php
-															} elseif($status == 'Tenant - Non-member'){
-																?>
+															<?php
+															} elseif ($status == 'Tenant - Non-member') {
+															?>
 																<span class="badge rounded-pill text-bg-warning">Tenant</span>
 																<span class="badge rounded-pill text-bg-danger">Non-Member</span>
-																<?php
+															<?php
 															}
-														
-														  ?>
-													</td>
+
+															?>
+														</td>
 														<td>
 															<div class="dropdown">
 																<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
 																<ul class="dropdown-menu">
-																	<li><a href="#" class="dropdown-item">View</a></li>
+																	<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																	<li><a href="./property.php?id=<?php echo $homeowners_id;?>" class="dropdown-item add-property" id="">Add Property</a></li>
 																	<li><a href="" class="dropdown-item">Edit</a></li>
 																	<li><a href="" class="dropdown-item">Delete</a></li>
 																</ul>
@@ -145,7 +149,7 @@ $server->adminAuthentication();
 												}
 												?>
 
-
+												
 											</tbody>
 											<tfoot>
 												<tr>
@@ -184,13 +188,35 @@ $server->adminAuthentication();
 		</div>
 	</div>
 	<?php
+
 	// Register Homeowners Modal
 	include("../admin-panel/homeowners_register_modal.php");
+
+
 	?>
 
 
 	<script>
 		$(document).ready(function() {
+		
+
+
+
+
+			// $(".add-property").on('click', function (){
+			// 	var id = $(this).attr("data-id");
+			// 		console.log(id);
+			// 	$.ajax({
+      //   url: './admin-panel/property.php',
+      //   method: 'POST',
+      //   data: {
+      //     id: id
+      //   },
+        
+      // });
+
+			// });
+
 			$("#homeownersTable").DataTable();
 		});
 	</script>

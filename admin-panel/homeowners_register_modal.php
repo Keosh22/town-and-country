@@ -98,7 +98,7 @@ if (isset($_POST['register'])) {
                 <div class="card card-body shadow-sm">
                   <div class="row">
                     <div class="col-12">
-                      <p class="fs-5 text-danger">Tenant's Information</p>
+                      <p class="text-danger">Tenant's Information</p>
                     </div>
                     <div class="col-12">
                       <label for="tenant" class="form-label">Fullname</label>
@@ -118,16 +118,8 @@ if (isset($_POST['register'])) {
               <label for="phone_number" class="form-label">Phone Number</label>
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
-            <div class="col-md-6">
-              <label for="phase" class="form-label">Phase#</label>
-              <select name="phase" id="phase" class="form-select" required>
-                <option value=""></option>
-                <option value="PH1">Phase 1</option>
-                <option value="PH2">Phase 2</option>
-                <option value="PH3">Phase 3</option>
-              </select>
-            </div>
-            <div class="col-md-6">
+
+            <div class="col-12">
               <label for="status" class="form-label">Status</label>
               <select name="status" id="status" class="form-select" required>
                 <option value=""></option>
@@ -137,22 +129,51 @@ if (isset($_POST['register'])) {
                 <option value="Tenant - Non-member">Tenant - Non-member</option>
               </select>
             </div>
-            <div class="col-3">
-              <label for="blk" class="form-label">Blk#</label>
-              <input type="text" class="form-control" id="blk" name="blk" required>
+
+
+            <div class="col-12" id="propertyCard">
+              <div class="card card-body shadow-sm">
+              <div class="col-12">
+                      <p class="text-danger">Property</p>
+                    </div>
+                <div id="propertyContainer">
+                  <div class="row">
+                    <div class="col-1 d-flex align-items-end">
+                      <a class="fs-5 text-success" role="button" ><i class='add_property fs-3 bx bxs-plus-circle bx-tada-hover'></i></a>
+                    </div>
+                    <div class="col-2">
+                      <label for="blk" class="form-label">Blk#</label>
+                      <input type="text" class="form-control" id="blk" name="blk" required>
+                    </div>
+                    <div class="col-2">
+                      <label for="lot" class="form-label">Lot#</label>
+                      <input type="text" class="form-control" id="lot" name="lot" required>
+                    </div>
+                    <div class="col-3">
+                      <label for="phase" class="form-label">Phase#</label>
+                      <select name="phase" id="phase" class="form-select" required>
+                        <option value=""></option>
+                        <option value="PH1">Phase 1</option>
+                        <option value="PH2">Phase 2</option>
+                        <option value="PH3">Phase 3</option>
+                      </select>
+                    </div>
+                    <div class="col-4">
+                      <label for="street" class="form-label">Street</label>
+                      <select name="street" id="street" class="form-select" required>
+                        <option></option>
+                        <option>Jackfruit</option>
+                        <option>Golden Shower</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-3">
-              <label for="lot" class="form-label">Lot#</label>
-              <input type="text" class="form-control" id="lot" name="lot" required>
-            </div>
-            <div class="col-6">
-              <label for="street" class="form-label">Street</label>
-              <select name="street" id="street" class="form-select" required>
-                <option></option>
-                <option>Jackfruit</option>
-                <option>Golden Shower</option>
-              </select>
-            </div>
+
+
+
+
 
             <div class="row">
               <p class="fs-5 text-secondary divider personal-info mt-4">Account Information</p>
@@ -182,18 +203,22 @@ if (isset($_POST['register'])) {
                   <label for="showPassword" class="form-check-label text-secondary">Show password</label>
                 </div>
               </div>
+              </div>
+           
+              
 
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register">Register</button>
               </div>
-            </div>
+              </div>
         </form>
       </div>
 
     </div>
   </div>
+
 </div>
 
 <script>
@@ -331,9 +356,14 @@ if (isset($_POST['register'])) {
     // Status on changed
     $("#status").on('change', function() {
       var status = $("#status").val();
-
     });
 
+
+
+    // Add property inputs
+    $(".add_property").on('click', function() {
+      $("#propertyContainer").append('<p>hello</p>');
+    });
 
 
 

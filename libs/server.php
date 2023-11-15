@@ -293,6 +293,22 @@ class Server
 
 
 
+  public function insert($query, $data){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    
+    if($stmt->rowCount() > 0 ){
+
+    } else {
+
+    }
+   
+    
+  }
+
+
+
 
 
   public function checkUsername($query, $data, $path)
