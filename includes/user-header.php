@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@
         </div>
 
         <div class="col-6 d-flex user align-items-center justify-content-end">
-          <p>lesther 123</p>
+          <p><?= $_SESSION["user_id"]?>-<?= $_SESSION["username"]?> </p>
         </div>
 
       </div>
