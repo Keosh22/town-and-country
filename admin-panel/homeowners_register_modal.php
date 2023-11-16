@@ -23,13 +23,13 @@ if (isset($_POST['register'])) {
   $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
   $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
-  $tenant_name = filter_input(INPUT_POST, 'tenant_name', FILTER_SANITIZE_SPECIAL_CHARS);
+
 
 
 
   if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
   } else {
-    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status, tenant_name ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status, :tenant_name)";
+    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status)";
     $data = [
       "account_number" => $account_number,
       "username" => $username,
@@ -43,8 +43,7 @@ if (isset($_POST['register'])) {
       "lot" => $lot,
       "street" => $street,
       "phase" => $phase,
-      "status" => $status,
-      "tenant_name" => $tenant_name
+      "status" => $status
     ];
     $path = "../admin-panel/homeowners.php";
     $server->register($query, $data, $path);
@@ -69,88 +68,59 @@ if (isset($_POST['register'])) {
 
           <div class="row gy-3">
             <p class="fs-5 text-secondary divider personal-info mt-3 mb-0">Personal Information</p>
-            <!-- <div class="col-12">
-            <button class="btn btn-success" type="button" id="add_tenant" data-bs-toggle="collapse" data-bs-target="#tenantCollapse" >Add Tenant</button>
-            </div> -->
 
-            <div class="col-12">
-              <div class="form-check form-switch">
-                <input type="checkbox" role="switch" class="form-check-input" id="add_tenant" name="radioDefault" data-bs-toggle="collapse" data-bs-target="#tenantCollapse">
-                <label for="tenant" class="form-check-label text-primary">Add Tenant</label>
-              </div>
-            </div>
+
+
             <div class="col-md-5">
-              <label for="firstname" class="form-label">Firstname</label>
+              <label for="firstname" class="form-label text-secondary">Firstname</label>
               <input type="text" class="form-control" id="firstname" name="firstname" required>
             </div>
             <div class="col-md-5">
-              <label for="lastname" class="form-label">Lastname</label>
+              <label for="lastname" class="form-label text-secondary">Lastname</label>
               <input type="text" class="form-control" id="lastname" name="lastname" required>
             </div>
             <div class="col-md-2">
-              <label for="middle_initial" class="form-label">M.I.</label>
+              <label for="middle_initial" class="form-label text-secondary">M.I.</label>
               <input type="text" class="form-control" id="middle_initial" name="middle_initial" required>
             </div>
 
-            <!-- Tenant collaspable card -->
-            <div class="collapse" id="tenantCollapse">
-              <div class="col-12">
-                <div class="card card-body shadow-sm">
-                  <div class="row">
-                    <div class="col-12">
-                      <p class="text-danger">Tenant's Information</p>
-                    </div>
-                    <div class="col-12">
-                      <label for="tenant" class="form-label">Fullname</label>
-                      <input type="text" class="form-control" id="tenant_name" name="tenant_name">
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div class="col-md-6">
-              <label for="email" class="form-label">Email</label>
+              <label for="email" class="form-label text-secondary">Email</label>
               <input type="text" class="form-control" id="email" name="email" required>
             </div>
             <div class="col-md-6">
-              <label for="phone_number" class="form-label">Phone Number</label>
+              <label for="phone_number" class="form-label text-secondary">Phone Number</label>
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
 
             <div class="col-12">
-              <label for="status" class="form-label">Status</label>
+              <label for="status" class="form-label text-secondary">Status</label>
               <select name="status" id="status" class="form-select" required>
                 <option value=""></option>
                 <option value="Member">Member</option>
                 <option value="Non-member">Non-member</option>
-                <option value="Tenant - Member">Tenant - Member</option>
-                <option value="Tenant - Non-member">Tenant - Non-member</option>
               </select>
             </div>
 
 
             <div class="col-12" id="propertyCard">
               <div class="card card-body shadow-sm">
-              <div class="col-12">
-                      <p class="text-danger">Property</p>
-                    </div>
+                <div class="col-12">
+                  <p class="text-danger">Current Address</p>
+                </div>
                 <div id="propertyContainer">
                   <div class="row">
-                    <div class="col-1 d-flex align-items-end">
-                      <a class="fs-5 text-success" role="button" ><i class='add_property fs-3 bx bxs-plus-circle bx-tada-hover'></i></a>
+                    <div class="col-2">
+                      <label for="blk" class="form-label text-secondary">Blk#</label>
+                      <input type="text" class="form-control text-secondary" id="blk" name="blk" required>
                     </div>
                     <div class="col-2">
-                      <label for="blk" class="form-label">Blk#</label>
-                      <input type="text" class="form-control" id="blk" name="blk" required>
-                    </div>
-                    <div class="col-2">
-                      <label for="lot" class="form-label">Lot#</label>
+                      <label for="lot" class="form-label text-secondary">Lot#</label>
                       <input type="text" class="form-control" id="lot" name="lot" required>
                     </div>
-                    <div class="col-3">
-                      <label for="phase" class="form-label">Phase#</label>
+                    <div class="col-4">
+                      <label for="phase" class="form-label text-secondary">Phase#</label>
                       <select name="phase" id="phase" class="form-select" required>
                         <option value=""></option>
                         <option value="PH1">Phase 1</option>
@@ -159,7 +129,7 @@ if (isset($_POST['register'])) {
                       </select>
                     </div>
                     <div class="col-4">
-                      <label for="street" class="form-label">Street</label>
+                      <label for="street" class="form-label text-secondary">Street</label>
                       <select name="street" id="street" class="form-select" required>
                         <option></option>
                         <option>Jackfruit</option>
@@ -173,28 +143,25 @@ if (isset($_POST['register'])) {
 
 
 
-
-
             <div class="row">
               <p class="fs-5 text-secondary divider personal-info mt-4">Account Information</p>
               <div class="col-12">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label text-secondary">Username</label>
                 <div class="input-group">
-                  <span class="input-group-text" id="#username">@</span>
+                  <span class="input-group-text text-secondary" id="#username">@</span>
                   <input type="text" class="form-control" id="username" name="username" required readonly>
                 </div>
               </div>
               <div class="col-lg-6">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label text-secondary">Password</label>
                 <input type="password" class="form-control password-input" id="password" name="password" required readonly>
-                <!-- <span toggle="#password" class="toggle-password"><i class="bx bx-hide bx-show-changepass password-icon"></i></span> -->
+              
                 <div id="passwordHelpBlock"></div>
               </div>
               <div class="col-lg-6">
-                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <label for="confirm_password" class="form-label text-secondary">Confirm Password</label>
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" required readonly>
-                <!-- <span class="toggle-confirm-password"><i toggle="#confirm_password" class="bx bx-hide bx-show-changepass confirm-password-icon"></i>
-                </span> -->
+          
                 <div id="confirmpasswordHelpBlock"></div>
               </div>
               <div class="col mt-2">
@@ -203,16 +170,16 @@ if (isset($_POST['register'])) {
                   <label for="showPassword" class="form-check-label text-secondary">Show password</label>
                 </div>
               </div>
-              </div>
-           
-              
+            </div>
 
 
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register">Register</button>
-              </div>
-              </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register">Register</button>
+            </div>
+          </div>
         </form>
       </div>
 
@@ -233,9 +200,9 @@ if (isset($_POST['register'])) {
       $(".confirm-password-input").removeClass("input-success");
       $(".confirm-password-input").removeClass("input-danger");
       $("#confirmpasswordHelpBlock").empty().append('<div id="confirmpasswordHelpBlock"></div>');
-      $("#add_tenant").prop('checked', false);
+
       $("#showPassword").prop('checked', false);
-      $('#tenantCollapse').collapse('hide');
+
       $("#password").attr('type', "password");
       $("#confirm_password").attr('type', "password");
 
