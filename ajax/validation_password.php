@@ -18,12 +18,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   
   ';
   $button = '<script>
-  $("#change_password").prop("disabled", true);
   $("#current_password").removeClass("input-success");
   $("#current_password").addClass("input-danger");
+  $("#change_password").prop("disabled", true);
   $("#confirm_password").addClass("input-danger");
   $("#confirm_password").removeClass("input-success");
-  $("#confirmPasswordHelpBlock").empty().append("<div id="newPasswordHelpBlock" class="form-text text-danger">Password not Matched</div>");
+
   $("#confirm_password").val("");
   </script>';
 
@@ -47,14 +47,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
       $response = '<div class="form-text text-success">Current password matched</div>';
       $button = '<script>
       $("#change_password").prop("disabled", true);
-   
       $("#current_password").removeClass("input-danger");
       $("#current_password").addClass("input-success");
       </script>';
     }
   } else { 
-    echo $response;
-  echo $button;
+   
   } 
   echo $response;
   echo $button;

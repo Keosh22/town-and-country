@@ -31,17 +31,26 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- content header -->
-        <section class="content-header d-flex justify-content-between align-items-center mb-3">
-          <h2 class="">Activity Log</h2>
+        <section class="content-header d-flex justify-content-end align-items-center mb-3">
+        
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item">Activity Log</li>
           </ol>
         </section>
+        
+        
+        <!-- Card Start here -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Activity Log</h2>
+          </div>
+          <div class="card-body">
+            <div class="container-fluid">
 
-
-
-        <section class="main-content">
+  
+             
+              <section class="main-content">
           <div class="row">
             <div class="col-xs-12">
               <div class="box">
@@ -131,16 +140,22 @@ $server->adminAuthentication();
           </div>
 
         </section>
+                
+
+
+                
+
+              
+
+
+                   
 
 
 
-
-
-
-
-
-
-
+		
+            </div>
+          </div>
+        </div>
       </main>
 
 

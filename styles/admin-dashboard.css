@@ -9,10 +9,16 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+ 
 }
+.content{
+  margin-top: 50px;
+}
+
 
 /* Initial style */
 .wrapper{
+  
   display: flex;
   align-items: stretch;
   width: 100%;
@@ -20,7 +26,7 @@ body{
   min-height: 100vh;
   
 }
-.main{
+.main{ 
   background-color: #e6e6e6;
   margin-left: 264px;
 
@@ -51,7 +57,21 @@ body{
   overflow: hidden;
 }
 .navbar{ 
+  
+  left: 264px;
+  right: 0;
+  z-index: 100;
+  position: fixed;
   background-color: #E4EFE7;
+  transition: 0.6s ease;
+}
+.navbar-collapse{ 
+  left: 0px;
+  right: 0;
+  z-index: 100;
+  position: fixed;
+  background-color: #E4EFE7;
+  transition: 0.6s ease;
 }
 
 /* SIDE BAR */
@@ -223,7 +243,7 @@ h2{
 .header-box{
   height: 55px;
   background-color: white;
- border-top: solid 3px #284B63;
+ /* border-top: solid 3px #284B63; */
 }
 .bx-plus,
 .bx-refresh{

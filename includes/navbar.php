@@ -1,15 +1,12 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar">
   <div class="container-fluid">
     <button id="sidebar-toggler-btn" type="button">
       <i id="chevron-right" class="bx bx-chevrons-right fs-3"></i>
     </button>
     <!-- Hamburger Menu -->
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
-      <i class="bx bx-menu"></i>
-    </button>
-    <div class="navbar-collapse collapse" id="navbar-collapse">
+    
+    
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
       </ul>
       <div class="mx-auto"></div>
       <div class="nav-item dropdown me-4">
@@ -24,24 +21,25 @@
         </ul>
       </div>
 
-    </div>
+    
   </div>
 
 </nav>
 
 <script>
   $(document).ready(function() {
-    const chevronsElement = document.getElementById("chevron-right");
-    const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
+    
+   
 
-    sidebarBtnToggler.addEventListener('click', () => {
+    document.getElementById("sidebar-toggler-btn").addEventListener('click', () => {
       rotateChevrons();
       document.querySelector("#sidebar").classList.toggle("collapsed")
       document.querySelector(".main").classList.toggle("main-collapsed")
+      document.querySelector(".navbar").classList.toggle("navbar-collapse");
     });
 
     function rotateChevrons() {
-      chevronsElement.classList.toggle("sidebar-toggler-left");
+      document.getElementById("chevron-right").classList.toggle("sidebar-toggler-left");
     }
   });
 </script>

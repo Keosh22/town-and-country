@@ -72,30 +72,30 @@ if (isset($_POST['register'])) {
 
 
             <div class="col-md-5">
-              <label for="firstname" class="form-label text-secondary">Firstname</label>
+              <label for="firstname" class="form-label ">Firstname</label>
               <input type="text" class="form-control" id="firstname" name="firstname" required>
             </div>
             <div class="col-md-5">
-              <label for="lastname" class="form-label text-secondary">Lastname</label>
+              <label for="lastname" class="form-label ">Lastname</label>
               <input type="text" class="form-control" id="lastname" name="lastname" required>
             </div>
             <div class="col-md-2">
-              <label for="middle_initial" class="form-label text-secondary">M.I.</label>
+              <label for="middle_initial" class="form-label ">M.I.</label>
               <input type="text" class="form-control" id="middle_initial" name="middle_initial" required>
             </div>
 
 
             <div class="col-md-6">
-              <label for="email" class="form-label text-secondary">Email</label>
+              <label for="email" class="form-label ">Email</label>
               <input type="text" class="form-control" id="email" name="email" required>
             </div>
             <div class="col-md-6">
-              <label for="phone_number" class="form-label text-secondary">Phone Number</label>
+              <label for="phone_number" class="form-label ">Phone Number</label>
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
             </div>
 
             <div class="col-12">
-              <label for="status" class="form-label text-secondary">Status</label>
+              <label for="status" class="form-label ">Status</label>
               <select name="status" id="status" class="form-select" required>
                 <option value=""></option>
                 <option value="Member">Member</option>
@@ -112,15 +112,15 @@ if (isset($_POST['register'])) {
                 <div id="propertyContainer">
                   <div class="row">
                     <div class="col-2">
-                      <label for="blk" class="form-label text-secondary">Blk#</label>
-                      <input type="text" class="form-control text-secondary" id="blk" name="blk" required>
+                      <label for="blk" class="form-label ">Blk#</label>
+                      <input type="text" class="form-control " id="blk" name="blk" required>
                     </div>
                     <div class="col-2">
-                      <label for="lot" class="form-label text-secondary">Lot#</label>
+                      <label for="lot" class="form-label ">Lot#</label>
                       <input type="text" class="form-control" id="lot" name="lot" required>
                     </div>
                     <div class="col-4">
-                      <label for="phase" class="form-label text-secondary">Phase#</label>
+                      <label for="phase" class="form-label ">Phase#</label>
                       <select name="phase" id="phase" class="form-select" required>
                         <option value=""></option>
                         <option value="PH1">Phase 1</option>
@@ -129,7 +129,7 @@ if (isset($_POST['register'])) {
                       </select>
                     </div>
                     <div class="col-4">
-                      <label for="street" class="form-label text-secondary">Street</label>
+                      <label for="street" class="form-label ">Street</label>
                       <select name="street" id="street" class="form-select" required>
                         <option></option>
                         <option>Jackfruit</option>
