@@ -13,7 +13,7 @@
       </ul>
       <div class="mx-auto"></div>
       <div class="nav-item dropdown me-4">
-        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - <?php echo $_SESSION['firstname']; ?></a>
+        <button  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - <?php echo $_SESSION['firstname']; ?></button>
         <ul class="dropdown-menu">
           <li><a href="../admin-panel/profile.php" class="dropdown-item">Profile</a></li>
           <li><a href="#" class="dropdown-item">Settings</a></li>
@@ -30,16 +30,18 @@
 </nav>
 
 <script>
-  const chevronsElement = document.getElementById("chevron-right");
-  const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
+  $(document).ready(function() {
+    const chevronsElement = document.getElementById("chevron-right");
+    const sidebarBtnToggler = document.getElementById("sidebar-toggler-btn");
 
-  sidebarBtnToggler.addEventListener('click', () => {
-    rotateChevrons();
-    document.querySelector("#sidebar").classList.toggle("collapsed")
-    document.querySelector(".main").classList.toggle("main-collapsed")
+    sidebarBtnToggler.addEventListener('click', () => {
+      rotateChevrons();
+      document.querySelector("#sidebar").classList.toggle("collapsed")
+      document.querySelector(".main").classList.toggle("main-collapsed")
+    });
+
+    function rotateChevrons() {
+      chevronsElement.classList.toggle("sidebar-toggler-left");
+    }
   });
-
-  function rotateChevrons() {
-    chevronsElement.classList.toggle("sidebar-toggler-left");
-  }
 </script>
