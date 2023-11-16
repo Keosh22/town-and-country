@@ -1,6 +1,7 @@
 <!-- HEADER -->
-<?php 
-//require_once("./includes/user-header.php"); ?>
+<?php
+//require_once("./includes/user-header.php"); 
+?>
 <!-- SERVER -->
 <?php require_once("./libs/server.php"); ?>
 
@@ -16,31 +17,39 @@ session_start();
 if (isset($_POST['login'])) {
 
 
-    $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-    $login_Pass = $_POST["password"];
-    
-    if (empty($login_Username) || empty($login_Pass)) {
+  $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+  $login_Pass = $_POST["password"];
 
-        $_SESSION['status'] = "Login Failed!";
-        $_SESSION['text'] = "Please fill all the fields!";
-        $_SESSION['status_code'] = "warning";
-    } else {        
-        $query = "SELECT * FROM homeowners_users WHERE username = :username";
-        $data = ["username" =>  $login_Username];
-        $path = "./user/home.php";
-        $pass = $login_Pass;
-        $userserver->userLogin($query, $data, $pass, $path);
-    }
+  if (empty($login_Username) || empty($login_Pass)) {
+
+    $_SESSION['status'] = "Login Failed!";
+    $_SESSION['text'] = "Please fill all the fields!";
+    $_SESSION['status_code'] = "warning";
+  } else {
+    $query = "SELECT * FROM homeowners_users WHERE username = :username";
+    $data = ["username" =>  $login_Username];
+    $path = "./user/home.php";
+    $pass = $login_Pass;
+    $userserver->userLogin($query, $data, $pass, $path);
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <!-- Data Table script -->
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+
 
   <!-- Poppins FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,27 +60,25 @@ if (isset($_POST['login'])) {
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
 
 
 
 
   <!------------- CSS Styles  ------------------->
 
+  <!-- USER PAGE CSS -->
+  <link rel="stylesheet" href="./styles/user-panel.css">
 
 
- 
-
-     <!-- USER PAGE CSS -->
-     <link rel="stylesheet" href="./styles/user-panel.css">
-
-  <!-- Jquery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-<!-- 
+  <!-- 
 <div class="wrapper-container">
 
 
@@ -81,13 +88,13 @@ if (isset($_POST['login'])) {
     <a href="#" class="navbar-brand"><img class="navbar-logo" src="./img/logo.png"></a> 
 -->
 
-    <!-- Hamburger menu Button -->
-   <!--
+  <!-- Hamburger menu Button -->
+  <!--
      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle"><i class="bx bx-menu bx-sm" style="color:#fffffe;"></i></button>
      -->
 
-   <!-- Navbar collapse -->
-<!--    
+  <!-- Navbar collapse -->
+  <!--    
   <div class="collapse navbar-collapse ms-5" id="toggle">
     <ul class="navbar-nav align-items-center">
       <li class="navbar-item">
@@ -111,7 +118,7 @@ if (isset($_POST['login'])) {
 
 
 
-<div class="row row-register justify-content-center align-items-center overflow-hidden">
+  <div class="row row-register justify-content-center align-items-center overflow-hidden">
     <div class="col-lg-5 col-md-6 col-sm-7 col-8 bg-white shadow-lg rounded">
       <h2 class="text-center mt-3">Log In</h2>
       <p class="text-center text-muted">Town and Country Heights</p>
@@ -146,76 +153,75 @@ if (isset($_POST['login'])) {
 
 
 
-<!-- Bootstrap Script -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<!-- Script -->
-<!-- <script src="./scripts/script.js"></script> -->
+  <!-- Bootstrap Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <!-- Script -->
+  <!-- <script src="./scripts/script.js"></script> -->
 
-<!-- Sweet Alert Script -->
-<script src="./libraries/sweetalert.js"></script>
+  <!-- Sweet Alert Script -->
+  <script src="./libraries/sweetalert.js"></script>
 
-<!-- DataTables CDN -->
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-
-
-<script>
-  $(document).ready( function () {
-    // $('#myTable').DataTable();
-  // const dataTable = $('#myTable').DataTable({
-  //   "paging": true,
-  //   "processing": true,
-  //   "serverSide": true,
-  //   "order": [],
-  //   "info": true,
-  //   "ajax": {
-  //     url:"../fetch.php",
-  //     type:"POST",
-  //   },
-  //   "columDefs": [
-  //     {
-  //     "targets": [0,3,4],
-  //     "orderable":false,
-  //     },
-  // ],
-
-  // });
-  
-  });
-</script>
+  <!-- DataTables CDN -->
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 
 
-
-
-
-<?php
-// ----------------- Pop up Alert ---------------- 
-if (isset($_SESSION['status']) && $_SESSION['status'] != "") {
-?>
   <script>
-    swal({
-        title: " <?php echo $_SESSION['status'] ?>",
-        text: "<?php echo $_SESSION['text'] ?>",
-        icon: "<?php echo $_SESSION['status_code'] ?>",
-        buttons: "Okay",
-      })
-      .then((buttons) => {
-        if (buttons) {
-          <?php
-          unset($_SESSION['status']);
-          unset($_SESSION['text']);
-          unset($_SESSION['status_code']);
-          // session_unset();
-          // session_destroy();
-          ?>
-        }
-      });
+    $(document).ready(function() {
+      // $('#myTable').DataTable();
+      // const dataTable = $('#myTable').DataTable({
+      //   "paging": true,
+      //   "processing": true,
+      //   "serverSide": true,
+      //   "order": [],
+      //   "info": true,
+      //   "ajax": {
+      //     url:"../fetch.php",
+      //     type:"POST",
+      //   },
+      //   "columDefs": [
+      //     {
+      //     "targets": [0,3,4],
+      //     "orderable":false,
+      //     },
+      // ],
+
+      // });
+
+    });
   </script>
-<?php
-}
-?>
+
+
+
+
+
+
+  <?php
+  // ----------------- Pop up Alert ---------------- 
+  if (isset($_SESSION['status']) && $_SESSION['status'] != "") {
+  ?>
+    <script>
+      swal({
+          title: " <?php echo $_SESSION['status'] ?>",
+          text: "<?php echo $_SESSION['text'] ?>",
+          icon: "<?php echo $_SESSION['status_code'] ?>",
+          buttons: "Okay",
+        })
+        .then((buttons) => {
+          if (buttons) {
+            <?php
+            unset($_SESSION['status']);
+            unset($_SESSION['text']);
+            unset($_SESSION['status_code']);
+            // session_unset();
+            // session_destroy();
+            ?>
+          }
+        });
+    </script>
+  <?php
+  }
+  ?>
 
 </body>
 
