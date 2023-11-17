@@ -1,5 +1,9 @@
 
+
     body{
+        min-height: 100vh;
+        
+        overflow: hidden;
         width: 100%;
         background-image: url("../img/town_and_country_heights.jpg");
         background-size: cover;
@@ -7,11 +11,11 @@
         background-attachment: fixed;
     }
 
-
     nav{
         font-family: 'Poppins', sans-serif;
         width: inherit;
         background-color: #064420;
+        color: white;
         height: 60px;
         position: sticky;
         display: flex;
@@ -19,11 +23,7 @@
         position: sticky;
         top: 0;
         z-index: 100;
-    }
-
-    .outside-container{
-        border: solid 2px black;
-        padding: 2rem;
+        
     }
 
     .nav-container{
@@ -34,7 +34,8 @@
         color: white;
         margin-bottom: 0 !important;
     }
-    .user p{
+    
+    .user p, .logo h3{
         font-size: 1.4em;
         margin-bottom: 0;
     }
@@ -44,30 +45,35 @@
     }
 
 
-    .main-logo img{
-        height: 200px;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-    }
 
-    main{
-        
-        min-height: 100vh;
+
+    main{  
+
+        min-height: 85vh;
         width: 95%;
-        margin: auto;
-        
+        padding: 1rem;
+        margin-top: 30px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: auto;
+        border-radius: 30px;
         background-color: rgba(6, 68, 32, 0.8);
         color: white;
         font-family: 'Poppins', sans-serif;
+        
     }
+
 
     .col-title h1{
-        font-size: 2.5em;
+        font-size: 2em;
     }
 
+    .options{
+        width: 80%;
+        margin: auto;
+    }
     .row .transaction-icon{
-        height: 100px;
-        width: 100%;
+        height: 60px;
     }
 
     .features{
@@ -75,24 +81,34 @@
         width: 200px; */
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        padding: 1rem;
+        gap: 1rem;
         transition: transform 0.3s ease;
     }
     .features i {
         color: white;
         transition: font-size 0.3s ease; 
-        
     }
 
 
     .features:hover {
         cursor: pointer;
+        transform: scale(1.2); /* Increase the size on hover */
+    }
+    
+    /* Add this rule to prevent affecting other elements when one is hovered */
+    .row.options:hover .features:not(:hover) {
+        transform: scale(1);
     }
 
     /* RESPONSIVE */
 
-    @media (width < 576px){
+    @media (max-width: 576px){
+        .logo h3{
+            font-size: 0.8em;
+        }
+        body{
+            overflow: auto;
+        }
         .main-logo img{
             height: 150px;
         
@@ -116,41 +132,37 @@
             opacity: 100%;
             transition: font-size 0.3s ease; 
         }
-        
+        .features:hover, .features:hover i{
+            color: #DAD992 !important;
+        }
 
-        
-        .features:hover i {
-            color: #ffd700 !important;
-            font-size: 3.2em; 
-            transform: scale(1.2)
-        }
-        
-        .features:hover p {
-            color: #ffd700;
-        }
         
     }
 
     @media (min-width: 576px) and (max-width:768px){
+        .logo h3{
+            font-size: 1em;
+        }
+
         nav{
             height: 60px;
         }
         .features i{
-            font-size:3.5em;
+            font-size:2.5em;
         }
         .main-logo img{
             height: 175px;
         
         }
         .features p{
-            font-size: 1.4em;
+            font-size: 1.2em;
         }
         
         .col-title h1{
-            font-size: 1.3em;
+            font-size: 1.1em;
         }
         .col-title p{
-            font-size: 1.1em;
+            font-size: 1em;
         }
         .features i {
             color: black;
@@ -158,17 +170,10 @@
             transition: font-size 0.3s ease;
         }
         
-
-        .features:hover i {
-            color: #ffd700 important;
-            font-size: 3.8em;
-            transform: scale(1.2)
+        .features:hover, .features:hover i{
+            color: #DAD992 !important;
         }
-        
-        .features:hover p {
-            color: #ffd700 !important;
-        }
-        
+ 
     }
 
 
@@ -176,37 +181,33 @@
         nav{
             height: 65px;
         }
+
         .features i{
-            font-size: 4em;
+            font-size: 2.8em;
         }
         .features p{
-            font-size: 1.6em;
+            font-size: 1.2em;
         }
         .col-title h1{
             font-size: 2em;
         }
         .col-title p{
-            font-size: 1.3em;
+            font-size: 1.2em;
         }
         .features i {
             color: black;
             opacity: 100%;
             transition: font-size 0.3s ease; 
         }
+        .features:hover, .features:hover i{
+            color: #DAD992 !important;
+        }
 
-        .features:hover i {
-            color: #ffd700 !important;
-            font-size: 4.3em;
-            transform: scale(1.2)
-        }
-        
-        .features:hover p {
-            color: #ffd700;
-        }
         
     }
 
     @media (width > 1200px){
+        
         .logo img{
             height: 50px;
         }
@@ -214,7 +215,7 @@
             height: 70px;
         }
         .features i{
-            font-size: 5em;
+            font-size: 2.7em;
         }
         .main-logo img{
             height: 200px;
@@ -222,7 +223,7 @@
         }
 
         .features p{
-            font-size: 2em;
+            font-size: 1.7em;
         }
 
         
@@ -238,16 +239,8 @@
             opacity: 100%;
             transition: font-size 0.3s ease; 
         }
-        
-        
-        .features:hover i {
-            color: #ffd700;
-            font-size: 6.5em; 
-            transform: scale(1.2)
+
+        .features:hover, .features:hover i{
+            color: #DAD992 !important;
         }
-        
-        .features:hover p {
-            color: #ffd700;
-        }
-    
-    }
+ }

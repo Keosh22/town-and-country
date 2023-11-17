@@ -8,6 +8,7 @@
 
   <!-- User Home Page CSS -->
   <link rel="stylesheet" href="../styles/user-home.css">
+  <link rel="stylesheet" href="../styles/user-home-carousel.css">
   <script src="https://kit.fontawesome.com/c4567093fc.js" crossorigin="anonymous"></script>
   <title>TCH | Home</title>
 </head>
@@ -16,11 +17,12 @@
   <nav>
     <div class="container-fluid nav-container">
       <div class="row ">
-        <div class="col-6 logo d-flex align-items-center justify-content-start">
+        <div class="col-8 logo d-flex align-items-center justify-content-start gap-3">
           <img src="../img/logo.png" alt="">
+          <h3>TOWN AND COUNTRY HEIGHTS EXECUTIVE VILLAGE</h3>
         </div>
 
-        <div class="col-6 d-flex user align-items-center justify-content-end">
+        <div class="col-4 d-flex user align-items-center justify-content-end">
           <p><?= $_SESSION["user_id"]?>-<?= $_SESSION["username"]?> </p>
         </div>
 
