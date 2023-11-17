@@ -211,6 +211,11 @@
         .features:hover, .features:hover i{
             color: #DAD992 !important;
         }
+
+        .carousel-container{
+            width: 80%;
+            
+        }
  
     }
 
@@ -240,6 +245,11 @@
         .features:hover, .features:hover i{
             color: #DAD992 !important;
         }
+        .carousel-container{
+            width: 80%;
+            
+        }
+
 
         
     }
