@@ -8,7 +8,7 @@ require "../includes/user-header.php";
       
 <div class="row row-title mt-3 mb-3">
     <div class="col-sm-12 col-title text-center">
-      <h2>Welcome, <?= $_SESSION["user_firstname"] ?> <?= $_SESSION["user_lastname"] ?> </h2>
+      <h2>Welcome,<span style="color:#DAD992"> <?= $_SESSION["user_firstname"] ?> <?= $_SESSION["user_lastname"] ?> </span></h2>
 
     </div>
   </div>

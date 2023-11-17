@@ -31,6 +31,7 @@
     }
 
     .user{
+        font-size: 1em;
         color: white;
         margin-bottom: 0 !important;
     }
@@ -61,6 +62,34 @@
         color: white;
         font-family: 'Poppins', sans-serif;
         
+    }
+
+    /* //carousel */
+    .carousel-container{
+    
+        width: 50%;
+        transition: transform 0.3s ease;
+    }
+    
+    .carousel-container:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+    
+    .carousel{
+        display: flex;
+        gap: 1rem;
+        overflow: hidden;
+        
+    }
+    
+    .carousel-content{
+        height: 400px;
+        background-color: white;
+        color: black;
+        padding: 1rem;
+        border-radius: 30px;
+        overflow: hidden;
     }
 
 
@@ -103,6 +132,9 @@
     /* RESPONSIVE */
 
     @media (max-width: 576px){
+        .user p{
+            font-size: 1em;
+        }
         .logo h3{
             font-size: 0.8em;
         }
@@ -135,6 +167,10 @@
         .features:hover, .features:hover i{
             color: #DAD992 !important;
         }
+        .carousel-container{
+            width: 80%;
+            
+        }
 
         
     }
@@ -143,7 +179,9 @@
         .logo h3{
             font-size: 1em;
         }
-
+        body{
+            overflow: auto;
+        }
         nav{
             height: 60px;
         }

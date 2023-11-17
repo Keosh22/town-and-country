@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-4 d-flex user align-items-center justify-content-end">
-          <p><?= $_SESSION["user_id"]?>-<?= $_SESSION["username"]?> </p>
+          <p style="color:#DAD992"><?= $_SESSION["user_id"]?>-<?= $_SESSION["username"]?> </p>
         </div>
 
       </div>
