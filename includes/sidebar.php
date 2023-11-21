@@ -1,7 +1,7 @@
 
 
     <!-- Side bar -->
-    <aside id="sidebar">
+    <aside id="sidebar" class="collapsed">
       <div class="">
         <div class="sidebar-logo">
           <a href="#"><img class="logo-img" src="../img/logo.png" alt=""></a>
@@ -29,13 +29,6 @@
               <div class="d-grid">
                 <button class="btn  btn-dropdown">
                   <a href="../admin-panel/homeowners.php" class="sidebar-link-dropdown">Homeowners List</a>
-                </button>
-              </div>
-            </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Register Accounts</a>
                 </button>
               </div>
             </li>
@@ -180,36 +173,7 @@
               </button>
             </div>
           </li>
-          <!-- <li class="sidebar-item">
-            <div class="d-grid">
-              <button class="btn btn-sidebar btn-dashboard-dropdown">
-                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-users"><i class="bx bxs-user-circle"></i>User Management</a>
-              </button>
-            </div>
-          </li>
-          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-users" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown"></a>
-                </button>
-              </div>
-            </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Update user</a>
-                </button>
-              </div>
-            </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Delete user</a>
-                </button>
-              </div>
-            </li>
-          </ul> -->
+          
 
           <!-------- History Log Dropdown -------->
           <li class="sidebar-item">
@@ -219,80 +183,6 @@
               </button>
             </div>
           </li>
-          <!-- <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-history" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Log in history</a>
-                </button>
-              </div>
-            </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Transaction history</a>
-                </button>
-              </div>
-            </li>
-          </ul> -->
-
-
-
-
-
-
-
-
-
-
-          <!-- --------- Dropdown sidebar/Payments --------
-          <li class="sidebar-item">
-            <div class="d-grid">
-              <button class="btn btn-dashboard-dropdown">
-                <a href="#" class="sidebar-link sidebar-dropdown-btn" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-payments"><i class="bx bxs-home"></i>Payments<i class="bx bxs-chevron-up"></i></a>
-              </button>
-            </div>
-          </li>
-          <ul id="sidebar-dropdown-payments" class="sidebar-dropdown collapse list-unstyled">
-            <li>
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Monthly Dues</a>
-                </button>
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Construction permit</a>
-                </button>
-              </div>
-            </li>
-          </ul> -->
-
-
-
-
-
-
-          <!-- <div class="accordion accordion-flush" id="accordionParent">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionCollapse">
-                  Homeowners
-                </button>
-              </h2>
-              <div class="accordion-collapse collapse" id="accordionCollapse" data-bs-parent="accordionParent">
-                <ul class="accordion-dropdown">
-                  <li class="accordion-item">
-                    <a href="#" class="accordion-link">Members</a>
-                  </li>
-                  <li class="accordion-item">
-                    <a href="#" class="accordion-link">Non-Members</a>
-                  </li>
-                  <li class="accordion-item">
-                    <a href="#" class="accordion-link">Tenants</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div> -->
         </ul>
       </div>
     </aside>

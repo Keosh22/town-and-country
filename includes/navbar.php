@@ -13,7 +13,6 @@
         <button  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - <?php echo $_SESSION['firstname']; ?></button>
         <ul class="dropdown-menu">
           <li><a href="../admin-panel/profile.php" class="dropdown-item">Profile</a></li>
-          <li><a href="#" class="dropdown-item">Settings</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -29,12 +28,16 @@
 <script>
   $(document).ready(function() {
     
-   
+    // Default sidebar
+
+    // document.querySelector(".main").classList.toggle("main-collapsed");
+    // document.querySelector(".navbar").classList.toggle("navbar-collapse");
+
 
     document.getElementById("sidebar-toggler-btn").addEventListener('click', () => {
       rotateChevrons();
-      document.querySelector("#sidebar").classList.toggle("collapsed")
-      document.querySelector(".main").classList.toggle("main-collapsed")
+      document.querySelector("#sidebar").classList.toggle("collapsed");
+      document.querySelector(".main").classList.toggle("main-collapsed");
       document.querySelector(".navbar").classList.toggle("navbar-collapse");
     });
 

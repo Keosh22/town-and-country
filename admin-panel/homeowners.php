@@ -145,7 +145,7 @@ $server->adminAuthentication();
 																			<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
 																			<ul class="dropdown-menu">
 																				<li><a href="#" class="dropdown-item" id="view">View</a></li>
-																				<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Add Property</a></li>
+																				<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
 																				<li><a href="" class="dropdown-item">Edit</a></li>
 																				<li><a href="" class="dropdown-item">Delete</a></li>
 																			</ul>

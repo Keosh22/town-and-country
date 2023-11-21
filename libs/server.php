@@ -123,11 +123,13 @@ class Server
         $firstname = $result['firstname'];
         $user_id = $result['id'];
         $account_number = $result['account_number'];
+        $type = $result['type'];
       }
       if (password_verify($pass, $password)) {
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;
+        $_SESSION['type'] = $type;
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;

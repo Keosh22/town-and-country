@@ -63,12 +63,12 @@ $server->adminAuthentication();
                 <div class="body-box shadow-sm">
 
                   <div class="table-responsive mx-2">
-                    <table id="usersTable" class="table table-striped" style="width:100%">
+                    <table id="activityLogTable" class="table table-striped" style="width:100%">
                       <thead>
                         <tr>
-                          <th width="10%">#</th>
+                        <th width="20%">Date & Time</th>
                           <th width="20%">Name</th>
-                          <th width="20%">Date & Time</th>
+                         
                           <th width="30%">Action</th>
                           <th width="20%"></th>
 
@@ -77,19 +77,21 @@ $server->adminAuthentication();
                       </thead>
                       <tbody>
                         <?php
-                        $query = "SELECT * FROM activity_log ORDER BY date DESC";
+                        $query = "SELECT * FROM activity_log ";
                         $connection = $server->openConn();
                         $stmt = $connection->prepare($query);
                         $stmt->execute();
                         while ($result = $stmt->fetch()) {
+                          $id = $result['id'];
                           $account_number = $result['account_number'];
                           $firstname = $result['firstname'];
                           $action = $result['action'];
                           $date = $result['date'];
                         ?>
                           <tr>
-                            <td><?php echo $account_number; ?></td>
-                            <td><?php echo $firstname; ?></td>
+                         
+                         
+                            <td><?php echo $account_number.": " . $firstname; ?></td>
                             <td><?php echo date("m/d/y - h:i:sA", strtotime($date)); ?></td>
                             <td><?php echo $action; ?></td>
                             <td>
@@ -118,7 +120,7 @@ $server->adminAuthentication();
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th width="10%">#</th>
+                   
                           <th width="20%">Name</th>
                           <th width="20%">Date & Time</th>
                           <th width="30%">Action</th>
@@ -171,7 +173,10 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
 
-      $("#usersTable").DataTable();
+      $("#activityLogTable").DataTable({
+        order: [[1, 'desc']]
+      });
+      
 
       $("#refresh").on('click', function() {
         location.reload(true);
