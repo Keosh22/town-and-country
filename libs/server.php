@@ -48,11 +48,11 @@ class Server
     $this->closeConn();
   }
 
+
+  // for announcement carousel only
   public function conn(){
     $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
-
     return $conn;
-
   }
 
   // ------------------------- OPEN CONNECTTION FUNCTION --------------------------
