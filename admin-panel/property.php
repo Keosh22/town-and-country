@@ -99,33 +99,48 @@ if ($count) {
                               </tr>
                             </thead>
                             <tbody>
-                            <?php
-                              // $query = "SELECT * FROM property_list WHERE id = :id";
-                              // $data = ["id" => $id];
-                              // $connection = $server->openConn();
-                              // $stmt = $connection->prepare($query);
-                              // $stmt->execute($data);
-                              // $count = $stmt->rowCount();
-
-                              
-                              //   while ($result = $stmt->fetch()) {
-                              //     $homeOwn_id = $result['homeowners_id'];
-                              //     $blk = $result['blk'];
-                              //     $lot = $result['lot'];
-                              //     $phase = $result['phase'];
-                              //     $street = $result['street'];
-                              // ?>
-                                <!-- <tr>
-                                 <td></td>
-                                 <td>Wordl</td>
-                                 <td>asd</td>
-                                 <td>asd</td>
-                                </tr> -->
                               <?php
-                                // }
-                              
-                              ?>
+                       
+                              $query = "SELECT * FROM property_list WHERE homeowners_id = :id";
+                              $data = ["id" => $id];
+                              $connection = $server->openConn();
+                              $stmt = $connection->prepare($query);
+                              $stmt->execute($data);
+                              $count = $stmt->rowCount();
+                              if ($count) {
 
+                                while ($result = $stmt->fetch()) {
+                                  $property_id = $result['id'];
+                                  $blk = $result['blk'];
+                                  $lot = $result['lot'];
+                                  $phase = $result['phase'];
+                                  $street = $result['street'];
+
+                              ?>
+                                  <tr>
+                                    <td><?php echo $property_id ?></td>
+                                    <td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street ?></td>
+                                    <td><?php echo $phase ?></td>
+                                    <td>
+                                      <div class="dropdown">
+                                        <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
+                                        <ul class="dropdown-menu">
+                                          <li><a href="" class="dropdown-item">Edit</a></li>
+                                          <li><a href="" class="dropdown-item">Delete</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              <?php
+                                }
+                              } else {
+                                $_SESSION['status'] = "Warning";
+                                $_SESSION['text'] = "Something went wrong.";
+                                $_SESSION['status_code'] = "warning";
+                              }
+
+
+                              ?>
                             </tbody>
                             <tfoot>
                               <tr>

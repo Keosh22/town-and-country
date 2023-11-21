@@ -28,12 +28,15 @@ body{
 }
 .main{ 
   background-color: #e6e6e6;
-  margin-left: 264px;
+  /* margin-left: 264px; */
 
+  margin-left: 0px;
   transition: 0.6s ease;
 }
 .main-collapsed{
-  margin-left: 0px;
+  /* margin-left: 0px; */
+
+  margin-left: 264px;
   transition: 0.6s ease;
 }
 #sidebar{
@@ -57,17 +60,22 @@ body{
   overflow: hidden;
 }
 .navbar{ 
-  
-  left: 264px;
+  left: 0px;
   right: 0;
+  /* left: 264px;
+  right: 0; */
+
   z-index: 100;
   position: fixed;
   background-color: #E4EFE7;
   transition: 0.6s ease;
 }
 .navbar-collapse{ 
-  left: 0px;
+  /* left: 0px;
+  right: 0; */
+  left: 264px;
   right: 0;
+
   z-index: 100;
   position: fixed;
   background-color: #E4EFE7;
@@ -129,7 +137,8 @@ body{
 .bxs-collection,
 .bxs-wrench,
 .bxs-user-circle,
-.bx-history
+.bx-history,
+.bxs-cog
 {
   margin-right: 10px;
   vertical-align: middle;

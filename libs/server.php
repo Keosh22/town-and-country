@@ -24,11 +24,10 @@ class Server
   // private $lesDBname = LESDBNAME;
   // private $port = PORT;
 
-  private $user = LESUSER; 
-  private $pass = LESPASS;
+  private $user = USER; 
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
-  private $port = PORT;
   private $dsn;
   private $conn;
   private $option = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
@@ -61,7 +60,7 @@ class Server
 
     try {
       // ken pabago nalng to ah HAHAHAH 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
     } catch (PDOException $e) {
       die("connection failed" . $e->getMessage());
@@ -87,7 +86,7 @@ class Server
 
     if ($stmt->rowCount() > 0) {
         while ($result = $stmt->fetch()) {
-            $password = $result['pwd']; // Change 'pwd' to 'password' if needed
+            $password = $result['password']; // Change 'pwd' to 'password' if needed
             $user_id = $result["id"];
             $username = $result["username"];
             $firstname = $result["firstname"];
@@ -208,11 +207,13 @@ class Server
         $firstname = $result['firstname'];
         $user_id = $result['id'];
         $account_number = $result['account_number'];
+        $type = $result['type'];
       }
       if (password_verify($pass, $password)) {
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;
+        $_SESSION['type'] = $type;
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
@@ -388,10 +389,29 @@ class Server
     $stmt->execute($data);
     
     if($stmt->rowCount() > 0 ){
-
+      
     } else {
 
     }
+   
+    
+  }
+
+  
+  public function insertPhase($query, $data, $path){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    
+    if($stmt->rowCount() > 0 ){
+      $_SESSION['status'] = "Success!";
+      $_SESSION['text'] = "Phase successfuly added.";
+      $_SESSION['status_code'] = "success";
+   
+    } else {
+
+    }
+    header("location:" . $path . "");
    
     
   }
