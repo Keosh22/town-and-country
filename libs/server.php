@@ -48,6 +48,12 @@ class Server
     $this->closeConn();
   }
 
+  public function conn(){
+    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+
+    return $conn;
+
+  }
 
   // ------------------------- OPEN CONNECTTION FUNCTION --------------------------
   public function openConn()
@@ -86,6 +92,7 @@ class Server
             $username = $result["username"];
             $firstname = $result["firstname"];
             $lastname = $result["lastname"];
+            
         }
 
         if (password_verify($pass, $password)) {
@@ -95,6 +102,7 @@ class Server
             $_SESSION["user_firstname"] = $firstname;
             $_SESSION["user_lastname"] = $lastname;
             header("location:" . $path . "");
+            $this->getAnnouncement();
         } else {
             // Password is incorrect
             $_SESSION['status'] = "Login Failed!";
@@ -108,6 +116,79 @@ class Server
       $_SESSION['status_code'] = "error";
     }
   }
+
+  // get announcement
+  public function getAnnouncement(){
+    $connection = $this->conn;
+    $query = "SELECT * FROM announcement ORDER BY date ASC";
+    $stmt = $connection->prepare($query);
+    $stmt -> execute();
+    if ($stmt->rowCount() > 0) {
+      while ($result = $stmt->fetchAll()) {
+        $id = $result['id'];
+        $about = $result['about'];
+        $content = $result['content'];
+        $date = $result['date'];
+      }
+      
+      $_SESSION['about'] = $about;
+      $_SESSION['content'] = $content;
+      $_SESSION['date'] = $date;
+    }
+
+  }
+
+  // carousel functionality
+  public function carousel(){
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+
+    if(isset($_GET['page_no']) && $_GET['page_no'] !== "")
+    {
+      $page_no = $_GET['page_no'];
+    }
+    else{
+      $page_no = 1;
+    } 
+
+
+ 
+
+    $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records FROM announcement");
+    $total_records_per_page = 1;
+    $offset = ($page_no - 1) * $total_records_per_page;
+
+
+
+
+    $query = "SELECT * FROM announcement ORDER  BY date DESC LIMIT $offset, $total_records_per_page";
+
+    $prev_page = $page_no - 1;
+    $next_page = $page_no + 1;
+
+
+
+
+    $result = mysqli_query($connection, $query);
+
+    $result_count = mysqli_query($connection, "SELECT COUNT(*) as total_records FROM announcement") OR die(mysqli_error($connection));
+    $records = mysqli_fetch_array($result_count);
+    $total_records = $records['total_records'];
+    $total_number_per_page = ceil($total_records / $total_records_per_page);
+
+
+
+    return array(
+      "result" => $result, 
+      "page_no" =>$page_no, 
+      "prev_page" => $prev_page, 
+      "next_page" => $next_page, 
+      "total_number_per_page" => $total_number_per_page
+    );
+    
+  }
+  
+
+
 
 
   // ------------------------- LOGIN FUNCTION --------------------------
@@ -135,6 +216,7 @@ class Server
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
+        
 
         // pass the value to adminAuthentication()
         // para

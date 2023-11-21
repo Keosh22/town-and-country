@@ -31,8 +31,16 @@ if (isset($_POST['login'])) {
     $path = "./user/home.php";
     $pass = $login_Pass;
     $userserver->userLogin($query, $data, $pass, $path);
+
+    // $userserver->getAnnouncement();
   }
 }
+
+
+// get announcment
+
+
+
 ?>
 
 <!DOCTYPE html>

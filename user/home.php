@@ -1,6 +1,10 @@
 <?php
 require "../includes/user-header.php";
+require "../libs/server.php";
+$homeServer = New Server();
 
+$result = $homeServer->carousel();
+$row = mysqli_fetch_array($result['result'])
 ?>
 
 <main>
@@ -14,15 +18,37 @@ require "../includes/user-header.php";
   </div>
 
   <div class="row carousel-container d-flex justify-content-center align-items-center m-auto">
-    <div class=" col-sm-12 col-md- card-1 carousel-content">
-      <h2>ANNOUNCEMENT</h2>
-      <h3>Date: </h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ad consectetur esse unde provident ipsam, accusamus incidunt est quidem placeat eveniet officiis repudiandae veritatis ducimus. Labore laborum dicta minima inventore!</p>
+
+    <div class=" col-sm-8 col-md-8 card-1 carousel-content">
+      
+      <h2>About: <?= $row['about'] ?></h2>
+      <h4>Date: <?= $row['date'] ?></h4>
+      <br>
+      <h3>Announcement</h3>
+      <br>
+      <p><?= $row['content']?> </p>
     </div>
-
-
-
   </div>
+
+  <div class="row arrows d-flex text-center">
+  <div class="col-2 arrow previous">
+    <a class="page-link <?= ($result['page_no'] <= 1) ? 'arrow-hover-style disabled' : ''; ?>"
+      href="<?= ($result['page_no'] > 1) ? '?page_no=' . $result['prev_page'] : ''; ?>"
+      aria-label="Previous">
+      <span aria-hidden="true" class="icon">&laquo;</span>
+    </a>
+  </div>
+
+  <div class="col-2 arrow next">
+    <a class="page-link <?= ($result['page_no'] >= $result['total_number_per_page']) ? 'disabled' : ''; ?>"
+      href="<?= ($result['page_no'] < $result['total_number_per_page']) ? '?page_no=' . $result['next_page'] : ''; ?>"
+      aria-label="Next">
+      <span aria-hidden="true" class="icon">&raquo;</span>
+    </a>
+  </div>
+</div>
+
+
   <div class="row row-title mt-3 mb-3">
     <div class="col-sm-12 col-title text-center">
 
