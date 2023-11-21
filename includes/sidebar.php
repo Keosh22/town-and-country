@@ -183,6 +183,33 @@
               </button>
             </div>
           </li>
+
+
+          <!-------- Settings -------->
+           <li class="sidebar-item">
+            <div class="d-grid">
+              <button class="btn btn-sidebar btn-dashboard-dropdown">
+                <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-settings"><i class="bx bxs-cog bx-tada-hover"></i>Settings</a>
+              </button>
+            </div>
+          </li>
+          <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-settings" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Phase List</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="#" class="sidebar-link-dropdown">Street List</a>
+                </button>
+              </div>
+            </li>
+          </ul>
+
         </ul>
       </div>
     </aside>

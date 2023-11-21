@@ -137,7 +137,8 @@ body{
 .bxs-collection,
 .bxs-wrench,
 .bxs-user-circle,
-.bx-history
+.bx-history,
+.bxs-cog
 {
   margin-right: 10px;
   vertical-align: middle;

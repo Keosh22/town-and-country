@@ -24,11 +24,10 @@ class Server
   // private $lesDBname = LESDBNAME;
   // private $port = PORT;
 
-  private $user = LESUSER; 
-  private $pass = LESPASS;
+  private $user = USER; 
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
-  private $port = PORT;
   private $dsn;
   private $conn;
   private $option = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
@@ -55,7 +54,7 @@ class Server
 
     try {
       // ken pabago nalng to ah HAHAHAH 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
     } catch (PDOException $e) {
       die("connection failed" . $e->getMessage());
@@ -81,7 +80,7 @@ class Server
 
     if ($stmt->rowCount() > 0) {
         while ($result = $stmt->fetch()) {
-            $password = $result['pwd']; // Change 'pwd' to 'password' if needed
+            $password = $result['password']; // Change 'pwd' to 'password' if needed
             $user_id = $result["id"];
             $username = $result["username"];
             $firstname = $result["firstname"];
