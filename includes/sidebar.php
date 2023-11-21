@@ -197,17 +197,11 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Phase List</a>
+                  <a href="../admin-panel/street.php" class="sidebar-link-dropdown">Street List</a>
                 </button>
               </div>
             </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Street List</a>
-                </button>
-              </div>
-            </li>
+           
           </ul>
 
         </ul>

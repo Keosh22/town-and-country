@@ -307,10 +307,29 @@ class Server
     $stmt->execute($data);
     
     if($stmt->rowCount() > 0 ){
-
+      
     } else {
 
     }
+   
+    
+  }
+
+  
+  public function insertPhase($query, $data, $path){
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    
+    if($stmt->rowCount() > 0 ){
+      $_SESSION['status'] = "Success!";
+      $_SESSION['text'] = "Phase successfuly added.";
+      $_SESSION['status_code'] = "success";
+   
+    } else {
+
+    }
+    header("location:" . $path . "");
    
     
   }
