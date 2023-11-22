@@ -9,6 +9,7 @@ $server = new Server;
 
 
 if (isset($_POST['add'])) {
+
   $phase = $_POST['phase'];
   $street = $_POST['street'];
   if (empty($phase) || empty($street)) {
@@ -77,9 +78,9 @@ if (isset($_POST['add'])) {
                 <label for="phase" class="form-label">Phase:</label>
                 <select name="phase" id="phase" class="form-select" required>
                   <option></option>
-                  <option value="PH1">Phase 1</option>
-                  <option value="PH2">Phase 2</option>
-                  <option value="PH3">Phase 3</option>
+                  <option value="Phase 1">Phase 1</option>
+                  <option value="Phase 2">Phase 2</option>
+                  <option value="Phase 3">Phase 3</option>
                 </select>
               </div>
               <div class="col-12">

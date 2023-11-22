@@ -185,9 +185,22 @@ $server->adminAuthentication();
 			$(".edit").on('click', function() {
 				$("#updateStreet").modal("show");
 				var id = $(this).attr("data-id");
-				$("#street_id").prop("value", id);
-
-			
+				
+				getRow(id);
+				// Get the current row
+				function getRow(id){
+						$.ajax({
+							type: 'POST',
+							url: '../ajax/street_get_row.php',
+							data: {id: id},
+							dataType: 'JSON',
+							success: function (response){
+								$("#street_id").val(response.id);
+								$('#default_select').html(response.phase);
+								$('#street_update').val(response.street);
+							}
+						});
+				}
 
 			});
 
