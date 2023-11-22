@@ -22,7 +22,8 @@ $row = mysqli_fetch_array($result['result'])
     <div class=" col-sm-8 col-md-8 card-1 carousel-content">
       
       <h2>About: <?= $row['about'] ?></h2>
-      <h4>Date: <?= $row['date'] ?></h4>
+      
+      <h4>Date: <?= date('M d, Y', strtotime($row['date']))?></h4>
       <br>
       <h3>Announcement</h3>
       <br>
