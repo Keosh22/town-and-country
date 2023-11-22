@@ -127,6 +127,7 @@ $server = new Server;
 
           }
         });
+        location.reload();
       })
 
     });

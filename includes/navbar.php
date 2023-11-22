@@ -11,6 +11,7 @@
       <div class="mx-auto"></div>
       <div class="nav-item dropdown me-4">
         <button  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Admin - <?php echo $_SESSION['firstname']; ?></button>
+        
         <ul class="dropdown-menu">
           <li><a href="../admin-panel/profile.php" class="dropdown-item">Profile</a></li>
           <li>

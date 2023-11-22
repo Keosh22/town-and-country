@@ -1,7 +1,8 @@
 
 
     <!-- Side bar -->
-    <aside id="sidebar" class="collapsed">
+    <aside id="sidebar" class=""
+    >
       <div class="">
         <div class="sidebar-logo">
           <a href="#"><img class="logo-img" src="../img/logo.png" alt=""></a>
