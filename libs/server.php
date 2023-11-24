@@ -19,13 +19,13 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  // private $user = LESUSER; 
-  // private $pass = LESPASS;
-  // private $lesDBname = LESDBNAME;
-  // private $port = PORT;
+  private $user = LESUSER; 
+  private $pass = LESPASS;
+  private $lesDBname = LESDBNAME;
+  private $port = PORT;
 
-  private $user = USER; 
-  private $pass = PASS;
+  // private $user = USER; 
+  // private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
   
@@ -52,10 +52,10 @@ class Server
   // for announcement carousel only
   public function conn(){
     // Lesther
-    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
     return $conn;
   }
 
@@ -65,10 +65,10 @@ class Server
 
     try {
       // Lesther 
-      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
@@ -96,7 +96,7 @@ class Server
 
     if ($stmt->rowCount() > 0) {
         while ($result = $stmt->fetch()) {
-            $password = $result['password']; // Change 'pwd' to 'password' if needed
+            $password = $result['pwd']; // Change 'pwd' to 'password' if needed
             $user_id = $result["id"];
             $username = $result["username"];
             $firstname = $result["firstname"];
@@ -150,10 +150,10 @@ class Server
   // carousel functionality
   public function carousel(){
     // Lesther
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
     if(isset($_GET['page_no']) && $_GET['page_no'] !== "")
     {

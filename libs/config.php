@@ -1,9 +1,9 @@
 <?php
   //Config ni Boss ther
-  // define("LESUSER", "lesthuuur");
-  // define("LESPASS", "lesthuuur");
-  // define("LESDBNAME", "tch");
-  // define("PORT", "3308");
+  define("LESUSER", "lesthuuur");
+  define("LESPASS", "lesthuuur");
+  define("LESDBNAME", "town_and_country_db");
+  define("PORT", "3308");
 
 
 

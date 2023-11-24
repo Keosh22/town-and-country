@@ -72,6 +72,9 @@
         max-height: 400px;
         overflow-y: auto;
     }
+    .carousel-content::-webkit-scrollbar{
+        display: none;
+    }
     .scrollable-content {
         max-height: 250px; /* Set the maximum height for the scrollable area */
         overflow-y: auto;  /* Enable vertical scrolling */
