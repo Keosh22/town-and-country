@@ -3,12 +3,15 @@
     body{
         min-height: 100vh;
         
-        overflow: hidden;
+        /* overflow: hidden; */
         width: 100%;
         background-image: url("../img/town_and_country_heights.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
+    }
+    body::-webkit-scrollbar{
+        display: none;
     }
 
     nav{
@@ -46,7 +49,7 @@
     }
 
     main{  
-        min-height: 85vh;
+        min-height: 60vh;
         width: 95%;
         padding: 1rem;
         margin-top: 30px;
@@ -67,6 +70,18 @@
         transition: transform 0.3s ease;
     }
 
+    .carousel-content{
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .scrollable-content {
+        max-height: 200px; /* Set the maximum height for the scrollable area */
+        overflow-y: auto;  /* Enable vertical scrolling */
+        border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+        border-radius: 30px;
+        padding: 10px; /* Optional: Add padding for better styling */
+    }
     .carousel-container:hover{
         cursor: pointer;
         transform: scale(1.1);
@@ -85,14 +100,10 @@
        color: black;
     }
 
-  
     .page-link.disabled {
         cursor: not-allowed;
         opacity: 0.5; 
     }
-
-
-  
 
     .top{
         display: flex;
