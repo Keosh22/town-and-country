@@ -10,7 +10,7 @@ session_start();
 
   <!-- User Home Page CSS -->
   <link rel="stylesheet" href="../styles/user-home.css">
-  <link rel="stylesheet" href="../styles/user-home-carousel.css">
+  <link rel="stylesheet" href="../styles/announcment.css">
   <script src="https://kit.fontawesome.com/c4567093fc.js" crossorigin="anonymous"></script>
   <title>TCH | Home</title>
 </head>

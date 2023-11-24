@@ -63,6 +63,9 @@
     }
     /* //carousel */
     /*hover */
+    .carousel-a{
+        text-decoration: none;
+    }
     .carousel-container{
 
         width: 50%;
@@ -78,7 +81,7 @@
     .scrollable-content {
         max-height: 250px; /* Set the maximum height for the scrollable area */
         overflow-y: auto;  /* Enable vertical scrolling */
-        border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+        /* border: 1px solid #ccc; /* Optional: Add a border for better visibility */
         border-radius: 30px;
         padding: 10px; /* Optional: Add padding for better styling */
     }
@@ -195,7 +198,10 @@
         }
         .carousel-container{
             width: 80%;
-            
+        }
+
+        .carousel-container .scrollable-content{
+            font-size: 12px;
         }
     }
 

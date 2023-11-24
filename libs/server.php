@@ -148,7 +148,7 @@ class Server
   }
 
   // carousel functionality
-  public function carousel(){
+  public function pagination($numberofPage){
     // Lesther
     $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
@@ -167,7 +167,7 @@ class Server
  
 
     $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records FROM announcement");
-    $total_records_per_page = 1;
+    $total_records_per_page = $numberofPage;
     $offset = ($page_no - 1) * $total_records_per_page;
 
 

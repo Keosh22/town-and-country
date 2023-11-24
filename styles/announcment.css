@@ -1,0 +1,20 @@
+.table-container{
+    max-width: 80%;
+    margin: auto;
+}
+
+.table-container .table{
+    border-radius: 30px;
+}
+
+.table-container {
+    max-height: 80%; /* Set a maximum height for the table container */
+    overflow-y: auto; /* Enable vertical scrolling for the container if needed */
+}
+
+.table td, .table th {
+    white-space: nowrap; /* Prevent text wrapping to the next line */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show an ellipsis (...) for overflowed text */
+    max-width: 150px; /* Set a maximum width for the content */
+}
