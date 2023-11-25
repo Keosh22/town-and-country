@@ -3,52 +3,54 @@ require_once("../libs/server.php");
 ?>
 
 <?php
-
-$server = new Server;
-
-
-
-if (isset($_POST['register'])) {
-  $account_number = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
-  $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
-  $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-  $confirm_password = filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_SPECIAL_CHARS);
-  $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
-  $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
-  $middle_initial = filter_input(INPUT_POST, 'middle_initial', FILTER_SANITIZE_SPECIAL_CHARS);
-  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-  $phone_number = filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
-  $blk = filter_input(INPUT_POST, 'blk', FILTER_SANITIZE_SPECIAL_CHARS);
-  $lot = filter_input(INPUT_POST, 'lot', FILTER_SANITIZE_SPECIAL_CHARS);
-  $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
-  $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
-  $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
+// session_start();
+// $server = new Server;
 
 
 
+// if (isset($_POST['register'])) {
+//   $account_number = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+//   $confirm_password = filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $middle_initial = filter_input(INPUT_POST, 'middle_initial', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+//   $phone_number = filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $blk = filter_input(INPUT_POST, 'blk', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $lot = filter_input(INPUT_POST, 'lot', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
+//   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
-  if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
-  } else {
-    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status)";
-    $data = [
-      "account_number" => $account_number,
-      "username" => $username,
-      "password" => $password,
-      "firstname" => $firstname,
-      "lastname" => $lastname,
-      "middle_initial" => $middle_initial,
-      "email" => $email,
-      "phone_number" => $phone_number,
-      "blk" => $blk,
-      "lot" => $lot,
-      "street" => $street,
-      "phase" => $phase,
-      "status" => $status
-    ];
-    $path = "../admin-panel/homeowners.php";
-    $server->register($query, $data, $path);
-  }
-}
+
+
+
+//   if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
+//   } else {
+//     $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status)";
+//     $data = [
+//       "account_number" => $account_number,
+//       "username" => $username,
+//       "password" => $password,
+//       "firstname" => $firstname,
+//       "lastname" => $lastname,
+//       "middle_initial" => $middle_initial,
+//       "email" => $email,
+//       "phone_number" => $phone_number,
+//       "blk" => $blk,
+//       "lot" => $lot,
+//       "street" => $street,
+//       "phase" => $phase,
+//       "status" => $status
+//     ];
+//     $path = "../admin-panel/homeowners.php";
+//     $server->register($query, $data, $path);
+//     $action = "Register homeowners account of ".$account_number.": ".$firstname."";
+//     $server->insertActivityLog($action);
+//   }
+// }
 ?>
 
 
@@ -64,7 +66,7 @@ if (isset($_POST['register'])) {
       </div>
 
       <div class="modal-body mx-3">
-        <form action="homeowners_register_modal.php" method="POST" id="form-input">
+        <form action="homeownersRegister.php" method="POST" id="form-input">
 
           <div class="row gy-3">
             <p class="fs-5 text-secondary divider personal-info mt-3 mb-0">Personal Information</p>
@@ -122,7 +124,7 @@ if (isset($_POST['register'])) {
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
                       <select name="phase" id="phase" class="form-select" required>
-                        <option value=""></option>
+                        <option class="default_select" selected>- Select -</option>
                         <option value="Phase 1">Phase 1</option>
                         <option value="Phase 2">Phase 2</option>
                         <option value="Phase 3">Phase 3</option>
@@ -131,9 +133,10 @@ if (isset($_POST['register'])) {
                     <div class="col-4">
                       <label for="street" class="form-label ">Street</label>
                       <select name="street" id="street" class="form-select" required>
-                        <option></option>
+                        <option class="default_select">- Select -</option>
+                        <!-- <option></option>
                         <option>Jackfruit</option>
-                        <option>Golden Shower</option>
+                        <option>Golden Shower</option> -->
                       </select>
                     </div>
                   </div>
@@ -155,13 +158,13 @@ if (isset($_POST['register'])) {
               <div class="col-lg-6">
                 <label for="password" class="form-label text-secondary">Password</label>
                 <input type="password" class="form-control password-input" id="password" name="password" required readonly>
-              
+
                 <div id="passwordHelpBlock"></div>
               </div>
               <div class="col-lg-6">
                 <label for="confirm_password" class="form-label text-secondary">Confirm Password</label>
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" required readonly>
-          
+
                 <div id="confirmpasswordHelpBlock"></div>
               </div>
               <div class="col mt-2">
@@ -193,6 +196,10 @@ if (isset($_POST['register'])) {
     // Clear input when close
     $("#addHomeowners").on('hidden.bs.modal', function(e) {
       $("#form-input").find("input[type=text], input[type=password], select[class=form-select]").val("");
+      $("#street").empty().append('<option selected>- Select -</option>');
+      $(".default_select").prop('selected', true);
+      $("#register_property_form").find('input[type=text]').val("");
+     
       $(".password-input").removeClass("input-success");
       $(".password-input").removeClass("input-danger");
       $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock"></div>');
@@ -333,9 +340,43 @@ if (isset($_POST['register'])) {
     });
 
 
+    // Fetch street to Combo box (select)
+    $("#phase").on('change', function() {
+      var phase = $(this).val();
+      if (phase == "Phase 1") {
+        $("#street").empty().append('<option>- Select -</option>');
+        getStreet(phase);
+      
+      } else if (phase == "Phase 2") {
+        $("#street").empty().append('<option>- Select -</option>');
+        getStreet(phase);
+      } else if (phase == "Phase 3") {
+        $("#street").empty().append('<option>- Select -</option>');
+        getStreet(phase);
+      } else {
+        $("#street").empty().append('<option>- Select -</option>');
+      }
+    });
 
 
 
+
+    // ajax function get street
+    function getStreet(phase){
+      $.ajax({
+          url: '../ajax/street_fetch_select.php',
+          method: 'POST',
+          data: {
+            phase: phase
+          },
+          dataType: 'JSON',
+          success: function(response) {
+            $.each(response, function(key, value) {
+              $("#street").append(' <option>' + value['street'] + '</option>');
+            })
+          }
+        });
+    }
 
 
   });

@@ -6,6 +6,7 @@ require_once("../libs/server.php");
 <?php
 session_start();
 $server = new Server;
+$original_street = $_POST['street_update'];;
 if (isset($_POST['update'])) {
 
   
@@ -13,6 +14,7 @@ if (isset($_POST['update'])) {
   $street_id = $_POST['street_id'];
   $street_update = $_POST['street_update'];
   $phase_update = $_POST['phase_update'];
+  
 
   if (isset($street_id) && isset($street_update) && isset($phase_update)) {
 
@@ -61,6 +63,8 @@ if (isset($_POST['update'])) {
             $_SESSION['status'] = "Success!";
             $_SESSION['text'] = "Update Success";
             $_SESSION['status_code'] = "success";
+            $action = "Update street: ". $street." to ".$street_update."";
+            $server->insertActivityLog($action);
           }
         }
         

@@ -310,7 +310,7 @@ class Server
 
     if ($rowCount > 0) {
       $_SESSION['status'] = "Registration Success!";
-      $_SESSION['text'] = "Your account has been successfully created.";
+      $_SESSION['text'] = "Account has been successfully registered.";
       $_SESSION['status_code'] = "success";
      
     } else {
@@ -404,7 +404,13 @@ class Server
     $stmt->execute($data);
 
     if ($stmt->rowCount() > 0) {
+      $_SESSION['status'] = "Registration Success!";
+      $_SESSION['text'] = "Property has been successfully registered.";
+      $_SESSION['status_code'] = "success";
     } else {
+      $_SESSION['status'] = "Registration Failed!";
+      $_SESSION['text'] = "Unable to register property. Please try again.";
+      $_SESSION['status_code'] = "error";
     }
   }
 

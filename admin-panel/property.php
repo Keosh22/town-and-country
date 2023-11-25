@@ -100,7 +100,7 @@ if ($count) {
                             </thead>
                             <tbody>
                               <?php
-                       
+
                               $query = "SELECT * FROM property_list WHERE homeowners_id = :id";
                               $data = ["id" => $id];
                               $connection = $server->openConn();
@@ -134,9 +134,7 @@ if ($count) {
                               <?php
                                 }
                               } else {
-                                $_SESSION['status'] = "Warning";
-                                $_SESSION['text'] = "Something went wrong.";
-                                $_SESSION['status_code'] = "warning";
+                            
                               }
 
 
@@ -206,17 +204,24 @@ if ($count) {
 
 
 
-      $("$propertyTable").on('click', '.add-property', function (){
+
+
+
+
+      // $("#propertyTable").on('click', ".add-property", function() {
+      //   $("#addProperty").modal("show");
+      //   var id = $(this).attr("data-id");
+      //   $("#homeowners_id").val(id);
+      // });
+
+      $(".add-property").on('click', function() {
         $("#addProperty").modal("show");
         var id = $(this).attr("data-id");
         $("#homeowners_id").val(id);
       });
 
-      // $(".add-property").on('click', function() {
-      //   $("#addProperty").modal("show");
-      //   var id = $(this).attr("data-id");
-      //   $("#homeowners_id").val(id);
-      // });
+
+
 
 
     });

@@ -36,6 +36,8 @@ if (isset($_POST['add'])) {
       $data = ["phase" => $phase, "street" => $street];
       $path = "../admin-panel/street.php";
       $server->insertPhase($query, $data, $path);
+      $action = "Register street of ". $street."";
+      $server->insertActivityLog($action);
       
 
       // $connection = $server->openCo $patnn();

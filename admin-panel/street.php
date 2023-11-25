@@ -200,7 +200,7 @@ $server->adminAuthentication();
 			});
 
 			$("#streetTable").on('click', '.edit', function () {
-				console.log("a");
+				
 				$("#updateStreet").modal("show");
 				var id = $(this).attr("data-id");
 				console.log(id);
