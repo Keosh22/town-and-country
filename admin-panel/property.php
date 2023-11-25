@@ -206,11 +206,17 @@ if ($count) {
 
 
 
-      $(".add-property").on('click', function() {
+      $("$propertyTable").on('click', '.add-property', function (){
         $("#addProperty").modal("show");
         var id = $(this).attr("data-id");
         $("#homeowners_id").val(id);
       });
+
+      // $(".add-property").on('click', function() {
+      //   $("#addProperty").modal("show");
+      //   var id = $(this).attr("data-id");
+      //   $("#homeowners_id").val(id);
+      // });
 
 
     });

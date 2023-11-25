@@ -35,7 +35,7 @@ $server = new Server;
 // }
 ?>
 
-< <!-- Add -->
+<!-- Add -->
   <div class="modal fade" id="addProperty">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

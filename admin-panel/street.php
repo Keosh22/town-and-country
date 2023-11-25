@@ -68,7 +68,7 @@ $server->adminAuthentication();
 																<th width="30%">Action</th>
 															</tr>
 														</thead>
-														<tbody>
+														<tbody class="">
 															<?php
 
 															$query = "SELECT * FROM street_list";
@@ -160,54 +160,96 @@ $server->adminAuthentication();
 	<script>
 		$(document).ready(function() {
 
-		
-
-		
-					
-
-			$("#streetTable").DataTable();
-
-			// $(".delete").on('click', function() {
-			// 	swal({
-			// 			title: "Are you sure?",
-			// 			text: "Once deleted, you will not able to recover this account!",
-			// 			icon: "warning",
-			// 			buttons: true,
-			// 			dangerMode: true
-			// 		})
-			// 		.then((willDelete) => {
-
-			// 		});
-			// });
 
 
-			// $(".delete").on('click', function() {
-			// 	$("#deleteUser").modal("show");
-			// 	var id = $(this).attr("data-id");
-			// 	$("#delete_id").val(id);
-			// });
+			// get data function
+			// function getData() {
+			// 	$.ajax({
+			// 		type: "GET",
+			// 		url: "../ajax/street_get_data.php",
+			// 		dataType: 'JSON',
+			// 		success: function(response) {
 
-			$(".edit").on('click', function() {
+			// 			$.each(response, function (key, value){
+
+			// 				$(".streetData").append('<tr>' +
+			// 					'<td>'+value['phase']+'</td>' + 
+			// 					'<td>'+value['street']+'</td>' + 
+			// 					'<td>'+
+			// 					'<div class="dropdown">' +
+			// 					'<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>' +
+			// 					'<ul class="dropdown-menu">' +
+			// 					'<li><a data-id="'+value['id']+'" href="#updateStreet" data-bs-toggle="modal" class="dropdown-item edit">Edit</a></li>' +
+			// 					'</ul>' +
+			// 					'</div>'+
+			// 					+'</td>' + 
+			// 					'</tr>'
+
+			// 				);
+			// 			});
+
+			// 		}
+			// 	});
+			// }
+
+
+
+			// DataTable
+			$("#streetTable").DataTable({
+				
+			});
+
+			$("#streetTable").on('click', '.edit', function () {
+				console.log("a");
 				$("#updateStreet").modal("show");
 				var id = $(this).attr("data-id");
+				console.log(id);
 				
+
 				getRow(id);
 				// Get the current row
-				function getRow(id){
-						$.ajax({
-							type: 'POST',
-							url: '../ajax/street_get_row.php',
-							data: {id: id},
-							dataType: 'JSON',
-							success: function (response){
-								$("#street_id").val(response.id);
-								$('#default_select').html(response.phase);
-								$('#street_update').val(response.street);
-							}
-						});
+				function getRow(id) {
+					$.ajax({
+						type: 'POST',
+						url: '../ajax/street_get_row.php',
+						data: {
+							id: id
+						},
+						dataType: 'JSON',
+						success: function(response) {
+							$("#street_id").val(response.id);
+							$('#default_select').html(response.phase);
+							$('#street_update').val(response.street);
+						}
+					});
 				}
-
 			});
+			// $(".edit").on('click', function() {
+				
+			// 	console.log("a");
+			// 	$("#updateStreet").modal("show");
+			// 	var id = $(this).attr("data-id");
+			// 	console.log(id);
+				
+
+			// 	getRow(id);
+			// 	// Get the current row
+			// 	function getRow(id) {
+			// 		$.ajax({
+			// 			type: 'POST',
+			// 			url: '../ajax/street_get_row.php',
+			// 			data: {
+			// 				id: id
+			// 			},
+			// 			dataType: 'JSON',
+			// 			success: function(response) {
+			// 				$("#street_id").val(response.id);
+			// 				$('#default_select').html(response.phase);
+			// 				$('#street_update').val(response.street);
+			// 			}
+			// 		});
+			// 	}
+			// });
 
 
 

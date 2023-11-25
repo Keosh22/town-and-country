@@ -5,6 +5,7 @@ require_once("../includes/header.php");
 
 <?php
 session_start();
+
 $server = new Server;
 $server->adminAuthentication();
 ?>
@@ -198,6 +199,7 @@ $server->adminAuthentication();
 		</div>
 	</div>
 	<?php
+
 	// Register Modal
 	include("../admin-panel/user_register_modal.php");
 	// Delete Modal
@@ -210,7 +212,8 @@ $server->adminAuthentication();
 
 			$("#usersTable").DataTable();
 
-			$(".delete").on('click', function() {
+		
+			$("#usersTable").on('click', ".delete", function (){
 				swal({
 						title: "Are you sure?",
 						text: "Once deleted, you will not able to recover this account!",
@@ -223,12 +226,17 @@ $server->adminAuthentication();
 					});
 			});
 
-
-			$(".delete").on('click', function() {
+			$("#usersTable").on('click', ".delete", function (){
 				$("#deleteUser").modal("show");
 				var id = $(this).attr("data-id");
 				$("#delete_id").val(id);
 			});
+
+			// $(".delete").on('click', function() {
+			// 	$("#deleteUser").modal("show");
+			// 	var id = $(this).attr("data-id");
+			// 	$("#delete_id").val(id);
+			// });
 
 
 

@@ -312,13 +312,14 @@ class Server
       $_SESSION['status'] = "Registration Success!";
       $_SESSION['text'] = "Your account has been successfully created.";
       $_SESSION['status_code'] = "success";
-      header("location:" . $path . "");
+     
     } else {
       $_SESSION['status'] = "Registration Failed!";
       $_SESSION['text'] = "Unable to register account. Please try again.";
       $_SESSION['status_code'] = "error";
-      header("location:" . $path . "");
+     
     }
+    header("location:" . $path . "");
   }
 
   public function update($query, $data, $path)

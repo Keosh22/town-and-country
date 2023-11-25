@@ -25,11 +25,12 @@ if (isset($_SESSION['status']) && $_SESSION['status'] != "") {
           unset($_SESSION['status']);
           unset($_SESSION['text']);
           unset($_SESSION['status_code']);
-          unset($_SESSION['alert']);
+    
           // session_unset();
           // session_destroy();
           ?>
         }
+        
       });
   </script>
 <?php
