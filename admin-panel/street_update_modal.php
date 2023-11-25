@@ -112,6 +112,7 @@ if (isset($_POST['update'])) {
   $(document).ready(function() {
 
     $("#updateStreet").on('hidden.bs.modal', function(e) {
+ 
       $("#phase_form").find("input[type=text]").val("");
     });
 

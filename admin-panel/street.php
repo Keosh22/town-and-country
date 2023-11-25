@@ -156,9 +156,14 @@ $server->adminAuthentication();
 	include("../admin-panel/street_update_modal.php");
 	?>
 
-	<!-- Delete Modal -->
+
 	<script>
 		$(document).ready(function() {
+
+		
+
+		
+					
 
 			$("#streetTable").DataTable();
 

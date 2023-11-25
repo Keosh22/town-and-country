@@ -17,7 +17,7 @@ $row = mysqli_fetch_array($result['result'])
     </div>
   </div>
 
-  <a class="carousel-a" href="/user/announcement.php">
+  <a class="carousel-a" href="./announcement.php">
     <div class="row carousel-container d-flex justify-content-center align-items-center m-auto">
 
   <div class="col-sm-8 col-md-8 card-1 carousel-content">
