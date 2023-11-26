@@ -111,32 +111,11 @@ $server->adminAuthentication();
 														</tfoot>
 													</table>
 												</div>
-												<!-- Table -->
-
-
-
-
 											</div>
-
-											<!-- box end here -->
 										</div>
 									</div>
 								</div>
-
 							</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
 						</div>
 					</div>
 				</div>
@@ -196,15 +175,15 @@ $server->adminAuthentication();
 
 			// DataTable
 			$("#streetTable").DataTable({
-				
+
 			});
 
-			$("#streetTable").on('click', '.edit', function () {
-				
+			$("#streetTable").on('click', '.edit', function() {
+
 				$("#updateStreet").modal("show");
 				var id = $(this).attr("data-id");
-				console.log(id);
-				
+			
+
 
 				getRow(id);
 				// Get the current row
@@ -225,12 +204,12 @@ $server->adminAuthentication();
 				}
 			});
 			// $(".edit").on('click', function() {
-				
+
 			// 	console.log("a");
 			// 	$("#updateStreet").modal("show");
 			// 	var id = $(this).attr("data-id");
 			// 	console.log(id);
-				
+
 
 			// 	getRow(id);
 			// 	// Get the current row

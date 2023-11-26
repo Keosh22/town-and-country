@@ -146,8 +146,7 @@ $server->adminAuthentication();
 																			<ul class="dropdown-menu">
 																				<li><a href="#" class="dropdown-item" id="view">View</a></li>
 																				<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
-																				<li><a href="" class="dropdown-item">Edit</a></li>
-																				<li><a href="" class="dropdown-item">Delete</a></li>
+																				<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
 																			</ul>
 																		</div>
 																	</td>
@@ -213,17 +212,14 @@ $server->adminAuthentication();
 
 	// Register Homeowners Modal
 	include("../admin-panel/homeowners_register_modal.php");
-
+	//Update Homeowners modal
+	include("../admin-panel/homeowners_update_modal.php");
 
 	?>
 
 
 	<script>
 		$(document).ready(function() {
-
-
-
-
 
 			// $(".add-property").on('click', function (){
 			// 	var id = $(this).attr("data-id");
@@ -239,7 +235,43 @@ $server->adminAuthentication();
 
 			// });
 
+
+			// DataTable
 			$("#homeownersTable").DataTable();
+
+
+			// Update Homeowners button
+			$("#homeownersTable").on('click', '#update_homeowners_button', function() {
+				$("#updateHomeowners").modal("show");
+				var homeowners_id = $(this).attr("data-id");
+				$("#homeowners_id").val(homeowners_id);
+				console.log(homeowners_id);
+				getHomeowners(homeowners_id);
+
+				function getHomeowners(homeowners_id) {
+					$.ajax({
+						url: '../ajax/homeowners_get_data.php',
+						method: 'POST',
+						data: {
+							homeowners_id: homeowners_id
+						},
+						dataType: 'JSON',
+						success: function(response) {
+							$("#firstname_update").val(response.firstname);
+							$("#lastname_update").val(response.lastname);
+							$("#middle_initial_update").val(response.middle_initial);
+							$("#email_update").val(response.email);
+							$("#phone_number_update").val(response.phone_number);
+							$("#status_option_update").html(response.status);
+							$("#blk_update").val(response.blk);
+							$("#lot_update").val(response.lot);
+							$("#phase_option_update").html(response.phase);
+							$("#street_option_update").html(response.street);
+						}
+					});
+				}
+			});
+
 		});
 	</script>
 	<!-- FOOTER -->

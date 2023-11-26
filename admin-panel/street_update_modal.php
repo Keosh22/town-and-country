@@ -65,7 +65,7 @@ if (isset($_POST['update'])) {
         <!-- Form -->
 
         <form method="POST" action="street_update.php" id="phase_form">
-          <input type="text" id="street_id" name="street_id">
+          <input type="hidden" id="street_id" name="street_id">
 
 
           <div class="row gy-3">
