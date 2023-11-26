@@ -125,8 +125,7 @@ if ($count) {
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="" class="dropdown-item">Edit</a></li>
-                                          <li><a href="" class="dropdown-item">Delete</a></li>
+                                          <li><a data-id="<?php echo $property_id ?>" href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -134,10 +133,7 @@ if ($count) {
                               <?php
                                 }
                               } else {
-                            
                               }
-
-
                               ?>
                             </tbody>
                             <tfoot>
@@ -150,20 +146,11 @@ if ($count) {
                             </tfoot>
                           </table>
                         </div>
-                        <!-- Table -->
-
-
-
-
                       </div>
-
-                      <!-- box end here -->
                     </div>
                   </div>
                 </div>
-
               </section>
-
             </div>
           </div>
         </div>
@@ -194,6 +181,8 @@ if ($count) {
 
   // Add Property modal
   include("../admin-panel/property_register_modal.php");
+  // Update Property Modal
+  include("../admin-panel/property_update_modal.php");
   ?>
 
   <!-- Delete Modal -->
@@ -214,10 +203,38 @@ if ($count) {
       //   $("#homeowners_id").val(id);
       // });
 
+
+      // Register Property
       $(".add-property").on('click', function() {
         $("#addProperty").modal("show");
         var id = $(this).attr("data-id");
         $("#homeowners_id").val(id);
+      });
+
+
+      // Delete Property
+      $("#propertyTable").on('click', '#update_property', function() {
+        $("#updateProperty").modal("show");
+        var property_id = $(this).attr("data-id");
+        $("#property_id").val(property_id);
+        getProperty(property_id);
+
+        function getProperty(property_id) {
+          $.ajax({
+            url: '../ajax/property_get_data.php',
+            method: 'POST',
+            data: {
+              property_id: property_id
+            },
+            dataType: 'JSON',
+            success: function(response) {
+              $("#blk_property").val(response.blk);
+              $("#lot_property").val(response.lot);
+              $("#default_phase_property").html(response.phase);
+              $("#default_street_property").html(response.street);
+            }
+          });
+        }
       });
 
 

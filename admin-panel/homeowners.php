@@ -65,13 +65,13 @@ $server->adminAuthentication();
 													<table id="homeownersTable" class="table table-striped" style="width:100%">
 														<thead>
 															<tr>
-																<th width="10%">Acc.#</th>
-																<th width="20%">Photo</th>
-																<th width="40%">Fullname</th>
-																<th width="40%">Address</th>
-																<th width="20%">Email</th>
-																<th width="20%">Phone</th>
-																<th width="20%">Status</th>
+																<th width="5%">Acc.#</th>
+																<th width="10%">Photo</th>
+																<th width="20%">Fullname</th>
+																<th width="30%">Address</th>
+																<th width="10%">Email</th>
+																<th width="10%">Phone</th>
+																<th width="10%">Status</th>
 																<th scope="col" width="5%">Action</th>
 															</tr>
 														</thead>
@@ -160,13 +160,13 @@ $server->adminAuthentication();
 														</tbody>
 														<tfoot>
 															<tr>
-																<th width="10%">Acc.#</th>
-																<th width="20%">Photo</th>
-																<th width="40%">Fullname</th>
-																<th width="40%">Address</th>
-																<th width="20%">Email</th>
-																<th width="30%">Phone</th>
-																<th width="30%">Status</th>
+																<<th width="5%">Acc.#</th>
+																<th width="10%">Photo</th>
+																<th width="20%">Fullname</th>
+																<th width="30%">Address</th>
+																<th width="10%">Email</th>
+																<th width="10%">Phone</th>
+																<th width="10%">Status</th>
 																<th scope="col" width="5%">Action</th>
 															</tr>
 														</tfoot>
@@ -237,7 +237,11 @@ $server->adminAuthentication();
 
 
 			// DataTable
-			$("#homeownersTable").DataTable();
+			$("#homeownersTable").DataTable({
+				order: [
+					[0, 'desc']
+				]
+			});
 
 
 			// Update Homeowners button
