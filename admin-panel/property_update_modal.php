@@ -21,14 +21,15 @@ $server = new Server;
       <div class="modal-body mx-3">
         <!-- Form -->
 
-        <form method="POST" action="propertyUpdate.php" id="update_property_form">
+        <form method="POST" action="property_update.php" id="update_property_form">
 
 
 
           <div class="row gy-3" id="propertyContainer">
             <p class="fs-5 text-secondary divider personal-info mt-3 mb-0">Property Address</p>
 
-            <input type="hidden" id="homeowners_update_id" name="homeowners_update_id">
+            <input type="text" id="homeowners_update_id" name="homeowners_update_id">
+            <input type="text" id="property_id" name="property_id">
             <!-- <div class="col-1 d-flex align-items-end">
                   <a class="fs-5 text-success" role="button"><i class='add_property fs-3 bx bxs-plus-circle bx-tada-hover'></i></a>
                 </div> -->
@@ -53,7 +54,7 @@ $server = new Server;
               <label for="street" class="form-label">Street</label>
               <select name="street_property" id="street_property" class="form-select" required>
                 <option id="default_street_property" selected>- Select -</option>
-                
+
               </select>
             </div>
 
@@ -65,7 +66,7 @@ $server = new Server;
 
           <div class="modal-footer">
             <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-flat" name="update_property" class="update_property" id="update_property">Update</button>
+            <button type="submit" class="btn btn-primary btn-flat" name="update_property_modal" class="update_property_modal" id="update_property_modal">Update</button>
           </div>
         </form>
       </div>
@@ -78,7 +79,7 @@ $server = new Server;
 <script>
   $(document).ready(function() {
 
-    $("#updateProperty").on('hidden.bs.modal', function(e){
+    $("#updateProperty").on('hidden.bs.modal', function(e) {
       $("#street_property").empty().append('<option id="default_street_property" selected>- Select -</option>');
       $(".default_select").prop('selected', true);
       $("#update_property_form").find('input[type=text]').val("");
@@ -108,7 +109,7 @@ $server = new Server;
       if (phase == "Phase 1") {
         $("#street_property").empty().append('<option selected>- Select -</option>');
         getStreet(phase);
-      
+
       } else if (phase == "Phase 2") {
         $("#street_property").empty().append('<option selected>- Select -</option>');
         getStreet(phase);
@@ -120,6 +121,34 @@ $server = new Server;
       }
     });
 
+
+
+    // $("#update_property_modal").on('click', function() {
+    //   // var homeowners_id = $("#homeowners_id");
+    //   var property_id = $("#property_id").val();
+    //   var blk_property = $("#blk_property").val();
+    //   var lot_property = $("#lot_property").val();
+    //   var phase_property = $("#phase_property").val();
+    //   var street_property = $("#street_property").val();
+    //   console.log(property_id);
+
+    //   $.ajax({
+    //     url: '../ajax/property_update_ajax.php',
+    //     method: 'POST',
+    //     data: {
+    //       homeowners_id: homeowners_id,
+    //       property_id: property_id,
+    //       blk_property: blk_property,
+    //       lot_property: lot_property,
+    //       phase_property: phase_property,
+    //       street_property: street_property,
+    //       success: function(data) {
+
+    //       }
+    //     }
+    //   });
+    //   location.reload();
+    // });
 
 
     // $("#add").on('click', function() {

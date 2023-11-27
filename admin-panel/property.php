@@ -125,7 +125,7 @@ if ($count) {
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a data-id="<?php echo $property_id ?>" href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
+                                          <li><a data-id="<?php echo $property_id ?>"  href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -212,7 +212,7 @@ if ($count) {
       });
 
 
-      // Delete Property
+      // Update Property
       $("#propertyTable").on('click', '#update_property', function() {
         $("#updateProperty").modal("show");
         var property_id = $(this).attr("data-id");
