@@ -36,7 +36,7 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Send Email</a>
+                  <a href="../admin-panel/property_list.php" class="sidebar-link-dropdown">Property List</a>
                 </button>
               </div>
             </li>

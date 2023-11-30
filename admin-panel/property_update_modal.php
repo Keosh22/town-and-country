@@ -28,8 +28,8 @@ $server = new Server;
           <div class="row gy-3" id="propertyContainer">
             <p class="fs-5 text-secondary divider personal-info mt-3 mb-0">Property Address</p>
 
-            <input type="text" id="homeowners_update_id" name="homeowners_update_id">
-            <input type="text" id="property_id" name="property_id">
+            <input type="hidden" id="homeowners_update_id" name="homeowners_update_id">
+            <input type="hidden" id="property_id" name="property_id">
             <!-- <div class="col-1 d-flex align-items-end">
                   <a class="fs-5 text-success" role="button"><i class='add_property fs-3 bx bxs-plus-circle bx-tada-hover'></i></a>
                 </div> -->
