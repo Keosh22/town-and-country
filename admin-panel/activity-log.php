@@ -66,7 +66,7 @@ $server->adminAuthentication();
                           <table id="activityLogTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                              <th width="15%">User Account#</th>
+                                <th width="15%">User Account#</th>
                                 <th width="15%">Date & Time</th>
                                 <th width="40%">Action</th>
                                 <th width="20%"></th>
@@ -114,6 +114,10 @@ $server->adminAuthentication();
                                     } elseif (str_contains($action, "Update")) {
                                     ?>
                                       <span class="badge rounded-pill text-bg-info">Updated</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Transfer")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-info">Transfer</span>
                                     <?php
                                     }
 

@@ -179,7 +179,7 @@ $server->adminAuthentication();
           var property_id = $(this).attr("data-id");
           var firstname = $(this).attr("data-name");
           var address = $(this).attr("data-address");
-          $("#currentOwner_id").val(property_id);
+          $("#property_transfer_id").val(property_id);
           $("#property_currentOwner").val(firstname);
           $("#property_address").val(address);
           

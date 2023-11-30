@@ -274,7 +274,7 @@ class Server
 
 
   // Verify passowrd when deleting account
-  public function verifyPassword($query, $data, $pass, $path)
+  public function verifyPassword($query, $data, $pass)
   {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
@@ -296,7 +296,7 @@ class Server
     // Pop up alert if Username doesn't exist.
     else {
     }
-    header("location:" . $path . "");
+    
   }
 
 

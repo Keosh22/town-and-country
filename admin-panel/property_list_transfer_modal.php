@@ -4,6 +4,7 @@ require_once("../libs/server.php");
 
 <?php
 
+
 ?>
 
 <div class="modal fade" id="propertyTransfer">
@@ -14,17 +15,18 @@ require_once("../libs/server.php");
         <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" id="propertyTransfer_form">
-        <input type="hidden" name="currentOwner_id" id="currentOwner_id">
+
+        <form action="property_list_transfer.php" method="POST" id="propertyTransfer_form">
+          <input type="text" name="property_transfer_id" id="property_transfer_id">
           <p class="fs-5 text-secondary divider personal-info mb-0">Property</p>
 
           <div class="col">
             <label for="property_address" class="form-label">Address:</label>
-            <input type="text" class="form-control" name="property_address" id="property_address" disabled>
+            <input type="text" class="form-control" name="property_address" id="property_address" readonly>
           </div>
           <div class="col">
             <label for="property_currentOwner" class="form-label">Current Owner:</label>
-            <input type="text" class="form-control" name="property_currentOwner" id="property_currentOwner" disabled>
+            <input type="text" class="form-control" name="property_currentOwner" id="property_currentOwner" readonly>
           </div>
           <p class="fs-5 text-secondary divider personal-info mb-0 mt-5">Transfer to:</p>
 
@@ -37,17 +39,13 @@ require_once("../libs/server.php");
           </div>
 
 
-
-
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-flat" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary btn-flat" type="submit" name="transfer" id="transfer">Transfer</button>
+          </div>
         </form>
-
-
-
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger btn-flat" type="button" data-bs-dismiss="modal">Close</button>
-        <button class="btn btn-primary btn-flat" type="submit" name="transfer" id="transfer">Transfer</button>
-      </div>
+
     </div>
   </div>
 </div>
