@@ -173,19 +173,6 @@ $server->adminAuthentication();
 								</div>
 
 							</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
 						</div>
 					</div>
 				</div>

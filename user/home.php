@@ -16,7 +16,7 @@ $row = mysqli_fetch_array($result['result'])
 
     </div>
   </div>
-
+ 
   <a class="carousel-a" href="./announcement.php">
     <div class="row carousel-container d-flex justify-content-center align-items-center m-auto">
 
@@ -25,7 +25,7 @@ $row = mysqli_fetch_array($result['result'])
     <h3>About: <?= $row['about'] ?></h3>
     
     <p>Date: <?= date('M d, Y', strtotime($row['date']))?></p>
-  
+
     <h5>Announcement</h5>
     <p class="scrollable-content"><?= $row['content']?> </p>
   </div>
@@ -49,7 +49,6 @@ $row = mysqli_fetch_array($result['result'])
   </div>
   </div>
 </a>
-
 
   <div class="row row-title mt-3 mb-3">
     <div class="col-sm-12 col-title text-center">

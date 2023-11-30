@@ -125,9 +125,11 @@ class Server
     }
   }
 
+
   // get announcement
   public function getAnnouncement()
   {
+   
     $connection = $this->conn;
     $query = "SELECT * FROM announcement ORDER BY date ASC";
     $stmt = $connection->prepare($query);
@@ -155,6 +157,8 @@ class Server
     //Ken
     $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
+
+
     if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
       $page_no = $_GET['page_no'];
     } else {
@@ -164,14 +168,14 @@ class Server
 
 
 
-    $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records FROM announcement");
+    $result_count = mysqli_query($connection, "SELECT COUNT(status) AS total_records FROM announcement WHERE status = 'ACTIVE'");
     $total_records_per_page = $numberofPage;
     $offset = ($page_no - 1) * $total_records_per_page;
 
 
 
 
-    $query = "SELECT * FROM announcement ORDER  BY date DESC LIMIT $offset, $total_records_per_page";
+    $query = "SELECT * FROM announcement WHERE status = 'ACTIVE' ORDER  BY date DESC LIMIT $offset, $total_records_per_page";
 
     $prev_page = $page_no - 1;
     $next_page = $page_no + 1;
@@ -181,7 +185,7 @@ class Server
 
     $result = mysqli_query($connection, $query);
 
-    $result_count = mysqli_query($connection, "SELECT COUNT(*) as total_records FROM announcement") or die(mysqli_error($connection));
+    $result_count = mysqli_query($connection, "SELECT COUNT(status) as total_records FROM announcement WHERE status = 'ACTIVE'") or die(mysqli_error($connection));
     $records = mysqli_fetch_array($result_count);
     $total_records = $records['total_records'];
     $total_number_per_page = ceil($total_records / $total_records_per_page);
