@@ -5,7 +5,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 <?php
   $default_date = date("Y/m/d g:i A", strtotime("now")); 
-   ?>
+ ?>
 
 
 
@@ -20,19 +20,28 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
       </div>
 
       <div class="modal-body mx-3">
-        <form action="" method="POST" id="update_announcement_form">
+        <form action="announcement_update.php" method="POST" id="update_announcement_form">
+          <input type="text" name="announcement_id" id="announcement_id">
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="about_update" class="form-label">About:</label>
-              <input type="text" name="about_update" id="about_update" class="form-control">
+              <input type="text" name="about_update" id="about_update" class="form-control" required>
             </div>
             <div class="col-md-6">
               <label for="announcement_date_update" class="form-label">When:</label>
-              <input value="<?php echo $default_date; ?>" type="text" name="announcement_date_update" id="announcement_date_update" class="form-control">
+              <input value="<?php echo $default_date; ?>"  name="announcement_date_update" id="announcement_date_update" class="form-control" required>
             </div>
             <div class="col">
               <label for="content_update" class="form-label">Content:</label>
-              <textarea name="content_update" id="content_update" rows="10" class="form-control"></textarea>
+              <textarea name="content_update" id="content_update" rows="10" class="form-control" required></textarea>
+            </div>
+            <div class="col-12">
+              <label for="status_update" class="form-label">Status:</label>
+              <select name="status_update" id="status_update" class="form-select" required>
+                <option id="status_default" selected></option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+              </select>
             </div>
 
 
@@ -53,10 +62,11 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
   $(document).ready(function() {
   
     $("#announcementUpdate").on('hidden.bs.modal', function(e){
-      $("#update_announcement_form").find('input[type=text]').val("");
+      $("#update_announcement_form").find('input[type=text], input[type=hidded]').val("");
+      $("#status_default").prop("selected", true);
     });
 
-    $("#announcement_date").daterangepicker({
+    $("#announcement_date_update").daterangepicker({
       singleDatePicker: true,
       showDropdowns: true,
       autoApply: true,

@@ -7,7 +7,8 @@ session_start();
 $server = new Server;
 if(isset($_POST['create_announcement'])){
   $about = filter_input(INPUT_POST, 'about', FILTER_SANITIZE_SPECIAL_CHARS);
-  $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS);
+  // $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS);
+  $content = $_POST['content'];
   $current_date = date("Y-m-d H:i:sA", strtotime("now"));
   $expiration_date = filter_input(INPUT_POST, 'announcement_date', FILTER_SANITIZE_SPECIAL_CHARS);
   

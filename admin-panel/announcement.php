@@ -94,7 +94,7 @@ $server->adminAuthentication();
                                   <tr>
 
                                     <td><?php echo $about ?></td>
-                                    <td><?php echo $content ?></td>
+                                    <td><?php echo nl2br($content) ?></td>
                                     <td><?php echo date("F j, Y  g:i a", strtotime($date_created)); ?></td>
                                     <td><?php echo date("F j, Y  g:i a", strtotime($date)) ?></td>
                                     <td>
@@ -115,7 +115,7 @@ $server->adminAuthentication();
                                       <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                       <ul class="dropdown-menu">
                                         <li><a href="#" class="dropdown-item">Delete</a></li>
-                                        <li><a href="#announcementUpdate" class="dropdown-item" data-bs-toggle="modal">Update</a></li>
+                                        <li><a data-id="<?php echo $announcement_id ?>" href="#announcementUpdate" class="dropdown-item" data-bs-toggle="modal" id="update_dropdown_btn">Update</a></li>
                                       </ul>
                                     </div>
                                   </td>
@@ -169,7 +169,27 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
 
+      $("#announcementTable").on('click', '#update_dropdown_btn', function (){
+        var announcement_id = $(this).attr('data-id');
+        $("#announcement_id").val(announcement_id);
+        getAnnouncement(announcement_id);
 
+        function getAnnouncement(announcement_id){
+          $.ajax({
+            url: '../ajax/announcement_get_data.php',
+            type: 'POST',
+            data: {announcement_id: announcement_id},
+            dataType: 'JSON',
+            success: function(response){
+              $("#about_update").val(response.about);
+              $("#announcement_date_update").val(response.date);
+              $("#content_update").val(response.content);
+
+            }
+          });
+        }
+        
+      });
 
 
 

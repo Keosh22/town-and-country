@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require "../includes/user-header.php";
 require "../libs/server.php";
 $homeServer = New Server();
@@ -29,7 +29,7 @@ $row = mysqli_fetch_array($result['result'])
     <p>Date: <?= date('M d, Y', strtotime($row['date']))?></p>
 
     <h5>Announcement</h5>
-    <p class="scrollable-content"><?= $row['content']?> </p>
+    <p class="scrollable-content"><?= nl2br($row['content'])?> </p>
   </div>
   </div>
 
