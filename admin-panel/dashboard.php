@@ -13,9 +13,15 @@ $server = new Server;
 $server->adminAuthentication();
 
 // $validity = '3 days';
-// $today = new DateTime('first day of this month +'. $validity);
+// $today = new DateTime('first day of this month + 1 day'. $validity);
 // $result = $today->format('Y-m-d');
-// echo $result;
+// $expiration = date("Y-m-d ",strtotime("+1 day"));
+// $currentDate = date("Y-m-d ",strtotime("now +1day"));
+// if($expiration == $currentDate){
+// 	echo "Same date";
+// } else {
+// 	echo "Not same date";
+// }
 ?>
 
 <body>

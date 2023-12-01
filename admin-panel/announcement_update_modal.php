@@ -38,7 +38,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             <div class="col-12">
               <label for="status_update" class="form-label">Status:</label>
               <select name="status_update" id="status_update" class="form-select" required>
-                <option id="status_default" selected></option>
+                <option id="status_default"></option>
                 <option value="ACTIVE">ACTIVE</option>
                 <option value="INACTIVE">INACTIVE</option>
               </select>

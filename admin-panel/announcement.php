@@ -1,6 +1,7 @@
 <?php
 require_once("../libs/server.php");
 require_once("../includes/header.php");
+DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
 
 <?php
@@ -8,6 +9,8 @@ session_start();
 $server = new Server;
 $server->adminAuthentication();
 ?>
+
+
 
 <!-- Body starts here -->
 
@@ -76,6 +79,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
+
                               $query = "SELECT * FROM announcement";
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
@@ -89,6 +93,23 @@ $server->adminAuthentication();
                                   $date = $result['date'];
                                   $date_created = $result['date_created'];
                                   $status = $result['status'];
+
+                                  $announcement_expired = date("Y/m/d", strtotime($date . "+1 day"));
+                                  $current_date = date("Y/m/d", strtotime("now"));
+                                  if ($announcement_expired < $current_date ) {
+                                    $status = "INACTIVE";
+                                    $query_expired = "UPDATE announcement SET status = :status WHERE id = :announcement_id";
+                                    $data_expired = [
+                                      "status" => $status,
+                                      "announcement_id" => $announcement_id
+                                    ];
+                                    $connection_expired = $server->openConn();
+                                    $stmt_expired = $connection_expired->prepare($query_expired);
+                                    $stmt_expired->execute($data_expired);
+                                    
+                                    
+                                  }
+
                               ?>
 
                                   <tr>
@@ -99,26 +120,26 @@ $server->adminAuthentication();
                                     <td><?php echo date("F j, Y  g:i a", strtotime($date)) ?></td>
                                     <td>
                                       <?php
-                                        if($status == "ACTIVE"){
-                                          ?>
-                                            <span class="badge rounded-pill text-bg-success"><?php echo $status ?></span>
-                                          <?php
-                                        } else {
-                                          ?>
-                                          <span class="badge rounded-pill text-bg-danger"><?php echo $status ?></span>
-                                        <?php
-                                        }
+                                      if ($status == "ACTIVE") {
+                                      ?>
+                                        <span class="badge rounded-pill text-bg-success"><?php echo $status ?></span>
+                                      <?php
+                                      } else {
+                                      ?>
+                                        <span class="badge rounded-pill text-bg-danger"><?php echo $status ?></span>
+                                      <?php
+                                      }
                                       ?>
                                     </td>
                                     <td>
                                       <div class="dropdown">
-                                      <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
-                                      <ul class="dropdown-menu">
-                                        <li><a href="#" class="dropdown-item">Delete</a></li>
-                                        <li><a data-id="<?php echo $announcement_id ?>" href="#announcementUpdate" class="dropdown-item" data-bs-toggle="modal" id="update_dropdown_btn">Update</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
+                                        <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
+                                        <ul class="dropdown-menu">
+                                          <li><a href="#" class="dropdown-item">Delete</a></li>
+                                          <li><a data-id="<?php echo $announcement_id ?>" href="#announcementUpdate" class="dropdown-item" data-bs-toggle="modal" id="update_dropdown_btn">Update</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
                                   </tr>
                               <?php
                                 }
@@ -169,26 +190,28 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
 
-      $("#announcementTable").on('click', '#update_dropdown_btn', function (){
+      $("#announcementTable").on('click', '#update_dropdown_btn', function() {
         var announcement_id = $(this).attr('data-id');
         $("#announcement_id").val(announcement_id);
         getAnnouncement(announcement_id);
 
-        function getAnnouncement(announcement_id){
+        function getAnnouncement(announcement_id) {
           $.ajax({
             url: '../ajax/announcement_get_data.php',
             type: 'POST',
-            data: {announcement_id: announcement_id},
+            data: {
+              announcement_id: announcement_id
+            },
             dataType: 'JSON',
-            success: function(response){
+            success: function(response) {
               $("#about_update").val(response.about);
               $("#announcement_date_update").val(response.date);
               $("#content_update").val(response.content);
-
+              
             }
           });
         }
-        
+
       });
 
 
@@ -197,7 +220,7 @@ $server->adminAuthentication();
       $("#announcementTable").DataTable({
         order: [
           [4, 'asc']
-          
+
         ]
       });
 
