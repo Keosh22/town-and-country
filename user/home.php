@@ -1,8 +1,10 @@
 <?php
+session_start();
 require "../includes/user-header.php";
 require "../libs/server.php";
 $homeServer = New Server();
 
+$homeServer->userAuthentication();
 $result = $homeServer->pagination(1);
 $row = mysqli_fetch_array($result['result'])
 ?>

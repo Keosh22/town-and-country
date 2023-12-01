@@ -529,6 +529,19 @@ class Server
       echo "<script>window.location.href='../admin/index.php'</script>";
     }
   }
+
+
+  public function userSessionLogin(){
+    if(isset($_SESSION['user_id'])){
+      echo "<script>window.location.href='./user/home.php'</script>";
+    }
+  }
+
+  public function userAuthentication(){
+    if(empty($_SESSION['user_id'])){
+      echo "<script>window.location.href='../index.php'</script>";
+    }
+  }
 }
 
 ?>

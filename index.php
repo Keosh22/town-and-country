@@ -8,7 +8,7 @@
 <?php
 $userserver = new Server; // Open/Close connection
 session_start();
-//$userserver->adminSessionLogin();
+$userserver->userSessionLogin();
 ?>
 
 
