@@ -10,41 +10,35 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 
 <!-- Modal Homeowners Regsitration -->
-<div id="announcementCreate" class="modal fade">
+<div id="announcementUpdate" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title"><b>Create Announcement</b></h4>
+        <h4 class="modal-title"><b>Update Announcement</b></h4>
         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="close"></button>
       </div>
 
       <div class="modal-body mx-3">
-        <form action="announcement_create.php" method="POST" id="create_announcement_form">
+        <form action="" method="POST" id="update_announcement_form">
           <div class="row gy-3">
             <div class="col-md-6">
-              <label for="about" class="form-label">About:</label>
-              <input type="text" name="about" id="about" class="form-control">
+              <label for="about_update" class="form-label">About:</label>
+              <input type="text" name="about_update" id="about_update" class="form-control">
             </div>
             <div class="col-md-6">
-              <label for="announcement_date" class="form-label">When:</label>
-              <input value="<?php echo $default_date; ?>"  name="announcement_date" id="announcement_date" class="form-control">
+              <label for="announcement_date_update" class="form-label">When:</label>
+              <input value="<?php echo $default_date; ?>" type="text" name="announcement_date_update" id="announcement_date_update" class="form-control">
             </div>
             <div class="col">
-              <label for="content" class="form-label">Content:</label>
-              <textarea name="content" id="content" rows="10" class="form-control"></textarea>
+              <label for="content_update" class="form-label">Content:</label>
+              <textarea name="content_update" id="content_update" rows="10" class="form-control"></textarea>
             </div>
-
-
-
-
-
-
 
 
             <div class="modal-footer">
               <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btn-flat" name="create_announcement" class="create_announcement" id="create_announcement">Register</button>
+              <button type="submit" class="btn btn-primary btn-flat" name="update_announcement" class="update_announcement" id="create_announcement">Update</button>
             </div>
           </div>
         </form>
@@ -57,13 +51,10 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 <script>
   $(document).ready(function() {
-    $("#announcementCreate").on('hidden.bs.modal', function(e){
-      var default_date = $("#announcement_date").val("<?php echo $default_date; ?>");
-
-      $("#create_announcement_form").find('input[type=text]').val("");
-
+  
+    $("#announcementUpdate").on('hidden.bs.modal', function(e){
+      $("#update_announcement_form").find('input[type=text]').val("");
     });
-    
 
     $("#announcement_date").daterangepicker({
       singleDatePicker: true,
