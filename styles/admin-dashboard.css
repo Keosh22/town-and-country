@@ -292,6 +292,10 @@ h2{
 
 /* CARD PROFILE */
 .card{
+  /* border-top: 3px solid #284B63 ; */
+}
+
+.card-border{
   border-top: 3px solid #284B63 ;
 }
 

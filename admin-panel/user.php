@@ -36,7 +36,7 @@ $server->adminAuthentication();
 					</ol>
 				</section>
 
-				<div class="card">
+				<div class="card card-border">
 					<div class="card-header">
 						<h2>User Management</h2>
 					</div>

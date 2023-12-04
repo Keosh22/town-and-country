@@ -43,7 +43,7 @@ $server->adminAuthentication();
 
 
         <!-- Card Start here -->
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Announcement List</h2>
           </div>

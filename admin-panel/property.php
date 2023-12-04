@@ -54,7 +54,7 @@ if ($count) {
         <!-- content header -->
 
 
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Homeowners property list</h2>
           </div>

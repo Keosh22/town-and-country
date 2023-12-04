@@ -17,7 +17,7 @@ require_once("../libs/server.php");
       <div class="modal-body">
 
         <form action="property_list_transfer.php" method="POST" id="propertyTransfer_form">
-          <input type="text" name="property_transfer_id" id="property_transfer_id">
+          <input type="hidden" name="property_transfer_id" id="property_transfer_id">
           <p class="fs-5 text-secondary divider personal-info mb-0">Property</p>
 
           <div class="col">
