@@ -135,7 +135,7 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="#" class="dropdown-item">Delete</a></li>
+                                          <li><a data-id="<?php echo $announcement_id ?>" href="#" class="dropdown-item" id="delete_announcement">Delete</a></li>
                                           <li><a data-id="<?php echo $announcement_id ?>" href="#announcementUpdate" class="dropdown-item" data-bs-toggle="modal" id="update_dropdown_btn">Update</a></li>
                                         </ul>
                                       </div>
@@ -189,7 +189,10 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
+      
+      
 
+      // Update announcement
       $("#announcementTable").on('click', '#update_dropdown_btn', function() {
         var announcement_id = $(this).attr('data-id');
         $("#announcement_id").val(announcement_id);
@@ -211,7 +214,35 @@ $server->adminAuthentication();
             }
           });
         }
+      });
 
+      // Delete announcement
+      $("#announcementTable").on('click', '#delete_announcement', function (){
+        var announcement_id = $(this).attr('data-id');
+        swal({
+          title: "Delete Confirmation",
+          text: "Once deleted, you will not able to recover this record",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if(willDelete){
+            
+            $.ajax({
+              url: '../ajax/announcement_delete.php',
+              type: 'POSt',
+              data: {announcement_id: announcement_id},
+              success: function (response){
+              }
+            });
+            location.reload(true);
+          
+            
+          } else {
+            swal("Delete cancel!");
+          }
+        })
       });
 
 
