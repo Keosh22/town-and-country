@@ -182,8 +182,6 @@ $server->adminAuthentication();
           $("#property_transfer_id").val(property_id);
           $("#property_currentOwner").val(firstname);
           $("#property_address").val(address);
-          
-
       });
 
 

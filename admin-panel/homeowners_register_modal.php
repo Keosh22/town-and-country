@@ -94,6 +94,7 @@ require_once("../libs/server.php");
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
               <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+              <div id="phoneNumberHelpBlock"></div>
             </div>
 
             <div class="col-12">
@@ -102,6 +103,7 @@ require_once("../libs/server.php");
                 <option value=""></option>
                 <option value="Member">Member</option>
                 <option value="Non-member">Non-member</option>
+                <option value="Tenant">Tenant</option>
               </select>
             </div>
 
@@ -199,7 +201,7 @@ require_once("../libs/server.php");
       $("#street").empty().append('<option selected>- Select -</option>');
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
-     
+
       $(".password-input").removeClass("input-success");
       $(".password-input").removeClass("input-danger");
       $("#passwordHelpBlock").empty().append('<div id="passwordHelpBlock"></div>');
@@ -207,12 +209,16 @@ require_once("../libs/server.php");
       $(".confirm-password-input").removeClass("input-success");
       $(".confirm-password-input").removeClass("input-danger");
       $("#confirmpasswordHelpBlock").empty().append('<div id="confirmpasswordHelpBlock"></div>');
-
+     
       $("#showPassword").prop('checked', false);
 
       $("#password").attr('type', "password");
       $("#confirm_password").attr('type', "password");
 
+      $("#register").prop('disabled', false);
+      $("#phone_number").removeClass("input-success");
+      $("#phone_number").removeClass("input-danger");
+      $("#phoneNumberHelpBlock").empty().append("<div id='phoneNumberHelpBlock'></div>");
 
     });
 
@@ -230,8 +236,8 @@ require_once("../libs/server.php");
           for (var i = 0; i < len; i++) {
             var account_number = response[i].account_number;
             var default_pass = response[i].default_pass;
-            console.log(account_number);
-            console.log(default_pass);
+            // console.log(account_number);
+            // console.log(default_pass);
 
             $("#username").prop('value', account_number);
             $("#password").prop('value', default_pass);
@@ -240,6 +246,26 @@ require_once("../libs/server.php");
           }
         }
       });
+    });
+
+
+    // Phone Number validation
+    $("#phone_number").on('keyup', function() {
+      var phone_number = $(this).val().trim();
+      var number = /([0-9])/;
+
+      if (phone_number.match(number) && phone_number.length == 11) {
+        $("#phone_number").removeClass("input-danger");
+        $("#phone_number").addClass("input-success");
+        $("#phoneNumberHelpBlock").empty().append("<div id='phoneNumberHelpBlock' class='form-text text-success'>Valid phone number</div>");
+        $("#register").prop('disabled', false);
+      } else {
+        $("#phone_number").removeClass("input-success");
+        $("#phone_number").addClass("input-danger");
+        $("#phoneNumberHelpBlock").empty().append("<div id='phoneNumberHelpBlock' class='form-text text-danger'>Invalid phone number</div>");
+        $("#register").prop('disabled', true);
+      }
+
     });
 
 
@@ -333,7 +359,6 @@ require_once("../libs/server.php");
     });
 
 
-
     // Add property inputs
     $(".add_property").on('click', function() {
       $("#propertyContainer").append('<p>hello</p>');
@@ -346,7 +371,7 @@ require_once("../libs/server.php");
       if (phase == "Phase 1") {
         $("#street").empty().append('<option>- Select -</option>');
         getStreet(phase);
-      
+
       } else if (phase == "Phase 2") {
         $("#street").empty().append('<option>- Select -</option>');
         getStreet(phase);
@@ -360,22 +385,21 @@ require_once("../libs/server.php");
 
 
 
-
     // ajax function get street
-    function getStreet(phase){
+    function getStreet(phase) {
       $.ajax({
-          url: '../ajax/street_fetch_select.php',
-          method: 'POST',
-          data: {
-            phase: phase
-          },
-          dataType: 'JSON',
-          success: function(response) {
-            $.each(response, function(key, value) {
-              $("#street").append(' <option>' + value['street'] + '</option>');
-            })
-          }
-        });
+        url: '../ajax/street_fetch_select.php',
+        method: 'POST',
+        data: {
+          phase: phase
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          $.each(response, function(key, value) {
+            $("#street").append(' <option>' + value['street'] + '</option>');
+          })
+        }
+      });
     }
 
 

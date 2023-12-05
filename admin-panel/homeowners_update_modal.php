@@ -47,6 +47,7 @@ require_once("../libs/server.php");
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
               <input type="text" class="form-control" id="phone_number_update" name="phone_number_update" required>
+              <div id='phoneNumberUpdateHelpBlock'></div>
             </div>
 
             <div class="col-12">
@@ -122,7 +123,10 @@ require_once("../libs/server.php");
   
      
 
-
+      $("#phone_number_update").prop('disabled', false);
+      $("#phone_number_update").removeClass("input-success");
+      $("#phone_number_update").removeClass("input-danger");
+      $("#phoneNumberUpdateHelpBlock").empty().append("<div id='phoneNumberUpdateHelpBlock'></div>");
 
     });
 
@@ -137,7 +141,25 @@ require_once("../libs/server.php");
       var status = $("#status_update").val();
     });
 
+    
+      // Phone Number validation
+      $("#phone_number_update").on('keyup', function() {
+      var phone_number = $(this).val().trim();
+      var number = /([0-9])/;
 
+      if (phone_number.match(number) && phone_number.length == 11) {
+        $("#phone_number_update").removeClass("input-danger");
+        $("#phone_number_update").addClass("input-success");
+        $("#phoneNumberUpdateHelpBlock").empty().append("<div id='phoneNumberUpdateHelpBlock' class='form-text text-success'>Valid phone number</div>");
+        $("#update_btn").prop('disabled', false);
+      } else {
+        $("#phone_number_update").removeClass("input-success");
+        $("#phone_number_update").addClass("input-danger");
+        $("#phoneNumberUpdateHelpBlock").empty().append("<div id='phoneNumberUpdateHelpBlock' class='form-text text-danger'>Invalid phone number</div>");
+        $("#update_btn").prop('disabled', true);
+      }
+
+    });
 
     
 

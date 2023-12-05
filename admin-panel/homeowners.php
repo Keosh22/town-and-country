@@ -46,7 +46,6 @@ $server->adminAuthentication();
 					</div>
 					<div class="card-body">
 						<div class="container-fluid">
-
 							<section class="main-content">
 								<div class="row">
 									<div class="col-xs-12">
@@ -56,11 +55,8 @@ $server->adminAuthentication();
 												<div class="col">
 													<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
 												</div>
-
 											</div>
-
 											<div class="body-box shadow-sm">
-
 												<div class="table-responsive mx-2">
 													<table id="homeownersTable" class="table table-striped" style="width:100%">
 														<thead>
@@ -76,7 +72,6 @@ $server->adminAuthentication();
 															</tr>
 														</thead>
 														<tbody>
-
 															<?php
 															$query = "SELECT * FROM homeowners_users";
 															$connection = $server->openConn();
@@ -96,7 +91,6 @@ $server->adminAuthentication();
 																$email = $result['email'];
 																$phone_number = $result['phone_number'];
 																$tenant_name = $result['tenant_name'];
-
 															?>
 																<tr>
 																	<td><?php echo $account_number; ?></td>
@@ -105,12 +99,7 @@ $server->adminAuthentication();
 																	</td>
 																	<td>
 																		<?php
-																		if ($tenant_name == "") {
-																			$tenant_name = "";
-																		} else {
-																			$tenant_name = "Tenant: " . $tenant_name;
-																		}
-																		echo $firstname . " " . $middle_initial . " " . $lastname . "<br><p class='text-info'>" . $tenant_name . "</p>";
+																		echo $firstname . " " . $middle_initial . " " . $lastname . "</p>";
 																		?>
 																	</td>
 																	<td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?></td>
@@ -126,15 +115,9 @@ $server->adminAuthentication();
 																		?>
 																			<span class="badge rounded-pill text-bg-danger"><?php echo $status; ?></span>
 																		<?php
-																		} elseif ($status == 'Tenant - Member') {
+																		} elseif ($status == 'Tenant') {
 																		?>
 																			<span class="badge rounded-pill text-bg-warning">Tenant</span>
-																			<span class="badge rounded-pill text-bg-success">Member</span>
-																		<?php
-																		} elseif ($status == 'Tenant - Non-member') {
-																		?>
-																			<span class="badge rounded-pill text-bg-warning">Tenant</span>
-																			<span class="badge rounded-pill text-bg-danger">Non-Member</span>
 																		<?php
 																		}
 
@@ -144,9 +127,21 @@ $server->adminAuthentication();
 																		<div class="dropdown">
 																			<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
 																			<ul class="dropdown-menu">
-																				<li><a href="#" class="dropdown-item" id="view">View</a></li>
-																				<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
-																				<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																				<?php
+																				if ($status == 'Tenant') {
+																				?>
+																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																				<?php
+																				} else {
+																				?>
+																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																					<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																				<?php
+																				}
+																				?>
+
 																			</ul>
 																		</div>
 																	</td>
@@ -155,12 +150,10 @@ $server->adminAuthentication();
 															<?php
 															}
 															?>
-
-
 														</tbody>
 														<tfoot>
 															<tr>
-																<<th width="5%">Acc.#</th>
+																<th width="5%">Acc.#</th>
 																<th width="10%">Photo</th>
 																<th width="20%">Fullname</th>
 																<th width="30%">Address</th>
@@ -174,28 +167,11 @@ $server->adminAuthentication();
 												</div>
 												<!-- Table -->
 											</div>
-
 											<!-- box end here -->
 										</div>
 									</div>
 								</div>
-
 							</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 						</div>
 					</div>
 				</div>
@@ -239,7 +215,7 @@ $server->adminAuthentication();
 			// DataTable
 			$("#homeownersTable").DataTable({
 				order: [
-					[0, 'desc']
+					[2, 'asc']
 				]
 			});
 

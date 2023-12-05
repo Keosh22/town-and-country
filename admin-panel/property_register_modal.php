@@ -171,7 +171,7 @@ $server = new Server;
 
         }
       });
-      location.reload();
+      location.reload(true);
     })
 
   });

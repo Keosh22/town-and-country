@@ -96,15 +96,15 @@ $server->adminAuthentication();
 
                                   $announcement_expired = date("Y/m/d", strtotime($date . "+1 day"));
                                   $current_date = date("Y/m/d", strtotime("now"));
-                                  if ($announcement_expired < $current_date ) {
+                                  if ($announcement_expired <= $current_date ) {
                                     $status = "INACTIVE";
                                     $query_expired = "UPDATE announcement SET status = :status WHERE id = :announcement_id";
                                     $data_expired = [
                                       "status" => $status,
                                       "announcement_id" => $announcement_id
                                     ];
-                                    $connection_expired = $server->openConn();
-                                    $stmt_expired = $connection_expired->prepare($query_expired);
+                                    // $connection_expired = $server->openConn();
+                                    $stmt_expired = $connection->prepare($query_expired);
                                     $stmt_expired->execute($data_expired);
                                     
                                     
@@ -144,8 +144,8 @@ $server->adminAuthentication();
                               <?php
                                 }
                               } else {
-                                $_SESSION['status'] = "Warning";
-                                $_SESSION['text'] = "Something went wrong.";
+                                $_SESSION['status'] = "No Records";
+                                $_SESSION['text'] = "";
                                 $_SESSION['status_code'] = "warning";
                               }
                               ?>

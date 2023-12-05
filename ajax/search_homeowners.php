@@ -27,11 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response = '<div class="col">
   <label for="newOwner_name" class="form-label">New Owner:</label>
   <input type="text" class="form-control" name="newOwner_name" id="newOwner_name" value="' . $fullname . '" readonly>
-  <input type="text" name="transfer_id" id="transfer_id" value="' . $id . '">
+  <input type="hidden" name="transfer_id" id="transfer_id" value="' . $id . '">
+  <input type="hidden" name="tenant_id" id="tenant_id" value="' . $id . '">
   </div>
   <div class="col">
   <label for="transfer_password" class="form-label">Input Password:</label>
   <input type="password" class="form-control" name="transfer_password" id="transfer_password" required>
+  
   </div>
   
   ';
