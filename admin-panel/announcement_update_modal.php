@@ -21,7 +21,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
       <div class="modal-body mx-3">
         <form action="announcement_update.php" method="POST" id="update_announcement_form">
-          <input type="text" name="announcement_id" id="announcement_id">
+          <input type="hidden" name="announcement_id" id="announcement_id">
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="about_update" class="form-label">About:</label>

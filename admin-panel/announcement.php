@@ -71,7 +71,7 @@ $server->adminAuthentication();
 
                                 <th width="10%">About</th>
                                 <th width="30%">Content</th>
-                                <th width="10%">Date Created</th>
+                           
                                 <th width="10%">Event Date</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
@@ -116,7 +116,7 @@ $server->adminAuthentication();
 
                                     <td><?php echo $about ?></td>
                                     <td><?php echo nl2br($content) ?></td>
-                                    <td><?php echo date("F j, Y  g:i a", strtotime($date_created)); ?></td>
+                                    
                                     <td><?php echo date("F j, Y  g:i a", strtotime($date)) ?></td>
                                     <td>
                                       <?php
@@ -155,7 +155,7 @@ $server->adminAuthentication();
 
                                 <th width="10%">About</th>
                                 <th width="30%">Content</th>
-                                <th width="10%">Date Created</th>
+                              
                                 <th width="10%">Date & Time</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
@@ -250,7 +250,8 @@ $server->adminAuthentication();
       // DataTable
       $("#announcementTable").DataTable({
         order: [
-          [4, 'asc']
+          [3, 'asc'],
+          [2, 'asc']
 
         ]
       });
