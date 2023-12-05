@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 10:47 AM
+-- Generation Time: Dec 05, 2023 at 07:20 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -97,7 +97,15 @@ INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date
 (214, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 15:40:45'),
 (215, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 16:10:50'),
 (216, 'ADM004', 'KEN JOSHUA', 'Logged out', '2023-12-01 16:13:36'),
-(217, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 16:35:01');
+(217, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 16:35:01'),
+(218, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 20:37:37'),
+(219, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 21:16:09'),
+(220, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-01 23:37:23'),
+(221, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-04 20:33:20'),
+(222, 'ADM004', 'KEN JOSHUA', 'Register property: BLK-Blk 3 LOT-Lot 4 Phase 1 Macopa to TCH0004: Jesusa Buenavides', '2023-12-04 20:33:57'),
+(223, 'ADM004', 'KEN JOSHUA', 'Register property: BLK-Blk 3 LOT-Lot 4 Phase 1 Macopa to TCH0004: Jesusa Buenavides', '2023-12-04 20:34:34'),
+(224, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-04 22:38:30'),
+(225, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-05 14:12:03');
 
 -- --------------------------------------------------------
 
@@ -148,15 +156,12 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`id`, `about`, `content`, `date`, `date_created`, `status`) VALUES
-(1, 'Meeting', 'We have a general meeting this coming day. We are expecting the attendance of all the homeowners. Thank you!', '2023-11-21 21:03:52', '2023-11-25 15:00:00', 'ACTIVE'),
-(2, 'Libreng Tuli', 'We are pleased to inform you that we will be having a free tuli.', '2023-11-30 20:21:38', '2023-11-30 12:00:00', 'INACTIVE'),
-(3, 'Sports', 'Sports fest', '2023-11-30 20:23:38', '2023-11-21 19:38:37', 'INACTIVE'),
-(4, 'Webinar', 'Hacking', '2023-11-30 20:23:04', '2023-11-21 19:38:54', 'INACTIVE'),
-(11, 'Christmas Party', 'Our Christmas Party will be held on HOA Clubhouse by 1:00PM to 5:00PM', '2023-12-08 01:00:00', '2023-12-01 15:42:31', 'ACTIVE'),
-(12, 'New Year Party TCH HOA', 'New year eves party', '2023-12-31 08:00:00', '2023-12-01 16:56:03', 'ACTIVE'),
-(13, 'Bday Cody', 'asdasdasd', '2023-12-01 05:14:00', '2023-12-01 17:14:34', 'ACTIVE'),
-(14, 'Bday Yana', 'Bday ni yana', '2024-01-01 12:01:00', '2023-12-01 17:15:10', 'ACTIVE'),
-(15, 'Bday ko', 'Bday ni Ken', '2024-08-22 05:18:00', '2023-12-01 17:20:16', 'ACTIVE');
+(4, 'Webinar', 'Hacking', '2023-11-30 08:23:00', '2023-11-21 19:38:54', 'INACTIVE'),
+(68, 'AS', 'as', '2023-12-04 02:12:00', '2023-12-05 14:12:19', 'INACTIVE'),
+(69, 'AS', 'll', '2023-12-05 02:14:00', '2023-12-05 14:14:12', 'ACTIVE'),
+(70, 'ad', 'asd', '2023-12-06 02:14:00', '2023-12-05 14:14:44', 'ACTIVE'),
+(71, 'asd', 'asd', '2023-12-05 02:14:00', '2023-12-05 14:15:07', 'ACTIVE'),
+(72, 'asd', 'asd', '2023-12-03 02:15:00', '2023-12-05 14:15:14', 'INACTIVE');
 
 -- --------------------------------------------------------
 
@@ -217,7 +222,9 @@ INSERT INTO `property_list` (`id`, `homeowners_id`, `blk`, `lot`, `phase`, `stre
 (39, 57, '12', '2', 'Phase 3', 'Garnett'),
 (40, 56, '16', '11', 'Phase 1', 'Avocado'),
 (41, 56, '11', '15', 'Phase 1', 'Golden Coconut'),
-(42, 55, '15', '12', 'Phase 3', 'Emerald');
+(42, 55, '15', '12', 'Phase 3', 'Emerald'),
+(43, 57, 'Blk 3', 'Lot 4', 'Phase 1', 'Macopa'),
+(44, 57, 'Blk 3', 'Lot 4', 'Phase 1', 'Macopa');
 
 -- --------------------------------------------------------
 
@@ -302,7 +309,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -314,7 +321,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `homeowners_users`
@@ -326,7 +333,7 @@ ALTER TABLE `homeowners_users`
 -- AUTO_INCREMENT for table `property_list`
 --
 ALTER TABLE `property_list`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `street_list`
