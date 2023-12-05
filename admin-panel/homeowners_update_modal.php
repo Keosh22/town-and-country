@@ -56,6 +56,7 @@ require_once("../libs/server.php");
                 <option  id="status_option_update"></option>
                 <option value="Member">Member</option>
                 <option value="Non-member">Non-member</option>
+                <option value="Tenant">Tenant</option>
               </select>
             </div>
 

@@ -49,9 +49,9 @@ $server->adminAuthentication();
 							<div class="card-body">
 								<h4 class="card-title">Homeowners</h4>
 								<h6 class="card-subttitle text-success">Members</h6>
-								<p class="card-text fs-3">1,230</p>
+								<p class="card-text fs-3">530</p>
 								<h6 class="card-subtitle text-danger">Non-Members</h6>
-								<p class="card-text fs-3">120</p>
+								<p class="card-text fs-3">60</p>
 							</div>
 						</div>
 					</div>
@@ -60,9 +60,9 @@ $server->adminAuthentication();
 							<div class="card-body">
 								<h4 class="card-title">Announcement</h4>
 								<h6 class="card-subttitle text-success">Active</h6>
-								<p class="card-text fs-3">1,230</p>
+								<p class="card-text fs-3">3</p>
 								<h6 class="card-subtitle text-danger">Inactive</h6>
-								<p class="card-text fs-3">120</p>
+								<p class="card-text fs-3">2</p>
 							</div>
 						</div>
 					</div>
@@ -71,9 +71,9 @@ $server->adminAuthentication();
 							<div class="card-body">
 								<h4 class="card-title">Maintenance</h4>
 								<h6 class="card-subttitle text-success">Request</h6>
-								<p class="card-text fs-3">1,230</p>
+								<p class="card-text fs-3">15</p>
 								<h6 class="card-subtitle text-danger">Pending</h6>
-								<p class="card-text fs-3">120</p>
+								<p class="card-text fs-3">5</p>
 							</div>
 						</div>
 					</div>
@@ -82,7 +82,7 @@ $server->adminAuthentication();
 							<div class="card-body">
 								<h4 class="card-title">Due Payments</h4>
 								<h6 class="card-subttitle text-success">Members</h6>
-								<p class="card-text fs-3">12</p>
+								<p class="card-text fs-3">0</p>
 								<h6 class="card-subtitle text-danger">Non-Members</h6>
 								<p class="card-text fs-3">0</p>
 							</div>
