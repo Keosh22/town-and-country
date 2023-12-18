@@ -10,6 +10,12 @@
 .table-container {
     max-height: 80%; /* Set a maximum height for the table container */
     overflow-y: auto; /* Enable vertical scrolling for the container if needed */
+    border-radius: 10px;
+    
+}
+
+.table-container tr th{
+    color: #064420;
 }
 
 .table td, .table th {
