@@ -8,7 +8,7 @@
 <?php
 $userserver = new Server; // Open/Close connection
 session_start();
-//$userserver->adminSessionLogin();
+$userserver->userSessionLogin();
 ?>
 
 
@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
     $_SESSION['text'] = "Please fill all the fields!";
     $_SESSION['status_code'] = "warning";
   } else {
-    $query = "SELECT * FROM users WHERE username = :username";
+    $query = "SELECT * FROM homeowners_users WHERE username = :username";
     $data = ["username" =>  $login_Username];
     $path = "./user/home.php";
     $pass = $login_Pass;

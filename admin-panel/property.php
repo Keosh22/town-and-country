@@ -54,7 +54,7 @@ if ($count) {
         <!-- content header -->
 
 
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Homeowners property list</h2>
           </div>
@@ -92,15 +92,16 @@ if ($count) {
                           <table id="propertyTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="10%">#</th>
+                             
                                 <th width="20%">Address</th>
                                 <th width="20%">Phase</th>
+                                <th width="20%">Tenant</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <?php
-                       
+
                               $query = "SELECT * FROM property_list WHERE homeowners_id = :id";
                               $data = ["id" => $id];
                               $connection = $server->openConn();
@@ -115,18 +116,31 @@ if ($count) {
                                   $lot = $result['lot'];
                                   $phase = $result['phase'];
                                   $street = $result['street'];
+                                  $tenant_id = $result['tenant'];
 
                               ?>
                                   <tr>
-                                    <td><?php echo $property_id ?></td>
                                     <td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street ?></td>
                                     <td><?php echo $phase ?></td>
+                                    <td><?php
+                                      $query2 = "SELECT * FROM homeowners_users WHERE id = :id";
+                                      $data2 = ["id" => $tenant_id];
+                                      $stmt2 = $connection->prepare($query2);
+                                      $stmt2->execute($data2);
+                                      $count2 = $stmt2->rowCount();
+                                      $result2 = $stmt2->fetch();
+                                      if($tenant_id != null){
+                                        echo $result2['firstname']." ".$result2['middle_initial']. " " . $result2['lastname'] ;
+                                      } else {
+                                        echo "N/A";
+                                      }
+                                    ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="" class="dropdown-item">Edit</a></li>
-                                          <li><a href="" class="dropdown-item">Delete</a></li>
+                                          <li><a data-id="<?php echo $property_id ?>" data-name="" href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
+                                          <li><a data-id="<?php echo $property_id ?>" data-bs-toggle="modal" href="#addTenant" class="dropdown-item" id="add_tenant">Add Tenant</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -134,38 +148,25 @@ if ($count) {
                               <?php
                                 }
                               } else {
-                                $_SESSION['status'] = "Warning";
-                                $_SESSION['text'] = "Something went wrong.";
-                                $_SESSION['status_code'] = "warning";
                               }
-
-
                               ?>
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="10%">#</th>
+
                                 <th width="20%">Address</th>
                                 <th width="20%">Phase</th>
+                                <th width="20%">Tenant</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </tfoot>
                           </table>
                         </div>
-                        <!-- Table -->
-
-
-
-
                       </div>
-
-                      <!-- box end here -->
                     </div>
                   </div>
                 </div>
-
               </section>
-
             </div>
           </div>
         </div>
@@ -196,6 +197,10 @@ if ($count) {
 
   // Add Property modal
   include("../admin-panel/property_register_modal.php");
+  // Update Property Modal
+  include("../admin-panel/property_update_modal.php");
+  // Add tenant Modal
+  include("../admin-panel/property_addtenant_modal.php");
   ?>
 
   <!-- Delete Modal -->
@@ -206,11 +211,96 @@ if ($count) {
 
 
 
+
+
+
+
+      // $("#propertyTable").on('click', ".add-property", function() {
+      //   $("#addProperty").modal("show");
+      //   var id = $(this).attr("data-id");
+      //   $("#homeowners_id").val(id);
+      // });
+
+
+      // Register Property
       $(".add-property").on('click', function() {
         $("#addProperty").modal("show");
         var id = $(this).attr("data-id");
         $("#homeowners_id").val(id);
       });
+
+
+      // Update Property
+      $("#propertyTable").on('click', '#update_property', function() {
+        $("#updateProperty").modal("show");
+        var property_id = $(this).attr("data-id");
+        $("#property_id").val(property_id);
+        getProperty(property_id);
+
+        function getProperty(property_id) {
+          $.ajax({
+            url: '../ajax/property_get_data.php',
+            method: 'POST',
+            data: {
+              property_id: property_id
+            },
+            dataType: 'JSON',
+            success: function(response) {
+              $("#blk_property").val(response.blk);
+              $("#lot_property").val(response.lot);
+              $("#default_phase_property").html(response.phase);
+              $("#default_street_property").html(response.street);
+            }
+          });
+        }
+      });
+
+      //Add tenant
+      $("#propertyTable").on('click', '#add_tenant', function () {
+        swal({
+						title: "Confirmation",
+						text: "Are you sure you want to add tenant on this property?",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true
+					})
+					.then((willDelete) => {
+
+					});
+
+          
+          var property_id = $(this).attr("data-id");
+          // var firstname = $(this).attr("data-name");
+          // var address = $(this).attr("data-address");
+          $("#property_id_tenant").val(property_id);
+          // $("#property_currentOwner _tenant").val(firstname);
+          // $("#property_address _tenant").val(address);
+      });
+
+      // $("#addTenant").on('click', '#add_tenant', function (){
+      //   var property_id = $(this).attr("data-id");
+      //   $("#property_id_tenant").val(property_id);
+
+      //   function getProperty(property_id) {
+      //     $.ajax({
+      //       url: '../ajax/property_get_data.php',
+      //       method: 'POST',
+      //       data: {
+      //         property_id: property_id
+      //       },
+      //       dataType: 'JSON',
+      //       success: function(response) {
+      //         $("#blk_tenant").val(response.blk);
+      //         $("#lot_tenant").val(response.lot);
+      //         $("#default_phase_property").html(response.phase);
+      //         $("#default_street_property").html(response.street);
+      //       }
+      //     });
+      //   }
+      // });
+
+
+
 
 
     });

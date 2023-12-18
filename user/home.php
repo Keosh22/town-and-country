@@ -1,8 +1,10 @@
 <?php
+
 require "../includes/user-header.php";
 require "../libs/server.php";
 $homeServer = New Server();
 
+$homeServer->userAuthentication();
 $result = $homeServer->pagination(1);
 $row = mysqli_fetch_array($result['result'])
 ?>
@@ -16,8 +18,8 @@ $row = mysqli_fetch_array($result['result'])
 
     </div>
   </div>
-
-  <a class="carousel-a" href="/user/announcement.php">
+ 
+  <a class="carousel-a" href="./announcement.php">
     <div class="row carousel-container d-flex justify-content-center align-items-center m-auto">
 
   <div class="col-sm-8 col-md-8 card-1 carousel-content">
@@ -25,9 +27,9 @@ $row = mysqli_fetch_array($result['result'])
     <h3>About: <?= $row['about'] ?></h3>
     
     <p>Date: <?= date('M d, Y', strtotime($row['date']))?></p>
-  
+
     <h5>Announcement</h5>
-    <p class="scrollable-content"><?= $row['content']?> </p>
+    <p class="scrollable-content"><?= nl2br($row['content'])?> </p>
   </div>
   </div>
 
@@ -49,7 +51,6 @@ $row = mysqli_fetch_array($result['result'])
   </div>
   </div>
 </a>
-
 
   <div class="row row-title mt-3 mb-3">
     <div class="col-sm-12 col-title text-center">

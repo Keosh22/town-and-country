@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     $data = ["id" => $user_id];
     $pass = $password;
     $path = "../admin-panel/user.php";
-    $isTrue = $server->verifyPassword($query, $data, $pass, $path);
+    $isTrue = $server->verifyPassword($query, $data, $pass);
 
     if ($isTrue) {
       

@@ -40,13 +40,12 @@ $server->adminAuthentication();
 
 
 				<!-- Card Start here -->
-				<div class="card">
+				<div class="card card-border">
 					<div class="card-header">
 						<h2>Homeowners List</h2>
 					</div>
 					<div class="card-body">
 						<div class="container-fluid">
-
 							<section class="main-content">
 								<div class="row">
 									<div class="col-xs-12">
@@ -56,27 +55,23 @@ $server->adminAuthentication();
 												<div class="col">
 													<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
 												</div>
-
 											</div>
-
 											<div class="body-box shadow-sm">
-
 												<div class="table-responsive mx-2">
 													<table id="homeownersTable" class="table table-striped" style="width:100%">
 														<thead>
 															<tr>
-																<th width="10%">Acc.#</th>
-																<th width="20%">Photo</th>
-																<th width="40%">Fullname</th>
-																<th width="40%">Address</th>
-																<th width="20%">Email</th>
-																<th width="20%">Phone</th>
-																<th width="20%">Status</th>
+																<th width="5%">Acc.#</th>
+																<th width="10%">Photo</th>
+																<th width="20%">Fullname</th>
+																<th width="30%">Address</th>
+																<th width="10%">Email</th>
+																<th width="10%">Phone</th>
+																<th width="10%">Status</th>
 																<th scope="col" width="5%">Action</th>
 															</tr>
 														</thead>
 														<tbody>
-
 															<?php
 															$query = "SELECT * FROM homeowners_users";
 															$connection = $server->openConn();
@@ -96,7 +91,6 @@ $server->adminAuthentication();
 																$email = $result['email'];
 																$phone_number = $result['phone_number'];
 																$tenant_name = $result['tenant_name'];
-
 															?>
 																<tr>
 																	<td><?php echo $account_number; ?></td>
@@ -105,12 +99,7 @@ $server->adminAuthentication();
 																	</td>
 																	<td>
 																		<?php
-																		if ($tenant_name == "") {
-																			$tenant_name = "";
-																		} else {
-																			$tenant_name = "Tenant: " . $tenant_name;
-																		}
-																		echo $firstname . " " . $middle_initial . " " . $lastname . "<br><p class='text-info'>" . $tenant_name . "</p>";
+																		echo $firstname . " " . $middle_initial . " " . $lastname . "</p>";
 																		?>
 																	</td>
 																	<td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?></td>
@@ -126,15 +115,9 @@ $server->adminAuthentication();
 																		?>
 																			<span class="badge rounded-pill text-bg-danger"><?php echo $status; ?></span>
 																		<?php
-																		} elseif ($status == 'Tenant - Member') {
+																		} elseif ($status == 'Tenant') {
 																		?>
 																			<span class="badge rounded-pill text-bg-warning">Tenant</span>
-																			<span class="badge rounded-pill text-bg-success">Member</span>
-																		<?php
-																		} elseif ($status == 'Tenant - Non-member') {
-																		?>
-																			<span class="badge rounded-pill text-bg-warning">Tenant</span>
-																			<span class="badge rounded-pill text-bg-danger">Non-Member</span>
 																		<?php
 																		}
 
@@ -144,10 +127,21 @@ $server->adminAuthentication();
 																		<div class="dropdown">
 																			<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
 																			<ul class="dropdown-menu">
-																				<li><a href="#" class="dropdown-item" id="view">View</a></li>
-																				<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
-																				<li><a href="" class="dropdown-item">Edit</a></li>
-																				<li><a href="" class="dropdown-item">Delete</a></li>
+																				<?php
+																				if ($status == 'Tenant') {
+																				?>
+																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																				<?php
+																				} else {
+																				?>
+																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																					<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																				<?php
+																				}
+																				?>
+
 																			</ul>
 																		</div>
 																	</td>
@@ -156,18 +150,16 @@ $server->adminAuthentication();
 															<?php
 															}
 															?>
-
-
 														</tbody>
 														<tfoot>
 															<tr>
-																<th width="10%">Acc.#</th>
-																<th width="20%">Photo</th>
-																<th width="40%">Fullname</th>
-																<th width="40%">Address</th>
-																<th width="20%">Email</th>
-																<th width="30%">Phone</th>
-																<th width="30%">Status</th>
+																<th width="5%">Acc.#</th>
+																<th width="10%">Photo</th>
+																<th width="20%">Fullname</th>
+																<th width="30%">Address</th>
+																<th width="10%">Email</th>
+																<th width="10%">Phone</th>
+																<th width="10%">Status</th>
 																<th scope="col" width="5%">Action</th>
 															</tr>
 														</tfoot>
@@ -175,28 +167,11 @@ $server->adminAuthentication();
 												</div>
 												<!-- Table -->
 											</div>
-
 											<!-- box end here -->
 										</div>
 									</div>
 								</div>
-
 							</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 						</div>
 					</div>
 				</div>
@@ -213,17 +188,14 @@ $server->adminAuthentication();
 
 	// Register Homeowners Modal
 	include("../admin-panel/homeowners_register_modal.php");
-
+	//Update Homeowners modal
+	include("../admin-panel/homeowners_update_modal.php");
 
 	?>
 
 
 	<script>
 		$(document).ready(function() {
-
-
-
-
 
 			// $(".add-property").on('click', function (){
 			// 	var id = $(this).attr("data-id");
@@ -239,7 +211,47 @@ $server->adminAuthentication();
 
 			// });
 
-			$("#homeownersTable").DataTable();
+
+			// DataTable
+			$("#homeownersTable").DataTable({
+				order: [
+					[2, 'asc']
+				]
+			});
+
+
+			// Update Homeowners button
+			$("#homeownersTable").on('click', '#update_homeowners_button', function() {
+				$("#updateHomeowners").modal("show");
+				var homeowners_id = $(this).attr("data-id");
+				$("#homeowners_id").val(homeowners_id);
+				console.log(homeowners_id);
+				getHomeowners(homeowners_id);
+
+				function getHomeowners(homeowners_id) {
+					$.ajax({
+						url: '../ajax/homeowners_get_data.php',
+						method: 'POST',
+						data: {
+							homeowners_id: homeowners_id
+						},
+						dataType: 'JSON',
+						success: function(response) {
+							$("#firstname_update").val(response.firstname);
+							$("#lastname_update").val(response.lastname);
+							$("#middle_initial_update").val(response.middle_initial);
+							$("#email_update").val(response.email);
+							$("#phone_number_update").val(response.phone_number);
+							$("#status_option_update").html(response.status);
+							$("#blk_update").val(response.blk);
+							$("#lot_update").val(response.lot);
+							$("#phase_option_update").html(response.phase);
+							$("#street_option_update").html(response.street);
+						}
+					});
+				}
+			});
+
 		});
 	</script>
 	<!-- FOOTER -->

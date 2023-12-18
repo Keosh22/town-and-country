@@ -36,7 +36,7 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Send Email</a>
+                  <a href="../admin-panel/property_list.php" class="sidebar-link-dropdown">Property List</a>
                 </button>
               </div>
             </li>
@@ -152,14 +152,21 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Maintenance list</a>
+                  <a href="#" class="sidebar-link-dropdown">Maintenance</a>
                 </button>
               </div>
             </li>
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Promotions list</a>
+                  <a href="#" class="sidebar-link-dropdown">Promotions</a>
+                </button>
+              </div>
+            </li>
+            <li class="sidebar-item">
+              <div class="d-grid">
+                <button class="btn btn-dropdown">
+                  <a href="../admin-panel/announcement.php" class="sidebar-link-dropdown">Anouncement</a>
                 </button>
               </div>
             </li>

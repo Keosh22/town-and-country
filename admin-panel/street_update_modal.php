@@ -44,7 +44,7 @@ if (isset($_POST['update'])) {
       $_SESSION['status_code'] = "warning";
     }
 
-  }
+  } 
 }
 
 
@@ -110,9 +110,10 @@ if (isset($_POST['update'])) {
 
 <script>
   $(document).ready(function() {
-
+  
     $("#updateStreet").on('hidden.bs.modal', function(e) {
-      $("#phase_form").find("input[type=text]").val("");
+ 
+      $("#phase_form").find("input[type=text], input[type=hidden]").val("");
     });
 
     // $("#updateStreet").on('show.bs.modal', function(e){

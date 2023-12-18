@@ -59,7 +59,7 @@ if ($rowCount > 0) {
 
       <main class="content px-3 py-2">
 
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Profile</h2>
           </div>
@@ -116,10 +116,11 @@ if ($rowCount > 0) {
                   <div class="col">
                     <label for="phone_number" class="form-label">Phone #</label>
                     <input type="text" class="form-control" name="phone_number" id="phone_number" value="<?php echo $phone; ?>" required>
+                    <div id='phoneNumberHelpBlock'></div>
                   </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <input type="submit" class="btn btn-primary" name="update_info" value="Update">
+                  <input type="submit" class="btn btn-primary" name="update_info" id="update_info" value="Update">
                 </div>
               </form>
 
@@ -184,6 +185,10 @@ if ($rowCount > 0) {
 
   <script>
     $(document).ready(function() {
+      
+
+
+
       $("#confirm_password").prop("disabled", true);
       // ajax for current password mathced validation
       $("#current_password").on('keyup', function() {
@@ -199,7 +204,7 @@ if ($rowCount > 0) {
           }
         });
       });
-
+      
 
       // ajax for Change profile picture
       // $("#change_photo").on('click', function() {
@@ -219,8 +224,26 @@ if ($rowCount > 0) {
       //   });
       // });
 
+      // Phone Number validation
+      $("#phone_number").on('keyup', function() {
+        var phone_number = $(this).val().trim();
+        var number = /([0-9])/;
 
-      // 
+        if (phone_number.match(number) && phone_number.length == 11) {
+          $("#phone_number").removeClass("input-danger");
+          $("#phone_number").addClass("input-success");
+          $("#phoneNumberHelpBlock").empty().append("<div id='phoneNumberHelpBlock' class='form-text text-success'>Valid phone number</div>");
+          $("#update_info").prop('disabled', false);
+        } else {
+          $("#phone_number").removeClass("input-success");
+          $("#phone_number").addClass("input-danger");
+          $("#phoneNumberHelpBlock").empty().append("<div id='phoneNumberHelpBlock' class='form-text text-danger'>Invalid phone number</div>");
+          $("#update_info").prop('disabled', true);
+        }
+      });
+
+
+
       $("#new_password,#current_password").on('keyup', function() {
         var password = $("#new_password").val().trim();
         var current_password = $("#current_password").val().trim();

@@ -19,16 +19,16 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER; 
-  private $pass = LESPASS;
-  private $lesDBname = LESDBNAME;
-  private $port = PORT;
+  // private $user = LESUSER; 
+  // private $pass = LESPASS;
+  // private $lesDBname = LESDBNAME;
+  // private $port = PORT;
 
-  // private $user = USER; 
-  // private $pass = PASS;
+  private $user = USER;
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
-  
+
   private $dsn;
   private $conn;
   private $option = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
@@ -50,12 +50,13 @@ class Server
 
 
   // for announcement carousel only
-  public function conn(){
+  public function conn()
+  {
     // Lesther
-    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
     return $conn;
   }
 
@@ -65,10 +66,10 @@ class Server
 
     try {
       // Lesther 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
@@ -95,29 +96,27 @@ class Server
     $stmt->execute($data);
 
     if ($stmt->rowCount() > 0) {
-        while ($result = $stmt->fetch()) {
-            $password = $result['pwd']; // Change 'pwd' to 'password' if needed
-            $user_id = $result["id"];
-            $username = $result["username"];
-            $firstname = $result["firstname"];
-            $lastname = $result["lastname"];
-            
-        }
+      while ($result = $stmt->fetch()) {
+        $password = $result['password']; // Change 'pwd' to 'password' if needed
+        $user_id = $result["id"];
+        $username = $result["username"];
+        $firstname = $result["firstname"];
+        $lastname = $result["lastname"];
+      }
 
-        if (password_verify($pass, $password)) {
-            // Password is correct
-            $_SESSION["username"] = $username;
-            $_SESSION["user_id"] = $user_id;
-            $_SESSION["user_firstname"] = $firstname;
-            $_SESSION["user_lastname"] = $lastname;
-            header("location:" . $path . "");
-            
-        } else {
-            // Password is incorrect
-            $_SESSION['status'] = "Login Failed!";
-            $_SESSION['text'] = "Wrong Password";
-            $_SESSION['status_code'] = "error";
-        }
+      if (password_verify($pass, $password)) {
+        // Password is correct
+        $_SESSION["username"] = $username;
+        $_SESSION["user_id"] = $user_id;
+        $_SESSION["user_firstname"] = $firstname;
+        $_SESSION["user_lastname"] = $lastname;
+        header("location:" . $path . "");
+      } else {
+        // Password is incorrect
+        $_SESSION['status'] = "Login Failed!";
+        $_SESSION['text'] = "Wrong Password";
+        $_SESSION['status_code'] = "error";
+      }
     } else {
       // Username doesn't exist
       $_SESSION['status'] = "Login Failed!";
@@ -126,12 +125,15 @@ class Server
     }
   }
 
+
   // get announcement
-  public function getAnnouncement(){
+  public function getAnnouncement()
+  {
+   
     $connection = $this->conn;
     $query = "SELECT * FROM announcement ORDER BY date ASC";
     $stmt = $connection->prepare($query);
-    $stmt -> execute();
+    $stmt->execute();
     if ($stmt->rowCount() > 0) {
       while ($result = $stmt->fetchAll()) {
         $id = $result['id'];
@@ -139,41 +141,41 @@ class Server
         $content = $result['content'];
         $date = $result['date'];
       }
-      
+
       $_SESSION['about'] = $about;
       $_SESSION['content'] = $content;
       $_SESSION['date'] = $date;
     }
-
   }
 
   // carousel functionality
-  public function pagination($numberofPage){
+  public function pagination($numberofPage)
+  {
     // Lesther
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
-    if(isset($_GET['page_no']) && $_GET['page_no'] !== "")
-    {
+
+
+    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
       $page_no = $_GET['page_no'];
-    }
-    else{
+    } else {
       $page_no = 1;
-    } 
+    }
 
 
- 
 
-    $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records FROM announcement");
+
+    $result_count = mysqli_query($connection, "SELECT COUNT(status) AS total_records FROM announcement WHERE status = 'ACTIVE'");
     $total_records_per_page = $numberofPage;
     $offset = ($page_no - 1) * $total_records_per_page;
 
 
 
 
-    $query = "SELECT * FROM announcement ORDER  BY date DESC LIMIT $offset, $total_records_per_page";
+    $query = "SELECT * FROM announcement WHERE status = 'ACTIVE' ORDER  BY date DESC LIMIT $offset, $total_records_per_page";
 
     $prev_page = $page_no - 1;
     $next_page = $page_no + 1;
@@ -183,7 +185,7 @@ class Server
 
     $result = mysqli_query($connection, $query);
 
-    $result_count = mysqli_query($connection, "SELECT COUNT(*) as total_records FROM announcement") OR die(mysqli_error($connection));
+    $result_count = mysqli_query($connection, "SELECT COUNT(status) as total_records FROM announcement WHERE status = 'ACTIVE'") or die(mysqli_error($connection));
     $records = mysqli_fetch_array($result_count);
     $total_records = $records['total_records'];
     $total_number_per_page = ceil($total_records / $total_records_per_page);
@@ -191,15 +193,14 @@ class Server
 
 
     return array(
-      "result" => $result, 
-      "page_no" =>$page_no, 
-      "prev_page" => $prev_page, 
-      "next_page" => $next_page, 
+      "result" => $result,
+      "page_no" => $page_no,
+      "prev_page" => $prev_page,
+      "next_page" => $next_page,
       "total_number_per_page" => $total_number_per_page
     );
-    
   }
-  
+
 
 
 
@@ -231,7 +232,7 @@ class Server
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
-        
+
 
         // pass the value to adminAuthentication()
         // para
@@ -277,7 +278,7 @@ class Server
 
 
   // Verify passowrd when deleting account
-  public function verifyPassword($query, $data, $pass, $path)
+  public function verifyPassword($query, $data, $pass)
   {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
@@ -299,7 +300,7 @@ class Server
     // Pop up alert if Username doesn't exist.
     else {
     }
-    header("location:" . $path . "");
+    
   }
 
 
@@ -313,15 +314,16 @@ class Server
 
     if ($rowCount > 0) {
       $_SESSION['status'] = "Registration Success!";
-      $_SESSION['text'] = "Your account has been successfully created.";
+      $_SESSION['text'] = "Account has been successfully registered.";
       $_SESSION['status_code'] = "success";
-      header("location:" . $path . "");
+     
     } else {
       $_SESSION['status'] = "Registration Failed!";
       $_SESSION['text'] = "Unable to register account. Please try again.";
       $_SESSION['status_code'] = "error";
-      header("location:" . $path . "");
+     
     }
+    header("location:" . $path . "");
   }
 
   public function update($query, $data, $path)
@@ -395,41 +397,43 @@ class Server
     header("location:" . $path . "");
   }
 
-  
 
 
 
-  public function insert($query, $data){
+
+  public function insert($query, $data)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
-    
-    if($stmt->rowCount() > 0 ){
-      
-    } else {
 
+    if ($stmt->rowCount() > 0) {
+      $_SESSION['status'] = "Registration Success!";
+      $_SESSION['text'] = "Property has been successfully registered.";
+      $_SESSION['status_code'] = "success";
+    } else {
+      $_SESSION['status'] = "Registration Failed!";
+      $_SESSION['text'] = "Unable to register property. Please try again.";
+      $_SESSION['status_code'] = "error";
     }
-   
-    
   }
 
-  
-  public function insertPhase($query, $data, $path){
+
+  public function insertPhase($query, $data, $path)
+  {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
-    
-    if($stmt->rowCount() > 0 ){
+
+    if ($stmt->rowCount() > 0) {
       $_SESSION['status'] = "Success!";
       $_SESSION['text'] = "Phase successfuly added.";
       $_SESSION['status_code'] = "success";
-   
+      
     } else {
-
+     
     }
     header("location:" . $path . "");
-   
-    
   }
 
 
@@ -523,6 +527,19 @@ class Server
   {
     if (empty($_SESSION['admin_auth'])) {
       echo "<script>window.location.href='../admin/index.php'</script>";
+    }
+  }
+
+
+  public function userSessionLogin(){
+    if(isset($_SESSION['user_id'])){
+      echo "<script>window.location.href='./user/home.php'</script>";
+    }
+  }
+
+  public function userAuthentication(){
+    if(empty($_SESSION['user_id'])){
+      echo "<script>window.location.href='../index.php'</script>";
     }
   }
 }
