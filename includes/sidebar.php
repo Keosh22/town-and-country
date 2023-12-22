@@ -113,26 +113,8 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">
-                    Add collection
-                  </a>
-                </button>
-              </div>
-            </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">
-                    Update collection
-                  </a>
-                </button>
-              </div>
-            </li>
-            <li class="sidebar-item">
-              <div class="d-grid">
-                <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">
-                    Delete collection
+                  <a href="../admin-panel/collections.php" class="sidebar-link-dropdown">
+                    Collections List
                   </a>
                 </button>
               </div>
