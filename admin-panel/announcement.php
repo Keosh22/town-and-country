@@ -231,7 +231,7 @@ $server->adminAuthentication();
             
             $.ajax({
               url: '../ajax/announcement_delete.php',
-              type: 'POSt',
+              type: 'POST',
               data: {announcement_id: announcement_id},
               success: function (response){
               }

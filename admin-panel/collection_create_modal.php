@@ -20,6 +20,10 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         <div class="modal-body mx-3">
           <div class="row gy-3">
             <div class="col-12">
+              <label for="category" class="form-label">Category:</label>
+              <input type="text" class="form-control" name="category" id="category" required>
+            </div>
+            <div class="col-12">
               <label for="description" class="form-label">Description:</label>
               <input type="text" class="form-control" name="description" id="description">
             </div>
@@ -27,7 +31,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
               <label for="fee" class="form-label">Fee:</label>
               <div class="input-group flex-nowrap">
                 <span class="input-group-text">₱</span>
-                <input type="text" class="form-control" name="fee" id="fee">
+                <input type="text" class="form-control" name="fee" id="fee" required>
               </div>
             </div>
           </div>

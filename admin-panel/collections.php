@@ -65,10 +65,11 @@ $server->adminAuthentication();
                       <div class="body-box shadow-sm">
 
                         <div class="table-responsive mx-2">
-                          <table id="announcementTable" class="table table-striped" style="width:100%">
+                          <table id="collectionsTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
                                 <th width="5%">ID</th>
+                                <th width="30%">Category</th>
                                 <th width="30%">Description</th>
                                 <th width="10%">Fee</th>
                                 <th width="10%">Date Created</th>
@@ -86,6 +87,7 @@ $server->adminAuthentication();
                               if ($count > 0) {
                                 while ($result = $stmt->fetch()) {
                                   $collection_id = $result['id'];
+                                  $category = $result['category'];
                                   $description = $result['description'];
                                   $fee = $result['fee'];
                                   $date_created = $result['date_created'];
@@ -93,6 +95,7 @@ $server->adminAuthentication();
                               ?>
                                   <tr>
                                     <td><?php echo $collection_id ?></td>
+                                    <td><?php echo $category ?></td>
                                     <td><?php echo $description ?></td>
                                     <td><?php echo $fee ?></td>
                                     <td><?php echo $date_created ?></td>
@@ -113,8 +116,8 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="#" class="dropdown-item">Edit</a></li>
-                                          <li><a href="#" class="dropdown-item">Delete</a></li>
+                                          <li><a data-id="<?php echo $collection_id ?>" href="#collectionUpdate" data-bs-toggle="modal" class="dropdown-item" id="update_collection">Edit</a></li>
+                                          <li><a data-id="<?php echo $collection_id ?>" href="#" class="dropdown-item" id="delete_collection">Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -132,6 +135,7 @@ $server->adminAuthentication();
                             <tfoot>
                               <tr>
                                 <th width="5%">ID</th>
+                                <th width="30%">Category</th>
                                 <th width="30%">Description</th>
                                 <th width="10%">Fee</th>
                                 <th width="10%">Date Created</th>
@@ -158,19 +162,69 @@ $server->adminAuthentication();
   <?php
   // Add Collection Modal
   include("../admin-panel/collection_create_modal.php");
+  // Delete Collection Modal
+  include("../admin-panel/collection_update_modal.php"); 
   ?>
 
 
   <script>
     $(document).ready(function() {
 
+      
       // DataTable
       $("#collectionsTable").DataTable({
         order: [
-
-
+          [1, 'desc']
         ]
       });
+    });
+
+
+    // Update Collection 
+    $("#collectionsTable").on('click', "#update_collection", function (){
+      var collection_id = $(this).attr('data-id');
+      $("#update_collection_id").val(collection_id);
+      getCollection(collection_id);
+
+      function getCollection(collection_id){
+        $.ajax({
+          url: "../ajax/collection_get_data.php",
+          type: 'POST',
+          data: {collection_id: collection_id},
+          dataType: 'JSON',
+          success: function (response){
+            $("#update_category").val(response.category);
+            $("#update_description").val(response.description);
+            $("#update_fee").val(response.fee);
+          }
+        });
+      }
+    });
+
+    // Delete Collection
+    $("#collectionsTable").on('click', "#delete_collection", function (){
+      var collection_id = $(this).attr('data-id');
+      swal({
+        title: "Delete Confirmation",
+        text: "Once deleted, you will not able to recover this record",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) =>{
+        if(willDelete){
+          $.ajax({
+            url: "../ajax/collection_delete.php",
+            type: "POST",
+            data: {collection_id: collection_id},
+            success: function (response) {
+            }
+          });
+          location.reload(true);
+        } else {
+          swal("Delete canceled!")
+        }
+      })
     });
   </script>
   <!-- FOOTER -->
