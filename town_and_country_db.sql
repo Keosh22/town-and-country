@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2023 at 05:17 PM
+-- Generation Time: Dec 26, 2023 at 06:42 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -41,7 +41,10 @@ CREATE TABLE `activity_log` (
 
 INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date`) VALUES
 (272, 'ADM008', 'TCH', 'Logged out', '2023-12-06 00:08:26'),
-(273, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-06 00:08:30');
+(273, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-06 00:08:30'),
+(274, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-22 21:31:29'),
+(275, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-23 21:02:33'),
+(276, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-26 22:27:23');
 
 -- --------------------------------------------------------
 
@@ -92,9 +95,63 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`id`, `about`, `content`, `date`, `date_created`, `status`) VALUES
-(75, 'Capstone Defense BSIT 3', 'Chapter 1-3 capstone defense \r\n8:00AM to 5:00PM', '2023-12-06 08:00:00', '2023-12-06 00:02:07', 'ACTIVE'),
-(76, 'Christmas Party', 'WHEN: December 20 ,2023 WEDNESDAY\r\nWHERE: Town and country heights clubhouse\r\n', '2023-12-20 03:00:00', '2023-12-06 00:03:37', 'ACTIVE'),
-(77, 'Senior Citizen Christmas Party', 'It is on Tuesday 5th December in Town and Country Heights starting at 12 noon.   It is open \r\nto all those residing in Phase1, Phase 2 and Phase3.  There is still time to reply if you would \r\nlike to come.  If anyone knows that their neighbours should be invited please do let them \r\nknow, and us too for the future.', '2023-12-05 08:00:00', '2023-12-06 00:06:43', 'INACTIVE');
+(75, 'Capstone Defense BSIT 3', 'Chapter 1-3 capstone defense \r\n8:00AM to 5:00PM', '2023-12-06 08:00:00', '2023-12-06 00:02:07', 'INACTIVE'),
+(78, 'General Meeting', 'Where: Phase 1 Clubhouse', '2023-12-28 10:00:00', '2023-12-26 22:34:07', 'ACTIVE'),
+(79, 'New Years Even Party', 'Happy New Year Everyone', '2023-12-31 10:00:00', '2023-12-27 00:06:41', 'ACTIVE'),
+(80, 'Food Packs Distribution', 'We will have a food pack distribution at HOA clubhouse.\r\nWhat to bring?\r\n1. ID\r\n2. Billing address', '2024-01-08 08:00:00', '2023-12-27 00:09:59', 'ACTIVE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archive_property_list`
+--
+
+CREATE TABLE `archive_property_list` (
+  `id` int(100) NOT NULL,
+  `property_id` int(100) NOT NULL,
+  `homeowners_id` int(100) NOT NULL,
+  `blk` varchar(100) NOT NULL,
+  `lot` varchar(100) NOT NULL,
+  `phase` varchar(100) NOT NULL,
+  `street` varchar(100) NOT NULL,
+  `tenant` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `archive_property_list`
+--
+
+INSERT INTO `archive_property_list` (`id`, `property_id`, `homeowners_id`, `blk`, `lot`, `phase`, `street`, `tenant`) VALUES
+(1, 56, 60, '15', '17', 'Phase 2', 'Molave', 0),
+(2, 54, 58, '10', '23', 'Phase 3', 'Garnett', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `collection_list`
+--
+
+CREATE TABLE `collection_list` (
+  `id` int(11) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `fee` varchar(100) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'ACTIVE'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `collection_list`
+--
+
+INSERT INTO `collection_list` (`id`, `category`, `description`, `fee`, `date_created`, `status`) VALUES
+(3, 'Monthly dues', '', '300', '2023-12-23 01:34:00', 'ACTIVE'),
+(4, 'Membership fee', '', '1,000', '2023-12-23 01:42:00', 'ACTIVE'),
+(5, 'Construction Bond', '', '200', '2023-12-23 01:42:00', 'ACTIVE'),
+(6, 'Construction clearance', '', '3,000', '2023-12-23 01:43:00', 'ACTIVE'),
+(12, 'Material delivery', '6 wheeler', '300', '2023-12-23 10:57:00', 'ACTIVE'),
+(13, 'Material delivery', '10 wheeler', '600', '2023-12-23 10:57:00', 'ACTIVE'),
+(14, 'Material delivery', '12+ wheeler', '2,000', '2023-12-23 10:57:00', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -152,7 +209,6 @@ CREATE TABLE `property_list` (
 
 INSERT INTO `property_list` (`id`, `homeowners_id`, `blk`, `lot`, `phase`, `street`, `tenant`) VALUES
 (53, 58, '10', '22', 'Phase 3', 'Garnett', NULL),
-(54, 58, '10', '23', 'Phase 3', 'Garnett', NULL),
 (55, 57, '16', '28', 'Phase 1', 'Jackfruit', 55),
 (56, 60, '15', '17', 'Phase 2', 'Molave', NULL);
 
@@ -225,6 +281,18 @@ ALTER TABLE `announcement`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `archive_property_list`
+--
+ALTER TABLE `archive_property_list`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `collection_list`
+--
+ALTER TABLE `collection_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `homeowners_users`
 --
 ALTER TABLE `homeowners_users`
@@ -251,7 +319,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -263,7 +331,19 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+
+--
+-- AUTO_INCREMENT for table `archive_property_list`
+--
+ALTER TABLE `archive_property_list`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `collection_list`
+--
+ALTER TABLE `collection_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `homeowners_users`
