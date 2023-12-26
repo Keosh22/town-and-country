@@ -104,15 +104,20 @@ $server->adminAuthentication();
                                   $property_phase = $result['property_phase'];
                               ?>
                                   <tr>
-                                    <td ><?php echo $property_id;  ?></td>
-                                    <td ><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
+                                    <td><?php echo $property_id;  ?></td>
+                                    <td><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
                                     <td><?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?></td>
                                     <td><?php echo $property_phase;  ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>"  data-id="<?php echo $property_id; ?>" href="#propertyTransfer" class="dropdown-item" data-bs-toggle="modal" id="transfer_btn">Transfer</a></li>
+                                          <li><a data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>" data-id="<?php echo $property_id; ?>" href="#propertyTransfer" class="dropdown-item" data-bs-toggle="modal" id="transfer_btn">Transfer</a></li>
+                                          <li>
+                                            <form action="" method="POST">
+                                              <a data-id="<?php echo $property_id; ?>" href="#deleteProperty" data-bs-toggle="modal" type="button" id="delete_property" class="dropdown-item">Delete</a>
+                                            </form>
+                                          </li>
                                         </ul>
                                       </div>
                                     </td>
@@ -120,7 +125,6 @@ $server->adminAuthentication();
                               <?php
                                 }
                               } else {
-                               
                               }
                               ?>
 
@@ -153,6 +157,8 @@ $server->adminAuthentication();
   <?php
   // Transfer property modal
   include("../admin-panel/property_list_transfer_modal.php");
+  // Delete property modal
+  include("../admin-panel/property_delete_modal.php");
 
 
   ?>
@@ -162,26 +168,31 @@ $server->adminAuthentication();
     $(document).ready(function() {
 
 
+      // Delete Button
+      $("#propertyListTable").on('click', '#delete_property', function (){
+        var property_id = $(this).attr('data-id');
+        $("#delete_property_id").val(property_id);
+      });
+
+      
       // Transfer button
-      $("#propertyListTable").on('click', '#transfer_btn', function () {
+      $("#propertyListTable").on('click', '#transfer_btn', function() {
         swal({
-						title: "Transfer Confirmation",
-						text: "Are you sure you want to transfer the ownership of this property?",
-						icon: "warning",
-						buttons: true,
-						dangerMode: true
-					})
-					.then((willDelete) => {
+            title: "Transfer Confirmation",
+            text: "Are you sure you want to transfer the ownership of this property?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+          })
+          .then((willDelete) => {
 
-					});
-
-          
-          var property_id = $(this).attr("data-id");
-          var firstname = $(this).attr("data-name");
-          var address = $(this).attr("data-address");
-          $("#property_transfer_id").val(property_id);
-          $("#property_currentOwner").val(firstname);
-          $("#property_address").val(address);
+          });
+        var property_id = $(this).attr("data-id");
+        var firstname = $(this).attr("data-name");
+        var address = $(this).attr("data-address");
+        $("#property_transfer_id").val(property_id);
+        $("#property_currentOwner").val(firstname);
+        $("#property_address").val(address);
       });
 
 
