@@ -18,3 +18,33 @@
     text-overflow: ellipsis; /* Show an ellipsis (...) for overflowed text */
     max-width: 150px; /* Set a maximum width for the content */
 }
+
+.wrapper{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(6, 68, 32, 0.6);
+    min-height: 200px;
+}
+
+.announcement-title{
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s ease;
+}
+.announcement-title:hover{
+    color: #DAD992;
+}
+
+
+/* ANNOUNCEMENT CARD */
+.announcement-body{
+    background-color:#FAF1E6;
+    
+}
+.announcement-header,
+.announcement-footer{
+    background-color:#E4EFE7;
+} 

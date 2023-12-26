@@ -26,7 +26,7 @@ $row = mysqli_fetch_array($result['result'])
     
     <h3>About: <?= $row['about'] ?></h3>
     
-    <p>Date: <?= date('M d, Y', strtotime($row['date']))?></p>
+    <p>Date: <?= date('M d, Y', strtotime($row['date_created']))?></p>
 
     <h5>Announcement</h5>
     <p class="scrollable-content"><?= nl2br($row['content'])?> </p>
