@@ -30,7 +30,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
               <label for="announcement_date" class="form-label">When:</label>
               <input value="<?php echo $default_date; ?>"  name="announcement_date" id="announcement_date" class="form-control">
             </div>
-            <div class="col>
+            <div class="col">
               <label for="content" class="form-label">Content:</label>
               <textarea name="content" id="content" rows="10"  wrap="hard"  class="form-control"></textarea>
             </div>

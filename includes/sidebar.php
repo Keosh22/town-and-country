@@ -141,7 +141,7 @@
             <li class="sidebar-item">
               <div class="d-grid">
                 <button class="btn btn-dropdown">
-                  <a href="#" class="sidebar-link-dropdown">Promotions</a>
+                  <a href="../admin-panel/promotion.php" class="sidebar-link-dropdown">Promotions</a>
                 </button>
               </div>
             </li>
