@@ -20,7 +20,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
       </div>
 
       <div class="modal-body mx-3">
-        <form action="" method="POST" id="create_promotion_form">
+        <form action="promotion_create.php" method="POST" id="create_promotion_form" enctype="multipart/form-data">
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="business_name" class="form-label">Business Name:</label>
@@ -28,7 +28,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             </div>
             <div class="col-md-6">
               <label for="promotion_due" class="form-label">Promotion Due:</label>
-              <input value="<?php echo $default_date; ?>"  name="promotion_due" id="announcement_date" class="form-control">
+              <input value="<?php echo $default_date; ?>"  name="promotion_due" id="promotion_due"  class="form-control">
             </div>
             <div class="col-md-6">
               <label for="promotion_photo" class="form-label">Photo:</label>
@@ -60,8 +60,8 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 <script>
   $(document).ready(function() {
-    $("#promotionCreate").on('hidded.bs.modal',function(e){
-      $("#create_promotion_form").find('input=[type=text]').val("");
+    $("#promotionCreate").on('hidden.bs.modal',function(e){
+      $("#create_promotion_form").find('input[type=text], input[type=file], textarea').val("");
     });
 
     $("#promotion_due").daterangepicker({

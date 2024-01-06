@@ -64,21 +64,86 @@ $server->adminAuthentication();
                           <table id="promotionTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="10%">About</th>
+                                <th width="10%">Photo</th>
+                                <th width="10%">Business Name</th>
                                 <th width="30%">Content</th>
-                                <th width="10%">Event Date</th>
+                                <th width="10%">Expiration</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
+                              <?php
+                              $query = "SELECT * FROM promotion";
+                              $connection = $server->openConn();
+                              $stmt = $connection->prepare($query);
+                              $stmt->execute();
+                              $count = $stmt->rowCount();
+                              if ($count > 0) {
+                                while ($result = $stmt->fetch()) {
+                                  $promotion_id = $result['id'];
+                                  $photo = $result['photo'];
+                                  $business_name = $result['business_name'];
+                                  $content = $result['content'];
+                                  $status = $result['status'];
+                                  $date_created = $result['date_created'];
+                                  $date_expired = $result['date_expired'];
 
+                                  $promotion_due = date("Y/m/d", strtotime($date_expired . "+1 day"));
+                                  $current_date = date("Y/m/d", strtotime("now"));
+                                  if ($promotion_due <= $current_date) {
+                                    $status = "INACTIVE";
+                                    $query_expired = "UPDATE promotion SET status = :status WHERE id = :promotion_id";
+                                    $data_expired = [
+                                      "status" => $status,
+                                      "promotion_id" => $promotion_id
+                                    ];
+                                    $stmt_expired = $connection->prepare($query_expired);
+                                    $stmt_expired->execute($data_expired);
+                                  }
+
+                              ?>
+                                  <tr>
+                                    <td>
+                                      <div class="profile-container"><img class="profile-image" src="../promotion_photos/<?php echo $photo ?>"></div>
+                                    </td>
+                                    <td><?php echo $business_name ?></td>
+                                    <td><?php echo nl2br($content) ?></td>
+                                    <td><?php echo date("F j, Y g:i a", strtotime($promotion_due)) ?></td>
+                                    <td>
+                                      <?php
+                                      if ($status == "ACTIVE") {
+                                      ?>
+                                        <span class="badge rounded-pill text-bg-success"><?php echo $status ?></span>
+                                      <?php
+                                      } else {
+                                      ?>
+                                        <span class="badge rounded-pill text-bg-danger"><?php echo $status ?></span>
+                                      <?php
+                                      }
+                                      ?>
+                                    </td>
+                                    <td>
+                                      <div class="dropdown">
+                                        <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
+                                        <ul class="dropdown-menu">
+                                          <li><a href="#" class="dropdown-item">Update</a></li>
+                                          <li><a href="#" class="dropdown-item">Delete</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              <?php
+                                }
+                              }
+                              ?>
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="10%">About</th>
+                                <th width="10%">Photo</th>
+                                <th width="10%">Business Name</th>
                                 <th width="30%">Content</th>
-                                <th width="10%">Date & Time</th>
+                                <th width="10%">Expiration</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
@@ -101,7 +166,7 @@ $server->adminAuthentication();
   </div>
   <?php
   // Create Promotion Modal
-  include("../admin-panel/promotion_create_modal.php"); 
+  include("../admin-panel/promotion_create_modal.php");
 
   ?>
 
@@ -112,9 +177,9 @@ $server->adminAuthentication();
 
 
       // DataTable  
-    $("#promotionTable").DataTable({
-      
-    })
+      $("#promotionTable").DataTable({
+
+      })
 
 
 
