@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2023 at 06:42 PM
+-- Generation Time: Jan 06, 2024 at 08:37 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -44,7 +44,8 @@ INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date
 (273, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-06 00:08:30'),
 (274, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-22 21:31:29'),
 (275, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-23 21:02:33'),
-(276, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-26 22:27:23');
+(276, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-26 22:27:23'),
+(277, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-04 13:26:28');
 
 -- --------------------------------------------------------
 
@@ -96,8 +97,8 @@ CREATE TABLE `announcement` (
 
 INSERT INTO `announcement` (`id`, `about`, `content`, `date`, `date_created`, `status`) VALUES
 (75, 'Capstone Defense BSIT 3', 'Chapter 1-3 capstone defense \r\n8:00AM to 5:00PM', '2023-12-06 08:00:00', '2023-12-06 00:02:07', 'INACTIVE'),
-(78, 'General Meeting', 'Where: Phase 1 Clubhouse', '2023-12-28 10:00:00', '2023-12-26 22:34:07', 'ACTIVE'),
-(79, 'New Years Even Party', 'Happy New Year Everyone', '2023-12-31 10:00:00', '2023-12-27 00:06:41', 'ACTIVE'),
+(78, 'General Meeting', 'Where: Phase 1 Clubhouse', '2023-12-28 10:00:00', '2023-12-26 22:34:07', 'INACTIVE'),
+(79, 'New Years Even Party', 'Happy New Year Everyone', '2023-12-31 10:00:00', '2023-12-27 00:06:41', 'INACTIVE'),
 (80, 'Food Packs Distribution', 'We will have a food pack distribution at HOA clubhouse.\r\nWhat to bring?\r\n1. ID\r\n2. Billing address', '2024-01-08 08:00:00', '2023-12-27 00:09:59', 'ACTIVE');
 
 -- --------------------------------------------------------
@@ -186,6 +187,30 @@ INSERT INTO `homeowners_users` (`id`, `account_number`, `username`, `password`, 
 (57, 'TCH0004', 'TCH0004', '$2y$10$BuR3aMnWb3JGUe5CYAfod.15fC0qvAr9qzbUQ0RuIXh1CV8IH2rJC', 'Ken Joshua', 'Buenavides', 'R.', 'kenjoshuabuenavides@gmail.com', '09123456789', '16', '22', 'Jackfruit', 'Phase 1', 'Member', ''),
 (58, 'TCH0005', 'TCH0005', '$2y$10$CVNzN7C89kzn5/SyMSsMUOkbLFE0iN0p3lMIZh9F8/rbf1GGQGXj2', 'Charline', 'Apiado', 'W.', 'charline@gmail.com', '09372645362', '2', '6', 'Pearl', 'Phase 3', 'Non-member', ''),
 (60, 'TCH0007', 'TCH0007', '$2y$10$feI4ZXLIum.cFRpHeKYlvejX4U0e95lYzC1a3D4bxmEIS3CNsl1Ca', 'Lesther', 'Martinez', 'M.', 'lesther@gmail.com', '09876543211', '8', '23', 'Narra', 'Phase 2', 'Member', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promotion`
+--
+
+CREATE TABLE `promotion` (
+  `id` int(100) NOT NULL,
+  `photo` varchar(300) NOT NULL,
+  `business_name` varchar(200) NOT NULL,
+  `content` varchar(500) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'ACTIVE',
+  `date_created` datetime NOT NULL,
+  `date_expired` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `promotion`
+--
+
+INSERT INTO `promotion` (`id`, `photo`, `business_name`, `content`, `status`, `date_created`, `date_expired`) VALUES
+(13, 'desktop-wallpaper-backgrounds-for-jujutsu-kaisen-anime-on-windows-pc-jujutsu-kaisen-laptop.jpg', 'Yuji', 'JJK', 'ACTIVE', '2024-01-07 03:36:28', '2024-01-08 03:36:00'),
+(14, '1000_F_251682139_JSihMaG8QmLh7JcSAPZ6mzh6PZjfqjf0.jpg', 'Thrift Collections', 'Year End Sale!!!', 'ACTIVE', '2024-01-07 03:36:54', '2024-01-13 03:36:00');
 
 -- --------------------------------------------------------
 
@@ -299,6 +324,12 @@ ALTER TABLE `homeowners_users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `promotion`
+--
+ALTER TABLE `promotion`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `property_list`
 --
 ALTER TABLE `property_list`
@@ -319,7 +350,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=278;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -350,6 +381,12 @@ ALTER TABLE `collection_list`
 --
 ALTER TABLE `homeowners_users`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `promotion`
+--
+ALTER TABLE `promotion`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `property_list`

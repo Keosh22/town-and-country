@@ -105,11 +105,17 @@ $server->adminAuthentication();
                               ?>
                                   <tr>
                                     <td>
-                                      <div class="profile-container"><img class="profile-image" src="../promotion_photos/<?php echo $photo ?>"></div>
+                                      <div class="profile-container"><img class="profile-image" src="../promotion_photos/<?php
+                                      if($photo == ""){
+                                        echo "default_image_promotion.jpg";
+                                      } else {
+                                        echo $photo;
+                                      }
+                                      ?>"></div>
                                     </td>
                                     <td><?php echo $business_name ?></td>
                                     <td><?php echo nl2br($content) ?></td>
-                                    <td><?php echo date("F j, Y g:i a", strtotime($promotion_due)) ?></td>
+                                    <td><?php echo date("F j, Y g:i a", strtotime($date_expired)) ?></td>
                                     <td>
                                       <?php
                                       if ($status == "ACTIVE") {
@@ -127,8 +133,9 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="#" class="dropdown-item">Update</a></li>
+                                          <li><a data-id="<?php echo $promotion_id ?>" href="#promotionUpdate" data-bs-toggle="modal" class="dropdown-item" id="update_promotion_btn">Update</a></li>
                                           <li><a href="#" class="dropdown-item">Delete</a></li>
+                                          <li><a data-id="<?php echo $promotion_id ?>" href="#change_photo_promotion" class="dropdown-item" data-bs-toggle="modal" id="change_photo_btn">Change photo</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -167,6 +174,11 @@ $server->adminAuthentication();
   <?php
   // Create Promotion Modal
   include("../admin-panel/promotion_create_modal.php");
+  // Update Promotion Modal
+  include("../admin-panel/promotion_update_modal.php");
+  // Change Photo Modal
+  include("../admin-panel/promotion_change_photo.modal.php");
+
 
   ?>
 
@@ -175,10 +187,52 @@ $server->adminAuthentication();
     $(document).ready(function() {
 
 
+      // Change photo 
+      $("#promotionTable").on('click', '#change_photo_btn', function (){
+        var promotion_id = $(this).attr('data-id');
+        $("#change_photo_id").val(promotion_id);
+        getPromotion(promotion_id);
+        
+        function getPromotion(promotion_id){
+          $.ajax({
+            url: '../ajax/promotion_get_data.php',
+            type: 'POST',
+            data: {promotion_id: promotion_id},
+            dataType: 'JSON',
+            success: function (response){
+              $("#photo_name").val(response.photo);
+            }
+          });
+        }
+
+
+      });
+
+      // Update Promotion 
+      $("#promotionTable").on('click', "#update_promotion_btn", function(){
+        var promotion_id = $(this).attr('data-id');
+        $("#promotion_id").val(promotion_id);
+        getPromotion(promotion_id);
+
+        function getPromotion(promotion_id){
+          $.ajax({
+            url: '../ajax/promotion_get_data.php',
+            type: 'POST',
+            data: {promotion_id: promotion_id},
+            dataType: 'JSON',
+            success: function (response){
+              $("#update_business_name").val(response.business_name);
+              $("#update_promotion_due").val(response.date_expired);
+              $("#promotion_status").val(response.status);
+              $("#update_promotion_content").val(response.content);
+              $("#photo_name").val(response.photo);
+            }
+          });
+        }
+      });
 
       // DataTable  
       $("#promotionTable").DataTable({
-
       })
 
 

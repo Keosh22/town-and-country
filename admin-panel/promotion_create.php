@@ -9,9 +9,11 @@ $server = new Server;
 
 if(isset($_POST["create_promotion"])){
   $business_name = filter_input(INPUT_POST, 'business_name', FILTER_SANITIZE_SPECIAL_CHARS);
-  $promotion_content = filter_input(INPUT_POST, 'promotion_content', FILTER_SANITIZE_SPECIAL_CHARS);
+  // $promotion_content = filter_input(INPUT_POST, 'promotion_content', FILTER_SANITIZE_SPECIAL_CHARS);
+  $promotion_content = $_POST['promotion_content'];
   $current_date = date("Y-m-d H:i:sA", strtotime("now"));
   $promotion_due = filter_input(INPUT_POST, "promotion_due", FILTER_SANITIZE_SPECIAL_CHARS);
+  $promotion_photo = $_POST['promotion_photo'];
 
   // Photo upload
   $name = $_FILES['promotion_photo']['name'];
