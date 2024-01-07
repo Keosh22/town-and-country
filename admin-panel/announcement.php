@@ -234,9 +234,10 @@ $server->adminAuthentication();
               type: 'POST',
               data: {announcement_id: announcement_id},
               success: function (response){
+                location.reload(true);
               }
             });
-            location.reload(true);
+            
           
             
           } else {

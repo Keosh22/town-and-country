@@ -134,8 +134,8 @@ $server->adminAuthentication();
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a data-id="<?php echo $promotion_id ?>" href="#promotionUpdate" data-bs-toggle="modal" class="dropdown-item" id="update_promotion_btn">Update</a></li>
-                                          <li><a href="#" class="dropdown-item">Delete</a></li>
                                           <li><a data-id="<?php echo $promotion_id ?>" href="#change_photo_promotion" class="dropdown-item" data-bs-toggle="modal" id="change_photo_btn">Change photo</a></li>
+                                          <li><a data-id="<?php echo $promotion_id ?>" href="#" class="dropdown-item" id="delete_promotion_btn">Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -233,8 +233,40 @@ $server->adminAuthentication();
 
       // DataTable  
       $("#promotionTable").DataTable({
+        order: [
+
+        ]
+
       })
 
+
+      // Delete promotion
+      $("#promotionTable").on('click', '#delete_promotion_btn', function (){
+        var promotion_id = $(this).attr('data-id');
+    
+        swal({
+          title: "Delete Confirmation",
+          text: "Once Deleted, you will not able to recover this record",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if(willDelete){
+            $.ajax({
+                url: '../ajax/promotion_delete.php',
+                type: 'POST',
+                data: {promotion_id: promotion_id},
+                success: function (response){
+                  location.reload(true);
+                  
+                }
+            })
+          } else {
+            swal("Delete canceled!");
+          }
+        });
+      });
 
 
     });
