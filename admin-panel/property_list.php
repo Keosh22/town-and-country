@@ -118,6 +118,9 @@ $server->adminAuthentication();
                                               <a data-id="<?php echo $property_id; ?>" href="#deleteProperty" data-bs-toggle="modal" type="button" id="delete_property" class="dropdown-item">Delete</a>
                                             </form>
                                           </li>
+                                          <li>
+                                            <a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a>
+                                          </li>
                                         </ul>
                                       </div>
                                     </td>

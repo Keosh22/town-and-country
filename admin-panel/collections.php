@@ -37,7 +37,7 @@ $server->adminAuthentication();
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Collections</a></li>
-            <li class="breadcrumb-item">Collections List</li>
+            <li class="breadcrumb-item">Collections Fee</li>
           </ol>
         </section>
 
@@ -45,7 +45,7 @@ $server->adminAuthentication();
         <!-- Card Start here -->
         <div class="card card-border">
           <div class="card-header">
-            <h2>Collections List</h2>
+            <h2>Collections Fee</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
@@ -57,7 +57,7 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col">
-                          <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Collections</a>
+                          <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New Fee</a>
                         </div>
 
                       </div>
@@ -79,7 +79,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                              $query = "SELECT * FROM collection_list";
+                              $query = "SELECT * FROM collection_fee";
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute();

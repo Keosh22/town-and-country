@@ -12,7 +12,7 @@ if (isset($_POST['add_collection_btn'])) {
   $fee = filter_input(INPUT_POST, 'fee', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y/m/d g:i:A", strtotime("now"));
   if (isset($category) && isset($fee)) {
-    $query = "INSERT INTO collection_list (category,description, fee, date_created) VALUES (:category, :description, :fee, :date_created)";
+    $query = "INSERT INTO collection_fee (category,description, fee, date_created) VALUES (:category, :description, :fee, :date_created)";
     $data = ["category" => $category, "description" => $description, "fee" => $fee, "date_created" => $date_created];
     $connection = $server->openConn();
     $stmt = $connection->prepare($query);

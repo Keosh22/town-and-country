@@ -5,7 +5,7 @@ require_once("../libs/server.php");
 $server = new Server;
 if(isset($_POST['collection_id'])){
   $collection_id = filter_input(INPUT_POST, 'collection_id', FILTER_SANITIZE_SPECIAL_CHARS);
-  $query = "SELECT * FROM collection_list WHERE id = :collection_id";
+  $query = "SELECT * FROM collection_fee WHERE id = :collection_id";
   $data = ["collection_id" => $collection_id];
   $connection = $server->openConn();
   $stmt = $connection->prepare($query);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2024 at 08:37 PM
+-- Generation Time: Jan 10, 2024 at 06:45 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -45,7 +45,40 @@ INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date
 (274, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-22 21:31:29'),
 (275, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-23 21:02:33'),
 (276, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2023-12-26 22:27:23'),
-(277, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-04 13:26:28');
+(277, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-04 13:26:28'),
+(278, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-07 21:50:40'),
+(279, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-07 22:50:43'),
+(280, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-09 22:01:13'),
+(281, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 21:22:06'),
+(282, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 21:22:13'),
+(283, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 21:24:28'),
+(284, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 21:24:35'),
+(285, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 21:24:41'),
+(286, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 21:24:47'),
+(287, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 22:18:30'),
+(288, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 22:18:34'),
+(289, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 22:19:06'),
+(290, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 22:19:10'),
+(291, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 22:19:47'),
+(292, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 22:19:54'),
+(293, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 22:21:22'),
+(294, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 22:21:26'),
+(295, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:02:30'),
+(296, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:02:37'),
+(297, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:02:42'),
+(298, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:03:15'),
+(299, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:04:43'),
+(300, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:04:54'),
+(301, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:38:45'),
+(302, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:39:08'),
+(303, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:39:50'),
+(304, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:41:04'),
+(305, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:43:26'),
+(306, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:43:31'),
+(307, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:46:17'),
+(308, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:46:28'),
+(309, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-10 23:50:37'),
+(310, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-10 23:50:41');
 
 -- --------------------------------------------------------
 
@@ -96,10 +129,7 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`id`, `about`, `content`, `date`, `date_created`, `status`) VALUES
-(75, 'Capstone Defense BSIT 3', 'Chapter 1-3 capstone defense \r\n8:00AM to 5:00PM', '2023-12-06 08:00:00', '2023-12-06 00:02:07', 'INACTIVE'),
-(78, 'General Meeting', 'Where: Phase 1 Clubhouse', '2023-12-28 10:00:00', '2023-12-26 22:34:07', 'INACTIVE'),
-(79, 'New Years Even Party', 'Happy New Year Everyone', '2023-12-31 10:00:00', '2023-12-27 00:06:41', 'INACTIVE'),
-(80, 'Food Packs Distribution', 'We will have a food pack distribution at HOA clubhouse.\r\nWhat to bring?\r\n1. ID\r\n2. Billing address', '2024-01-08 08:00:00', '2023-12-27 00:09:59', 'ACTIVE');
+(81, 'Capstone Defense BSIT 3', 'asdasd', '2024-01-07 09:57:00', '2024-01-07 21:57:14', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -129,10 +159,10 @@ INSERT INTO `archive_property_list` (`id`, `property_id`, `homeowners_id`, `blk`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `collection_list`
+-- Table structure for table `collection_fee`
 --
 
-CREATE TABLE `collection_list` (
+CREATE TABLE `collection_fee` (
   `id` int(11) NOT NULL,
   `category` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
@@ -142,17 +172,41 @@ CREATE TABLE `collection_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `collection_list`
+-- Dumping data for table `collection_fee`
 --
 
-INSERT INTO `collection_list` (`id`, `category`, `description`, `fee`, `date_created`, `status`) VALUES
-(3, 'Monthly dues', '', '300', '2023-12-23 01:34:00', 'ACTIVE'),
+INSERT INTO `collection_fee` (`id`, `category`, `description`, `fee`, `date_created`, `status`) VALUES
 (4, 'Membership fee', '', '1,000', '2023-12-23 01:42:00', 'ACTIVE'),
 (5, 'Construction Bond', '', '200', '2023-12-23 01:42:00', 'ACTIVE'),
 (6, 'Construction clearance', '', '3,000', '2023-12-23 01:43:00', 'ACTIVE'),
 (12, 'Material delivery', '6 wheeler', '300', '2023-12-23 10:57:00', 'ACTIVE'),
 (13, 'Material delivery', '10 wheeler', '600', '2023-12-23 10:57:00', 'ACTIVE'),
-(14, 'Material delivery', '12+ wheeler', '2,000', '2023-12-23 10:57:00', 'ACTIVE');
+(14, 'Material delivery', '12+ wheeler', '2,000', '2023-12-23 10:57:00', 'ACTIVE'),
+(18, 'Monthly Dues', '', '300', '2024-01-10 08:30:00', 'ACTIVE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `collection_list`
+--
+
+CREATE TABLE `collection_list` (
+  `id` int(200) NOT NULL,
+  `property_id` int(200) NOT NULL,
+  `collection_fee_id` int(250) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_expired` datetime NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `month` varchar(200) NOT NULL,
+  `year` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `collection_list`
+--
+
+INSERT INTO `collection_list` (`id`, `property_id`, `collection_fee_id`, `date_created`, `date_expired`, `status`, `month`, `year`) VALUES
+(26, 55, 18, '2024-01-10 23:50:41', '2024-01-10 23:50:41', 'DUE', 'January', '2024');
 
 -- --------------------------------------------------------
 
@@ -187,6 +241,22 @@ INSERT INTO `homeowners_users` (`id`, `account_number`, `username`, `password`, 
 (57, 'TCH0004', 'TCH0004', '$2y$10$BuR3aMnWb3JGUe5CYAfod.15fC0qvAr9qzbUQ0RuIXh1CV8IH2rJC', 'Ken Joshua', 'Buenavides', 'R.', 'kenjoshuabuenavides@gmail.com', '09123456789', '16', '22', 'Jackfruit', 'Phase 1', 'Member', ''),
 (58, 'TCH0005', 'TCH0005', '$2y$10$CVNzN7C89kzn5/SyMSsMUOkbLFE0iN0p3lMIZh9F8/rbf1GGQGXj2', 'Charline', 'Apiado', 'W.', 'charline@gmail.com', '09372645362', '2', '6', 'Pearl', 'Phase 3', 'Non-member', ''),
 (60, 'TCH0007', 'TCH0007', '$2y$10$feI4ZXLIum.cFRpHeKYlvejX4U0e95lYzC1a3D4bxmEIS3CNsl1Ca', 'Lesther', 'Martinez', 'M.', 'lesther@gmail.com', '09876543211', '8', '23', 'Narra', 'Phase 2', 'Member', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments_list`
+--
+
+CREATE TABLE `payments_list` (
+  `id` int(100) NOT NULL,
+  `transaction_number` int(250) NOT NULL,
+  `homeowners_id` int(100) NOT NULL,
+  `collection_id` int(100) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `paid` varchar(100) NOT NULL,
+  `balance` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -312,6 +382,12 @@ ALTER TABLE `archive_property_list`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `collection_fee`
+--
+ALTER TABLE `collection_fee`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `collection_list`
 --
 ALTER TABLE `collection_list`
@@ -321,6 +397,12 @@ ALTER TABLE `collection_list`
 -- Indexes for table `homeowners_users`
 --
 ALTER TABLE `homeowners_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payments_list`
+--
+ALTER TABLE `payments_list`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -350,7 +432,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=278;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=311;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -362,7 +444,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `archive_property_list`
@@ -371,10 +453,16 @@ ALTER TABLE `archive_property_list`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `collection_fee`
+--
+ALTER TABLE `collection_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `collection_list`
 --
 ALTER TABLE `collection_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `homeowners_users`
@@ -383,10 +471,16 @@ ALTER TABLE `homeowners_users`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
+-- AUTO_INCREMENT for table `payments_list`
+--
+ALTER TABLE `payments_list`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `property_list`

@@ -13,7 +13,7 @@ if (isset($_POST['update_collection_btn'])) {
   $fee = filter_input(INPUT_POST, 'update_fee', FILTER_SANITIZE_SPECIAL_CHARS);
 
   if (isset($collection_id) && isset($category) && isset($fee)) {
-    $query = "UPDATE collection_list SET category = :category, description = :description, fee = :fee WHERE id = :collection_id";
+    $query = "UPDATE collection_fee SET category = :category, description = :description, fee = :fee WHERE id = :collection_id";
     $data = [
       "category" => $category,
       "description" => $description,
