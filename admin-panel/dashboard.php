@@ -17,6 +17,12 @@ $server->adminAuthentication();
 $current_date = date("Y-m-d H:i:s", strtotime("now"));
 $current_month = date("F", strtotime("now"));
 $current_year = date("Y", strtotime("now"));
+$current_day = date("j", strtotime("now"));
+$first_day_month = date("j", strtotime("first day of this month"));
+$month = date("m", strtotime("now"));
+$year = date("Y", strtotime("now"));
+
+
 // Get all id in the proeprty list
 $query1 = "SELECT * FROM property_list";
 $connection1 = $server->openConn();
@@ -26,7 +32,7 @@ if ($stmt1->rowCount() > 0) {
 	while ($property_row = $stmt1->fetch()) {
 		$property_list_id = $property_row['id'];
 		$property_list_phase = $property_row['phase'];
-		// It validates if there is already have a collection for this month and year
+		// It validates if there is already a collection for this month and year
 		$query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
 		$data2 = [
 			'property_list_id' => $property_list_id,
@@ -38,6 +44,7 @@ if ($stmt1->rowCount() > 0) {
 		$stmt2->execute($data2);
 
 		if ($stmt2->rowCount() > 0) {
+			
 		} else {
 
 			// get the current monthly dues fee
@@ -53,12 +60,9 @@ if ($stmt1->rowCount() > 0) {
 				}
 
 				// Check the date
-				$current_day = date("j", strtotime("now"));
-				$first_day_month = date("j", strtotime("first day of this month"));
-				$month = date("m", strtotime("now"));
-				$year = date("Y", strtotime("now"));
+			
 
-				if ($property_list_phase == "Phase 1" && $current_day == $seven_days = date("j", mktime(0, 0, 0, $month, 10, $year))) {
+				if ($property_list_phase == "Phase 1" && ($current_day >= $day_range = date("j", mktime(0, 0, 0, $month, 1, $year)) && $current_day <= $day_range = date("j", mktime(0,0,0,$month, 7, $year)))) {
 					$status = "AVAILABLE";
 					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
 					$data4 = [
@@ -74,7 +78,7 @@ if ($stmt1->rowCount() > 0) {
 					$stmt4 = $connection4->prepare($query4);
 					$stmt4->execute($data4);
 				}
-				if ($property_list_phase == "Phase 2" && $current_day == $seven_days = date("j", mktime(0, 0, 0, $month, 8, $year))) {
+				if ($property_list_phase == "Phase 2" && ($current_day >= $eight_day = date("j", mktime(0, 0, 0, $month, 8, $year)) && $current_day <= $eight_day = date("j", mktime(0, 0, 0, $month, 14, $year)))) {
 					$status = "AVAILABLE";
 					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
 					$data4 = [
@@ -90,7 +94,7 @@ if ($stmt1->rowCount() > 0) {
 					$stmt4 = $connection4->prepare($query4);
 					$stmt4->execute($data4);
 				}
-				if ($property_list_phase == "Phase 3" && $current_day == $fourteenth = date("j", mktime(0, 0, 0, $month, 15, $year))) {
+				if ($property_list_phase == "Phase 3" && ($current_day <= $day_range = date("j", mktime(0, 0, 0, $month, 21, $year)) && $current_day >= $day_range = date("j", mktime(0,0,0,$month, 15, $year)))) {
 					$status = "AVAILABLE";
 					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
 					$data4 = [
@@ -115,10 +119,14 @@ if ($stmt1->rowCount() > 0) {
 	}
 }
 
+
+
 $available = "AVAILABLE";
 $query5 = "SELECT 
 collection_list.id,
 collection_list.status,
+collection_list.month,
+collection_list.year,
 collection_list.property_id,
 property_list.phase
 FROM collection_list INNER JOIN property_list WHERE collection_list.property_id = property_list.id AND collection_list.status = :available";
@@ -129,35 +137,39 @@ $stmt5->execute($data5);
 if ($stmt5->rowCount() > 0) {
 	while ($result_collection_list = $stmt5->fetch()) {
 		$collection_id = $result_collection_list['id'];
+		$collection_list_month = $result_collection_list['month'];
+		$collection_list_year = $result_collection_list['year'];
 		$phase = $result_collection_list['phase'];
 
 
-		// Check if the collection is on due
-		if ($phase == "Phase 1" && $current_day >= $eight_day = date("j", mktime(0, 0, 0, $month, 8, $year))) {
+
+		// Update the status to DUE
+		if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 1" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 8, $year)) ) {
 			$due = "DUE";
 			$query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
 			$data6 = ["due" => $due, "collection_list_id" => $collection_id];
 			$connection6 = $server->openConn();
 			$stmt6 = $connection6->prepare($query6);
 			$stmt6->execute($data6);
-			if($stmt6->rowCount() > 0){
-
-			}
 		}
-		if ($phase == "Phase 2" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 15, $year))) {
+		if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 2" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 15, $year))) {
+			$due = "DUE";
+			$query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
+			$data6 = ["due" => $due, "collection_list_id" => $collection_id];
+			$connection6 = $server->openConn();
+			$stmt6 = $connection6->prepare($query6);
+			$stmt6->execute($data6);
 		}
-		if ($phase == "Phase 3" && $current_day >= $twenty_second_day = date("j", mktime(0, 0, 0, $month, 22, $year))) {
+		if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 3" && $current_day >= $twenty_second_day = date("j", mktime(0, 0, 0, $month, 22, $year))) {
+			$due = "DUE";
+			$query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
+			$data6 = ["due" => $due, "collection_list_id" => $collection_id];
+			$connection6 = $server->openConn();
+			$stmt6 = $connection6->prepare($query6);
+			$stmt6->execute($data6);
 		}
 	}
 }
-
-
-
-
-
-
-
-
 // -------  AUTO INSERT COLLECTION FUNCTION ---------- 
 
 

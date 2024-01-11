@@ -18,7 +18,7 @@ $month = "";
 
 if (isset($_GET['property_id'])) {
   $property_id = $_GET['property_id'];
-  $query5 = "SELECT 
+  $query7 = "SELECT 
   property_list.id,
   property_list.homeowners_id,
   property_list.blk as property_blk,
@@ -32,13 +32,13 @@ if (isset($_GET['property_id'])) {
   homeowners_users.middle_initial FROM
   property_list INNER JOIN homeowners_users WHERE property_list.homeowners_id = homeowners_users.id AND property_list.id = :property_id
   ";
-  $data5 = ["property_id" => $property_id];
-  $connection5 = $server->openConn();
-  $stmt5 = $connection5->prepare($query5);
-  $stmt5->execute($data5);
-  $count = $stmt5->rowCount();
+  $data7 = ["property_id" => $property_id];
+  $connection7 = $server->openConn();
+  $stmt7 = $connection7->prepare($query7);
+  $stmt7->execute($data7);
+  $count = $stmt7->rowCount();
   if ($count > 0) {
-    while ($result = $stmt5->fetch()) {
+    while ($result = $stmt7->fetch()) {
       $property_id = $result['id'];
       $firstname = $result['firstname'];
       $middle_name = $result['middle_initial'];
@@ -51,137 +51,109 @@ if (isset($_GET['property_id'])) {
       $street = $result['property_street'];
     }
   }
-
-
-  // Retrieve the Collection date
-  $query6 = "SELECT * FROM collection_list WHERE property_id = :property_id";
-  $data6 = ["property_id" => $property_id];
-  $connection6 = $server->openConn();
-  $stmt6 = $connection6->prepare($query6);
-  $stmt6->execute($data6);
-  if ($stmt6->rowCount() > 0) {
-    while ($result_collection = $stmt6->fetch()) {
-      $status_collection = $result_collection['status'];
-      $month = $result_collection['month'];
-      $year = $result_collection['year'];
-    }
-  }
 }
 
 
 
 
 
-// Get all id in the proeprty list
-$query1 = "SELECT * FROM property_list";
-$connection1 = $server->openConn();
-$stmt1 = $connection1->prepare($query1);
-$stmt1->execute();
-if ($stmt1->rowCount() > 0) {
-	while ($property_row = $stmt1->fetch()) {
-		$property_list_id = $property_row['id'];
-		$property_list_phase = $property_row['phase'];
-		// It validates if there is already have a collection for this month and year
-		$query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
-		$data2 = [
-			'property_list_id' => $property_list_id,
-			'current_month' => $current_month,
-			'current_year' => $current_year
-		];
-		$connection2 = $server->openConn();
-		$stmt2 = $connection2->prepare($query2);
-		$stmt2->execute($data2);
+// // Get all id in the proeprty list
+// $query1 = "SELECT * FROM property_list";
+// $connection1 = $server->openConn();
+// $stmt1 = $connection1->prepare($query1);
+// $stmt1->execute();
+// if ($stmt1->rowCount() > 0) {
+//   while ($property_row = $stmt1->fetch()) {
+//     $property_list_id = $property_row['id'];
+//     $property_list_phase = $property_row['phase'];
+//     // It validates if there is already have a collection for this month and year
+//     $query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
+//     $data2 = [
+//       'property_list_id' => $property_list_id,
+//       'current_month' => $current_month,
+//       'current_year' => $current_year
+//     ];
+//     $connection2 = $server->openConn();
+//     $stmt2 = $connection2->prepare($query2);
+//     $stmt2->execute($data2);
 
-		if ($stmt2->rowCount() > 0) {
-		} else {
-
-
+//     if ($stmt2->rowCount() > 0) {
+//     } else {
 
 
-			// get the current monthly dues fee
-			$monthly_dues = "Monthly Dues";
-			$query3 = "SELECT * FROM collection_fee WHERE category = :category";
-			$data3 = ["category" => $monthly_dues];
-			$connection3 = $server->openConn();
-			$stmt3 = $connection3->prepare($query3);
-			$stmt3->execute($data3);
-			if ($stmt3->rowCount() > 0) {
-				while ($result = $stmt3->fetch()) {
-					$collection_fee_id = $result['id'];
-				}
-				// Insert a collection for the current month and year
+//       // get the current monthly dues fee
+//       $monthly_dues = "Monthly Dues";
+//       $query3 = "SELECT * FROM collection_fee WHERE category = :category";
+//       $data3 = ["category" => $monthly_dues];
+//       $connection3 = $server->openConn();
+//       $stmt3 = $connection3->prepare($query3);
+//       $stmt3->execute($data3);
+//       if ($stmt3->rowCount() > 0) {
+//         while ($result = $stmt3->fetch()) {
+//           $collection_fee_id = $result['id'];
+//         }
 
 
-				// if($phase == "Phase 1" && $current_date == date("Y-m-d", strtotime("1st day")) ){
+//         // Check the date
+//         $current_day = date("j", strtotime("now"));
+//         $first_day_month = date("j", strtotime("first day of this month"));
+//         $current_month = date("m", strtotime("now"));
+//         $current_year = date("Y", strtotime("now"));
 
-				// } elseif ($phase == "Phase 2"){
-
-				// } elseif ($phase == "Phase 3"){
-
-				// } else {
-
-				// }
-
-				// Check the date
-				$current_day = date("j", strtotime("now"));
-				$first_day_month = date("j", strtotime("first day of this month"));
-				$current_month = date("m", strtotime("now"));
-				$current_year = date("Y", strtotime("now"));
-
-				if ($property_list_phase == "Phase 1" && $current_day == $first_day_month) {
-					$status = "AVAILABLE";
-					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
-					$data4 = [
-						"property_id" => $property_list_id,
-						"collection_fee_id" => $collection_fee_id,
-						"date_created" => $current_date,
-						"date_expired" => $current_date,
-						"status" => $status,
-						"month" => $current_month,
-						"year" => $current_year
-					];
-					$connection4 = $server->openConn();
-					$stmt4 = $connection4->prepare($query4);
-					$stmt4->execute($data4);
-				} elseif ($property_list_phase == "Phase 2" && $current_day == $seven_days = date("j", mktime(0,0,0,$current_month, 8, $current_year))) {
-					$status = "AVAILABLE";
-					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
-					$data4 = [
-						"property_id" => $property_list_id,
-						"collection_fee_id" => $collection_fee_id,
-						"date_created" => $current_date,
-						"date_expired" => $current_date,
-						"status" => $status,
-						"month" => $current_month,
-						"year" => $current_year
-					];
-					$connection4 = $server->openConn();
-					$stmt4 = $connection4->prepare($query4);
-					$stmt4->execute($data4);
-				} elseif ($property_list_phase == "Phase 3" && $current_day == $fourteenth = date("j", mktime(0,0,0,$current_month, 15, $current_year))) {
-					$status = "AVAILABLE";
-					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
-					$data4 = [
-						"property_id" => $property_list_id,
-						"collection_fee_id" => $collection_fee_id,
-						"date_created" => $current_date,
-						"date_expired" => $current_date,
-						"status" => $status,
-						"month" => $current_month,
-						"year" => $current_year
-					];
-					$connection4 = $server->openConn();
-					$stmt4 = $connection4->prepare($query4);
-					$stmt4->execute($data4);
-				}
-			} else {
-				$_SESSION['status'] = "There is no current fee for monthly duess";
-				$_SESSION['text'] = "";
-				$_SESSION['status_code'] = "warning";
-			}
-		}
-	}
-}
+//         if ($property_list_phase == "Phase 1" && $current_day == $first_day_month) {
+//           $status = "AVAILABLE";
+//           $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
+//           $data4 = [
+//             "property_id" => $property_list_id,
+//             "collection_fee_id" => $collection_fee_id,
+//             "date_created" => $current_date,
+//             "date_expired" => $current_date,
+//             "status" => $status,
+//             "month" => $current_month,
+//             "year" => $current_year
+//           ];
+//           $connection4 = $server->openConn();
+//           $stmt4 = $connection4->prepare($query4);
+//           $stmt4->execute($data4);
+//         } elseif ($property_list_phase == "Phase 2" && $current_day == $seven_days = date("j", mktime(0, 0, 0, $current_month, 8, $current_year))) {
+//           $status = "AVAILABLE";
+//           $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
+//           $data4 = [
+//             "property_id" => $property_list_id,
+//             "collection_fee_id" => $collection_fee_id,
+//             "date_created" => $current_date,
+//             "date_expired" => $current_date,
+//             "status" => $status,
+//             "month" => $current_month,
+//             "year" => $current_year
+//           ];
+//           $connection4 = $server->openConn();
+//           $stmt4 = $connection4->prepare($query4);
+//           $stmt4->execute($data4);
+//         } elseif ($property_list_phase == "Phase 3" && $current_day == $fourteenth = date("j", mktime(0, 0, 0, $current_month, 15, $current_year))) {
+//           $status = "AVAILABLE";
+//           $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
+//           $data4 = [
+//             "property_id" => $property_list_id,
+//             "collection_fee_id" => $collection_fee_id,
+//             "date_created" => $current_date,
+//             "date_expired" => $current_date,
+//             "status" => $status,
+//             "month" => $current_month,
+//             "year" => $current_year
+//           ];
+//           $connection4 = $server->openConn();
+//           $stmt4 = $connection4->prepare($query4);
+//           $stmt4->execute($data4);
+//         }
+//       } else {
+//         $_SESSION['status'] = "There is no current fee for monthly duess";
+//         $_SESSION['text'] = "";
+//         $_SESSION['status_code'] = "warning";
+//       }
+//     }
+//   }
+// }
 
 
 
@@ -357,129 +329,70 @@ if ($stmt1->rowCount() > 0) {
                               </div>
                               <div class="card-body">
                                 <div class="row gy-2">
-                                  <!-- January -->
-                                  <div class="col-12">
-                                    <?php
-                                    if ($month == "January" && $status_collection == "AVAILABLE") {
-                                    ?>
-                                      <div class="card text-bg-success">
-                                        <div class="card-body">
-                                          <h5 class="card-title"><b>January</b></h5>
-                                          <p class="card-text">Available</p>
-                                        </div>
-                                      </div>
-                                    <?php
-                                    } elseif ($month == "January" && $status_collection == "DUE") {
-                                    ?>
-                                      <div class="card text-bg-danger">
-                                        <div class="card-body">
-                                          <h5 class="card-title"><b>January</b></h5>
-                                          <p class="card-text">DUE</p>
-                                        </div>
-                                      </div>
-                                    <?php
-                                    } else {
+                                  <table id="collection_list_Table" class="table table-striped" style="width:100%">
+                                    <thead>
+                                      <tr>
+                                        <th width="5%">Month</th>
+                                        <th width="30%">Year</th>
+                                        <th width="30%">Status</th>
+                                        <th scope="col" width="5%">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <?php
+                                      // Retrieve the Collection date
+                                      $query8 = "SELECT * FROM collection_list WHERE property_id = :property_id";
+                                      $data8 = ["property_id" => $property_id];
+                                      $connection8 = $server->openConn();
+                                      $stmt8 = $connection8->prepare($query8);
+                                      $stmt8->execute($data8);
+                                      if ($stmt8->rowCount() > 0) {
+                                        while ($result_collection = $stmt8->fetch()) {
+                                          $status_collection = $result_collection['status'];
+                                          $month = $result_collection['month'];
+                                          $year = $result_collection['year'];
                                       ?>
-                                      <div class="card text-bg-secondary">
-                                        <div class="card-body">
-                                          <h5 class="card-title"><b>January</b></h5>
-                                          <p class="card-text">NOT AVAILABLE</p>
-                                        </div>
-                                      </div>
-                                    <?php
-                                    }
-                                    ?>
-                                  </div>
 
-                                  <!-- February -->
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">February</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">March</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">April</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">May</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">June</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">July</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">August</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">September</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">October</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">November</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="card text-bg-secondary">
-                                      <div class="card-body">
-                                        <h5 class="card-title">December</h5>
-                                        <p class="card-tex">Not Available</p>
-                                      </div>
-                                    </div>
-                                  </div>
+                                          <?php
+                                          if ($status_collection == "AVAILABLE") {
+                                          ?>
+                                            <tr class="table-primary">
+                                            <?php
+                                          } elseif ($status_collection == "DUE") {
+                                            ?>
+                                            <tr class="table-danger">
+                                            <?php
+                                          } elseif ($status_collection == "PAID"){
+                                            ?>
+                                            <tr class="table-success">
+                                          <?php
+                                          } else {
+                                            ?>
+                                            <tr class="table-secondary">
+                                          <?php
+                                          }
+                                            ?>
+
+                                            <td><?php echo $month; ?></td>
+                                            <td><?php echo $year; ?></td>
+                                            <td><?php echo $status_collection; ?></td>
+                                            <td>
+                                              <div class="dropdown">
+                                                <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
+                                                <ul class="dropdown-menu">
+                                                  <li><a class="dropdown-item">Sample</a></li>
+                                                </ul>
+                                              </div>
+                                            </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                      }
+                                        ?>
+                                    </tbody>
+                                  </table>
+
+
                                 </div>
                               </div>
                             </div>
@@ -509,12 +422,8 @@ if ($stmt1->rowCount() > 0) {
     $(document).ready(function() {
 
 
-      // DataTable
-      // $("#collectionsTable").DataTable({
-      //   order: [
-      //     [1, 'desc']
-      //   ]
-      // });
+      DataTable
+      $("#collection_list_Table").DataTable({});
 
     });
   </script>

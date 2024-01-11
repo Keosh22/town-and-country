@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   }
   $action = "Register property: ". "BLK-". $blk ." ". "LOT-". $lot ." ". $phase ." ". $street ." to " . $account_number . ": " . $firstname ." ". $lastname ."";
   $server->insertActivityLog($action);
+  $server->insertCollection();
   // $connection = $server->openConn();
   // $stmt = $connection->prepare($query);
   // $stmt->execute($data);
