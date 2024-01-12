@@ -106,8 +106,6 @@ $server->adminAuthentication();
                                     // $connection_expired = $server->openConn();
                                     $stmt_expired = $connection->prepare($query_expired);
                                     $stmt_expired->execute($data_expired);
-                                    
-                                    
                                   }
 
                               ?>

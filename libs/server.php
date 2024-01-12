@@ -129,7 +129,7 @@ class Server
   // get announcement
   public function getAnnouncement()
   {
-   
+
     $connection = $this->conn;
     $query = "SELECT * FROM announcement ORDER BY date ASC";
     $stmt = $connection->prepare($query);
@@ -300,7 +300,6 @@ class Server
     // Pop up alert if Username doesn't exist.
     else {
     }
-    
   }
 
 
@@ -316,12 +315,10 @@ class Server
       $_SESSION['status'] = "Registration Success!";
       $_SESSION['text'] = "Account has been successfully registered.";
       $_SESSION['status_code'] = "success";
-     
     } else {
       $_SESSION['status'] = "Registration Failed!";
       $_SESSION['text'] = "Unable to register account. Please try again.";
       $_SESSION['status_code'] = "error";
-     
     }
     header("location:" . $path . "");
   }
@@ -429,9 +426,7 @@ class Server
       $_SESSION['status'] = "Success!";
       $_SESSION['text'] = "Phase successfuly added.";
       $_SESSION['status_code'] = "success";
-      
     } else {
-     
     }
     header("location:" . $path . "");
   }
@@ -511,120 +506,121 @@ class Server
 
 
 
-// -------  AUTO INSERT COLLECTION FUNCTION ----------
-    public function insertCollection(){
+  // -------  AUTO INSERT COLLECTION FUNCTION ----------
+  public function insertCollection()
+  {
 
-      // -------  AUTO INSERT COLLECTION FUNCTION ----------
-$current_date = date("Y-m-d H:i:s", strtotime("now"));
-$current_month = date("F", strtotime("now"));
-$current_year = date("Y", strtotime("now"));
-$current_day = date("j", strtotime("now"));
-$first_day_month = date("j", strtotime("first day of this month"));
-$month = date("m", strtotime("now"));
-$year = date("Y", strtotime("now"));
-
-
-// Get all id in the proeprty list
-$query1 = "SELECT * FROM property_list";
-$connection1 = $this->conn;
-$stmt1 = $connection1->prepare($query1);
-$stmt1->execute();
-
-if ($stmt1->rowCount() > 0) {
-	while ($property_row = $stmt1->fetch()) {
-		$property_list_id = $property_row['id'];
-		$property_list_phase = $property_row['phase'];
-		// It validates if there is already a collection for this month and year
-		$query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
-		$data2 = [
-			'property_list_id' => $property_list_id,
-			'current_month' => $current_month,
-			'current_year' => $current_year
-		];
-		$connection2 = $this->conn;
-		$stmt2 = $connection2->prepare($query2);
-		$stmt2->execute($data2);
-
-		if ($stmt2->rowCount() > 0) {
-			
-		} else {
-
-			// get the current monthly dues fee
-			$monthly_dues = "Monthly Dues";
-			$query3 = "SELECT * FROM collection_fee WHERE category = :category";
-			$data3 = ["category" => $monthly_dues];
-			$connection3 = $this->conn;
-			$stmt3 = $connection3->prepare($query3);
-			$stmt3->execute($data3);
-			if ($stmt3->rowCount() > 0) {
-				while ($result = $stmt3->fetch()) {
-					$collection_fee_id = $result['id'];
-				}
-
-				// Check the date
-			
-
-				if ($property_list_phase == "Phase 1" && ($current_day >= $day_range = date("j", mktime(0, 0, 0, $month, 1, $year)) && $current_day <= $day_range = date("j", mktime(0,0,0,$month, 7, $year)))) {
-					$status = "AVAILABLE";
-					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
-					$data4 = [
-						"property_id" => $property_list_id,
-						"collection_fee_id" => $collection_fee_id,
-						"date_created" => $current_date,
-						"date_expired" => $current_date,
-						"status" => $status,
-						"month" => $current_month,
-						"year" => $current_year
-					];
-					$connection4 = $this->conn;
-					$stmt4 = $connection4->prepare($query4);
-					$stmt4->execute($data4);
-				}
-				if ($property_list_phase == "Phase 2" && ($current_day >= $eight_day = date("j", mktime(0, 0, 0, $month, 8, $year)) && $current_day <= $eight_day = date("j", mktime(0, 0, 0, $month, 14, $year)))) {
-					$status = "AVAILABLE";
-					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
-					$data4 = [
-						"property_id" => $property_list_id,
-						"collection_fee_id" => $collection_fee_id,
-						"date_created" => $current_date,
-						"date_expired" => $current_date,
-						"status" => $status,
-						"month" => $current_month,
-						"year" => $current_year
-					];
-					$connection4 = $this->conn;
-					$stmt4 = $connection4->prepare($query4);
-					$stmt4->execute($data4);
-				}
-				if ($property_list_phase == "Phase 3" && ($current_day <= $day_range = date("j", mktime(0, 0, 0, $month, 21, $year)) && $current_day >= $day_range = date("j", mktime(0,0,0,$month, 15, $year)))) {
-					$status = "AVAILABLE";
-					$query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, date_expired, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :date_expired, :status, :month, :year)";
-					$data4 = [
-						"property_id" => $property_list_id,
-						"collection_fee_id" => $collection_fee_id,
-						"date_created" => $current_date,
-						"date_expired" => $current_date,
-						"status" => $status,
-						"month" => $current_month,
-						"year" => $current_year
-					];
-					$connection4 = $this->conn;
-					$stmt4 = $connection4->prepare($query4);
-					$stmt4->execute($data4);
-				}
-			} else {
-				$_SESSION['status'] = "There is no current fee for monthly duess";
-				$_SESSION['text'] = "";
-				$_SESSION['status_code'] = "warning";
-			}
-		}
-	}
-}
+    // -------  AUTO INSERT COLLECTION FUNCTION ----------
+    $current_date = date("Y-m-d H:i:s", strtotime("now"));
+    $current_month = date("F", strtotime("now"));
+    $current_year = date("Y", strtotime("now"));
+    $current_day = date("j", strtotime("now"));
+    $first_day_month = date("j", strtotime("first day of this month"));
+    $month = date("m", strtotime("now"));
+    $year = date("Y", strtotime("now"));
 
 
+    // Get all id in the proeprty list
+    $query1 = "SELECT * FROM property_list";
+    $connection1 = $this->conn;
+    $stmt1 = $connection1->prepare($query1);
+    $stmt1->execute();
 
-$available = "AVAILABLE";
-$query5 = "SELECT 
+    if ($stmt1->rowCount() > 0) {
+      while ($property_row = $stmt1->fetch()) {
+        $property_list_id = $property_row['id'];
+        $property_list_phase = $property_row['phase'];
+        // It validates if there is already a collection for this month and year
+        $query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
+        $data2 = [
+          'property_list_id' => $property_list_id,
+          'current_month' => $current_month,
+          'current_year' => $current_year
+        ];
+        $connection2 = $this->conn;
+        $stmt2 = $connection2->prepare($query2);
+        $stmt2->execute($data2);
+
+        if ($stmt2->rowCount() > 0) {
+        } else {
+
+          // get the current monthly dues fee
+          $monthly_dues = "Monthly Dues";
+          $query3 = "SELECT * FROM collection_fee WHERE category = :category";
+          $data3 = ["category" => $monthly_dues];
+          $connection3 = $this->conn;
+          $stmt3 = $connection3->prepare($query3);
+          $stmt3->execute($data3);
+          if ($stmt3->rowCount() > 0) {
+            while ($result = $stmt3->fetch()) {
+              $collection_fee_id = $result['id'];
+              $collection_fee = $result['fee'];
+            }
+
+            // Check the date
+
+
+            if ($property_list_phase == "Phase 1" && ($current_day >= $day_range = date("j", mktime(0, 0, 0, $month, 1, $year)) && $current_day <= $day_range = date("j", mktime(0, 0, 0, $month, 7, $year)))) {
+              $status = "AVAILABLE";
+              $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, balance, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :balance, :status, :month, :year)";
+              $data4 = [
+                "property_id" => $property_list_id,
+                "collection_fee_id" => $collection_fee_id,
+                "date_created" => $current_date,
+                "balance" => $collection_fee,
+                "status" => $status,
+                "month" => $current_month,
+                "year" => $current_year
+              ];
+              $connection4 = $this->conn;
+              $stmt4 = $connection4->prepare($query4);
+              $stmt4->execute($data4);
+            }
+            if ($property_list_phase == "Phase 2" && ($current_day >= $eight_day = date("j", mktime(0, 0, 0, $month, 8, $year)) && $current_day <= $eight_day = date("j", mktime(0, 0, 0, $month, 14, $year)))) {
+              $status = "AVAILABLE";
+              $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, balance, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :balance, :status, :month, :year)";
+              $data4 = [
+                "property_id" => $property_list_id,
+                "collection_fee_id" => $collection_fee_id,
+                "date_created" => $current_date,
+                "balance" => $collection_fee,
+                "status" => $status,
+                "month" => $current_month,
+                "year" => $current_year
+              ];
+              $connection4 = $this->conn;
+              $stmt4 = $connection4->prepare($query4);
+              $stmt4->execute($data4);
+            }
+            if ($property_list_phase == "Phase 3" && ($current_day <= $day_range = date("j", mktime(0, 0, 0, $month, 21, $year)) && $current_day >= $day_range = date("j", mktime(0, 0, 0, $month, 15, $year)))) {
+              $status = "AVAILABLE";
+              $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, balance, status, month, year) VALUES (:property_id, :collection_fee_id, :date_created, :balance, :status, :month, :year)";
+              $data4 = [
+                "property_id" => $property_list_id,
+                "collection_fee_id" => $collection_fee_id,
+                "date_created" => $current_date,
+                "balance" => $collection_fee,
+                "status" => $status,
+                "month" => $current_month,
+                "year" => $current_year
+              ];
+              $connection4 = $this->conn;
+              $stmt4 = $connection4->prepare($query4);
+              $stmt4->execute($data4);
+            }
+          } else {
+            $_SESSION['status'] = "There is no current fee for monthly duess";
+            $_SESSION['text'] = "";
+            $_SESSION['status_code'] = "warning";
+          }
+        }
+      }
+    }
+
+
+
+    $available = "AVAILABLE";
+    $query5 = "SELECT 
 collection_list.id,
 collection_list.status,
 collection_list.month,
@@ -632,48 +628,121 @@ collection_list.year,
 collection_list.property_id,
 property_list.phase
 FROM collection_list INNER JOIN property_list WHERE collection_list.property_id = property_list.id AND collection_list.status = :available";
-$data5 = ["available" => $available];
-$connection5 = $this->conn;
-$stmt5 = $connection5->prepare($query5);
-$stmt5->execute($data5);
-if ($stmt5->rowCount() > 0) {
-	while ($result_collection_list = $stmt5->fetch()) {
-		$collection_id = $result_collection_list['id'];
-		$collection_list_month = $result_collection_list['month'];
-		$collection_list_year = $result_collection_list['year'];
-		$phase = $result_collection_list['phase'];
+    $data5 = ["available" => $available];
+    $connection5 = $this->conn;
+    $stmt5 = $connection5->prepare($query5);
+    $stmt5->execute($data5);
+    if ($stmt5->rowCount() > 0) {
+      while ($result_collection_list = $stmt5->fetch()) {
+        $collection_id = $result_collection_list['id'];
+        $collection_list_month = $result_collection_list['month'];
+        $collection_list_year = $result_collection_list['year'];
+        $phase = $result_collection_list['phase'];
 
 
 
-		// Update the status to DUE
-		if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 1" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 8, $year)) ) {
-			$due = "DUE";
-			$query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
-			$data6 = ["due" => $due, "collection_list_id" => $collection_id];
-			$connection6 = $this->conn;
-			$stmt6 = $connection6->prepare($query6);
-			$stmt6->execute($data6);
-		}
-		if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 2" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 15, $year))) {
-			$due = "DUE";
-			$query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
-			$data6 = ["due" => $due, "collection_list_id" => $collection_id];
-			$connection6 = $this->conn;
-			$stmt6 = $connection6->prepare($query6);
-			$stmt6->execute($data6);
-		}
-		if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 3" && $current_day >= $twenty_second_day = date("j", mktime(0, 0, 0, $month, 22, $year))) {
-			$due = "DUE";
-			$query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
-			$data6 = ["due" => $due, "collection_list_id" => $collection_id];
-			$connection6 = $this->conn;
-			$stmt6 = $connection6->prepare($query6);
-			$stmt6->execute($data6);
-		}
-	}
-}
-
+        // Update the status to DUE
+        if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 1" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 8, $year))) {
+          $due = "DUE";
+          $query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
+          $data6 = ["due" => $due, "collection_list_id" => $collection_id];
+          $connection6 = $this->conn;
+          $stmt6 = $connection6->prepare($query6);
+          $stmt6->execute($data6);
+        }
+        if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 2" && $current_day >= $fifteenth_day = date("j", mktime(0, 0, 0, $month, 15, $year))) {
+          $due = "DUE";
+          $query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
+          $data6 = ["due" => $due, "collection_list_id" => $collection_id];
+          $connection6 = $this->conn;
+          $stmt6 = $connection6->prepare($query6);
+          $stmt6->execute($data6);
+        }
+        if ($collection_list_year == $current_year && $collection_list_month == $current_month && $phase == "Phase 3" && $current_day >= $twenty_second_day = date("j", mktime(0, 0, 0, $month, 22, $year))) {
+          $due = "DUE";
+          $query6 = "UPDATE collection_list SET status = :due WHERE id = :collection_list_id";
+          $data6 = ["due" => $due, "collection_list_id" => $collection_id];
+          $connection6 = $this->conn;
+          $stmt6 = $connection6->prepare($query6);
+          $stmt6->execute($data6);
+        }
+      }
     }
+  }
+
+
+
+
+
+  // AUTO UPDATE PROMOTION
+  public function updatePromotion()
+  {
+    $query = "SELECT * FROM promotion";
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    if ($count > 0) {
+      while ($result = $stmt->fetch()) {
+        $promotion_id = $result['id'];
+        $photo = $result['photo'];
+        $business_name = $result['business_name'];
+        $content = $result['content'];
+        $status = $result['status'];
+        $date_created = $result['date_created'];
+        $date_expired = $result['date_expired'];
+
+        $promotion_due = date("Y/m/d", strtotime($date_expired . "+1 day"));
+        $current_date = date("Y/m/d", strtotime("now"));
+        if ($promotion_due <= $current_date) {
+          $status = "INACTIVE";
+          $query_expired = "UPDATE promotion SET status = :status WHERE id = :promotion_id";
+          $data_expired = [
+            "status" => $status,
+            "promotion_id" => $promotion_id
+          ];
+          $stmt_expired = $connection->prepare($query_expired);
+          $stmt_expired->execute($data_expired);
+        }
+      }
+    }
+  }
+
+
+
+  //AUTO UPDATE ANNOUCEMENT
+  public function updateAnnouncement()
+  {
+    $query = "SELECT * FROM announcement";
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    if ($count > 0) {
+      while ($result = $stmt->fetch()) {
+        $announcement_id = $result['id'];
+        $about = $result['about'];
+        $content = $result['content'];
+        $date = $result['date'];
+        $date_created = $result['date_created'];
+        $status = $result['status'];
+
+        $announcement_expired = date("Y/m/d", strtotime($date . "+1 day"));
+        $current_date = date("Y/m/d", strtotime("now"));
+        if ($announcement_expired <= $current_date) {
+          $status = "INACTIVE";
+          $query_expired = "UPDATE announcement SET status = :status WHERE id = :announcement_id";
+          $data_expired = [
+            "status" => $status,
+            "announcement_id" => $announcement_id
+          ];
+          // $connection_expired = $server->openConn();
+          $stmt_expired = $connection->prepare($query_expired);
+          $stmt_expired->execute($data_expired);
+        }
+      }
+    }
+  }
 
 
 
@@ -721,14 +790,16 @@ if ($stmt5->rowCount() > 0) {
   }
 
 
-  public function userSessionLogin(){
-    if(isset($_SESSION['user_id'])){
+  public function userSessionLogin()
+  {
+    if (isset($_SESSION['user_id'])) {
       echo "<script>window.location.href='./user/home.php'</script>";
     }
   }
 
-  public function userAuthentication(){
-    if(empty($_SESSION['user_id'])){
+  public function userAuthentication()
+  {
+    if (empty($_SESSION['user_id'])) {
       echo "<script>window.location.href='../index.php'</script>";
     }
   }

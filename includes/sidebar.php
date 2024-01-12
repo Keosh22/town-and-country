@@ -110,7 +110,7 @@
         <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
-              <a href="" class="sidebar-link-dropdown">
+              <a href="../admin-panel/collection_record.php" class="sidebar-link-dropdown">
                 Collections List
               </a>
             </button>

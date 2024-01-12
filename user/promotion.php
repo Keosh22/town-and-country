@@ -34,7 +34,7 @@ $current_date = date('d');
           $business_name = $result['business_name'];
           $content = $result['content'];
           $date_created = date("d", strtotime($result['date_created']));
-          $days_ago = $date_created - $current_date;
+          $days_ago = $current_date - $date_created;
           ?>
           <div class="card mb-4 shadow-lg">
             <img src="../promotion_photos/<?php
@@ -49,7 +49,7 @@ $current_date = date('d');
               <p class="card-text"><?php echo $content; ?></p>
               <p class="card-text"><small class="text-body-secondary">
                   <?php
-                  if ($days_ago < 1) {
+                  if ($current_date == $date_created) {
                   ?>
                     posted today
                   <?php

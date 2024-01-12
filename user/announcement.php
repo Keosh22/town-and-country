@@ -52,8 +52,7 @@ $current_date = date('d');
                     <div class="announcement-footer card-footer text-center">
                     
                         <?php
-                        if ($days_ago < 1 ) {
-
+                        if ($current_date == $date_created ) {
                         ?>
                            posted today
                         <?php

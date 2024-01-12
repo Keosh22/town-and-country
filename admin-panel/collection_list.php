@@ -313,7 +313,6 @@ if (isset($_GET['property_id'])) {
                                     <label for="street" class="form-label text-success">Street:</label>
                                     <input type="text" class="form-control" id="street" name="street" value="<?php echo $street; ?>" readonly>
                                   </div>
-
                                 </div>
                               </div>
                             </div>
