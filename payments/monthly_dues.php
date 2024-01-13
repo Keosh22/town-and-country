@@ -57,7 +57,7 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col">
-                          <a href="#addMonthlyDues" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
+                          <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                         </div>
                       </div>
 
@@ -109,8 +109,7 @@ $server->adminAuthentication();
     </div>
   </div>
   <?php
-  // Add monthly dues modal
-  include("../payments/monthly_dues_add_modal.php");
+
   ?>
 
 

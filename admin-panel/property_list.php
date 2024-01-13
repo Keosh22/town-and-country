@@ -104,7 +104,7 @@ $server->adminAuthentication();
                                   $property_phase = $result['property_phase'];
                               ?>
                                   <tr>
-                                    <td><?php echo $property_id;  ?></td>
+                                    <td><?php echo $property_id; ?></td>
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
                                     <td><?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?></td>
                                     <td><?php echo $property_phase;  ?></td>
@@ -112,14 +112,15 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
+                                          <li><a data-id="<?php echo $property_id;?>" data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>" data-id="<?php echo $property_id; ?>" href="#addMonthlyDues" data-bs-toggle="modal" class="dropdown-item" id="manage_payments_btn">Manage Payment</a></li>
+                                          <li>
+                                            <a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a>
+                                          </li>
                                           <li><a data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>" data-id="<?php echo $property_id; ?>" href="#propertyTransfer" class="dropdown-item" data-bs-toggle="modal" id="transfer_btn">Transfer</a></li>
                                           <li>
                                             <form action="" method="POST">
                                               <a data-id="<?php echo $property_id; ?>" href="#deleteProperty" data-bs-toggle="modal" type="button" id="delete_property" class="dropdown-item">Delete</a>
                                             </form>
-                                          </li>
-                                          <li>
-                                            <a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a>
                                           </li>
                                         </ul>
                                       </div>
@@ -162,6 +163,8 @@ $server->adminAuthentication();
   include("../admin-panel/property_list_transfer_modal.php");
   // Delete property modal
   include("../admin-panel/property_delete_modal.php");
+  // Add monthly dues modal
+  include("../admin-panel/property_manage_payment_modal.php");
 
 
   ?>
@@ -170,14 +173,36 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
 
+      // Manage Payment
+      $("#propertyListTable").on('click', '#manage_payments_btn', function (){
+        var property_id = $(this).attr('data-id');
+        var homeowners_name = $(this).attr('data-name');
+        var property_address = $(this).attr('data-address');
+        $("#property_id").val(property_id);
+        $("#homeowners_name").val(homeowners_name);
+        $("#address").val(property_address);
+        getCollectionList(property_id);
+
+        function getCollectionList(property_id){
+          $.ajax({
+            url: '../ajax/collection_list_get_data.php',
+            type: 'POST',
+            data: {property_id: property_id},
+            success: function (response){
+              $("#collection_container").html(response);
+            }
+          });
+        }
+        
+      });
 
       // Delete Button
-      $("#propertyListTable").on('click', '#delete_property', function (){
+      $("#propertyListTable").on('click', '#delete_property', function() {
         var property_id = $(this).attr('data-id');
         $("#delete_property_id").val(property_id);
       });
 
-      
+
       // Transfer button
       $("#propertyListTable").on('click', '#transfer_btn', function() {
         swal({
