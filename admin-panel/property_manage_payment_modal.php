@@ -1,6 +1,6 @@
 <?php
 
-use LDAP\Result;
+// use LDAP\Result;
 
 require_once("../libs/server.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');

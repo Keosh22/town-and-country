@@ -112,7 +112,8 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a data-id="<?php echo $property_id;?>" data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>" data-id="<?php echo $property_id; ?>" href="#addMonthlyDues" data-bs-toggle="modal" class="dropdown-item" id="manage_payments_btn">Manage Payment</a></li>
+                                          <!-- <li><a data-id="<?php echo $property_id;?>" data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>" data-id="<?php echo $property_id; ?>" href="#addMonthlyDues" data-bs-toggle="modal" class="dropdown-item" id="manage_payments_btn">Manage Payment</a></li> -->
+                                          <li><a href="../admin-panel/property_manage_payment.php?property_id=<?php echo $property_id;?>" class="dropdown-item">Manage Payment</a></li>
                                           <li>
                                             <a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a>
                                           </li>

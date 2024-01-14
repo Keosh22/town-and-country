@@ -332,6 +332,7 @@ if (isset($_GET['property_id'])) {
                                     <thead>
                                       <tr>
                                         <th width="5%">Month</th>
+                                        <th width="5%">Month</th>
                                         <th width="30%">Year</th>
                                         <th width="30%">Status</th>
                                         <th scope="col" width="5%">Action</th>
@@ -340,7 +341,7 @@ if (isset($_GET['property_id'])) {
                                     <tbody>
                                       <?php
                                       // Retrieve the Collection date
-                                      $query8 = "SELECT * FROM collection_list WHERE property_id = :property_id";
+                                      $query8 = "SELECT * FROM collection_list WHERE property_id = :property_id ";
                                       $data8 = ["property_id" => $property_id];
                                       $connection8 = $server->openConn();
                                       $stmt8 = $connection8->prepare($query8);
@@ -349,6 +350,7 @@ if (isset($_GET['property_id'])) {
                                         while ($result_collection = $stmt8->fetch()) {
                                           $status_collection = $result_collection['status'];
                                           $month = $result_collection['month'];
+                                          $month_int = $result_collection['month_int'];
                                           $year = $result_collection['year'];
                                       ?>
 
@@ -373,6 +375,7 @@ if (isset($_GET['property_id'])) {
                                             ?>
 
                                             <td><?php echo $month; ?></td>
+                                            <td><?php echo $month_int; ?></td>
                                             <td><?php echo $year; ?></td>
                                             <td><?php echo $status_collection; ?></td>
                                             <td>
@@ -421,8 +424,17 @@ if (isset($_GET['property_id'])) {
     $(document).ready(function() {
 
 
-      DataTable
-      $("#collection_list_Table").DataTable({});
+      
+      $("#collection_list_Table").DataTable({
+        "pageLength": 12,
+        order: [
+          [1, 'asc']
+        ],
+        'columnDefs' : [
+        //hide the first column
+        { 'visible': false, 'targets': [1] }
+    ]
+      });
 
     });
   </script>
