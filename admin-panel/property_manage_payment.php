@@ -18,6 +18,7 @@ if (isset($_GET['property_id'])) {
   property_list.lot as property_lot,
   property_list.street as property_street,
   property_list.phase as property_phase,
+  property_list.homeowners_id as owners_id,
   homeowners_users.*
   FROM property_list INNER JOIN homeowners_users ON property_list.homeowners_id = homeowners_users.id WHERE property_list.id = :property_id";
   $data = ["property_id" => $property_id];
@@ -36,6 +37,8 @@ if (isset($_GET['property_id'])) {
       $lot = $result['property_lot'];
       $phase = $result['property_phase'];
       $street = $result['property_street'];
+
+      $homeowners_id = $result['owners_id'];
     }
   } else {
     $_SESSION['status'] = "No Record Found!";
@@ -91,13 +94,14 @@ if (isset($_GET['property_id'])) {
                   <div class="col-xs-12">
                     <div class="box">
                       <!-- 	HEADER TABLE -->
-                      <div class="header-box container-fluid d-flex align-items-center">
-                        <div class="col">
-                          <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New Collection</a>
+                      <form method="POST">
+                        <div class="header-box container-fluid d-flex align-items-center">
+                          <div class="col">
+                            <a id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</a>
+                          </div>
+
                         </div>
 
-                      </div>
-                      <form action="">
                         <div class="body-box ">
                           <div class="row gx-3">
                             <div class="col-4">
@@ -141,9 +145,9 @@ if (isset($_GET['property_id'])) {
                                 </div>
                                 <div class="card-body">
                                   <div id="collection_list_container" class="row gy-2">
-                                   <div class="col-12">
-                                   <h5>Year: <b>2024</b></h5>
-                                   </div>
+                                    <div class="col-12">
+                                      <h5>Year: <b>2024</b></h5>
+                                    </div>
                                     <?php
                                     $year = date("Y", strtotime("now"));
                                     $property_id = $_GET['property_id'];
@@ -214,9 +218,9 @@ if (isset($_GET['property_id'])) {
                                     ?>
                                         <div class="col-2">
                                           <div class="card text-bg-<?php echo $color; ?> text-center">
-                                            <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee="<?php echo $fee; ?>">
-                                            <h5 class="card-title"><b><?php echo $month_abr; ?></b></h5>
-                                            <p class="card-text mb-1"><?php echo $status_abr; ?></p>
+                                            <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>">
+                                            <h5 class="card-title month"><b><?php echo $month_abr; ?></b></h5>
+                                            <p class="card-text mb-1 status"><?php echo $status_abr; ?></p>
                                           </div>
                                         </div>
                                     <?php
@@ -260,25 +264,74 @@ if (isset($_GET['property_id'])) {
     $(document).ready(function() {
 
 
-     
-    
-
-
       // Add fee
+      var id_array = [];
       var total = 0;
+      var homeowners_id;
+
       $(".checkbox").on('change', function() {
         var collection_fee = $(this).attr('data-fee');
         var new_val = parseInt(collection_fee);
         var collection_id = $(this).val();
-        
+        var owner = $(this).attr('data-owner');
+        var month = $(this).attr('data-month');
+        var status = $(this).attr('data-status');
+
+
         if (this.checked) {
           total = total + new_val;
-          console.log(collection_id);
+          homeowners_id = owner;
+          id_array.push(collection_id);
+
         } else {
           total = total - new_val;
+          homeowners_id = owner
+
+          // id array
+          for (var i = 0; i <= id_array.length - 1; i++) {
+            if (collection_id === id_array[i]) {
+              id_array.splice(i, 1);
+            }
+          }
         }
+     
         $("#fee").val(total);
       });
+
+
+
+
+      // Update collection
+      $("#add_payment_btn").on('click', function() {
+        swal({
+            title: 'Confirmation',
+            text: 'Are you sure you want to add this payment?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: '../ajax/monthly_dues_payment.php',
+                type: 'POST',
+                data: {
+                  id_array: id_array,
+                  homeowners_id: homeowners_id
+                },
+                success: function(response) {
+                  // $(".content").html(response);
+                  location.reload(true);
+                }
+              });
+            } else {
+              swal("Canceled");
+            }
+
+          })
+
+      });
+
 
 
 
