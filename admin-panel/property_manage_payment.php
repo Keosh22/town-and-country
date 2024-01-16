@@ -218,7 +218,7 @@ if (isset($_GET['property_id'])) {
                                     ?>
                                         <div class="col-2">
                                           <div class="card text-bg-<?php echo $color; ?> text-center">
-                                            <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>">
+                                            <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>" data-property="<?php echo $property_id; ?>">
                                             <h5 class="card-title month"><b><?php echo $month_abr; ?></b></h5>
                                             <p class="card-text mb-1 status"><?php echo $status_abr; ?></p>
                                           </div>
@@ -268,6 +268,7 @@ if (isset($_GET['property_id'])) {
       var id_array = [];
       var total = 0;
       var homeowners_id;
+      var property_id;
 
       $(".checkbox").on('change', function() {
         var collection_fee = $(this).attr('data-fee');
@@ -276,16 +277,20 @@ if (isset($_GET['property_id'])) {
         var owner = $(this).attr('data-owner');
         var month = $(this).attr('data-month');
         var status = $(this).attr('data-status');
+        var property = $(this).attr('data-property');
+        
 
 
         if (this.checked) {
           total = total + new_val;
           homeowners_id = owner;
+          property_id = property;
           id_array.push(collection_id);
 
         } else {
           total = total - new_val;
-          homeowners_id = owner
+          homeowners_id = owner;
+          property_id = property;;
 
           // id array
           for (var i = 0; i <= id_array.length - 1; i++) {
@@ -294,7 +299,7 @@ if (isset($_GET['property_id'])) {
             }
           }
         }
-     
+        
         $("#fee").val(total);
       });
 
@@ -313,11 +318,12 @@ if (isset($_GET['property_id'])) {
           .then((willDelete) => {
             if (willDelete) {
               $.ajax({
-                url: '../ajax/monthly_dues_payment.php',
+                url: '../ajax/update_collection_list.php',
                 type: 'POST',
                 data: {
                   id_array: id_array,
-                  homeowners_id: homeowners_id
+                  homeowners_id: homeowners_id,
+                  property_id: property_id
                 },
                 success: function(response) {
                   // $(".content").html(response);
