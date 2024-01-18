@@ -556,6 +556,7 @@ class Server
               $collection_fee_id = $result['id'];
               $collection_fee = $result['fee'];
             }
+            
 
             // Check the date
             $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");

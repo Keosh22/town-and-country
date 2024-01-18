@@ -291,9 +291,7 @@ h2{
 
 
 /* CARD PROFILE */
-.card{
-  /* border-top: 3px solid #284B63 ; */
-}
+
 
 .card-border{
   border-top: 3px solid #284B63 ;
@@ -337,6 +335,40 @@ h2{
   height: 80px;
   width: 80px;
   font-size: 2rem;
+}
+
+
+
+/* RECEIPT */
+.receipt-wrapper {
+  margin: 10px 20px;
+}
+
+.title-receipt {
+  margin-bottom: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: inline-flex;
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.divider-receipt {
+  width: 100%;
+  border-bottom: 3px solid black;
+  margin-bottom: 50px;
+}
+
+.details-title {
+  margin-bottom: 5px;
 }
 
 

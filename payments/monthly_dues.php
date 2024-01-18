@@ -68,28 +68,85 @@ $server->adminAuthentication();
                             <thead>
                               <tr>
                                 <th width="5%">ID</th>
-                                <th width="30%">Category</th>
-                                <th width="30%">Description</th>
-                                <th width="10%">Fee</th>
-                                <th width="10%">Date Created</th>
-                                <th width="5%">Status</th>
+                                <th width="10%">Date</th>
+                                <th width="10%">Transaction No.</th>
+                                <th width="10%">Name</th>
+                                <th width="15%">Property</th>
+                                <th width="5%">Paid Ammount</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <?php
-                                
-                                
+
+                              $query = "SELECT 
+                                payments_list.transaction_number,
+                                payments_list.id as payment_id,
+                                payments_list.date_created as date_paid,
+                                payments_list.collection_fee_id,
+                                payments_list.paid,
+                                homeowners_users.firstname,
+                                homeowners_users.middle_initial,
+                                homeowners_users.lastname,
+                                property_list.blk as property_blk,
+                                property_list.lot as property_lot,
+                                property_list.street as property_street,
+                                property_list.phase as property_phase
+                                FROM payments_list 
+                                INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
+                                INNER JOIN property_list ON payments_list.property_id = property_list.id
+                                INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
+                                INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                                ";
+                              $connection = $server->openConn();
+                              $stmt = $connection->prepare($query);
+                              $stmt->execute();
+                              if ($stmt->rowCount() > 0) {
+                                while ($result = $stmt->fetch()) {
+                                  $payment_id = $result['payment_id'];
+                                  $date_paid = $result['date_paid'];
+                                  $transaction_number = $result['transaction_number'];
+
+                                  $firstname = $result['firstname'];
+                                  $middle_initial = $result['middle_initial'];
+                                  $lastname = $result['lastname'];
+
+                                  $blk = $result['property_blk'];
+                                  $lot = $result['property_lot'];
+                                  $street = $result['property_street'];
+                                  $phase = $result['property_phase'];
+
+                                  $paid_amount = $result['paid'];
+                              ?>
+                                  <tr>
+                                    <td><?php echo $payment_id; ?></td>
+                                    <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
+                                    <td><?php echo $transaction_number; ?></td>
+                                    <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
+                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase; ?></td>
+                                    <td><?php echo $paid_amount; ?></td>
+                                    <td>
+                                      <div class="dropdown">
+                                        <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
+                                        <ul class="dropdown-menu">
+                                          <li><a id="view_payment" data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              <?php
+                                }
+                              }
                               ?>
                             </tbody>
                             <tfoot>
                               <tr>
                                 <th width="5%">ID</th>
-                                <th width="30%">Category</th>
-                                <th width="30%">Description</th>
-                                <th width="10%">Fee</th>
-                                <th width="10%">Date Created</th>
-                                <th width="5%">Status</th>
+                                <th width="10%">Date</th>
+                                <th width="10%">Transaction No.</th>
+                                <th width="10%">Name</th>
+                                <th width="15%">Property</th>
+                                <th width="5%">Paid Ammount</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </tfoot>
@@ -109,13 +166,39 @@ $server->adminAuthentication();
     </div>
   </div>
   <?php
-
+  // View payment
+  include("../payments/monthly_dues_view_modal.php");
   ?>
 
 
   <script>
     $(document).ready(function() {
 
+
+      // View payment
+     $("#monthlyDuesTable").on('click', '#view_payment', function (){
+        var payment_id = $(this).attr('data-id');
+        $("#payment_id_modal").val(payment_id);
+        getPayment(payment_id);
+
+        function getPayment(payment_id){
+          $.ajax({
+            url: '../ajax/payment_receipt_get_data.php',
+            type: 'POST',
+            data: {payment_id: payment_id},
+            dataType: 'JSON',
+            success: function(response){
+              $("#account_number").html(response.account_number);
+              $("#name").html(response.name);
+              $("#current_address").html(response.address);
+              $("#transaction_number").html(response.transaction_number);
+              $("#date_paid").html(response.date_paid);
+              $("#table_result").html(response.table_result);
+            }
+          });
+        }
+        
+     });
 
       // DataTable
       $("#monthlyDuesTable").DataTable({
