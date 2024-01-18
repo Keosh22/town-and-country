@@ -62,7 +62,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
   $(document).ready(function() {
   
     $("#announcementUpdate").on('hidden.bs.modal', function(e){
-      $("#update_announcement_form").find('input[type=text], input[type=hidded]').val("");
+      $("#update_announcement_form").find('input[type=text], input[type=hidden]').val("");
       $("#status_default").prop("selected", true);
     });
 

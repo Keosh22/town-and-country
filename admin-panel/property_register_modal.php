@@ -79,16 +79,10 @@ $server = new Server;
               <label for="street" class="form-label">Street</label>
               <select name="street" id="street" class="form-select" required>
                 <option selected>- Select -</option>
-                
+              
               </select>
             </div>
-
           </div>
-
-
-
-
-
           <div class="modal-footer">
             <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary btn-flat" name="add" class="add" id="add">Add</button>
@@ -167,11 +161,11 @@ $server = new Server;
           street: street
         },
         success: function(data) {
-
+          location.reload(true);
 
         }
       });
-      location.reload(true);
+      
     })
 
   });

@@ -4,7 +4,7 @@ require_once("../libs/server.php");
 ?>
 
 <?php
-session_start();
+session_status();
 $server = new Server;
 
 if (isset($_POST['submit'])) {
