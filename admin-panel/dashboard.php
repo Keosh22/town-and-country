@@ -47,7 +47,7 @@ $server->updateAnnouncement();
 // 		$stmt2->execute($data2);
 
 // 		if ($stmt2->rowCount() > 0) {
-			
+
 // 		} else {
 
 // 			// get the current monthly dues fee
@@ -63,7 +63,7 @@ $server->updateAnnouncement();
 // 				}
 
 // 				// Check the date
-			
+
 
 // 				if ($property_list_phase == "Phase 1" && ($current_day >= $day_range = date("j", mktime(0, 0, 0, $month, 1, $year)) && $current_day <= $day_range = date("j", mktime(0,0,0,$month, 7, $year)))) {
 // 					$status = "AVAILABLE";
@@ -192,6 +192,12 @@ $server->updateAnnouncement();
 ?>
 
 <body>
+	<div class="spinner_wrapper">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+
 	<div class="wrapper">
 		<!-- SIDEBAR -->
 		<?php
@@ -266,6 +272,12 @@ $server->updateAnnouncement();
 			<!-- wrapper -->
 		</div>
 	</div>
+
+	<script>
+		$(window).on('load', function() {
+			$(".spinner_wrapper").fadeOut("slow");
+		});
+	</script>
 
 	<!-- FOOTER -->
 	<?php

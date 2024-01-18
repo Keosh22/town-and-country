@@ -54,40 +54,39 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "error";
     } else {
-      // Transaction Number Generator
-      $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
-      $connection4 = $server->openConn();
-      $stmt4 = $connection4->prepare($query4);
-      $stmt4->execute();
-      if ($stmt4->rowCount() > 0) {
-        if ($row = $stmt4->fetch()) {
 
-          $result = $row['transaction_number'];
-          $get_number = str_replace("TN", "", $result);
-          $id_increment = $get_number + 1;
-          $get_string = str_pad($id_increment, 8, 0, STR_PAD_LEFT);
-          $transaction_number = "TN" . $get_string;
+      if (empty($transaction_number)) {
+        // Transaction Number Generator
+        $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
+        $connection4 = $server->openConn();
+        $stmt4 = $connection4->prepare($query4);
+        $stmt4->execute();
+        if ($stmt4->rowCount() > 0) {
+          if ($row = $stmt4->fetch()) {
+
+            $result = $row['transaction_number'];
+            $get_number = str_replace("TN", "", $result);
+            $id_increment = $get_number + 1;
+            $get_string = str_pad($id_increment, 8, 0, STR_PAD_LEFT);
+            $transaction_number = "TN" . $get_string;
+          }
         }
       } 
-        
-      
+   
+      // if there is no record, Insert a paid receipt record to this table
+      $query3 = "INSERT INTO payments_list (transaction_number, homeowners_id, property_id, collection_id, date_created, paid) VALUES (:transaction_number, :homeowners_id, :property_id, :collection_id, :date_created, :paid)";
+      $data3 = [
+        "transaction_number" => $transaction_number,
+        "homeowners_id" => $homeowners_id,
+        "property_id" => $property_id,
+        "collection_id" => $id,
+        "date_created" => $current_date,
+        "paid" => $paid
+      ];
+      $connection3 = $server->openConn();
+      $stmt3 = $connection3->prepare($query3);
+      $stmt3->execute($data3);
     }
-
-
-
-    // if there is no record, Insert a paid receipt record to this table
-    $query3 = "INSERT INTO payments_list (transaction_number, homeowners_id, property_id, collection_id, date_created, paid) VALUES (:transaction_number, :homeowners_id, :property_id, :collection_id, :date_created, :paid)";
-    $data3 = [
-      "transaction_number" => $transaction_number,
-      "homeowners_id" => $homeowners_id,
-      "property_id" => $property_id,
-      "collection_id" => $id,
-      "date_created" => $current_date,
-      "paid" => $paid
-    ];
-    $connection3 = $server->openConn();
-    $stmt3 = $connection3->prepare($query3);
-    $stmt3->execute($data3);
   }
 
 
