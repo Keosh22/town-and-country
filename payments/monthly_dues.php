@@ -129,7 +129,8 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a id="view_payment" data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
+                                          <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
+                                          <li><a id="print_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">Print</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -178,6 +179,7 @@ $server->adminAuthentication();
       // View payment
      $("#monthlyDuesTable").on('click', '#view_payment', function (){
         var payment_id = $(this).attr('data-id');
+        var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
         getPayment(payment_id);
 
@@ -185,7 +187,7 @@ $server->adminAuthentication();
           $.ajax({
             url: '../ajax/payment_receipt_get_data.php',
             type: 'POST',
-            data: {payment_id: payment_id},
+            data: {payment_id: payment_id, transaction_number: transaction_number},
             dataType: 'JSON',
             success: function(response){
               $("#account_number").html(response.account_number);
@@ -193,12 +195,19 @@ $server->adminAuthentication();
               $("#current_address").html(response.address);
               $("#transaction_number").html(response.transaction_number);
               $("#date_paid").html(response.date_paid);
-              $("#table_result").html(response.table_result);
+              $(".table_result").html(response.table_result);
+              $("#total_amount").val(response.total_amount);
             }
           });
         }
-        
      });
+
+
+  // Print payment
+  $("#monthlyDuesTable").on('click', '#print_payment', function (){
+      
+     });
+
 
       // DataTable
       $("#monthlyDuesTable").DataTable({

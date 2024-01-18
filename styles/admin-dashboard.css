@@ -344,9 +344,6 @@ h2{
   margin: 10px 20px;
 }
 
-.title-receipt {
-  margin-bottom: 10px;
-}
 
 .text-center {
   text-align: center;
@@ -364,7 +361,7 @@ h2{
 .divider-receipt {
   width: 100%;
   border-bottom: 3px solid black;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
 }
 
 .details-title {
