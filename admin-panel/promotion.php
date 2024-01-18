@@ -9,9 +9,6 @@ session_start();
 $server = new Server;
 $server->adminAuthentication();
 ?>
-
-
-
 <!-- Body starts here -->
 
 <body>
@@ -33,11 +30,10 @@ $server->adminAuthentication();
       <main class="content px-3 py-2">
         <!-- conten header -->
         <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Services</a></li>
-            <li class="breadcrumb-item">Announcement List</li>
+            <li class="breadcrumb-item">Promotions</li>
           </ol>
         </section>
 
@@ -45,7 +41,7 @@ $server->adminAuthentication();
         <!-- Card Start here -->
         <div class="card card-border">
           <div class="card-header">
-            <h2>Announcement List</h2>
+            <h2>Promotions List</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
@@ -57,7 +53,7 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col">
-                          <a href="#announcementCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Announcement</a>
+                          <a href="#promotionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Promotions</a>
                         </div>
 
                       </div>
@@ -65,57 +61,61 @@ $server->adminAuthentication();
                       <div class="body-box shadow-sm">
 
                         <div class="table-responsive mx-2">
-                          <table id="announcementTable" class="table table-striped" style="width:100%">
+                          <table id="promotionTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-
-                                <th width="10%">About</th>
+                                <th width="10%">Photo</th>
+                                <th width="10%">Business Name</th>
                                 <th width="30%">Content</th>
-                           
-                                <th width="10%">Event Date</th>
+                                <th width="10%">Expiration</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <?php
-
-                              $query = "SELECT * FROM announcement";
+                              $query = "SELECT * FROM promotion";
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute();
                               $count = $stmt->rowCount();
                               if ($count > 0) {
                                 while ($result = $stmt->fetch()) {
-                                  $announcement_id = $result['id'];
-                                  $about = $result['about'];
+                                  $promotion_id = $result['id'];
+                                  $photo = $result['photo'];
+                                  $business_name = $result['business_name'];
                                   $content = $result['content'];
-                                  $date = $result['date'];
-                                  $date_created = $result['date_created'];
                                   $status = $result['status'];
+                                  $date_created = $result['date_created'];
+                                  $date_expired = $result['date_expired'];
 
-                                  $announcement_expired = date("Y/m/d", strtotime($date . "+1 day"));
+                                  $promotion_due = date("Y/m/d", strtotime($date_expired . "+1 day"));
                                   $current_date = date("Y/m/d", strtotime("now"));
-                                  if ($announcement_expired <= $current_date ) {
+                                  if ($promotion_due <= $current_date) {
                                     $status = "INACTIVE";
-                                    $query_expired = "UPDATE announcement SET status = :status WHERE id = :announcement_id";
+                                    $query_expired = "UPDATE promotion SET status = :status WHERE id = :promotion_id";
                                     $data_expired = [
                                       "status" => $status,
-                                      "announcement_id" => $announcement_id
+                                      "promotion_id" => $promotion_id
                                     ];
-                                    // $connection_expired = $server->openConn();
                                     $stmt_expired = $connection->prepare($query_expired);
                                     $stmt_expired->execute($data_expired);
                                   }
 
                               ?>
-
                                   <tr>
-
-                                    <td><?php echo $about ?></td>
+                                    <td>
+                                      <div class="profile-container"><img class="profile-image" src="../promotion_photos/<?php
+                                      if($photo == ""){
+                                        echo "default_image_promotion.jpg";
+                                      } else {
+                                        echo $photo;
+                                      }
+                                      ?>"></div>
+                                    </td>
+                                    <td><?php echo $business_name ?></td>
                                     <td><?php echo nl2br($content) ?></td>
-                                    
-                                    <td><?php echo date("F j, Y  g:i a", strtotime($date)) ?></td>
+                                    <td><?php echo date("F j, Y g:i a", strtotime($date_expired)) ?></td>
                                     <td>
                                       <?php
                                       if ($status == "ACTIVE") {
@@ -133,28 +133,24 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a data-id="<?php echo $announcement_id ?>" href="#" class="dropdown-item" id="delete_announcement">Delete</a></li>
-                                          <li><a data-id="<?php echo $announcement_id ?>" href="#announcementUpdate" class="dropdown-item" data-bs-toggle="modal" id="update_dropdown_btn">Update</a></li>
+                                          <li><a data-id="<?php echo $promotion_id ?>" href="#promotionUpdate" data-bs-toggle="modal" class="dropdown-item" id="update_promotion_btn">Update</a></li>
+                                          <li><a data-id="<?php echo $promotion_id ?>" href="#change_photo_promotion" class="dropdown-item" data-bs-toggle="modal" id="change_photo_btn">Change photo</a></li>
+                                          <li><a data-id="<?php echo $promotion_id ?>" href="#" class="dropdown-item" id="delete_promotion_btn">Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
                                   </tr>
                               <?php
                                 }
-                              } else {
-                                $_SESSION['status'] = "No Records";
-                                $_SESSION['text'] = "";
-                                $_SESSION['status_code'] = "warning";
                               }
                               ?>
                             </tbody>
                             <tfoot>
                               <tr>
-
-                                <th width="10%">About</th>
+                                <th width="10%">Photo</th>
+                                <th width="10%">Business Name</th>
                                 <th width="30%">Content</th>
-                              
-                                <th width="10%">Date & Time</th>
+                                <th width="10%">Expiration</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
@@ -176,10 +172,12 @@ $server->adminAuthentication();
     </div>
   </div>
   <?php
-  // Create announcement Modal
-  include("../admin-panel/announcement_create_modal.php");
-  // Update announcement Modal
-  include("../admin-panel/announcement_update_modal.php")
+  // Create Promotion Modal
+  include("../admin-panel/promotion_create_modal.php");
+  // Update Promotion Modal
+  include("../admin-panel/promotion_update_modal.php");
+  // Change Photo Modal
+  include("../admin-panel/promotion_change_photo.modal.php");
 
 
   ?>
@@ -187,74 +185,88 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-      
-      
 
-      // Update announcement
-      $("#announcementTable").on('click', '#update_dropdown_btn', function() {
-        var announcement_id = $(this).attr('data-id');
-        $("#announcement_id").val(announcement_id);
-        getAnnouncement(announcement_id);
 
-        function getAnnouncement(announcement_id) {
+      // Change photo 
+      $("#promotionTable").on('click', '#change_photo_btn', function (){
+        var promotion_id = $(this).attr('data-id');
+        $("#change_photo_id").val(promotion_id);
+        getPromotion(promotion_id);
+        
+        function getPromotion(promotion_id){
           $.ajax({
-            url: '../ajax/announcement_get_data.php',
+            url: '../ajax/promotion_get_data.php',
             type: 'POST',
-            data: {
-              announcement_id: announcement_id
-            },
+            data: {promotion_id: promotion_id},
             dataType: 'JSON',
-            success: function(response) {
-              $("#about_update").val(response.about);
-              $("#announcement_date_update").val(response.date);
-              $("#content_update").val(response.content);
-              
+            success: function (response){
+              $("#photo_name").val(response.photo);
+            }
+          });
+        }
+
+
+      });
+
+      // Update Promotion 
+      $("#promotionTable").on('click', "#update_promotion_btn", function(){
+        var promotion_id = $(this).attr('data-id');
+        $("#promotion_id").val(promotion_id);
+        getPromotion(promotion_id);
+
+        function getPromotion(promotion_id){
+          $.ajax({
+            url: '../ajax/promotion_get_data.php',
+            type: 'POST',
+            data: {promotion_id: promotion_id},
+            dataType: 'JSON',
+            success: function (response){
+              $("#update_business_name").val(response.business_name);
+              $("#update_promotion_due").val(response.date_expired);
+              $("#promotion_status").val(response.status);
+              $("#update_promotion_content").val(response.content);
+              $("#photo_name").val(response.photo);
             }
           });
         }
       });
 
-      // Delete announcement
-      $("#announcementTable").on('click', '#delete_announcement', function (){
-        var announcement_id = $(this).attr('data-id');
+      // DataTable  
+      $("#promotionTable").DataTable({
+        order: [
+
+        ]
+
+      })
+
+
+      // Delete promotion
+      $("#promotionTable").on('click', '#delete_promotion_btn', function (){
+        var promotion_id = $(this).attr('data-id');
+    
         swal({
           title: "Delete Confirmation",
-          text: "Once deleted, you will not able to recover this record",
+          text: "Once Deleted, you will not able to recover this record",
           icon: "warning",
           buttons: true,
           dangerMode: true,
         })
         .then((willDelete) => {
           if(willDelete){
-            
             $.ajax({
-              url: '../ajax/announcement_delete.php',
-              type: 'POST',
-              data: {announcement_id: announcement_id},
-              success: function (response){
-                location.reload(true);
-              }
-            });
-            
-          
-            
+                url: '../ajax/promotion_delete.php',
+                type: 'POST',
+                data: {promotion_id: promotion_id},
+                success: function (response){
+                  location.reload(true);
+                  
+                }
+            })
           } else {
-            swal("Delete cancel!");
+            swal("Delete canceled!");
           }
-        })
+        });
       });
-
-
-
-      // DataTable
-      $("#announcementTable").DataTable({
-        order: [
-          [3, 'asc'],
-          [2, 'asc']
-
-        ]
-      });
-
 
 
     });
@@ -262,5 +274,4 @@ $server->adminAuthentication();
   <!-- FOOTER -->
   <?php
   include("../includes/footer.php");
-
   ?>

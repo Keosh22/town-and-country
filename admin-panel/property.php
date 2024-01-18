@@ -141,6 +141,7 @@ if ($count) {
                                         <ul class="dropdown-menu">
                                           <li><a data-id="<?php echo $property_id ?>" data-name="" href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
                                           <li><a data-id="<?php echo $property_id ?>" data-bs-toggle="modal" href="#addTenant" class="dropdown-item" id="add_tenant">Add Tenant</a></li>
+                                          <li><a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a></li>
                                         </ul>
                                       </div>
                                     </td>
