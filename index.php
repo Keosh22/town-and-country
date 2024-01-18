@@ -1,6 +1,6 @@
 <!-- HEADER -->
 <?php
-//require_once("./includes/user-header.php"); 
+// require_once("./includes/user-header.php"); 
 ?>
 <!-- SERVER -->
 <?php require_once("./libs/server.php"); ?>

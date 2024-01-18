@@ -1,6 +1,12 @@
 <?php
+ session_start();
+?>
+
+<?php
 require "../includes/user-header.php";
 require "../libs/server.php";
+require "../includes/user-header.php";
+require "../user-panel/user-nav.php";
 date_default_timezone_set('Asia/Manila');
 $announcementServer = new Server();
 $result = $announcementServer->pagination(10);

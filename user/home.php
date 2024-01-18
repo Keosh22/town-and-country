@@ -1,6 +1,9 @@
 <?php
+ session_start(); ?>
+<?php
 
 require "../includes/user-header.php";
+require "../user-panel/user-nav.php";
 require "../libs/server.php";
 $homeServer = new Server();
 

@@ -1,6 +1,12 @@
 <?php
+ session_start(); ?>
+
+
+<?php
 require "../includes/user-header.php";
 require "../libs/server.php";
+require "../includes/user-header.php";
+require "../user-panel/user-nav.php";
 date_default_timezone_set('Asia/Manila');
 $server = new Server();
 $status = "ACTIVE";
