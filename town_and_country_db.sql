@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2024 at 05:38 PM
+-- Generation Time: Jan 18, 2024 at 05:02 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -92,7 +92,9 @@ INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date
 (321, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-14 19:38:04'),
 (322, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-01-14 22:40:12'),
 (323, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-14 22:40:16'),
-(324, 'ADM004', 'KEN JOSHUA', 'Register property: BLK-3 LOT-9 Phase 1 Guava to TCH0007: Lesther Martinez', '2024-01-14 23:37:02');
+(324, 'ADM004', 'KEN JOSHUA', 'Register property: BLK-3 LOT-9 Phase 1 Guava to TCH0007: Lesther Martinez', '2024-01-14 23:37:02'),
+(325, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-15 21:38:10'),
+(326, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-01-18 12:01:25');
 
 -- --------------------------------------------------------
 
@@ -211,7 +213,7 @@ CREATE TABLE `collection_list` (
   `collection_fee_id` int(250) NOT NULL,
   `date_created` datetime NOT NULL,
   `balance` varchar(200) NOT NULL,
-  `date_expired` datetime NOT NULL,
+  `date_paid` datetime NOT NULL,
   `status` varchar(200) NOT NULL,
   `month` varchar(200) NOT NULL,
   `month_int` varchar(100) NOT NULL,
@@ -222,15 +224,15 @@ CREATE TABLE `collection_list` (
 -- Dumping data for table `collection_list`
 --
 
-INSERT INTO `collection_list` (`id`, `property_id`, `collection_fee_id`, `date_created`, `balance`, `date_expired`, `status`, `month`, `month_int`, `year`) VALUES
-(339, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'January', '01', '2024'),
-(340, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'February', '02', '2024'),
-(341, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'PAID', 'March', '03', '2024'),
-(342, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2024'),
-(343, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'May', '05', '2024'),
-(344, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'June', '06', '2024'),
-(345, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'July', '07', '2024'),
-(346, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'August', '08', '2024'),
+INSERT INTO `collection_list` (`id`, `property_id`, `collection_fee_id`, `date_created`, `balance`, `date_paid`, `status`, `month`, `month_int`, `year`) VALUES
+(339, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:42:48', 'AVAILABLE', 'January', '01', '2024'),
+(340, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:47:21', 'AVAILABLE', 'February', '02', '2024'),
+(341, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:34:10', 'AVAILABLE', 'March', '03', '2024'),
+(342, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:34:15', 'AVAILABLE', 'April', '04', '2024'),
+(343, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:34:15', 'AVAILABLE', 'May', '05', '2024'),
+(344, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:34:15', 'AVAILABLE', 'June', '06', '2024'),
+(345, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:35:34', 'AVAILABLE', 'July', '07', '2024'),
+(346, 53, 18, '2024-01-14 22:40:16', '300', '2024-01-16 01:35:53', 'AVAILABLE', 'August', '08', '2024'),
 (347, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'September', '09', '2024'),
 (348, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2024'),
 (349, 53, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2024'),
@@ -247,7 +249,7 @@ INSERT INTO `collection_list` (`id`, `property_id`, `collection_fee_id`, `date_c
 (360, 55, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2024'),
 (361, 55, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2024'),
 (362, 55, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2024'),
-(363, 56, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'PAID', 'January', '01', '2024'),
+(363, 56, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'DUE', 'January', '01', '2024'),
 (364, 56, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'February', '02', '2024'),
 (365, 56, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'March', '03', '2024'),
 (366, 56, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2024'),
@@ -319,17 +321,17 @@ INSERT INTO `collection_list` (`id`, `property_id`, `collection_fee_id`, `date_c
 (432, 61, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2024'),
 (433, 61, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2024'),
 (434, 61, 18, '2024-01-14 22:40:16', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2024'),
-(435, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'DUE', 'January', '01', '2024'),
-(436, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'February', '02', '2024'),
-(437, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'March', '03', '2024'),
-(438, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2024'),
-(439, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'May', '05', '2024'),
-(440, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'June', '06', '2024'),
-(441, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'July', '07', '2024'),
-(442, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'August', '08', '2024'),
-(443, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'September', '09', '2024'),
-(444, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2024'),
-(445, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2024'),
+(435, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 07:58:41', 'DUE', 'January', '01', '2024'),
+(436, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 08:01:24', 'AVAILABLE', 'February', '02', '2024'),
+(437, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 08:01:24', 'AVAILABLE', 'March', '03', '2024'),
+(438, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 08:03:43', 'AVAILABLE', 'April', '04', '2024'),
+(439, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 08:02:04', 'AVAILABLE', 'May', '05', '2024'),
+(440, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 07:09:42', 'AVAILABLE', 'June', '06', '2024'),
+(441, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 07:29:50', 'AVAILABLE', 'July', '07', '2024'),
+(442, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 07:29:50', 'AVAILABLE', 'August', '08', '2024'),
+(443, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 06:39:51', 'AVAILABLE', 'September', '09', '2024'),
+(444, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 06:41:46', 'AVAILABLE', 'October', '10', '2024'),
+(445, 62, 18, '2024-01-14 23:37:02', '300', '2024-01-16 06:42:14', 'AVAILABLE', 'November', '11', '2024'),
 (446, 62, 18, '2024-01-14 23:37:02', '300', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2024');
 
 -- --------------------------------------------------------
@@ -374,13 +376,21 @@ INSERT INTO `homeowners_users` (`id`, `account_number`, `username`, `password`, 
 
 CREATE TABLE `payments_list` (
   `id` int(100) NOT NULL,
-  `transaction_number` int(250) NOT NULL,
+  `transaction_number` varchar(250) NOT NULL,
   `homeowners_id` int(100) NOT NULL,
+  `property_id` int(100) NOT NULL,
   `collection_id` int(100) NOT NULL,
   `date_created` datetime NOT NULL,
   `paid` varchar(100) NOT NULL,
   `balance` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments_list`
+--
+
+INSERT INTO `payments_list` (`id`, `transaction_number`, `homeowners_id`, `property_id`, `collection_id`, `date_created`, `paid`, `balance`) VALUES
+(12, 'TN00000001', 0, 0, 0, '2024-01-16 00:54:33', 'DO NOT DELETE THIS', 'DO NOT DELETE THIS');
 
 -- --------------------------------------------------------
 
@@ -562,7 +572,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=327;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -604,7 +614,7 @@ ALTER TABLE `homeowners_users`
 -- AUTO_INCREMENT for table `payments_list`
 --
 ALTER TABLE `payments_list`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `promotion`
