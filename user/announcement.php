@@ -38,6 +38,7 @@ $current_date = date('d');
     </div>
 
     <div class="row mx-3 my-5 justify-content-center">
+        
         <div class="col-md-6">
             <?php while ($row = mysqli_fetch_array($result['result'])) {
                 $date_created = date('d', strtotime($row['date_created']));

@@ -24,11 +24,11 @@ $row = mysqli_fetch_array($result['result'])
 
       <div class="col-sm-8 col-md-8 card-1 carousel-content">
 
-        <h3>About: <?= $row['about'] ?></h3>
+        <h3 style="color: #064420;">About: <?= $row['about'] ?></h3>
 
-        <p>Date: <?= date('M d, Y', strtotime($row['date_created'])) ?></p>
+        <p ><span style="color: #064420;" >Date: </span><?= date('M d, Y', strtotime($row['date_created'])) ?></p>
 
-        <h5>Announcement</h5>
+        <h5><span style="color: #064420;" >Announcement</span></h5>
         <p class="scrollable-content"><?= nl2br($row['content']) ?> </p>
       </div>
     </div>
