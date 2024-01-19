@@ -1,8 +1,8 @@
-<?php 
-require_once("../includes/header.php"); 
-require_once("../libs/server.php"); 
+<?php
+require_once("../includes/header.php");
+require_once("../libs/server.php");
 ?>
-<?php  
+<?php
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
 
@@ -31,7 +31,7 @@ if (isset($_POST['login_submit'])) {
         $_SESSION['status_code'] = "warning";
     } else {
 
-        
+
         $query = "SELECT * FROM admin_users WHERE username = :username";
         // kahit hindi ka na mag bindParam, pwede mo na rekta sa loob ng array ($data)
         $data = ["username" =>  $login_Username];
@@ -46,6 +46,11 @@ if (isset($_POST['login_submit'])) {
 
 
 <body>
+    <div class="spinner_wrapper">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <!-- MAIN  -->
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
 
@@ -54,7 +59,7 @@ if (isset($_POST['login_submit'])) {
             <!-- LEFT SIDE -->
             <!-- title and logo -->
             <div class="col-xxl-8 col-xl-6 col-l-6 col-md-6 col-sm-0 left-side d-flex flex-column align-items-center justify-content-lg-center justify-content-sm-start ">
-                <img src="<?php echo DIR?>img/logo.png" class="img-fluid" alt="">
+                <img src="<?php echo DIR ?>img/logo.png" class="img-fluid" alt="">
                 <h1 class="h1 header-text text-center mb-5 title">Town and Country Heights Subdivision</h1>
             </div>
 
@@ -65,7 +70,7 @@ if (isset($_POST['login_submit'])) {
                 <!-- UPPER PART -->
                 <div class="row">
                     <div class="header-text text-center mb-5">
-                        <img src="<?php echo DIR?>img/login.png" class="login-img " alt="">
+                        <img src="<?php echo DIR ?>img/login.png" class="login-img " alt="">
                         <h1 class="h1">WELCOME</h1>
                     </div>
                 </div>
@@ -93,7 +98,11 @@ if (isset($_POST['login_submit'])) {
             </div>
         </div>
     </div>
-
+    <script>
+        $(window).on('load', function() {
+            $(".spinner_wrapper").fadeOut("slow");
+        });
+    </script>
     <!-- FOOTER -->
     <?php
     include("../includes/footer.php");

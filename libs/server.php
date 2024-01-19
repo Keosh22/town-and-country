@@ -520,7 +520,7 @@ class Server
     $year = date("Y", strtotime("now"));
 
 
-    // Get all id in the proeprty list
+    // Get all row in the proeprty list
     $query1 = "SELECT * FROM property_list";
     $connection1 = $this->conn;
     $stmt1 = $connection1->prepare($query1);
@@ -530,7 +530,7 @@ class Server
       while ($property_row = $stmt1->fetch()) {
         $property_list_id = $property_row['id'];
         $property_list_phase = $property_row['phase'];
-        // It validates if there is already a collection for this month and year
+        // Check If there is no current collection for this year 
         $query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
         $data2 = [
           'property_list_id' => $property_list_id,
@@ -556,6 +556,7 @@ class Server
               $collection_fee_id = $result['id'];
               $collection_fee = $result['fee'];
             }
+            
 
             // Check the date
             $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");
