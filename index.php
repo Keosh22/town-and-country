@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
   } else {
     $query = "SELECT * FROM homeowners_users WHERE username = :username";
     $data = ["username" =>  $login_Username];
-    $path = "./user/home.php";
+    $path = "home.php";
     $pass = $login_Pass;
     $userserver->userLogin($query, $data, $pass, $path);
 
