@@ -295,6 +295,7 @@ class Server
       }
       // Pup op alert if password doesn't exist
       else {
+        
       }
     }
     // Pop up alert if Username doesn't exist.

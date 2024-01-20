@@ -130,7 +130,7 @@ $server->adminAuthentication();
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="print_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">Print</a></li>
+                                          <li><a id="archive_btn" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#arhive_monthlyDues" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -169,6 +169,9 @@ $server->adminAuthentication();
   <?php
   // View payment
   include("../payments/monthly_dues_view_modal.php");
+  // Archive Payment
+  include("../payments/monthly_dues_archive_modal.php");
+
   ?>
 
 
@@ -202,6 +205,32 @@ $server->adminAuthentication();
           });
         }
      });
+
+
+
+    //  Archive Payment
+    $("#monthlyDuesTable").on('click', "#archive_btn", function (){
+      var payment_id = $(this).attr('data-id');
+      var transaction_number = $(this).attr('data-tnumber');
+      $("#payment_id").val(payment_id);
+      $("#transaction_number").val(transaction_number);
+      
+      swal({
+        title: "Archive Confirmation",
+        text: "Do you want to archive this payment?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if(willDelete){
+
+        } else {
+          swal("Archiving Canceled!");
+          $("#arhive_monthlyDues").modal('hide');
+        }
+      })
+    });
 
 
   // Print payment

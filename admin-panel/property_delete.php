@@ -40,15 +40,19 @@ if(isset($_POST['delete_property_btn'])){
 
       
       if($count > 0){
-        $_SESSION['status'] = "Property Archive";
+        $_SESSION['status'] = "Property Delete Success";
         $_SESSION['text'] = "";
         $_SESSION['status_code'] = "success";
       } else {
-        $_SESSION['status'] = "Account Deletion Failed!";
+        $_SESSION['status'] = "Property Deletion Failed!";
         $_SESSION['text'] = "You input a wrong password";
         $_SESSION['status_code'] = "error";
       }
 
+    } else {
+      $_SESSION['status'] = "Property Deletion Failed!";
+        $_SESSION['text'] = "You input a wrong password";
+        $_SESSION['status_code'] = "error";
     }
   }
   header("location: ../admin-panel/property_list.php");
