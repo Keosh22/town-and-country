@@ -128,6 +128,7 @@ if (isset($_GET['property_id'])) {
                                     <div class="col-12">
                                       <label for="remarks" class="form-label text-success">Remarks:</label>
                                       <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control"></textarea>
+                                    
                                     </div>
 
                                   </div>
@@ -338,7 +339,19 @@ if (isset($_GET['property_id'])) {
                 },
                 success: function(response) {
                   // $(".content").html(response);
-                  location.reload(true);
+                  
+                  var transaction_number = response;
+                  var receipt = window.open('../admin-panel/receipt.php?transactionNumber='+transaction_number, '_blank','width=900,height=600');
+                  setTimeout(function(){
+                    receipt.print();
+                    setTimeout(function(){
+                      receipt.close();
+                      location.reload(true);
+                    },500);
+                    
+                  }, 500);
+
+                  
                 }
               });
             } else {

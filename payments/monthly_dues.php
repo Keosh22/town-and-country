@@ -181,6 +181,7 @@ $server->adminAuthentication();
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
+        $("#transactionNum_id_modal").val(transaction_number);
         getPayment(payment_id);
 
         function getPayment(payment_id){

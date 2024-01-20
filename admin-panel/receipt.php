@@ -11,9 +11,10 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 <?php
 $server = new Server;
 
-if (isset($_GET['payment_id'])) {
+if (isset($_GET['transactionNumber'])) {
 
-  $payment_id = $_GET['payment_id'];
+  // $payment_id = $_GET['payment_id'];
+  $transactionNumberId = $_GET['transactionNumber'];
 
 
 
@@ -42,9 +43,9 @@ if (isset($_GET['payment_id'])) {
         INNER JOIN property_list ON payments_list.property_id = property_list.id
         INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.id = :payment_id 
+        WHERE payments_list.transaction_number = :transactionNumberId 
         ";
-  $data1 = ["payment_id" => $payment_id];
+  $data1 = ["transactionNumberId" => $transactionNumberId];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
