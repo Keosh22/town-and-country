@@ -132,13 +132,14 @@ body{
 
 /* Button left Icon */
 .bxs-dashboard,
-.bxs-home,
+.bxs-home, 
 .bxs-dollar-circle,
 .bxs-collection,
 .bxs-wrench,
 .bxs-user-circle,
 .bx-history,
-.bxs-cog
+.bxs-cog,
+.bxs-archive
 {
   margin-right: 10px;
   vertical-align: middle;
@@ -255,7 +256,9 @@ h2{
  /* border-top: solid 3px #284B63; */
 }
 .bx-plus,
-.bx-refresh{
+.bx-refresh,
+.bx-archive
+{
   vertical-align: middle;
   margin-right: 3px;
 }

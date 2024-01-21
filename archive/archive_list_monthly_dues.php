@@ -37,7 +37,8 @@ $server->adminAuthentication();
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
-            <li class="breadcrumb-item">Monthly Dues</li>
+            <li class="breadcrumb-item"><a href="#">Monthly Dues</a></li>
+            <li class="breadcrumb-item">Archive</li>
           </ol>
         </section>
 
@@ -45,7 +46,7 @@ $server->adminAuthentication();
         <!-- Card Start here -->
         <div class="card card-border">
           <div class="card-header">
-            <h2>Monthly Dues Fee List</h2>
+            <h2>Archive List (Monthly Dues)</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
@@ -60,14 +61,14 @@ $server->adminAuthentication();
                           <!-- <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a> -->
                         </div>
                         <div class="col d-flex justify-content-end">
-                          <a href="../archive/archive_list_monthly_dues.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          <!-- <a href="#" data-bs-toggle="modal" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a> -->
                         </div>
                       </div>
 
                       <div class="body-box shadow-sm">
 
                         <div class="table-responsive mx-2">
-                          <table id="monthlyDuesTable" class="table table-striped" style="width:100%">
+                          <table id="archiveMonthlyDuesTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
                                 <th width="5%">ID</th>
@@ -83,11 +84,11 @@ $server->adminAuthentication();
                               <?php
 
                               $query = "SELECT 
-                                payments_list.transaction_number,
-                                payments_list.id as payment_id,
-                                payments_list.date_created as date_paid,
-                                payments_list.collection_fee_id,
-                                payments_list.paid,
+                                archive_payments_list.transaction_number,
+                                archive_payments_list.id as payment_id,
+                                archive_payments_list.date_created as date_paid,
+                                archive_payments_list.collection_fee_id,
+                                archive_payments_list.paid,
                                 homeowners_users.firstname,
                                 homeowners_users.middle_initial,
                                 homeowners_users.lastname,
@@ -95,11 +96,11 @@ $server->adminAuthentication();
                                 property_list.lot as property_lot,
                                 property_list.street as property_street,
                                 property_list.phase as property_phase
-                                FROM payments_list 
-                                INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
-                                INNER JOIN property_list ON payments_list.property_id = property_list.id
-                                INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
-                                INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                                FROM archive_payments_list 
+                                INNER JOIN homeowners_users ON archive_payments_list.homeowners_id = homeowners_users.id
+                                INNER JOIN property_list ON archive_payments_list.property_id = property_list.id
+                                INNER JOIN collection_list ON archive_payments_list.collection_id = collection_list.id
+                                INNER JOIN collection_fee ON archive_payments_list.collection_fee_id = collection_fee.id
                                 ";
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
@@ -133,7 +134,7 @@ $server->adminAuthentication();
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="archive_btn" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#arhive_monthlyDues" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
+                                          <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#" class="dropdown-item">Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -172,8 +173,6 @@ $server->adminAuthentication();
   <?php
   // View payment
   include("../payments/monthly_dues_view_modal.php");
-  // Archive Payment
-  include("../payments/monthly_dues_archive_modal.php");
 
   ?>
 
@@ -181,9 +180,13 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
 
+      $("#archiveMonthlyDuesTable").DataTable({
+
+      });
+
 
       // View payment
-      $("#monthlyDuesTable").on('click', '#view_payment', function() {
+      $("#archiveMonthlyDuesTable").on('click', '#view_payment', function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
@@ -213,17 +216,13 @@ $server->adminAuthentication();
       });
 
 
-
-      //  Archive Payment
-      $("#monthlyDuesTable").on('click', "#archive_btn", function() {
+      // Delete Archive
+      $("#archiveMonthlyDuesTable").on('click', "#delete_archive_md", function() {
         var payment_id = $(this).attr('data-id');
-        var transaction_number = $(this).attr('data-tnumber');
-        $("#payment_id").val(payment_id);
-        $("#transaction_number").val(transaction_number);
-
+        
         swal({
-            title: "Archive Confirmation",
-            text: "Do you want to archive this payment?",
+            title: "Delete Confirmation",
+            text: "Once deleted, you will not able to recover this record!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -231,25 +230,23 @@ $server->adminAuthentication();
           .then((willDelete) => {
             if (willDelete) {
 
+              $.ajax({
+                url: '../archive/delete_archive_monthly_dues.php',
+                type: 'POST',
+                data: {
+                  payment_id: payment_id
+                },
+                success: function(response) {
+                  // swal("This record has been permanently deleted!", {
+                  //   icon: "success"
+                  // });
+                  location.reload(true);
+                }
+              });
             } else {
-              swal("Archiving Canceled!");
-              $("#arhive_monthlyDues").modal('hide');
+              swal("Delete Canceled");
             }
-          })
-      });
-
-
-      // Print payment
-      $("#monthlyDuesTable").on('click', '#print_payment', function() {
-
-      });
-
-
-      // DataTable
-      $("#monthlyDuesTable").DataTable({
-        order: [
-          [1, 'desc']
-        ]
+          });
       });
 
 

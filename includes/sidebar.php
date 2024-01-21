@@ -181,6 +181,25 @@
       </li>
 
 
+      <!-- ------ Archive History ------
+      <li class="sidebar-item">
+        <div class="d-grid">
+          <button class="btn btn-sidebar btn-dashboard-dropdown">
+            <a href="#" class="sidebar-link collapsed sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar-dropdown-archive"><i class="bx bxs-archive bx-tada-hover"></i>Archive History</a>
+          </button>
+        </div>
+      </li>
+      <ul class="sidebar-dropdown collapse list-unstyled" id="sidebar-dropdown-archive" data-bs-parent="#sidebar">
+        <li class="sidebar-item">
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
+              <a href="#" class="sidebar-link-dropdown">Monthly Dues Payment</a>
+            </button>
+          </div>
+        </li>
+      </ul> -->
+
+
       <!-------- Settings -------->
       <li class="sidebar-item">
         <div class="d-grid">
