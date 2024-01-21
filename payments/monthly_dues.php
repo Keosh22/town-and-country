@@ -70,11 +70,10 @@ $server->adminAuthentication();
                           <table id="monthlyDuesTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="5%">ID</th>
                                 <th width="10%">Date</th>
                                 <th width="10%">Transaction No.</th>
                                 <th width="10%">Name</th>
-                                <th width="15%">Property</th>
+                                <th width="20%">Details</th>
                                 <th width="5%">Paid Ammount</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
@@ -94,7 +93,9 @@ $server->adminAuthentication();
                                 property_list.blk as property_blk,
                                 property_list.lot as property_lot,
                                 property_list.street as property_street,
-                                property_list.phase as property_phase
+                                property_list.phase as property_phase,
+                                collection_list.month as collection_month,
+                                collection_list.year as collection_year
                                 FROM payments_list 
                                 INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
                                 INNER JOIN property_list ON payments_list.property_id = property_list.id
@@ -119,14 +120,18 @@ $server->adminAuthentication();
                                   $street = $result['property_street'];
                                   $phase = $result['property_phase'];
 
+                                  $collection_month = $result['collection_month'];
+                                  $collection_year = $result['collection_year'];
+
+
+
                                   $paid_amount = $result['paid'];
                               ?>
                                   <tr>
-                                    <td><?php echo $payment_id; ?></td>
                                     <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
                                     <td><?php echo $transaction_number; ?></td>
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
-                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase; ?></td>
+                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase."-".$collection_month." ".$collection_year; ?></td>
                                     <td><?php echo $paid_amount; ?></td>
                                     <td>
                                       <div class="dropdown">
@@ -145,11 +150,10 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="5%">ID</th>
                                 <th width="10%">Date</th>
                                 <th width="10%">Transaction No.</th>
                                 <th width="10%">Name</th>
-                                <th width="15%">Property</th>
+                                <th width="20%">Details</th>
                                 <th width="5%">Paid Ammount</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
