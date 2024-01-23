@@ -34,7 +34,7 @@
     }
 
     .user{
-        font-size: 1em;
+
         color: white;
         margin-bottom: 0 !important;
     }
@@ -42,6 +42,10 @@
     .user p, .logo h3{
         font-size: 1.4em;
         margin-bottom: 0;
+    }
+    .user button{
+        font-size: 1.5em;
+     
     }
 
     .logo img{
@@ -62,28 +66,81 @@
         font-family: 'Poppins', sans-serif;   
     }
     /* //carousel */
+
+    
+    .about{
+        background-color: #DAD992;
+        border-top-left-radius: 30px !important;
+        border-top-right-radius: 30px !important;
+        color: #064420;
+        margin-top: 0;
+        height: 106px;
+    }
+    
+    .card-body {
+        min-height: 244px; /* Set a maximum height for the table container */
+        max-width: 100%;
+        overflow: auto; /* Enable vertical scrolling for the container if needed */
+        margin: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .announcement-title{
+        max-height: 50px;
+        color: #064420;
+        margin-top: 1rem;
+    }
+    .announcement-title h4{
+        color: #064420;
+    }
+
+
+
+    
     /*hover */
     .carousel-a{
         text-decoration: none;
     }
     .carousel-container{
-
+        background-color: white;
         width: 50%;
         transition: transform 0.3s ease;
+        border-radius: 30px;
+        min-height: 400px;
     }
-    .carousel-content{
-        max-height: 400px;
-        overflow-y: auto;
+
+
+    .card-header h3{
+        margin-top: 1rem;
+        margin-left: 1rem;
+    }
+    .card-header p{
+        margin-left: 1rem;
+        font-size: 1.1em;
+    }
+
+
+    .card-body p{
+        color: black;    
+        margin-top: 1rem;
+      
+       
+    }
+    .carousel-content .content{
+        background-color: #DAD992;
     }
     .carousel-content::-webkit-scrollbar{
         display: none;
     }
     .scrollable-content {
-        max-height: 250px; /* Set the maximum height for the scrollable area */
+        max-height: 244px; /* Set the maximum height for the scrollable area */
         overflow-y: auto;  /* Enable vertical scrolling */
         /* border: 1px solid #ccc; /* Optional: Add a border for better visibility */
         border-radius: 30px;
         padding: 10px; /* Optional: Add padding for better styling */
+        width: 100%;
+        margin: auto;
     }
     .carousel-container:hover{
         cursor: pointer;
@@ -160,10 +217,11 @@
         transform: scale(1);
     }
 
+
     /* RESPONSIVE */
     @media (max-width: 576px){
-        .user p{
-            font-size: 1em;
+        .user button{
+            font-size: 0.8em;
         }
         .logo h3{
             font-size: 0.8em;
@@ -182,7 +240,7 @@
             font-size: 1em;
         }
 
-        .col-title h1{
+        .col-title h2{
             font-size: 1.2em;
         }
         .col-title p{
@@ -203,9 +261,14 @@
         .carousel-container .scrollable-content{
             font-size: 12px;
         }
+
     }
 
     @media (min-width: 576px) and (max-width:768px){
+        .user button{
+            font-size: 1.1em;
+        }
+
         .logo h3{
             font-size: 1em;
         }

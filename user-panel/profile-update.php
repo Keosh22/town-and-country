@@ -8,8 +8,7 @@ $server = new Server;
 if(isset($_POST["update_info"])){
     $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
     $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
-    $middle_initial = filter_input(INPUT_POST, 'middle_initial', FILTER_SANITIZE_SPECIAL_CHARS);
-    $middle_initial_format = strtoupper($middle_initial) . ".";
+    $middle_initial = strtoupper(filter_input(INPUT_POST, 'middle_initial', FILTER_SANITIZE_SPECIAL_CHARS));
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $phone = $_POST['phone_number'];
     $id = $_SESSION['user_id'];
@@ -20,7 +19,7 @@ if(isset($_POST["update_info"])){
         $data = [
           "firstname" => $firstname,
           "lastname" => $lastname,
-          "middle_initial" => $middle_initial_format,
+          "middle_initial" => $middle_initial,
           "email" => $email,
           "phone_number" => $phone,
           "id" => $id

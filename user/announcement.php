@@ -19,10 +19,20 @@ $current_date = date('d');
 
 
 <body>
-    <div class="wrapper">
-        <div class="row">
-            <div class="col">
-                <a href="#" class="announcement-title fs-1"><b>Announcements</b></a>
+    <main>
+    <div class="wrapper d-flex flex-column gap-2">
+
+        <!-- First Column -->
+        <div class="col-12 back-button">
+            <a href="home.php" class="d-flex justify-content-start">
+                <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
+            </a>
+        </div>
+
+        <!-- Second Column -->
+        <div class="row d-flex flex-column mt-2 mb-5 ">
+            <div class="col announcement-title">
+                <h1>Announcements</h1>
             </div>
         </div>
         <!-- <div class="table-container row mt-5">
@@ -43,14 +53,14 @@ $current_date = date('d');
         </div> -->
     </div>
 
-    <div class="row mx-3 my-5 justify-content-center">
+    <div class="row mx-3 justify-content-center">
         
         <div class="col-md-6">
             <?php while ($row = mysqli_fetch_array($result['result'])) {
                 $date_created = date('d', strtotime($row['date_created']));
                 $days_ago = $date_created - $current_date;
             ?>
-                <div class="card mb-4 shadow-lg ">
+                <div class="card mb-4 shadow-lg">
                     <div class="announcement-header card-header text-center"><b>Posted: </b><?= date('M d, Y', strtotime($row['date_created'])) ?></div>
                     <div class="announcement-body card-body ">
                         <h4 class="card-title"><b><?= $row['about'] ?></b></h4>
@@ -88,4 +98,5 @@ $current_date = date('d');
         </div>
 
     </div>
+    </main>
 </body>
