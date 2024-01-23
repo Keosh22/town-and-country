@@ -105,7 +105,7 @@
 
               <!--  PASSWORD  -->
 
-              <form action="../admin-panel/profile_change_password.php" method="POST">
+              <form action="../user-panel/profile_update_password.php" method="POST">
                 <p class="card-title fs-5 text-secondary divider personal-info mt-4">Change Password</p>
                 <div class="row gap-3">
                   <div class="col-lg-5">

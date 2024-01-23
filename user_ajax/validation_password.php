@@ -40,8 +40,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           $("#current_password").addClass("input-success");
           </script>';
         }
-      } else { 
-       
+      } elseif(empty($current_password)) { 
+        $response = '<div class="form-text text-success"></div>';
       } 
       echo $response;
       echo $button;
