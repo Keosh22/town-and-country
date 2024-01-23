@@ -25,24 +25,19 @@
     max-width: 150px; /* Set a maximum width for the content */
 }
 
-.wrapper{
+.backbtn-title{
 
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(6, 68, 32, 0.6);
-    min-height: 200px;
+
+    min-height: 100px;
 }
 
-.announcement-title{
-    text-decoration: none;
-    cursor: pointer;
-    color: white;
-    transition: 0.2s ease;
-}
-.announcement-title:hover{
+.option-title{
     color: #DAD992;
 }
+
 
 
 /* ANNOUNCEMENT CARD */
@@ -52,6 +47,10 @@
 }
 .announcement-header,
 .announcement-footer{
-    background-color:#E4EFE7;
+    background-color:#DAD992;
 } 
+
+.announcement-body h4{
+    color: #064420;
+}
 

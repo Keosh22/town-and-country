@@ -1,9 +1,9 @@
 <?php
 session_start();
-require "../includes/user-header.php";
-require "../libs/server.php";
-require "../includes/user-header.php";
-require "../user-panel/user-nav.php";
+require_once "../includes/user-header.php";
+require_once "../libs/server.php";
+require_once "../includes/user-header.php";
+require_once "../user-panel/user-nav.php";
 date_default_timezone_set('Asia/Manila');
 ?>
 

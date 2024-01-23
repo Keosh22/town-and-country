@@ -23,18 +23,25 @@ $row = mysqli_fetch_array($result['result'])
   </div>
 
   <a class="carousel-a" href="./announcement.php">
-    <div class="row carousel-container d-flex justify-content-center align-items-center m-auto">
+    <div class="row carousel-container d-flex m-auto">
 
-      <div class="col-sm-8 col-md-8 card-1 carousel-content">
-
-        <h3 style="color: #064420;">About: <?= $row['about'] ?></h3>
-
-        <p ><span style="color: #064420;" >Date: </span><?= date('M d, Y', strtotime($row['date_created'])) ?></p>
-
-        <h5><span style="color: #064420;" >Announcement</span></h5>
-        <p class="scrollable-content"><?= nl2br($row['content']) ?> </p>
-      </div>
+    <div class="card-header about">
+      
+      <h3 class="">ABOUT: <?= $row['about'] ?></h3>
+      <p><p ><span style="color: #064420;" >Date: </span><?= date('M d, Y', strtotime($row['date_created'])) ?></p></p>
     </div>
+    <div class="announcement-title">
+      <h4 class="card-title">Announcement:</h4>
+    </div>
+    
+
+    <div class="card-body">  
+        <p class="scrollable-content"><?= preg_replace('/\s+/', ' ', trim(nl2br($row['content']))) ?></p>
+    </div>
+
+
+
+  </div>
 
     <div class="row arrows d-flex text-center">
       <div class="col-2 arrow previous">
@@ -67,13 +74,10 @@ $row = mysqli_fetch_array($result['result'])
       </div>
 
     </div>
-
-    <div class="col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
+    <a href="services.php" class="btn text-white col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
       <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
-
       <p>SERVICES</p>
-    </div>
-
+    </a>
     <!-- <div class="col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
       <i class="fa-regular fa-user" style="color: white;"></i>
       <p>PROFILE</p>

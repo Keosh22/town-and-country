@@ -64,4 +64,8 @@ form .form-control:focus{
 
 
 
-
+@media (max-width: 576px){
+  .nav-link p{
+    font-size: 12px;
+  }
+}
