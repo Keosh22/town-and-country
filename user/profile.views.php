@@ -18,26 +18,26 @@
               <p class="card-title fs-5 text-secondary divider personal-info">Personal Information</p>
               <div class="row mb-3 justify-content-center">
 
-                <div class="row profile-container justify-content-center">
-                  <img src="../uploads/<?php if ($photo == "") {
-                                          echo 'default-profile.png';
-                                        } else {
-                                          echo $photo;
-                                        } ?>" class="profile-photo rounded-circle shadow">
-                </div>
+                <!-- <div class="row profile-container justify-content-center">
+                  <img src="../uploads/<?php //if ($photo == "") {
+                                          //echo 'default-profile.png';
+                                        //} else {
+                                        //  echo $photo;
+                                       // } ?>" class="profile-photo rounded-circle shadow">
+                </div> -->
 
 
-                <p class="text-secondary text-center personal-info">ID # - <?php echo $account_number; ?></p>
+                <!-- <p class="text-secondary text-center personal-info">ID # - <?php //echo $account_number; ?></p>
                 <div class="col-sm-4">
-                  <label for="photo" class="form-label">Change photo:</label>
+                  <label for="photo" class="form-label">Change photo:</label> -->
 
                   <!-- Change Profile Picture -->
-                  <form method="POST" action="profile_photo.php" enctype="multipart/form-data">
+                  <!-- <form method="POST" action="profile_photo.php" enctype="multipart/form-data">
                     <div class="d-flex gap-3">
                       <input type="file" name="photo" class="form-control" required>
                       <input class="btn btn-success " type="submit" name="change_photo" value="Change"></input>
                     </div>
-                  </form>
+                  </form> -->
 
                 </div>
               </div>
@@ -123,6 +123,7 @@
                   <div class="col">
                     <label for="confirm_password" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                    
                     <!-- show icon -->
                     <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show bx-show-changepass confirm-password-icon'></i></span>
                     <div id="confirmPasswordHelpBlock"></div>
