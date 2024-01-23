@@ -85,7 +85,7 @@ $server->updateAnnouncement();
 							<div class="card-body">
 								<h4 class="card-title">Due Payments</h4>
 								<h6 class="card-subttitle text-success">Members</h6>
-								<p class="card-text fs-3">0</p>
+								<p class="card-text fs-3"></p>
 								<h6 class="card-subtitle text-danger">Non-Members</h6>
 								<p class="card-text fs-3">0</p>
 							</div>
@@ -94,11 +94,17 @@ $server->updateAnnouncement();
 					<div class="col-3">
 						<div class="card card-deck border-0 shadow-sm" style="background-color: #F5EBE0;">
 							<div class="card-body">
-								<h4 class="card-title"></h4>
-								<h6 class="card-subttitle text-success">Members</h6>
-								<p class="card-text fs-3">0</p>
-								<h6 class="card-subtitle text-danger">Non-Members</h6>
-								<p class="card-text fs-3">0</p>
+								<h4 class="card-title">Send Email</h4>
+								<h6 class="card-subttitle text-success">Payment Reminders</h6>
+								<p class="card-text fs-3"><?php $server->countEmail(); ?></p>
+								<h6 class="card-subttitle text-danger">Payment Dues</h6>
+								<p class="card-text fs-3"><?php $server->countEmailDue(); ?></p>
+								<div class="d-flex justify-content-end">
+
+									<button class="btn btn-success " type="submit" id="send_email" name="send_email"><i class='bx bx-mail-send fs-4 bx-tada'></i>Send</button>
+
+								</div>
+
 							</div>
 						</div>
 					</div>
@@ -113,8 +119,46 @@ $server->updateAnnouncement();
 	</div>
 
 	<script>
-		$(window).on('load', function() {
-			$(".spinner_wrapper").fadeOut("slow");
+		$(document).ready(function() {
+			$(window).on('load', function() {
+				$(".spinner_wrapper").fadeOut("slow");
+			});
+
+
+
+			// SEnd EMAIL BTN
+			$("#send_email").on('click', function() {
+				swal("Are you sure you want to send email?", "Please wait 1 hour before trying again", {
+						dangerMode: true,
+						buttons: true,
+						icon: "info"
+					})
+					.then(function(proceed) {
+						if (proceed) {
+
+							swal("Sending...", "This may take some time. Please wait.", "success", {
+								button: false,
+								closeOnClickOutside: false,
+								closeOnEsc: false
+							});
+							setTimeout(function() {
+								$.ajax({
+									url: '../ajax/send_email.php',
+									type: 'POST',
+									success: function(response) {
+										location.reload(true);
+									}
+								});
+							}, 500);
+
+						} else {
+							swal("Sending Email Cancele!")
+						}
+					});
+
+
+
+			});
 		});
 	</script>
 

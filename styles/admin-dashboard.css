@@ -16,6 +16,7 @@ body{
 }
 
 
+
 /* Initial style */
 .wrapper{
   
@@ -139,7 +140,8 @@ body{
 .bxs-user-circle,
 .bx-history,
 .bxs-cog,
-.bxs-archive
+.bxs-archive,
+.bx-mail-send
 {
   margin-right: 10px;
   vertical-align: middle;

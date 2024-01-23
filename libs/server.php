@@ -2,6 +2,14 @@
 require_once('config.php');
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
+
 ?>
 
 <?php
@@ -800,6 +808,45 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
 
+  // SEND EMAIL
+  public function sendMail($email, $subject, $message)
+{
+
+  $MAILHOST = "smtp.gmail.com";
+  $USERNAME = "buenavideskeosh@gmail.com";
+  $PASSWORD = "xyfhwkhjldfhytyw";
+  $SEND_FROM = "buenavideskeosh@gmail.com";
+  $SEND_FROM_NAME = "TCH Homeowners Association";
+  // $REPLY_TO = "buenavideskeosh@gmail.com";
+  // $REPLY_TO_NAME = "boss-ken";
+
+  $mail = new PHPMailer(true);
+  $mail->isSMTP();
+  $mail->SMTPAuth = true;
+  $mail->Host = $MAILHOST;
+  $mail->Username = $USERNAME;
+  $mail->Password = $PASSWORD;
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  $mail->Port = 587;
+  $mail->setFrom($SEND_FROM, $SEND_FROM_NAME);
+  $mail->addAddress($email);
+  // $mail->addReplyTo($REPLY_TO,$REPLY_TO_NAME);
+  $mail->isHTML(true);
+  $mail->Subject = $subject;
+  $mail->Body = $message;
+  $mail->AltBody = $message;
+
+  if (!$mail->send()) {
+    return "Email not send";
+  } else {
+    return "Email Sent";
+  }
+}
+
+
+
+
+
 
 
 
@@ -838,6 +885,47 @@ public function countNonMembers(){
     echo $default = 0;
   }
 }
+
+
+public function countEmail(){
+  $available = "AVAILABLE";
+  $not_sent = "NOT SENT";
+  $default = 0;
+  $current_month = date("F", strtotime("now"));
+  $query = "SELECT COUNT(*) FROM collection_list WHERE status = :available AND month = :current_month AND email_status = :not_sent";
+  $data = ["available" => $available, "current_month" => $current_month, "not_sent" =>$not_sent];
+  $connection = $this->conn;
+  $stmt = $connection->prepare($query);
+  $stmt->execute($data);
+  $count = $stmt->fetchColumn();
+
+  if($stmt->rowCount() > 0){
+    echo $count;
+  } else {
+    echo  $default;
+  }
+}
+
+public function countEmailDue(){
+  $due = "DUE";
+  $not_sent = "NOT SENT";
+  $default = 0;
+  $current_month = date("F", strtotime("now"));
+  $query = "SELECT COUNT(*) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
+  $data = ["due" => $due, "current_month" => $current_month, "not_sent" =>$not_sent];
+  $connection = $this->conn;
+  $stmt = $connection->prepare($query);
+  $stmt->execute($data);
+  $count = $stmt->fetchColumn();
+
+  if($stmt->rowCount() > 0){
+    echo $count;
+  } else {
+    echo  $default;
+  }
+}
+
+
 
 
 
