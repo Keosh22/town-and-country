@@ -19,10 +19,20 @@ $current_date = date('d');
 
 
 <body>
-    <div class="wrapper">
-        <div class="row">
+    <main>
+    <div class="wrapper d-flex flex-column gap-2">
+
+        <!-- First Column -->
+        <div class="col-12 back-button">
+            <a href="home.php" class="d-flex justify-content-start">
+                <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
+            </a>
+        </div>
+
+        <!-- Second Column -->
+        <div class="row d-flex flex-column my-5 ">
             <div class="col">
-                <a href="#" class="announcement-title fs-1"><b>Announcements</b></a>
+            <a href="#" class="announcement-title fs-1"><b>Announcements</b></a>
             </div>
         </div>
         <!-- <div class="table-container row mt-5">
@@ -43,7 +53,7 @@ $current_date = date('d');
         </div> -->
     </div>
 
-    <div class="row mx-3 my-5 justify-content-center">
+    <div class="row mx-3 justify-content-center">
         
         <div class="col-md-6">
             <?php while ($row = mysqli_fetch_array($result['result'])) {
@@ -88,4 +98,5 @@ $current_date = date('d');
         </div>
 
     </div>
+    </main>
 </body>

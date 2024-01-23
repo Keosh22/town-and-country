@@ -30,8 +30,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(6, 68, 32, 0.6);
-    min-height: 200px;
+
+    min-height: 100px;
 }
 
 .announcement-title{
