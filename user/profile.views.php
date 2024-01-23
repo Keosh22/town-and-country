@@ -103,10 +103,13 @@
               </form>
 
 
+              <!--  PASSWORD  -->
+
               <form action="../admin-panel/profile_change_password.php" method="POST">
                 <p class="card-title fs-5 text-secondary divider personal-info mt-4">Change Password</p>
                 <div class="row gap-3">
                   <div class="col-lg-5">
+
                     <label for="current_password" class="form-label">Current Password</label>
                     <input type="password" class="form-control current_password_input" name="current_password" id="current_password" required>
                     <!-- show icon -->
@@ -123,7 +126,7 @@
                   <div class="col">
                     <label for="confirm_password" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
-                    
+
                     <!-- show icon -->
                     <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show bx-show-changepass confirm-password-icon'></i></span>
                     <div id="confirmPasswordHelpBlock"></div>
@@ -164,3 +167,16 @@
 
     
 </body>
+
+<script>
+    $(document).ready(function() {
+
+      $("#update_info").mouseenter(function(){
+        $("#update_info").css("background-color", "green");
+      })
+
+    })
+
+
+
+</script>
