@@ -3,10 +3,10 @@
 ?>
 
 <?php
-require "../includes/user-header.php";
-require "../libs/server.php";
-require "../includes/user-header.php";
-require "../user-panel/user-nav.php";
+require_once "../includes/user-header.php";
+require_once "../libs/server.php";
+require_once "../includes/user-header.php";
+require_once "../user-panel/user-nav.php";
 date_default_timezone_set('Asia/Manila');
 $announcementServer = new Server();
 $result = $announcementServer->pagination(10);
@@ -20,7 +20,7 @@ $current_date = date('d');
 
 <body>
     <main>
-    <div class="wrapper d-flex flex-column gap-2">
+    <div class="backbtn-title d-flex flex-column gap-2">
 
         <!-- First Column -->
         <div class="col-12 back-button">
@@ -31,7 +31,7 @@ $current_date = date('d');
 
         <!-- Second Column -->
         <div class="row d-flex flex-column mt-2 mb-5 ">
-            <div class="col announcement-title">
+            <div class="col option-title">
                 <h1>Announcements</h1>
             </div>
         </div>

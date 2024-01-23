@@ -74,13 +74,10 @@ $row = mysqli_fetch_array($result['result'])
       </div>
 
     </div>
-
-    <div class="col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
+    <a href="services.php" class="btn text-white col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
       <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
-
       <p>SERVICES</p>
-    </div>
-
+    </a>
     <!-- <div class="col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
       <i class="fa-regular fa-user" style="color: white;"></i>
       <p>PROFILE</p>
