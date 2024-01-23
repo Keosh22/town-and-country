@@ -20,6 +20,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       </div>
       <div class="modal-body mx-3">
         <input type="hidden" name="payment_id_modal" id="payment_id_modal">
+        <input type="hidden" name="transactionNum_id_modal" id="transactionNum_id_modal">
 
         <!-- RECEIPT FORMAT -->
 
@@ -85,8 +86,9 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 <script>
   $(document).ready(function() {
     $("#print_receipt").on('click', function() {
-      var payment_id = $("#payment_id_modal").val();
-      var receipt = window.open('../admin-panel/receipt.php?payment_id=' + payment_id, '_blank', 'width=900,height=600');
+      // var payment_id = $("#payment_id_modal").val();
+      var transaction_number = $("#transactionNum_id_modal").val();
+      var receipt = window.open('../admin-panel/receipt.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
       setTimeout(function() {
         receipt.print();
         setTimeout(function() {

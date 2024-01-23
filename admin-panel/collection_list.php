@@ -429,6 +429,7 @@ if (isset($_GET['property_id'])) {
         "pageLength": 12,
         order: [
           [1, 'asc']
+       
         ],
         'columnDefs' : [
         //hide the first column

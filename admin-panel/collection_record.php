@@ -10,6 +10,59 @@ $server = new Server;
 $server->adminAuthentication();
 ?>
 
+<?php
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
+
+
+
+
+function sendMail($email, $subject, $message){
+  $MAILHOST = "smtp.gmail.com";
+  $USERNAME = "buenavideskeosh@gmail.com";
+  $PASSWORD = "xyfhwkhjldfhytyw";
+  $SEND_FROM = "buenavideskeosh@gmail.com";
+  $SEND_FROM_NAME = "TCHSystem";
+  $REPLY_TO = "buenavideskeosh@gmail.com";
+  $REPLY_TO_NAME = "boss-ken";
+
+  $mail = new PHPMailer(true);
+  $mail->isSMTP();
+  $mail->SMTPAuth = true;
+  $mail->Host = $MAILHOST;
+  $mail->Username = $USERNAME;
+  $mail->Password = $PASSWORD;
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  $mail->Port = 587;
+  $mail->setFrom($SEND_FROM, $SEND_FROM_NAME);
+  $mail->addAddress($email);
+  $mail->addReplyTo($REPLY_TO,$REPLY_TO_NAME);
+  $mail->isHTML(true);
+  $mail->Subject = $subject;
+  $mail->Body = $message;
+  $mail->AltBody = $message;
+
+  if(!$mail->send()){
+    return "Email not send";
+  } else {
+    return "Email Sent";
+  }
+
+}
+if(isset($_POST['send_email'])){
+  $email = "kenjoshuabuenavides@gmail.com";
+  $subject = "SMTP GMAIL TEST EMAIL";
+  $message = "This is a test email only, Hello Ken!";
+
+  sendMail($email, $subject, $message);
+}
+?>
+
+
 
 
 <!-- Body starts here -->
@@ -57,7 +110,10 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col">
-                          <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New Collection</a>
+                          <form action="" method="POST">
+                          <!-- <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New Collection</a> -->
+                            <button type="submit" name="send_email" id="send_email">Send Email</button>
+                          </form>
                         </div>
 
                       </div>

@@ -93,6 +93,8 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
   }
 
 
+echo $transaction_number;
+
 
 
   $_SESSION['status'] = "Payment Success";

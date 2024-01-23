@@ -8,7 +8,8 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 session_start();
 $server = new Server;
 $server->adminAuthentication();
-
+$current_year = date("Y", strtotime("now"));
+$previous_year = date("Y", strtotime("-1 year"));
 
 if (isset($_GET['property_id'])) {
   $property_id = $_GET['property_id'];
@@ -95,9 +96,10 @@ if (isset($_GET['property_id'])) {
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <form method="POST">
-                        <div class="header-box container-fluid d-flex align-items-center">
+                        <div class="header-box container-fluid d-flex align-items-center ">
                           <div class="col">
-                            <a id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</a>
+                            <a id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</a>
+                            <a data-property="<?php echo $property_id; ?>" href=" #create_collection" data-bs-toggle="modal" id="add_collection" name="add_collection" class="btn btn-info btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Collection</a>
                           </div>
 
                         </div>
@@ -128,6 +130,7 @@ if (isset($_GET['property_id'])) {
                                     <div class="col-12">
                                       <label for="remarks" class="form-label text-success">Remarks:</label>
                                       <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control"></textarea>
+
                                     </div>
 
                                   </div>
@@ -139,19 +142,31 @@ if (isset($_GET['property_id'])) {
 
                             <!------------------------- COLLECTION DATE ---------------------------->
                             <div class="col-8">
-                              <div class="card shadow-sm">
+                              <div class="card shadow-sm overflow-y-auto" style="height: 512px;">
                                 <div class="card-header">
                                   <h5>Collections List</h5>
                                 </div>
                                 <div class="card-body">
                                   <div id="collection_list_container" class="row gy-2">
-                                    <div class="col-12">
-                                      <h5>Year: <b>2024</b></h5>
-                                    </div>
+
                                     <?php
-                                    $year = date("Y", strtotime("now"));
+
                                     $property_id = $_GET['property_id'];
-                                    $query2 = "SELECT 
+                                    $due = "DUE";
+                                    $available = 'AVAILABLE';
+
+                                    // // Retrieve
+                                    // $query3 = "SELECT * FROM collection_list WHERE status = :DUE OR status = :AVAILABLE";
+                                    // $data3 = ["DUE" => $due, "AVAILABLE" => $available];
+                                    // $connection3 = $server->openConn();
+                                    // $stmt3 = $connection3->prepare($query3);
+                                    // $stmt3->execute($data3);
+                                    // if ($stmt3->rowCount() > 0) {
+
+
+
+
+                                      $query2 = "SELECT 
                                   collection_list.*, 
                                   collection_fee.*,
                                   collection_list.status as status_cl,
@@ -159,80 +174,97 @@ if (isset($_GET['property_id'])) {
                                   collection_list.id as collection_list_id,
                                   collection_fee.id as collection_fee_id
                                   FROM collection_list INNER JOIN collection_fee ON collection_list.collection_fee_id = collection_fee.id WHERE property_id = :property_id";
-                                    $data2 = ["property_id" => $property_id];
-                                    $connection2 = $server->openConn();
-                                    $stmt2 = $connection2->prepare($query2);
-                                    $stmt2->execute($data2);
-                                    $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");
-                                    if ($stmt->rowCount() > 0) {
-                                      while ($result2 = $stmt2->fetch()) {
-                                        $colleciton_id = $result2['collection_list_id'];
-                                        $status = $result2['status_cl'];
-                                        $month = $result2['month'];
-                                        $year = $result2['year'];
-                                        $fee = $result2['fee'];
-                                        $collection_fee_id = $result2['collection_fee_id'];
-                                        
+                                      $data2 = ["property_id" => $property_id];
+                                      $connection2 = $server->openConn();
+                                      $stmt2 = $connection2->prepare($query2);
+                                      $stmt2->execute($data2);
+                                      $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");
+                                      if ($stmt->rowCount() > 0) {
+                                        while ($result2 = $stmt2->fetch()) {
+                                          $colleciton_id = $result2['collection_list_id'];
+                                          $status = $result2['status_cl'];
+                                          $month = $result2['month'];
+                                          $year = $result2['year'];
+                                          $fee = $result2['fee'];
+                                          $collection_fee_id = $result2['collection_fee_id'];
 
-                                        if ($month == "January") {
-                                          $month_abr = "JAN";
-                                        } elseif ($month == "February") {
-                                          $month_abr = "FEB";
-                                        } elseif ($month == "March") {
-                                          $month_abr = "MAR";
-                                        } elseif ($month == "April") {
-                                          $month_abr = "APR";
-                                        } elseif ($month == "May") {
-                                          $month_abr = "MAY";
-                                        } elseif ($month == "June") {
-                                          $month_abr = "JUN";
-                                        } elseif ($month == "July") {
-                                          $month_abr = "JUL";
-                                        } elseif ($month == "August") {
-                                          $month_abr = "AUG";
-                                        } elseif ($month == "September") {
-                                          $month_abr = "SEP";
-                                        } elseif ($month == "October") {
-                                          $month_abr = "OCT";
-                                        } elseif ($month == "November") {
-                                          $month_abr = "NOV";
-                                        } elseif ($month == "December") {
-                                          $month_abr = "DEC";
-                                        } else {
-                                          $month_abr == "N/A";
-                                        }
 
-                                        $checkbox_status = "";
-                                        if ($status == "DUE") {
-                                          $color = "danger";
-                                          $status_abr = "DUE";
-                                        } elseif ($status == "AVAILABLE") {
-                                          $color = "secondary";
-                                          $status_abr = "AVAIL";
-                                        } elseif ($status == "PAID") {
-                                          $color = "success";
-                                          $status_abr = "PAID";
-                                          $checkbox_status = "disabled";
-                                        } else {
-                                          $color = "secondary";
-                                        }
+                                          if ($month == "January") {
+                                            $month_abr = "JAN";
+                                          } elseif ($month == "February") {
+                                            $month_abr = "FEB";
+                                          } elseif ($month == "March") {
+                                            $month_abr = "MAR";
+                                          } elseif ($month == "April") {
+                                            $month_abr = "APR";
+                                          } elseif ($month == "May") {
+                                            $month_abr = "MAY";
+                                          } elseif ($month == "June") {
+                                            $month_abr = "JUN";
+                                          } elseif ($month == "July") {
+                                            $month_abr = "JUL";
+                                          } elseif ($month == "August") {
+                                            $month_abr = "AUG";
+                                          } elseif ($month == "September") {
+                                            $month_abr = "SEP";
+                                          } elseif ($month == "October") {
+                                            $month_abr = "OCT";
+                                          } elseif ($month == "November") {
+                                            $month_abr = "NOV";
+                                          } elseif ($month == "December") {
+                                            $month_abr = "DEC";
+                                          } else {
+                                            $month_abr == "N/A";
+                                          }
 
-                                    ?>
-                                        <div class="col-2">
-                                          <div class="card text-bg-<?php echo $color; ?> text-center">
-                                            <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee-id="<?php echo $collection_fee_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>" data-property="<?php echo $property_id; ?>">
-                                            <h5 class="card-title month"><b><?php echo $month_abr; ?></b></h5>
-                                            <p class="card-text mb-1 status"><?php echo $status_abr; ?></p>
+                                          $checkbox_status = "";
+                                          if ($status == "DUE") {
+                                            $color = "danger";
+                                            $status_abr = "DUE";
+                                          } elseif ($status == "AVAILABLE") {
+                                            $color = "secondary";
+                                            $status_abr = "AVAIL";
+                                          } elseif ($status == "PAID") {
+                                            $color = "success";
+                                            $status_abr = "PAID";
+                                            $checkbox_status = "disabled";
+                                          } else {
+                                            $color = "secondary";
+                                          }
+
+
+                                          if($status == "PAID"){
+
+                                          } else {
+                                            
+                                          if ($previous_year != $year) {
+                                            ?>
+                                              <div class="col-12">
+                                                <h5>Year: <b><?php echo $year; ?></b></h5>
+                                              </div>
+                                            <?php
+                                            $previous_year = $year;
+                                            }
+                                          
+                                          ?>
+                                          
+                                          <div class="col-2">
+                                            <div class="card text-bg-<?php echo $color; ?> text-center">
+                                              <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee-id="<?php echo $collection_fee_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>" data-property="<?php echo $property_id; ?>">
+                                              <h5 class="card-title month"><b><?php echo $month_abr; ?></b></h5>
+                                              <p class="card-text mb-1 status"><?php echo $status_abr; ?></p>
+                                            </div>
                                           </div>
-                                        </div>
-                                    <?php
-
+                                      <?php
+                                          }
+                                        }
+                                      } else {
+                                        $_SESSION['status'] = "No Record Found!";
+                                        $_SESSION['text'] = "";
+                                        $_SESSION['status_code'] = "error";
                                       }
-                                    } else {
-                                      $_SESSION['status'] = "No Record Found!";
-                                      $_SESSION['text'] = "";
-                                      $_SESSION['status_code'] = "error";
-                                    }
+                                   
+
                                     ?>
 
 
@@ -258,7 +290,8 @@ if (isset($_GET['property_id'])) {
   </div>
   </div>
   <?php
-
+  // Create Collection
+  include("../admin-panel/property_create_collection_modal.php");
   ?>
 
 
@@ -283,7 +316,7 @@ if (isset($_GET['property_id'])) {
         var month = $(this).attr('data-month');
         var status = $(this).attr('data-status');
         var property = $(this).attr('data-property');
-        
+
 
 
         if (this.checked) {
@@ -308,7 +341,7 @@ if (isset($_GET['property_id'])) {
             }
           }
         }
-       
+
         $("#fee").val(total);
       });
 
@@ -338,16 +371,34 @@ if (isset($_GET['property_id'])) {
                 },
                 success: function(response) {
                   // $(".content").html(response);
-                  location.reload(true);
+
+                  var transaction_number = response;
+                  var receipt = window.open('../admin-panel/receipt.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
+                  setTimeout(function() {
+                    receipt.print();
+                    setTimeout(function() {
+                      receipt.close();
+                      location.reload(true);
+                    }, 500);
+
+                  }, 500);
                 }
               });
             } else {
               swal("Canceled");
             }
-
           })
-
       });
+
+
+
+      // Add Collection
+      $("#add_collection").on('click', function() {
+        var property_id = $(this).attr('data-property');
+        $("#property_id_cc").val(property_id);
+      });
+
+
 
 
 
