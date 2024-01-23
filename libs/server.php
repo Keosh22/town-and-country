@@ -804,10 +804,40 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
 
+// ------------------------- COUNT FUNCTION --------------------------
 
 
+public function countMembers(){
+  $member = "Member";
+  $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :member";
+  $data = ["member" => $member];
+  $connection = $this->conn;
+  $stmt = $connection->prepare($query);
+  $stmt->execute($data);
+  $count = $stmt->fetchColumn();
 
+  if($stmt->rowCount() > 0){
+    echo $count;
+  } else {
+    echo $default = 0;
+  }
+}
 
+public function countNonMembers(){
+  $member = "Non-Member";
+  $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :non_member";
+  $data = ["non_member" => $member];
+  $connection = $this->conn;
+  $stmt = $connection->prepare($query);
+  $stmt->execute($data);
+  $count = $stmt->fetchColumn();
+
+  if($stmt->rowCount() > 0){
+    echo $count;
+  } else {
+    echo $default = 0;
+  }
+}
 
 
 
