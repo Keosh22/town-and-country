@@ -1,10 +1,12 @@
 <?php
 require_once("../libs/server.php");
+require_once("../libs/PhpMailer.php");
 date_default_timezone_set("Asia/Manila");
 ?>
 
 <?php
 $server = new Server;
+$mailer = new Mailer;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   $current_month = date("F", strtotime("now"));
@@ -127,13 +129,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
       </div>';
 
+
+      // BUG When email sent is failed still updating 
       $sent = "SENT";
       $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
       $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
       $connection3 = $server->openConn();
       $stmt3 = $connection3->prepare($query3);
       $stmt3->execute($data3);
-      $server->sendMail($email, $subject, $message);
+      $mailer->sendMail($email, $subject, $message);
       $total_ammount_due = 0;
     }
   }

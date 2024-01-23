@@ -2,13 +2,9 @@
 require_once('config.php');
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 
-require '../PHPMailer/src/Exception.php';
-require '../PHPMailer/src/PHPMailer.php';
-require '../PHPMailer/src/SMTP.php';
+
+
 
 ?>
 
@@ -27,13 +23,13 @@ require '../PHPMailer/src/SMTP.php';
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER; 
-  private $pass = LESPASS;
+  // private $user = LESUSER; 
+  // private $pass = LESPASS;
   // //private $lesDBname = LESDBNAME;
-  private $port = PORT;
+  // private $port = PORT;
 
-  // private $user = USER;
-  // private $pass = PASS;
+  private $user = USER;
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
 
@@ -61,10 +57,10 @@ class Server
   public function conn()
   {
     // Lesther
-    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
     return $conn;
   }
 
@@ -74,10 +70,10 @@ class Server
 
     try {
       // Lesther 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
@@ -160,10 +156,10 @@ class Server
   public function pagination($numberofPage)
   {
     // Lesther
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 
@@ -808,40 +804,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
 
-  // SEND EMAIL
-  public function sendMail($email, $subject, $message)
-{
-
-  $MAILHOST = "smtp.gmail.com";
-  $USERNAME = "buenavideskeosh@gmail.com";
-  $PASSWORD = "xyfhwkhjldfhytyw";
-  $SEND_FROM = "buenavideskeosh@gmail.com";
-  $SEND_FROM_NAME = "TCH Homeowners Association";
-  // $REPLY_TO = "buenavideskeosh@gmail.com";
-  // $REPLY_TO_NAME = "boss-ken";
-
-  $mail = new PHPMailer(true);
-  $mail->isSMTP();
-  $mail->SMTPAuth = true;
-  $mail->Host = $MAILHOST;
-  $mail->Username = $USERNAME;
-  $mail->Password = $PASSWORD;
-  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-  $mail->Port = 587;
-  $mail->setFrom($SEND_FROM, $SEND_FROM_NAME);
-  $mail->addAddress($email);
-  // $mail->addReplyTo($REPLY_TO,$REPLY_TO_NAME);
-  $mail->isHTML(true);
-  $mail->Subject = $subject;
-  $mail->Body = $message;
-  $mail->AltBody = $message;
-
-  if (!$mail->send()) {
-    return "Email not send";
-  } else {
-    return "Email Sent";
-  }
-}
+  
 
 
 
