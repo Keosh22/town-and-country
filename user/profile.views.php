@@ -9,7 +9,14 @@
       <main class="content px-3 py-2">
 
         <div class="card card-border">
-          <div class="card-header">
+          <div class="card-header d-flex flex-row align-items-center gap-3">
+            <div class="back-button" >
+              <a href="home.php">
+                <span class="material-symbols-outlined">
+                    arrow_back
+                </span>
+              </a>
+            </div>
             <h2>Profile</h2>
           </div>
           <div class="card-body">

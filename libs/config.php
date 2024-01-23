@@ -1,16 +1,16 @@
 <?php
   // //Config ni Boss ther
-  // define("LESUSER", "lesthuuur");
-  // define("LESPASS", "lesthuuur");
+  define("LESUSER", "lesthuuur");
+  define("LESPASS", "lesthuuur");
   // // define("LESDBNAME", "town_and_country_db");
-  // define("PORT", "3308");
+  define("PORT", "3308");
 
 
 
 
   define("HOST", "localhost");
-  define("USER", "root");
-  define("PASS", "");
+  // define("USER", "root");
+  // define("PASS", "");
   define("DBNAME", "town_and_country_db");
   define("DIR", "../");
   define("PATH", dirname(__FILE__));

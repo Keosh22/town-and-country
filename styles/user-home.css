@@ -34,7 +34,7 @@
     }
 
     .user{
-        font-size: 1em;
+
         color: white;
         margin-bottom: 0 !important;
     }
@@ -42,6 +42,10 @@
     .user p, .logo h3{
         font-size: 1.4em;
         margin-bottom: 0;
+    }
+    .user button{
+        font-size: 1.5em;
+     
     }
 
     .logo img{
@@ -162,8 +166,8 @@
 
     /* RESPONSIVE */
     @media (max-width: 576px){
-        .user p{
-            font-size: 1em;
+        .user button{
+            font-size: 0.8em;
         }
         .logo h3{
             font-size: 0.8em;
@@ -203,9 +207,14 @@
         .carousel-container .scrollable-content{
             font-size: 12px;
         }
+
     }
 
     @media (min-width: 576px) and (max-width:768px){
+        .user button{
+            font-size: 1.1em;
+        }
+
         .logo h3{
             font-size: 1em;
         }
