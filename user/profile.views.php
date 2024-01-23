@@ -42,7 +42,7 @@
                 </div>
               </div>
 
-              <form method="POST" action="profile_update.php">
+              <form method="POST" action="../user-panel/profile-update.php">
                 <!-- Name Information -->
                 <div class="row gap-3">
                   <div class="col">
