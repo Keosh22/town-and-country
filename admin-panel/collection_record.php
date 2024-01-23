@@ -22,13 +22,14 @@ require '../PHPMailer/src/SMTP.php';
 
 
 function sendMail($email, $subject, $message){
+
   $MAILHOST = "smtp.gmail.com";
   $USERNAME = "buenavideskeosh@gmail.com";
   $PASSWORD = "xyfhwkhjldfhytyw";
   $SEND_FROM = "buenavideskeosh@gmail.com";
-  $SEND_FROM_NAME = "TCHSystem";
-  $REPLY_TO = "buenavideskeosh@gmail.com";
-  $REPLY_TO_NAME = "boss-ken";
+  $SEND_FROM_NAME = "TCH Homeowners Association";
+  // $REPLY_TO = "buenavideskeosh@gmail.com";
+  // $REPLY_TO_NAME = "boss-ken";
 
   $mail = new PHPMailer(true);
   $mail->isSMTP();
@@ -40,7 +41,7 @@ function sendMail($email, $subject, $message){
   $mail->Port = 587;
   $mail->setFrom($SEND_FROM, $SEND_FROM_NAME);
   $mail->addAddress($email);
-  $mail->addReplyTo($REPLY_TO,$REPLY_TO_NAME);
+  // $mail->addReplyTo($REPLY_TO,$REPLY_TO_NAME);
   $mail->isHTML(true);
   $mail->Subject = $subject;
   $mail->Body = $message;
@@ -53,12 +54,117 @@ function sendMail($email, $subject, $message){
   }
 
 }
-if(isset($_POST['send_email'])){
-  $email = "kenjoshuabuenavides@gmail.com";
-  $subject = "SMTP GMAIL TEST EMAIL";
-  $message = "This is a test email only, Hello Ken!";
+// $current_month = date("F", strtotime("now"));
+// $due = "DUE";
+// $query2 = "SELECT 
+//   collection_list.email_status as email_status,
+//   collection_list.month as collection_month,
+//   collection_list.balance as collection_fee,
+//   property_list.blk as property_blk,
+//   property_list.lot as property_lot,
+//   property_list.phase as property_phase,
+//   property_list.street as property_street,
+//   homeowners_users.firstname,
+//   homeowners_users.email
+//   FROM collection_list
+//   INNER JOIN property_list ON collection_list.property_id = property_list.id
+//   INNER JOIN homeowners_users ON collection_list.owners_id = homeowners_users.id
+//   WHERE collection_list.month = :current_month AND collection_list.status = :due
+//    ";
+//    $data2 = ["current_month" => $current_month, "due" => $due];
+//   $connection2 = $server->openConn();
+//   $stmt2 = $connection2->prepare($query2);
+//   $stmt2->execute($data2);
+//   if($stmt2->rowCount() > 0){
+//     while($result2 = $stmt2->fetch()){
+//       $collection_month = $result2['collection_month'];
+//       $collection_fee = $result2['collection_fee'];
+//       $property_blk = $result2['property_blk'];
+//       $property_lot = $result2['property_lot'];
+//       $property_street = $result2['property_street'];
+//       $property_phase = $result2['property_phase'];
+//       $firstname = $result2['firstname'];
+//       $email_address = $result2['email'];
 
-  sendMail($email, $subject, $message);
+//       $address = "BLK-". $property_blk . " LOT-". $property_lot . " " . $property_street . " St. " . $property_phase;
+
+
+//       echo $email_address;
+//     }
+//   }
+
+
+
+
+if(isset($_POST['send_email'])){
+
+  $current_month = date("F", strtotime("now"));
+  $due = "DUE";
+  $query2 = "SELECT 
+    collection_list.email_status as email_status,
+    collection_list.month as collection_month,
+    collection_list.balance as collection_fee,
+    property_list.blk as property_blk,
+    property_list.lot as property_lot,
+    property_list.phase as property_phase,
+    property_list.street as property_street,
+    homeowners_users.firstname,
+    homeowners_users.email
+    FROM collection_list
+    INNER JOIN property_list ON collection_list.property_id = property_list.id
+    INNER JOIN homeowners_users ON collection_list.owners_id = homeowners_users.id
+    WHERE collection_list.month = :current_month AND collection_list.status = :due
+     ";
+     $data2 = ["current_month" => $current_month, "due" => $due];
+    $connection2 = $server->openConn();
+    $stmt2 = $connection2->prepare($query2);
+    $stmt2->execute($data2);
+    if($stmt2->rowCount() > 0){
+      while($result2 = $stmt2->fetch()){
+        $collection_month = $result2['collection_month'];
+        $collection_fee = $result2['collection_fee'];
+        $property_blk = $result2['property_blk'];
+        $property_lot = $result2['property_lot'];
+        $property_street = $result2['property_street'];
+        $property_phase = $result2['property_phase'];
+        $firstname = $result2['firstname'];
+        $email_address = $result2['email'];
+  
+        $address = "BLK-". $property_blk . " LOT-". $property_lot . " " . $property_street . " St. " . $property_phase;
+
+
+        $email = $email_address;
+        $subject = "Friendly reminder for Outstanding Payment (Monthly Dues)";
+        $message = '<div class="container-fluid">
+        <div class="row">
+          <div class="col-12 text-center mb-3">
+            <a href="#"><img class="logo-img text-center" src="../img/logo.png" alt=""></a>
+          </div>
+          <div class="col-12 text-center">
+            <h1><b>Payment Reminder</b></h1>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h4><b>Dear '. $firstname .',</b> </h4>
+            </div>
+            <div class="col-12">
+              <p>Just a reminder that your payment for this month is due on '. $collection_month .' 31,
+                <br>
+                Let us know if there are any issues or if we can assist you in any way,
+              </p>
+              <br>
+              <p><b>Thank you!</b></p>
+            </div>
+          </div>
+        </div>
+      </div>';
+        sendMail($email, $subject, $message);
+      }
+    }
+
+  
+
+
 }
 ?>
 

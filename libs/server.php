@@ -531,6 +531,7 @@ class Server
       while ($property_row = $stmt1->fetch()) {
         $property_list_id = $property_row['id'];
         $property_list_phase = $property_row['phase'];
+        $homeowners_id = $property_row['homeowners_id'];
         // Check If there is no current collection for this year 
         $query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
         $data2 = [
@@ -564,9 +565,10 @@ class Server
             foreach($array_month as $x){
               $status = "AVAILABLE";
               $month_int = date("m", strtotime($x));
-                $query4 = "INSERT INTO collection_list (property_id, collection_fee_id, date_created, balance, status, month, month_int, year) VALUES (:property_id, :collection_fee_id, :date_created, :balance, :status, :month, :month_int, :year)";
+                $query4 = "INSERT INTO collection_list (property_id, owners_id, collection_fee_id, date_created, balance, status, month, month_int, year) VALUES (:property_id, :owners_id, :collection_fee_id, :date_created, :balance, :status, :month, :month_int, :year)";
                 $data4 = [
                   "property_id" => $property_list_id,
+                  "owners_id" => $homeowners_id,
                   "collection_fee_id" => $collection_fee_id,
                   "date_created" => $current_date,
                   "balance" => $collection_fee,
