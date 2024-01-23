@@ -3,7 +3,14 @@
     color: white;
     font-size: 32px;
     margin-left: 1rem;
+    margin-top: 1rem;
 
 }
 
+.back-button i:hover{
+    cursor: pointer;
+    transform: scale(1.5);
+    color: #DAD992 !important;
+    
+}
 

@@ -30,9 +30,9 @@ $current_date = date('d');
         </div>
 
         <!-- Second Column -->
-        <div class="row d-flex flex-column my-5 ">
-            <div class="col">
-            <a href="#" class="announcement-title fs-1"><b>Announcements</b></a>
+        <div class="row d-flex flex-column mt-2 mb-5 ">
+            <div class="col announcement-title">
+                <h1>Announcements</h1>
             </div>
         </div>
         <!-- <div class="table-container row mt-5">
@@ -60,7 +60,7 @@ $current_date = date('d');
                 $date_created = date('d', strtotime($row['date_created']));
                 $days_ago = $date_created - $current_date;
             ?>
-                <div class="card mb-4 shadow-lg ">
+                <div class="card mb-4 shadow-lg">
                     <div class="announcement-header card-header text-center"><b>Posted: </b><?= date('M d, Y', strtotime($row['date_created'])) ?></div>
                     <div class="announcement-body card-body ">
                         <h4 class="card-title"><b><?= $row['about'] ?></b></h4>

@@ -35,14 +35,9 @@
 }
 
 .announcement-title{
-    text-decoration: none;
-    cursor: pointer;
-    color: white;
-    transition: 0.2s ease;
-}
-.announcement-title:hover{
     color: #DAD992;
 }
+
 
 
 /* ANNOUNCEMENT CARD */
@@ -52,6 +47,10 @@
 }
 .announcement-header,
 .announcement-footer{
-    background-color:#E4EFE7;
+    background-color:#DAD992;
 } 
+
+.announcement-body h4{
+    color: #064420;
+}
 
