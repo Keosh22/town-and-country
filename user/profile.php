@@ -249,4 +249,5 @@ if ($rowCount > 0) {
 
 <?php
 require "profile.views.php";
+include("../includes/footer.php");
 ?>
