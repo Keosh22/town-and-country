@@ -15,8 +15,6 @@ $server->insertCollection();
 $server->updatePromotion();
 $server->updateAnnouncement();
 
-
-
 ?>
 
 <body>

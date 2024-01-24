@@ -10,8 +10,13 @@ $mailer = new Mailer;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   $current_month = date("F", strtotime("now"));
+  $current_year = date("Y", strtotime("now"));
+  $current_day = date("j", strtotime("now"));
+
   $due = "DUE";
+  $available = "AVAILABLE";
   $not_sent = "NOT SENT";
+  
   $day = "";
   $total_ammount_due = 0;
 
@@ -35,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     FROM collection_list
     INNER JOIN property_list ON collection_list.property_id = property_list.id
     INNER JOIN homeowners_users ON collection_list.owners_id = homeowners_users.id
-    WHERE collection_list.month = :current_month AND collection_list.status = :due AND email_status = :not_sent
+    WHERE collection_list.month = :current_month AND collection_list.status = :available AND email_status = :not_sent
      ";
-  $data2 = ["current_month" => $current_month, "due" => $due, "not_sent" => $not_sent];
+  $data2 = ["current_month" => $current_month, "available" => $available, "not_sent" => $not_sent];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
   $stmt2->execute($data2);
@@ -59,10 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $lname = $result2['lastname'];
       $acc_number = $result2['account_number'];
       $email_address = $result2['email'];
-
+      
       // Compute the remaining balance
-      $query4 = "SELECT * FROM collection_list WHERE property_id = :collection_property_id AND owners_id = :collection_owners_id AND status = :due";
-      $data4 = ["collection_property_id" => $collection_property_id, "collection_owners_id" => $collection_owners_id, "due" => $due];
+      $query4 = "SELECT * FROM collection_list WHERE property_id = :collection_property_id AND owners_id = :collection_owners_id AND status = :available";
+      $data4 = ["collection_property_id" => $collection_property_id, "collection_owners_id" => $collection_owners_id, "available" => $available];
       $connection4 = $server->openConn();
       $stmt4 = $connection4->prepare($query4);
       $stmt4->execute($data4);
@@ -131,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
       // BUG When email sent is failed still updating 
+     
       $sent = "SENT";
       $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
       $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];

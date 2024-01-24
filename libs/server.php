@@ -299,7 +299,6 @@ class Server
       }
       // Pup op alert if password doesn't exist
       else {
-        
       }
     }
     // Pop up alert if Username doesn't exist.
@@ -562,28 +561,28 @@ class Server
               $collection_fee_id = $result['id'];
               $collection_fee = $result['fee'];
             }
-            
+
 
             // Check the date
             $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");
-            foreach($array_month as $x){
+            foreach ($array_month as $x) {
               $status = "AVAILABLE";
               $month_int = date("m", strtotime($x));
-                $query4 = "INSERT INTO collection_list (property_id, owners_id, collection_fee_id, date_created, balance, status, month, month_int, year) VALUES (:property_id, :owners_id, :collection_fee_id, :date_created, :balance, :status, :month, :month_int, :year)";
-                $data4 = [
-                  "property_id" => $property_list_id,
-                  "owners_id" => $homeowners_id,
-                  "collection_fee_id" => $collection_fee_id,
-                  "date_created" => $current_date,
-                  "balance" => $collection_fee,
-                  "status" => $status,
-                  "month" => $x,
-                  "month_int" => $month_int,
-                  "year" => $current_year
-                ];
-                $connection4 = $this->conn;
-                $stmt4 = $connection4->prepare($query4);
-                $stmt4->execute($data4);
+              $query4 = "INSERT INTO collection_list (property_id, owners_id, collection_fee_id, date_created, balance, status, month, month_int, year) VALUES (:property_id, :owners_id, :collection_fee_id, :date_created, :balance, :status, :month, :month_int, :year)";
+              $data4 = [
+                "property_id" => $property_list_id,
+                "owners_id" => $homeowners_id,
+                "collection_fee_id" => $collection_fee_id,
+                "date_created" => $current_date,
+                "balance" => $collection_fee,
+                "status" => $status,
+                "month" => $x,
+                "month_int" => $month_int,
+                "year" => $current_year
+              ];
+              $connection4 = $this->conn;
+              $stmt4 = $connection4->prepare($query4);
+              $stmt4->execute($data4);
             }
 
             // if ($property_list_phase == "Phase 1" && ($current_day >= $day_range = date("j", mktime(0, 0, 0, $month, 1, $year)) && $current_day <= $day_range = date("j", mktime(0, 0, 0, $month, 7, $year)))) {
@@ -802,91 +801,125 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
   }
 
 
+  // AUTO UPDATE EMAIL STATUS
+  public function updateEmailNotSent(){
+    $current_month = date("F", strtotime("now"));
+    $current_year = date("Y", strtotime("now"));
+    $available = "AVAILABLE";
+    $not_sent = "NOT SENT";
+    $sent = "SENT";
+    
+    // Retrieve Phase # where email_status = 'not sent'
+    $query1 = "SELECT 
+    collection_list.id as collection_id,
+    collection_list.status,
+    collection_list.month,
+    collection_list.year,
+    collection_list.property_id,
+    property_list.phase
+    FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id 
+    WHERE collection_list.status = :available AND year =:current_year AND month = :current_month ";
+    $data1 = ["available" => $available, "current_year" => $current_year, "current_month" => $current_month];
+    $connection1 = $this->conn;
+    $stmt1 = $connection1->prepare($query1);
+    $stmt1->execute($data1);
+    if($stmt1->rowCount() > 0){
+      while($result1 = $stmt1->fetch()){
 
-
-  
-
-
-
-
-
-
-
-
-
-// ------------------------- COUNT FUNCTION --------------------------
-
-
-public function countMembers(){
-  $member = "Member";
-  $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :member";
-  $data = ["member" => $member];
-  $connection = $this->conn;
-  $stmt = $connection->prepare($query);
-  $stmt->execute($data);
-  $count = $stmt->fetchColumn();
-
-  if($stmt->rowCount() > 0){
-    echo $count;
-  } else {
-    echo $default = 0;
+      }
+    }
   }
-}
 
-public function countNonMembers(){
-  $member = "Non-Member";
-  $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :non_member";
-  $data = ["non_member" => $member];
-  $connection = $this->conn;
-  $stmt = $connection->prepare($query);
-  $stmt->execute($data);
-  $count = $stmt->fetchColumn();
 
-  if($stmt->rowCount() > 0){
-    echo $count;
-  } else {
-    echo $default = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+  // ------------------------- COUNT FUNCTION --------------------------
+
+
+  public function countMembers()
+  {
+    $member = "Member";
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :member";
+    $data = ["member" => $member];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+
+    if ($stmt->rowCount() > 0) {
+      echo $count;
+    } else {
+      echo $default = 0;
+    }
   }
-}
 
+  public function countNonMembers()
+  {
+    $member = "Non-Member";
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :non_member";
+    $data = ["non_member" => $member];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
 
-public function countEmail(){
-  $available = "AVAILABLE";
-  $not_sent = "NOT SENT";
-  $default = 0;
-  $current_month = date("F", strtotime("now"));
-  $query = "SELECT COUNT(*) FROM collection_list WHERE status = :available AND month = :current_month AND email_status = :not_sent";
-  $data = ["available" => $available, "current_month" => $current_month, "not_sent" =>$not_sent];
-  $connection = $this->conn;
-  $stmt = $connection->prepare($query);
-  $stmt->execute($data);
-  $count = $stmt->fetchColumn();
-
-  if($stmt->rowCount() > 0){
-    echo $count;
-  } else {
-    echo  $default;
+    if ($stmt->rowCount() > 0) {
+      echo $count;
+    } else {
+      echo $default = 0;
+    }
   }
-}
 
-public function countEmailDue(){
-  $due = "DUE";
-  $not_sent = "NOT SENT";
-  $default = 0;
-  $current_month = date("F", strtotime("now"));
-  $query = "SELECT COUNT(*) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
-  $data = ["due" => $due, "current_month" => $current_month, "not_sent" =>$not_sent];
-  $connection = $this->conn;
-  $stmt = $connection->prepare($query);
-  $stmt->execute($data);
-  $count = $stmt->fetchColumn();
 
-  if($stmt->rowCount() > 0){
-    echo $count;
-  } else {
-    echo  $default;
+  public function countEmail()
+  {
+    $available = "AVAILABLE";
+    $not_sent = "NOT SENT";
+    $default = 0;
+    $current_month = date("F", strtotime("now"));
+    $query = "SELECT COUNT(*) FROM collection_list WHERE status = :available AND month = :current_month AND email_status = :not_sent";
+    $data = ["available" => $available, "current_month" => $current_month, "not_sent" => $not_sent];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+
+    if ($stmt->rowCount() > 0) {
+      echo $count;
+    } else {
+      echo  $default;
+    }
   }
-}
+
+  public function countEmailDue()
+  {
+    $due = "DUE";
+    $not_sent = "NOT SENT";
+    $default = 0;
+    $current_month = date("F", strtotime("now"));
+    $query = "SELECT COUNT(*) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
+    $data = ["due" => $due, "current_month" => $current_month, "not_sent" => $not_sent];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+
+    if ($stmt->rowCount() > 0) {
+      echo $count;
+    } else {
+      echo  $default;
+    }
+  }
 
 
 

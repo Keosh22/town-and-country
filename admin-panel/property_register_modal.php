@@ -160,13 +160,12 @@ $server = new Server;
           phase: phase,
           street: street
         },
-        success: function(data) {
+        success: function(response) {
           location.reload(true);
 
         }
       });
       
     })
-
   });
 </script>
