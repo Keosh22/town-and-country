@@ -4,7 +4,7 @@
 }
 
 .table-container .table{
-    border-radius: 30px;
+    border-radius: 10px;
 }
 
 .table-container {
@@ -25,18 +25,6 @@
     max-width: 150px; /* Set a maximum width for the content */
 }
 
-.backbtn-title{
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    min-height: 100px;
-}
-
-.option-title{
-    color: #DAD992;
-}
 
 
 

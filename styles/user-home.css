@@ -69,136 +69,23 @@
     /* //carousel */
 
     
-    .about{
-        background-color: #DAD992;
-        border-top-left-radius: 30px !important;
-        border-top-right-radius: 30px !important;
-        color: #064420;
-        margin-top: 0;
-        height: 106px;
-    }
+
     
-    .card-body {
-        min-height: 244px; /* Set a maximum height for the table container */
-        overflow: auto; /* Enable vertical scrolling for the container if needed */
-        margin: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        scrollbar-width: thin; /* For Firefox */
-        scrollbar-color: transparent transparent; /* For Firefox */
-        -ms-overflow-style: none; /* For Internet Explorer and Edge */
-      }
       
       /* For Webkit browsers (Chrome, Safari) */
-      .card-body::-webkit-scrollbar {
-        width: 6px;
-      }
+
       
-      .card-body::-webkit-scrollbar-thumb {
-        background-color: transparent;
-      }
-      
-    .announcement-title{
-        max-height: 50px;
-        color: #064420;
-        margin-top: 1rem;
-    }
-    .announcement-title h4{
-        color: #064420;
-    }
+
 
 
 
     
-    /*hover */
-    .carousel-a{
-        text-decoration: none;
-    }
-    .carousel-container{
-        background-color: white;
-        width: 50%;
-        transition: transform 0.3s ease;
-        border-radius: 30px;
-        min-height: 400px;
-    }
+ 
+
+  
 
 
-    .card-header h3{
-        margin-top: 1rem;
-        margin-left: 1rem;
-    }
-    .card-header p{
-        margin-left: 1rem;
-        font-size: 1.1em;
-    }
-
-
-    .card-body p{
-        color: black;    
-        margin-top: 1rem;
-      
-       
-    }
-    .carousel-content .content{
-        background-color: #DAD992;
-    }
-    .carousel-content::-webkit-scrollbar{
-        display: none;
-    }
-    .scrollable-content {
-        max-height: 244px; /* Set the maximum height for the scrollable area */
-        overflow-y: auto;  /* Enable vertical scrolling */
-        /* border: 1px solid #ccc; /* Optional: Add a border for better visibility */
-        border-radius: 30px;
-        padding: 10px; /* Optional: Add padding for better styling */
-        width: 100%;
-        margin: auto;
-    }
-    .carousel-container:hover{
-        cursor: pointer;
-        transform: scale(1.1);
-    }
-    .arrow:hover{
-        cursor: pointer;
-        transform: scale(1.5) !important;
-    }
-    .icon:hover{
-          color: #DAD992 !important;
-    }
-    .arrow-hover-style{
-       color: black;
-    }
-    .page-link.disabled {
-        cursor: not-allowed;
-        opacity: 0.5; 
-    }
-    .top{
-        display: flex;
-    }
-    .arrows{
-        justify-content: center;
-        align-items: center;
-    }
-    .arrow span{
-        color: white;
-        text-decoration: none;
-        font-size: 3em;
-    }
-    .arrow a:hover{
-        cursor: pointer;
-    }
-    .carousel{
-        gap: 1rem;
-        overflow: hidden;
-    }
-    .carousel-content{
-        height: 400px;
-        background-color: white;
-        color: black;
-        padding: 1rem;
-        border-radius: 30px;
-        overflow: hidden;
-    }
+   
     .col-title h1{
         font-size: 2em;
     }
@@ -215,11 +102,11 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        transition: transform 0.3s ease;
+        transition: transform 0.5s ease;
     }
     .features i {
         color: white;
-        transition: font-size 0.3s ease; 
+        transition: font-size 0.5s ease; 
     }
     .features:hover {
         cursor: pointer;
@@ -228,6 +115,11 @@
     .row.options:hover .features:not(:hover) {
         transform: scale(1);
     }
+
+
+
+
+
 
 
     /* RESPONSIVE */
@@ -261,7 +153,7 @@
         .features i {
             color: black;
             opacity: 100%;
-            transition: font-size 0.3s ease; 
+            transition: font-size 0.5s ease; 
         }
         .features:hover, .features:hover i{
             color: #DAD992 !important;
@@ -310,7 +202,7 @@
         .features i {
             color: black;
             opacity: 100%;
-            transition: font-size 0.3s ease;
+            transition: font-size 0.5s ease;
         }
         
         .features:hover, .features:hover i{

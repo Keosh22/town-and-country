@@ -1,1 +1,184 @@
 
+   /*hover */
+   .carousel-a{
+    text-decoration: none;
+}
+.carousel-container{
+    background-color: white;
+    width: 80%;
+    transition: transform 0.6s ease;
+    border-radius: 20px;
+    min-height: 400px;
+}
+
+.carousel-container:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.about{
+    background-color: #DAD992;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    color: #064420;
+    margin-top: 0;
+    height: 106px;
+}
+
+
+.card-header h3{
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+.card-header p{
+    margin-left: 1rem;
+    font-size: 1.1em;
+}
+
+.announcement-title{
+    max-height: 50px;
+    color: #064420;
+    margin-top: 1rem;
+}
+.announcement-title h4{
+    color: #064420;
+}
+
+
+.announcement-divider{
+    border-top: 3px solid  #064420;
+    border-radius: 20px;
+
+}
+.card-body {
+    min-height: 244px; /* Set a maximum height for the table container */
+    overflow: auto; /* Enable vertical scrolling for the container if needed */
+    margin: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  
+  }
+
+  
+  .card-body p{
+    color: black;    
+    margin-top: 1rem;
+
+}
+
+.scrollable-content {
+    max-height: 244px; /* Set the maximum height for the scrollable area */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    /* border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+    border-radius: 30px;
+    padding: 10px; /* Optional: Add padding for better styling */
+    width: 95%;
+    margin: auto;
+}
+
+
+/* Carousel Footer */
+.footer{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    color: black;
+    padding: 1rem;
+}
+
+.content-signature{
+    color: #064420;
+}
+.date-created{
+    color: #064420;
+}
+
+
+
+.card-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .card-body::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+
+/* RANDOM */
+
+.carousel-content .content{
+    background-color: #DAD992;
+}
+.carousel-content::-webkit-scrollbar{
+    display: none;
+}
+
+
+
+.arrow a:hover span{
+    color: #DAD992 !important;
+    transform: scale(1.5) !important;
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+
+
+
+.page-link.disabled {
+    cursor: not-allowed;
+    opacity: 0.5; 
+}
+
+.arrows{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    width: 100%;
+    margin: auto;
+
+}
+
+.arrow{
+    width: auto; /* Adjust the width based on your design */
+    display: flex;
+    justify-content: center;
+}
+
+.arrow a{
+    width: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.arrows .arrow{
+    width: 50px;
+    text-align: center;
+}
+.next span{
+    color: white;
+    text-decoration: none;
+    font-size: 5em;
+    text-align: center;
+}
+.previous span{
+    color: white;
+    text-decoration: none;
+    font-size: 5em;
+    text-align: center;
+}
+.arrow a:hover{
+    cursor: pointer;
+ 
+}
+.carousel{
+    gap: 1rem;
+    overflow: hidden;
+}

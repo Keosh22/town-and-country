@@ -28,6 +28,7 @@
 
   <!-- User Home Page CSS -->
   <link rel="stylesheet" href="../styles/user-home.css">
+  <link rel="stylesheet" href="../styles/user-home-carousel.css">
   <link rel="stylesheet" href="../styles/backbutton.css">
   <link rel="stylesheet" href="../styles/announcment.css">
 

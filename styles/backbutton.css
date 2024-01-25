@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100px;
+    min-height: 80px;
   }
   .option-title{
     color: #DAD992;
