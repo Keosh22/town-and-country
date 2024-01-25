@@ -67,13 +67,10 @@ $row = mysqli_fetch_array($result['result'])
 
   <div class="row options justify-content-center ">
 
-    <div class="col-xl-3 col-md-3 transaction d-flex flex-column align-items-center justify-content-center  text-center">
-      <div class="inner features">
-        <i class="far fa-file-lines" style="color: white;"></i>
-        <p>TRANSACTION</p>
-      </div>
-
-    </div>
+  <a href="transactions.php" class="btn text-white col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
+      <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
+      <p>TRANSACTIONS</p>
+    </a>
     <a href="services.php" class="btn text-white col-xl-3 col-md-3 features d-flex flex-column align-items-center justify-content-center text-center">
       <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
       <p>SERVICES</p>

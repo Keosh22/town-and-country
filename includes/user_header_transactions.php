@@ -22,20 +22,17 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-  <!-- CSS Files -->
-  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/services/service-6/assets/css/service-6.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+
 
   <!-- User Home Page CSS -->
   <link rel="stylesheet" href="../styles/user-home.css">
   <link rel="stylesheet" href="../styles/backbutton.css">
-  <link rel="stylesheet" href="../styles/services.css">
+  <link rel="stylesheet" href="../styles/transactions.css">
   <script src="https://kit.fontawesome.com/c4567093fc.js" crossorigin="anonymous"></script>
   <title>TCH | Home</title>
 </head>
-<body>
-  
-
 
 
 
