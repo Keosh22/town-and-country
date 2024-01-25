@@ -5,25 +5,30 @@ date_default_timezone_set("Asia/Manila");
 ?>
 
 <?php
+session_start();
 $server = new Server;
 $mailer = new Mailer;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   $current_month = date("F", strtotime("now"));
+  $current_month_num = date("n", strtotime("now"));
   $current_year = date("Y", strtotime("now"));
   $current_day = date("j", strtotime("now"));
 
   $due = "DUE";
   $available = "AVAILABLE";
   $not_sent = "NOT SENT";
-  
+
   $day = "";
   $total_ammount_due = 0;
+
+
 
 
   $query2 = "SELECT 
     collection_list.id as collection_id_pk,
     collection_list.email_status as email_status,
+    collection_list.status as collection_status,
     collection_list.month as collection_month,
     collection_list.balance as collection_fee,
     collection_list.property_id as collection_property_id,
@@ -40,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     FROM collection_list
     INNER JOIN property_list ON collection_list.property_id = property_list.id
     INNER JOIN homeowners_users ON collection_list.owners_id = homeowners_users.id
-    WHERE collection_list.month = :current_month AND collection_list.status = :available AND email_status = :not_sent
+    WHERE collection_list.month = :current_month AND collection_list.email_status = :not_sent AND collection_list.status = :available LIMIT 50
      ";
-  $data2 = ["current_month" => $current_month, "available" => $available, "not_sent" => $not_sent];
+  $data2 = ["current_month" => $current_month, "not_sent" => $not_sent, "available" => $available];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
   $stmt2->execute($data2);
@@ -53,6 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $collection_fee = $result2['collection_fee'];
       $collection_property_id = $result2['collection_property_id'];
       $collection_owners_id = $result2['collection_owners_id'];
+      $collection_status = $result2['collection_status'];
+      $email_status = $result2['email_status'];
 
       $property_blk = $result2['property_blk'];
       $property_lot = $result2['property_lot'];
@@ -64,30 +71,32 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $lname = $result2['lastname'];
       $acc_number = $result2['account_number'];
       $email_address = $result2['email'];
-      
+
+
+      $address = "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street . " St. " . $property_phase;
+      $full_name = $fname . " " . $midname . " " . $lname;
+
+
+
       // Compute the remaining balance
-      $query4 = "SELECT * FROM collection_list WHERE property_id = :collection_property_id AND owners_id = :collection_owners_id AND status = :available";
-      $data4 = ["collection_property_id" => $collection_property_id, "collection_owners_id" => $collection_owners_id, "available" => $available];
+      $query4 = "SELECT * FROM collection_list WHERE property_id = :collection_property_id AND owners_id = :collection_owners_id AND status = :due";
+      $data4 = ["collection_property_id" => $collection_property_id, "collection_owners_id" => $collection_owners_id, "due" => $due];
       $connection4 = $server->openConn();
       $stmt4 = $connection4->prepare($query4);
       $stmt4->execute($data4);
       if ($stmt4->rowCount() > 0) {
         while ($result4 = $stmt4->fetch()) {
           $remaining_balance = intval($result4['balance']);
-
           $total_ammount_due += $remaining_balance;
         }
       }
 
 
-      $address = "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street . " St. " . $property_phase;
-      $full_name = $fname . " " . $midname . " " . $lname;
-
-      if ($property_phase = "Phase 1") {
+      if ($property_phase == "Phase 1") {
         $day = "8th day";
-      } elseif ($property_phase = "Phase 2") {
+      } elseif ($property_phase == "Phase 2") {
         $day = "15th day";
-      } elseif ($property_phase = "Phase 3") {
+      } elseif ($property_phase == "Phase 3") {
         $day = "last day";
       } else {
         $day = "";
@@ -135,15 +144,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       </div>';
 
 
-      // BUG When email sent is failed still updating 
-     
-      $sent = "SENT";
-      $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
-      $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
-      $connection3 = $server->openConn();
-      $stmt3 = $connection3->prepare($query3);
-      $stmt3->execute($data3);
-      $mailer->sendMail($email, $subject, $message);
+      // ------------------------------------PAYMENT REMIDER--------------------------------------------------------
+        if($collection_status == "AVAILABLE"){
+          // Send email during 1st and 2nd day for Phase 1 
+        if ($current_day <= date("j", mktime(0, 0, 0, $current_month_num, 2, $current_year)) && $property_phase == "Phase 1") {
+          
+          $sent = "SENT";
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $connection3 = $server->openConn();
+          $stmt3 = $connection3->prepare($query3);
+          $stmt3->execute($data3);
+          $mailer->sendMail($email, $subject, $message);
+         
+        } 
+          // Send email during 8th and 9th day for Phase 2 
+        elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 8, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 9, $current_year))  && $property_phase == "Phase 2") {
+          // BUG When email sent is failed still updating 
+          $sent = "SENT";
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $connection3 = $server->openConn();
+          $stmt3 = $connection3->prepare($query3);
+          $stmt3->execute($data3);
+          $mailer->sendMail($email, $subject, $message);
+         
+        } 
+        // Send email during 15th and 16th day for Phase 3 
+        elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 15, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 16, $current_year))  && $property_phase == "Phase 3") {
+          // BUG When email sent is failed still updating 
+          $sent = "SENT";
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $connection3 = $server->openConn();
+          $stmt3 = $connection3->prepare($query3);
+          $stmt3->execute($data3);
+          $mailer->sendMail($email, $subject, $message);
+        }
+      }
+
+
       $total_ammount_due = 0;
     }
   }
