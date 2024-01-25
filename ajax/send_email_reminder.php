@@ -146,7 +146,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
       // ------------------------------------PAYMENT REMIDER--------------------------------------------------------
         if($collection_status == "AVAILABLE"){
+          // Send email during 1st and 2nd day for Phase 1 
         if ($current_day <= date("j", mktime(0, 0, 0, $current_month_num, 2, $current_year)) && $property_phase == "Phase 1") {
+          
+          $sent = "SENT";
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $connection3 = $server->openConn();
+          $stmt3 = $connection3->prepare($query3);
+          $stmt3->execute($data3);
+          $mailer->sendMail($email, $subject, $message);
+         
+        } 
+          // Send email during 8th and 9th day for Phase 2 
+        elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 8, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 9, $current_year))  && $property_phase == "Phase 2") {
           // BUG When email sent is failed still updating 
           $sent = "SENT";
           $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
@@ -156,17 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           $stmt3->execute($data3);
           $mailer->sendMail($email, $subject, $message);
          
-        } elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 8, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 9, $current_year))  && $property_phase == "Phase 2") {
-          // BUG When email sent is failed still updating 
-          $sent = "SENT";
-          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
-          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
-          $connection3 = $server->openConn();
-          $stmt3 = $connection3->prepare($query3);
-          $stmt3->execute($data3);
-          $mailer->sendMail($email, $subject, $message);
-         
-        } elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 15, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 16, $current_year))  && $property_phase == "Phase 3") {
+        } 
+        // Send email during 15th and 16th day for Phase 3 
+        elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 15, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 16, $current_year))  && $property_phase == "Phase 3") {
           // BUG When email sent is failed still updating 
           $sent = "SENT";
           $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";

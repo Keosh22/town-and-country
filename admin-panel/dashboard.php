@@ -4,7 +4,10 @@ require_once("../includes/header.php");
 ?>
 <?php
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
-
+$current_month = date("F", strtotime("now"));
+$current_month_num = date("n", strtotime("now"));
+$current_year = date("Y", strtotime("now"));
+$current_day = date("j", strtotime("now"));
 ?>
 <?php
 session_start();
@@ -14,6 +17,17 @@ $server->adminAuthentication();
 $server->insertCollection();
 $server->updatePromotion();
 $server->updateAnnouncement();
+
+
+// UPDATE EMAIL
+if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 4, $current_year))) {
+	$server->updateEmailNotSent();
+} elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 10, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 11, $current_year))) {
+	$server->updateEmailNotSent();
+} elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 17, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 18, $current_year))) {
+	$server->updateEmailNotSent();
+}
+
 
 ?>
 
@@ -96,17 +110,36 @@ $server->updateAnnouncement();
 									<h4 class="card-title">Send Email</h4>
 									<h6 class="card-subttitle text-success">Payment Reminders</h6>
 									<div class="col-6">
-										<p class="card-text fs-3"><?php $server->countEmailReminder(); ?></p>
+										<p class="card-text fs-3"><?php echo $email_reminder =  $server->countEmailReminder(); ?></p>
 									</div>
 									<div class="col-6 mb-3">
-										<button class="btn btn-success " type="submit" id="send_email" name="send_email"><i class='bx bx-mail-send fs-4 bx-tada'></i>Send</button>
+										<button class="btn btn-success " type="submit" id="send_email" name="send_email" <?php
+																																																			if ($email_reminder <= 0) {
+																																																				echo "disabled";
+																																																			}
+																																																			?>><i class='bx bx-mail-send fs-4 <?php
+																																																																				if ($email_reminder > 0) {
+																																																																					echo "bx-tada";
+																																																																				} else {
+																																																																				}
+																																																																				?>
+										'></i>Send</button>
 									</div>
 									<h6 class="card-subttitle text-danger">Payment Dues</h6>
 									<div class="col-6">
-										<p class="card-text fs-3"><?php $server->countEmailDue(); ?></p>
+										<p class="card-text fs-3"><?php echo $email_due = $server->countEmailDue(); ?></p>
 									</div>
 									<div class="col-6">
-										<button class="btn btn-danger " type="submit" id="send_email" name="send_email"><i class='bx bx-mail-send fs-4 bx-tada'></i>Send</button>
+										<button class="btn btn-danger " type="submit" id="send_email" name="send_email" <?php
+																																																		if ($email_due <= 0) {
+																																																			echo "disabled";
+																																																		}
+																																																		?>><i class='bx bx-mail-send fs-4 <?php
+																																																																			if ($email_due > 0) {
+																																																																				echo "bx-tada";
+																																																																			}
+																																																																			?>
+										'></i>Send</button>
 									</div>
 
 								</div>
