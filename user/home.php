@@ -9,9 +9,18 @@ $homeServer = new Server();
 
 $homeServer->userAuthentication();
 $result = $homeServer->pagination(1);
-$row = mysqli_fetch_array($result['result'])
+$row = mysqli_fetch_array($result['result']);
+
+
+
+
+
 ?>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script> 
 <main>
 
 
@@ -62,15 +71,30 @@ $row = mysqli_fetch_array($result['result'])
   <div class="arrows">
 
     <div class="col-2 arrow previous">
+      <?php
+        function autoSlide($currentPage){
 
-      <a class="page-link <?= ($result['page_no'] <= 1) ? 'arrow-hover-style disabled' : ''; ?>" href="<?= ($result['page_no'] > 1) ? '?page_no=' . $result['prev_page'] : ''; ?>" aria-label="Previous">
+          $start = microtime(true);
+          if($start == 5000000){
+            $currentPage = $currentPage + 1;
+            $start = 0000000;
+            
+          }
+        }
+      ?>
+
+      <a id ="previous" class="page-link 
+      <?= ($result['page_no'] <= 1) ? 'arrow-hover-style disabled' : ''; ?>
+      " href="
+      <?= ($result['page_no'] > 1) ? '?page_no=' . $result['prev_page'] : ''; ?>
+      " aria-label="Previous">
       <span  aria-hidden="true" class="icon">&laquo;</span>
       </a>
       
     </div>
 
     <div class="col-2 arrow next">
-      <a class="page-link <?= ($result['page_no'] >= $result['total_number_per_page']) ? 'disabled' : ''; ?>" href="<?= ($result['page_no'] < $result['total_number_per_page']) ? '?page_no=' . $result['next_page'] : ''; ?>" aria-label="Next">
+      <a id="next" class="page-link<?= ($result['page_no'] >= $result['total_number_per_page']) ? 'disabled' : ''; ?>" href="<?= ($result['page_no'] < $result['total_number_per_page']) ? '?page_no=' . $result['next_page'] : ''; ?>" aria-label="Next">
         
           <span  aria-hidden="true" class="icon">&raquo;</span>
       </a>
@@ -131,3 +155,8 @@ $row = mysqli_fetch_array($result['result'])
 </body>
 
 </html>
+
+
+<?php
+
+?>
