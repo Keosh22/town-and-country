@@ -90,7 +90,7 @@ $server->adminAuthentication();
 																$status = $result['status'];
 																$email = $result['email'];
 																$phone_number = $result['phone_number'];
-																$tenant_name = $result['tenant_name'];
+																// $tenant_name = $result['tenant_name'];
 															?>
 																<tr>
 																	<td><?php echo $account_number; ?></td>
@@ -117,9 +117,13 @@ $server->adminAuthentication();
 																		<?php
 																		} elseif ($status == 'Tenant') {
 																		?>
-																			<span class="badge rounded-pill text-bg-warning">Tenant</span>
+																			<span class="badge rounded-pill text-bg-info">Tenant</span>
 																		<?php
-																		}
+																		} elseif ($status == 'EXPIRED') {
+																			?>
+																				<span class="badge rounded-pill text-bg-warning">Expired</span>
+																			<?php
+																			}
 
 																		?>
 																	</td>

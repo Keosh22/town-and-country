@@ -726,7 +726,67 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     }
   }
 
+  public function updateMembershipStatus()
+  {
+    $current_day = date("j", strtotime("now"));
+    $current_year = date("Y", strtotime("now"));
+    $PHASE_1 = "Phase 1";
+    $PHASE_2 = "Phase 2";
+    $PHASE_3 = "Phase 3";
+    $MEMBER = "MEMBER";
+    $EXPIRED = "EXPIRED";
 
+    if ($current_day >= date("j", mktime(0, 0, 0, 1, 6, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 7, $current_year))) {
+      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_1 AND status = :member ";
+      $data1 = ["phase_1" => $PHASE_1, "member" => $MEMBER];
+      $connection1 = $this->conn;
+      $stmt1 = $connection1->prepare($query1);
+      $stmt1->execute($data1);
+      if ($stmt1->rowCount() > 0) {
+        while ($result1 = $stmt1->fetch()) {
+          $homeowners_id = $result1['id'];
+          $query2 = "UPDATE homeowners_users SET status = :expired WHERE id = :homeowners_id";
+          $data2 = ["expired" => $EXPIRED, "homeowners_id" => $homeowners_id];
+          $connection2 = $this->conn;
+          $stmt2 = $connection2->prepare($query2);
+          $stmt2->execute($data2);
+        }
+      }
+    } elseif ($current_day >= date("j", mktime(0, 0, 0, 1, 13, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 14, $current_year))) {
+      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_2 AND status = :member ";
+      $data1 = ["phase_2" => $PHASE_2, "member" => $MEMBER];
+      $connection1 = $this->conn;
+      $stmt1 = $connection1->prepare($query1);
+      $stmt1->execute($data1);
+      if ($stmt1->rowCount() > 0) {
+        while ($result1 = $stmt1->fetch()) {
+          $homeowners_id = $result1['id'];
+          $query2 = "UPDATE homeowners_users SET status = :expired WHERE id = :homeowners_id";
+          $data2 = ["expired" => $EXPIRED, "homeowners_id" => $homeowners_id];
+          $connection2 = $this->conn;
+          $stmt2 = $connection2->prepare($query2);
+          $stmt2->execute($data2);
+        }
+      }
+
+    } elseif ($current_day >= date("j", mktime(0, 0, 0, 1, 20, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 21, $current_year))){
+      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_3 AND status = :member ";
+      $data1 = ["phase_3" => $PHASE_3, "member" => $MEMBER];
+      $connection1 = $this->conn;
+      $stmt1 = $connection1->prepare($query1);
+      $stmt1->execute($data1);
+      if ($stmt1->rowCount() > 0) {
+        while ($result1 = $stmt1->fetch()) {
+          $homeowners_id = $result1['id'];
+          $query2 = "UPDATE homeowners_users SET status = :expired WHERE id = :homeowners_id";
+          $data2 = ["expired" => $EXPIRED, "homeowners_id" => $homeowners_id];
+          $connection2 = $this->conn;
+          $stmt2 = $connection2->prepare($query2);
+          $stmt2->execute($data2);
+        }
+      }
+    }
+  }
 
 
 
@@ -900,7 +960,39 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
   // ------------------------- COUNT FUNCTION --------------------------
+  public function countTenant(){
+    $TENANT = "Tenant";
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :tenant";
+    $data = ["tenant" => $TENANT];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
 
+    if ($stmt->rowCount() > 0) {
+      echo $count;
+    } else {
+      echo $default = 0;
+    }
+
+  }
+
+  public function countExpired(){
+    $EXPIRED = "EXPIRED";
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :expired";
+    $data = ["expired" => $EXPIRED];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+
+    if ($stmt->rowCount() > 0) {
+      echo $count;
+    } else {
+      echo $default = 0;
+    }
+
+  }
 
   public function countMembers()
   {
