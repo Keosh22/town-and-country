@@ -27,16 +27,16 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 } elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 17, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 18, $current_year))) {
 	$server->updateEmailNotSent();
 }
-
+// $server->updateAllNotSent();
 
 ?>
 
 <body>
-	<div class="spinner_wrapper">
+	<!-- <div class="spinner_wrapper">
 		<div class="spinner-border" role="status">
 			<span class="visually-hidden">Loading...</span>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="wrapper">
 		<!-- SIDEBAR -->
@@ -130,7 +130,7 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 										<p class="card-text fs-3"><?php echo $email_due = $server->countEmailDue(); ?></p>
 									</div>
 									<div class="col-6">
-										<button class="btn btn-danger " type="submit" id="send_email" name="send_email" <?php
+										<button class="btn btn-danger " type="submit" id="send_email_due" name="send_email_due" <?php
 																																																		if ($email_due <= 0) {
 																																																			echo "disabled";
 																																																		}
@@ -193,10 +193,41 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 							swal("Sending Email Cancele!")
 						}
 					});
-
-
-
 			});
+
+
+			// Send email Due
+			$("#send_email_due").on('click', function() {
+				swal("Are you sure you want to send email?", "Please wait 1 hour before trying again", {
+						dangerMode: true,
+						buttons: true,
+						icon: "info"
+					})
+					.then(function(proceed) {
+						if (proceed) {
+
+							swal("Sending...", "This may take some time. Please wait.", "success", {
+								button: false,
+								closeOnClickOutside: false,
+								closeOnEsc: false
+							});
+							setTimeout(function() {
+								$.ajax({
+									url: '../ajax/send_email_due.php',
+									type: 'POST',
+									success: function(response) {
+										location.reload(true);
+									}
+								});
+							}, 500);
+
+						} else {
+							swal("Sending Email Cancele!")
+						}
+					});
+			});
+
+
 		});
 	</script>
 

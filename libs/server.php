@@ -801,37 +801,40 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
   }
 
 
-  // AUTO UPDATE EMAIL STATUS
-  public function emailReminderNotSent()
+  // UPDATE ALL EMAIL STATUS to NOT SENT
+  public function updateAllNotSent()
   {
     $current_month = date("F", strtotime("now"));
+    $current_month_num = date("n", strtotime("now"));
     $current_year = date("Y", strtotime("now"));
+    $current_day = date("j", strtotime("now"));
     $available = "AVAILABLE";
+    $due = "DUE";
     $not_sent = "NOT SENT";
     $sent = "SENT";
 
-    // Retrieve Phase # where email_status = 'not sent'
-    $query1 = "SELECT 
-    collection_list.id as collection_id,
-    collection_list.status,
-    collection_list.month,
-    collection_list.year,
-    collection_list.property_id,
-    property_list.phase
-    FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id 
-    WHERE collection_list.status = :available AND year =:current_year AND month = :current_month ";
-    $data1 = ["available" => $available, "current_year" => $current_year, "current_month" => $current_month];
-    $connection1 = $this->conn;
-    $stmt1 = $connection1->prepare($query1);
-    $stmt1->execute($data1);
-    if ($stmt1->rowCount() > 0) {
-      while ($result1 = $stmt1->fetch()) {
+    if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 27, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 28, $current_year))) {
+      $query1 = "SELECT id, email_status, month, year, status FROM collection_list WHERE email_status = :sent AND month = :current_month AND year = :current_year AND status IN (:available, :due)";
+      $data1 = ["sent" => $sent, "current_month" => $current_month, "current_year" => $current_year, "available" => $available, "due" => $due];
+
+      $connection1 = $this->conn;
+      $stmt1 = $connection1->prepare($query1);
+      $stmt1->execute($data1);
+      if ($stmt1->rowCount() > 0) {
+        while ($result1 = $stmt1->fetch()) {
+          $collection_id = $result1['id'];
+          $query2 = "UPDATE collection_list SET email_status = :not_sent WHERE id = :collection_id";
+          $data2 = ["not_sent" => $not_sent, "collection_id" => $collection_id];
+          $connection2 = $this->conn;
+          $stmt2 = $connection2->prepare($query2);
+          $stmt2->execute($data2);
+        }
       }
     }
   }
 
   // UPDATE ALL TO NOT SENT EMAIL
-
+  // FOR DUE EMAIL REMINDER
   public function updateEmailNotSent()
   {
     $current_month = date("F", strtotime("now"));
@@ -948,8 +951,9 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     // Count collection during 1st to 2nd day of the month
     if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 2, $year_email))) {
       // Phase 1
-      $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :available AND month = :current_month AND email_status = :not_sent";
-      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent];
+      $phase_1 = "Phase 1";
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
+      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_1];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
@@ -958,8 +962,9 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     // Count collection during 8th to 9th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 8, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 9, $year_email))) {
       // Phase 2
-      $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :available AND month = :current_month AND email_status = :not_sent";
-      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent];
+      $phase_2 = "Phase 2";
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
+      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_2];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
@@ -969,8 +974,9 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     // Count collection during 15th to 16th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 15, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 16, $year_email))) {
       // Phase 3
-      $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :available AND month = :current_month AND email_status = :not_sent";
-      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent];
+      $phase_3 = "Phase 3";
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
+      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_3];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
@@ -995,30 +1001,35 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
     // Count the Due collection during 10th to 12th day of the month
-    if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 12, $year_email))) {
+    if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 11, $year_email))) {
       // Phase 1
-      $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
-      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent];
+      $phase_1 = "Phase 1";
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
+      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_1];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
       echo $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 17th to 19th day of the month
-    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 19, $year_email))) {
+    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 18, $year_email))) {
       // Phase 2
-      $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
-      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent];
+      $phase_2 = "Phase 2";
+      // $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
+      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_2];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
       echo $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 23th to 25th day of the month
-    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 23, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 25, $year_email))) {
+    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 23, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 24, $year_email))) {
+      $phase_3 = "Phase 3";
       // Phase 3
-      $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
-      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent];
+      // $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
+      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_3];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
