@@ -149,6 +149,7 @@ if (isset($_GET['property_id'])) {
                                 <div class="card-body">
                                   <div id="collection_list_container" class="row gy-2">
 
+
                                     <?php
 
                                     $property_id = $_GET['property_id'];
@@ -374,7 +375,7 @@ if (isset($_GET['property_id'])) {
                   // $(".content").html(response);
 
                   var transaction_number = response;
-                  var receipt = window.open('../admin-panel/receipt.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
+                  var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
                   setTimeout(function() {
                     receipt.print();
                     setTimeout(function() {

@@ -89,7 +89,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
     $("#print_receipt").on('click', function() {
       // var payment_id = $("#payment_id_modal").val();
       var transaction_number = $("#transactionNum_id_modal").val();
-      var receipt = window.open('../admin-panel/receipt.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
+      var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
       setTimeout(function() {
         receipt.print();
         setTimeout(function() {

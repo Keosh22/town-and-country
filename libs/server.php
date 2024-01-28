@@ -1138,7 +1138,27 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
 
+public function transactionNumberGenerator(){
+  
 
+    // Transaction Number Generator
+    $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
+    $connection4 = $this->conn;
+    $stmt4 = $connection4->prepare($query4);
+    $stmt4->execute();
+    if ($stmt4->rowCount() > 0) {
+      if ($row = $stmt4->fetch()) {
+
+        $result = $row['transaction_number'];
+        $get_number = str_replace("TN", "", $result);
+        $id_increment = $get_number + 1;
+        $get_string = str_pad($id_increment, 8, 0, STR_PAD_LEFT);
+        $transaction_number = "TN" . $get_string;
+      }
+    }
+
+    return $transaction_number;
+}
 
 
 

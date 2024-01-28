@@ -80,7 +80,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-
+                                $monthly_dues = "Monthly Dues";
                               $query = "SELECT 
                                 payments_list.transaction_number,
                                 payments_list.id as payment_id,
@@ -101,10 +101,12 @@ $server->adminAuthentication();
                                 INNER JOIN property_list ON payments_list.property_id = property_list.id
                                 INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
                                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                                WHERE collection_fee.category = :monthly_dues
                                 ";
+                                $data = ["monthly_dues" => $monthly_dues];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
-                              $stmt->execute();
+                              $stmt->execute($data);
                               if ($stmt->rowCount() > 0) {
                                 while ($result = $stmt->fetch()) {
                                   $payment_id = $result['payment_id'];
