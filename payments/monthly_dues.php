@@ -184,7 +184,7 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-
+     
 
       // View payment
       $("#monthlyDuesTable").on('click', '#view_payment', function() {
@@ -211,6 +211,7 @@ $server->adminAuthentication();
               $("#date_paid").html(response.date_paid);
               $(".table_result").html(response.table_result);
               $("#total_amount").val(response.total_amount);
+              $("#remarks").html(response.remarks);
             }
           });
         }

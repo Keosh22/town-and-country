@@ -39,6 +39,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
               <h4 class="details-title">Payment Details</h4>
               <p>Transaction Number: <b id="transaction_number"></b></p>
               <p>Date Paid: <b id="date_paid"></b></p>
+              <p>Remarks: <b id="remarks"></b></p>
             </div>
           </div>
           <div class="divider-receipt"></div>

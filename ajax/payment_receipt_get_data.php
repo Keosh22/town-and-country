@@ -20,6 +20,7 @@ if (isset($_POST['payment_id'])) {
         payments_list.id as payment_id,
         payments_list.transaction_number,
         payments_list.date_created as date_paid,
+        payments_list.remarks,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -59,6 +60,8 @@ if (isset($_POST['payment_id'])) {
       $lot = $result1['homeowners_lot'];
       $street = $result1['homeowners_street'];
       $phase = $result1['homeowners_phase'];
+
+      $remarks = $result1['remarks'];
     }
   }
 
@@ -127,7 +130,8 @@ if (isset($_POST['payment_id'])) {
     "transaction_number" => $transaction_number,
     "account_number" => $account_number,
     "table_result" => $table_result,
-    "total_amount" => $total_ammount
+    "total_amount" => $total_ammount,
+    "remarks" => $remarks
   );
 
 

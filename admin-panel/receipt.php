@@ -26,6 +26,7 @@ if (isset($_GET['transactionNumber'])) {
         payments_list.id as payment_id,
         payments_list.transaction_number as payment_list_tnumber,
         payments_list.date_created as date_paid,
+        payments_list.remarks,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -65,6 +66,8 @@ if (isset($_GET['transactionNumber'])) {
       $lot = $result1['homeowners_lot'];
       $street = $result1['homeowners_street'];
       $phase = $result1['homeowners_phase'];
+
+      $remarks = $result1['remarks'];
     }
   }
 
@@ -92,6 +95,7 @@ if (isset($_GET['transactionNumber'])) {
       <h4 class="details-title">Payment Details</h4>
       <p>Transaction Number: <b id="transaction_number"><?php echo $transaction_number; ?></b></p>
       <p>Date Paid: <b id="date_paid"><?php echo $date_paid; ?></b></p>
+      <p>Remarks: <b id="remarks"><?php echo $remarks; ?></b></p>
     </div>
   </div>
   <div class="divider-receipt"></div>

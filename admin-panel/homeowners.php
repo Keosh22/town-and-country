@@ -142,6 +142,7 @@ $server->adminAuthentication();
 																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
 																					<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
 																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="../admin-panel/membership_fee.php?homeowners_id=<?php echo $homeowners_id; ?>"  class="dropdown-item" id="membership_fee_btn">Membership Fee</a></li>
 																				<?php
 																				}
 																				?>
