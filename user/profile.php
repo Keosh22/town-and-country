@@ -39,7 +39,7 @@ if ($rowCount > 0) {
     $street = $result['street'];
     $phase = $result['phase'];
     $status = $result['status'];
-    $tenant = $result['tenant_name'];
+    // $tenant = $result['tenant_name'];
   }
 }
 

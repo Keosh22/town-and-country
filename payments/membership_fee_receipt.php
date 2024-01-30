@@ -1,5 +1,5 @@
 <?php
- 
+require_once("../libs/server.php");
 require_once("../includes/header.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
@@ -15,7 +15,7 @@ if (isset($_GET['transactionNumber'])) {
 
   // $payment_id = $_GET['payment_id'];
   $transactionNumberId = $_GET['transactionNumber'];
-
+  $membership_fee = "Membership Fee";
 
 
 
@@ -26,6 +26,7 @@ if (isset($_GET['transactionNumber'])) {
         payments_list.id as payment_id,
         payments_list.transaction_number as payment_list_tnumber,
         payments_list.date_created as date_paid,
+        payments_list.remarks,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -35,17 +36,14 @@ if (isset($_GET['transactionNumber'])) {
         homeowners_users.street as homeowners_street,
         homeowners_users.phase as homeowners_phase,
         collection_fee.category,
-        collection_fee.fee,
-        collection_list.month,
-        collection_list.year
+        collection_fee.fee
+        
         FROM payments_list 
         INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
-        INNER JOIN property_list ON payments_list.property_id = property_list.id
-        INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transactionNumberId 
+        WHERE payments_list.transaction_number = :transactionNumberId AND collection_fee.category = :membership_fee
         ";
-  $data1 = ["transactionNumberId" => $transactionNumberId];
+  $data1 = ["transactionNumberId" => $transactionNumberId, "membership_fee" => $membership_fee ];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -65,6 +63,8 @@ if (isset($_GET['transactionNumber'])) {
       $lot = $result1['homeowners_lot'];
       $street = $result1['homeowners_street'];
       $phase = $result1['homeowners_phase'];
+
+      $remarks = $result1['remarks'];
     }
   }
 
@@ -92,6 +92,7 @@ if (isset($_GET['transactionNumber'])) {
       <h4 class="details-title">Payment Details</h4>
       <p>Transaction Number: <b id="transaction_number"><?php echo $transaction_number; ?></b></p>
       <p>Date Paid: <b id="date_paid"><?php echo $date_paid; ?></b></p>
+      <p>Remarks: <b id="remarks"><?php echo $remarks; ?></b></p>
     </div>
   </div>
   <div class="divider-receipt"></div>
@@ -112,20 +113,12 @@ if (isset($_GET['transactionNumber'])) {
       $query2 = "SELECT
   payments_list.id as payment_list_id,
   collection_fee.category,
-  collection_fee.fee,
-  collection_list.year,
-  collection_list.month,
-  property_list.blk as property_blk,
-  property_list.lot as property_lot,
-  property_list.street as property_street,
-  property_list.phase as property_phase
+  collection_fee.fee
   FROM payments_list 
   INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-  INNER JOIN collection_list ON payments_list.collection_id = collection_list.id 
-  INNER JOIN property_list ON payments_list.property_id = property_list.id
-  WHERE payments_list.transaction_number = :transaction_number
+  WHERE payments_list.transaction_number = :transaction_number AND collection_fee.category = :membership_fee
   ";
-      $data2 = ["transaction_number" => $transaction_number];
+      $data2 = ["transaction_number" => $transaction_number, "membership_fee" => $membership_fee];
       $connection2 = $server->openConn();
       $stmt2 = $connection2->prepare($query2);
       $stmt2->execute($data2);
@@ -133,24 +126,18 @@ if (isset($_GET['transactionNumber'])) {
         while ($result2 = $stmt2->fetch()) {
           $category = $result2['category'];
           $fee = $result2['fee'];
-          $month = $result2['month'];
-          $year = $result2['year'];
           $payment_list_id = $result2['payment_list_id'];
 
-          $property_blk = $result2['property_blk'];
-          $proeprty_lot = $result2['property_lot'];
-          $property_street = $result2['property_street'];
-          $property_phase = $result2['property_phase'];
+          
 
-          $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
           $number = $number + 1;
-          $total_ammount += $fee;
+        
       ?>
           <tr>
             <td><?php echo $number; ?></td>
             <td><?php echo $category; ?></td>
             <td><?php echo $fee; ?></td>
-            <td><?php echo $property . '-' . $month . ' ' . $year; ?></td>
+            <td><?php echo  $remarks. " " . date("Y", strtotime($date_paid)); ?></td>
           </tr>
       <?php
         }
@@ -167,7 +154,7 @@ if (isset($_GET['transactionNumber'])) {
           <label for="total_amount" class="form-label">Total Amount:</label>
         </div>
         <div class="col-4">
-          <input type="text" class="form-control" id="total_amount" value="<?php echo $total_ammount; ?>">
+          <input type="text" class="form-control" id="total_amount" value="<?php echo $fee; ?>">
         </div>
       </div>
     </div>
