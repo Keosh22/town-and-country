@@ -129,7 +129,7 @@ if (isset($_GET['property_id'])) {
                                     </div>
                                     <div class="col-12">
                                       <label for="remarks" class="form-label text-success">Remarks:</label>
-                                      <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control"></textarea>
+                                      <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control" maxlength="25"></textarea>
 
                                     </div>
 
@@ -149,6 +149,7 @@ if (isset($_GET['property_id'])) {
                                 <div class="card-body">
                                   <div id="collection_list_container" class="row gy-2">
 
+
                                     <?php
 
                                     $property_id = $_GET['property_id'];
@@ -166,7 +167,7 @@ if (isset($_GET['property_id'])) {
 
 
 
-                                      $query2 = "SELECT 
+                                    $query2 = "SELECT 
                                   collection_list.*, 
                                   collection_fee.*,
                                   collection_list.status as status_cl,
@@ -174,80 +175,79 @@ if (isset($_GET['property_id'])) {
                                   collection_list.id as collection_list_id,
                                   collection_fee.id as collection_fee_id
                                   FROM collection_list INNER JOIN collection_fee ON collection_list.collection_fee_id = collection_fee.id WHERE property_id = :property_id";
-                                      $data2 = ["property_id" => $property_id];
-                                      $connection2 = $server->openConn();
-                                      $stmt2 = $connection2->prepare($query2);
-                                      $stmt2->execute($data2);
-                                      $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");
-                                      if ($stmt->rowCount() > 0) {
-                                        while ($result2 = $stmt2->fetch()) {
-                                          $colleciton_id = $result2['collection_list_id'];
-                                          $status = $result2['status_cl'];
-                                          $month = $result2['month'];
-                                          $year = $result2['year'];
-                                          $fee = $result2['fee'];
-                                          $collection_fee_id = $result2['collection_fee_id'];
+                                    $data2 = ["property_id" => $property_id];
+                                    $connection2 = $server->openConn();
+                                    $stmt2 = $connection2->prepare($query2);
+                                    $stmt2->execute($data2);
+                                    $array_month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",  "November", "December");
+                                    if ($stmt->rowCount() > 0) {
+                                      while ($result2 = $stmt2->fetch()) {
+                                        $colleciton_id = $result2['collection_list_id'];
+                                        $status = $result2['status_cl'];
+                                        $month = $result2['month'];
+                                        $year = $result2['year'];
+                                        $fee = $result2['fee'];
+                                        $collection_fee_id = $result2['collection_fee_id'];
 
 
-                                          if ($month == "January") {
-                                            $month_abr = "JAN";
-                                          } elseif ($month == "February") {
-                                            $month_abr = "FEB";
-                                          } elseif ($month == "March") {
-                                            $month_abr = "MAR";
-                                          } elseif ($month == "April") {
-                                            $month_abr = "APR";
-                                          } elseif ($month == "May") {
-                                            $month_abr = "MAY";
-                                          } elseif ($month == "June") {
-                                            $month_abr = "JUN";
-                                          } elseif ($month == "July") {
-                                            $month_abr = "JUL";
-                                          } elseif ($month == "August") {
-                                            $month_abr = "AUG";
-                                          } elseif ($month == "September") {
-                                            $month_abr = "SEP";
-                                          } elseif ($month == "October") {
-                                            $month_abr = "OCT";
-                                          } elseif ($month == "November") {
-                                            $month_abr = "NOV";
-                                          } elseif ($month == "December") {
-                                            $month_abr = "DEC";
-                                          } else {
-                                            $month_abr == "N/A";
-                                          }
+                                        if ($month == "January") {
+                                          $month_abr = "JAN";
+                                        } elseif ($month == "February") {
+                                          $month_abr = "FEB";
+                                        } elseif ($month == "March") {
+                                          $month_abr = "MAR";
+                                        } elseif ($month == "April") {
+                                          $month_abr = "APR";
+                                        } elseif ($month == "May") {
+                                          $month_abr = "MAY";
+                                        } elseif ($month == "June") {
+                                          $month_abr = "JUN";
+                                        } elseif ($month == "July") {
+                                          $month_abr = "JUL";
+                                        } elseif ($month == "August") {
+                                          $month_abr = "AUG";
+                                        } elseif ($month == "September") {
+                                          $month_abr = "SEP";
+                                        } elseif ($month == "October") {
+                                          $month_abr = "OCT";
+                                        } elseif ($month == "November") {
+                                          $month_abr = "NOV";
+                                        } elseif ($month == "December") {
+                                          $month_abr = "DEC";
+                                        } else {
+                                          $month_abr == "N/A";
+                                        }
 
-                                          $checkbox_status = "";
-                                          if ($status == "DUE") {
-                                            $color = "danger";
-                                            $status_abr = "DUE";
-                                          } elseif ($status == "AVAILABLE") {
-                                            $color = "secondary";
-                                            $status_abr = "AVAIL";
-                                          } elseif ($status == "PAID") {
-                                            $color = "success";
-                                            $status_abr = "PAID";
-                                            $checkbox_status = "disabled";
-                                          } else {
-                                            $color = "secondary";
-                                          }
+                                        $checkbox_status = "";
+                                        if ($status == "DUE") {
+                                          $color = "danger";
+                                          $status_abr = "DUE";
+                                        } elseif ($status == "AVAILABLE") {
+                                          $color = "secondary";
+                                          $status_abr = "AVAIL";
+                                        } elseif ($status == "PAID") {
+                                          $color = "success";
+                                          $status_abr = "PAID";
+                                          $checkbox_status = "disabled";
+                                        } else {
+                                          $color = "secondary";
+                                        }
 
 
-                                          if($status == "PAID"){
+                                        if ($status == "PAID") {
+                                        } else {
 
-                                          } else {
-                                            
                                           if ($previous_year != $year) {
-                                            ?>
-                                              <div class="col-12">
-                                                <h5>Year: <b><?php echo $year; ?></b></h5>
-                                              </div>
-                                            <?php
+                                    ?>
+                                            <div class="col-12">
+                                              <h5>Year: <b><?php echo $year; ?></b></h5>
+                                            </div>
+                                          <?php
                                             $previous_year = $year;
-                                            }
-                                          
+                                          }
+
                                           ?>
-                                          
+
                                           <div class="col-2">
                                             <div class="card text-bg-<?php echo $color; ?> text-center">
                                               <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee-id="<?php echo $collection_fee_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>" data-property="<?php echo $property_id; ?>">
@@ -255,15 +255,15 @@ if (isset($_GET['property_id'])) {
                                               <p class="card-text mb-1 status"><?php echo $status_abr; ?></p>
                                             </div>
                                           </div>
-                                      <?php
-                                          }
+                                    <?php
                                         }
-                                      } else {
-                                        $_SESSION['status'] = "No Record Found!";
-                                        $_SESSION['text'] = "";
-                                        $_SESSION['status_code'] = "error";
                                       }
-                                   
+                                    } else {
+                                      $_SESSION['status'] = "No Record Found!";
+                                      $_SESSION['text'] = "";
+                                      $_SESSION['status_code'] = "error";
+                                    }
+
 
                                     ?>
 
@@ -350,6 +350,7 @@ if (isset($_GET['property_id'])) {
 
       // Update collection
       $("#add_payment_btn").on('click', function() {
+        var remarks = $("#remarks").val();
         swal({
             title: 'Confirmation',
             text: 'Are you sure you want to add this payment?',
@@ -367,13 +368,14 @@ if (isset($_GET['property_id'])) {
                   homeowners_id: homeowners_id,
                   property_id: property_id,
                   collection_fee_id: collection_fee_id,
-                  amount: amount
+                  amount: amount,
+                  remarks: remarks
                 },
                 success: function(response) {
                   // $(".content").html(response);
 
                   var transaction_number = response;
-                  var receipt = window.open('../admin-panel/receipt.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
+                  var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
                   setTimeout(function() {
                     receipt.print();
                     setTimeout(function() {

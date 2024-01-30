@@ -11,7 +11,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 
 <!-- Modal Promotion -->
-<div id="monthly_dues_view" class="modal fade">
+<div id="membership_fee_view" class="modal fade">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -89,7 +89,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
     $("#print_receipt").on('click', function() {
       // var payment_id = $("#payment_id_modal").val();
       var transaction_number = $("#transactionNum_id_modal").val();
-      var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
+      var receipt = window.open('../payments/membership_fee_receipt.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
       setTimeout(function() {
         receipt.print();
         setTimeout(function() {

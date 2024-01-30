@@ -203,10 +203,10 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col">
-                          <form action="" method="POST">
-                            <!-- <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New Collection</a> -->
+                          <!-- <form action="" method="POST">
+                           
                             <button class="btn btn-warning" type="submit" name="send_email" id="send_email">Send Email</button>
-                          </form>
+                          </form> -->
                         </div>
 
                       </div>

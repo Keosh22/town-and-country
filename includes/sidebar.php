@@ -71,7 +71,7 @@
         <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
-              <a href="#" class="sidebar-link-dropdown">Membership Fee</a>
+              <a href="../payments/membership_fee.php" class="sidebar-link-dropdown">Membership Fee</a>
             </button>
           </div>
         </li>

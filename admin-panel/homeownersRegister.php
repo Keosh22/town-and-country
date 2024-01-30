@@ -1,5 +1,6 @@
 <?php
 require_once("../libs/server.php");
+DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
 
 <?php
@@ -23,13 +24,17 @@ if (isset($_POST['register'])) {
   $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
   $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
+  $date_created = date("Y-m-d H:i:sA", strtotime("now"));
 
 
 
 
   if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
   } else {
-    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status)";
+   
+
+
+    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status, date_created ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status, :date_created)";
     $data = [
       "account_number" => $account_number,
       "username" => $username,
@@ -43,10 +48,38 @@ if (isset($_POST['register'])) {
       "lot" => $lot,
       "street" => $street,
       "phase" => $phase,
-      "status" => $status
+      "status" => $status,
+      "date_created" => $date_created
     ];
     $path = "../admin-panel/homeowners.php";
     $server->register($query, $data, $path);
+
+    $query1 = "SELECT id,account_number FROM homeowners_users WHERE account_number = :account_number";
+    $data1 = ["account_number" => $account_number];
+    $connection1 = $server->openConn();
+    $stmt1 = $connection1->prepare($query1);
+    $stmt1->execute($data1);
+    if($stmt1->rowCount() > 0){
+      while($result1 = $stmt1->fetch()){
+        $homeowners_id = $result1['id'];
+      }
+    }
+
+    $query2 = "INSERT INTO property_list (homeowners_id, blk, lot, phase, street) VALUES (:homeowners_id, :blk, :lot, :phase, :street)";
+    $data2 = [
+      "homeowners_id" => $homeowners_id,
+      "blk" => $blk,
+      "lot" => $lot,
+      "phase" => $phase,
+      "street" => $street
+    ];
+    $connection2 = $server->openConn();
+    $stmt2 = $connection2->prepare($query2);
+    $stmt2->execute($data2);
+   
+
+
+
     $action = "Register homeowners account of ".$account_number.": ".$firstname."";
     $server->insertActivityLog($action);
   }
