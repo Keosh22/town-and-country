@@ -37,7 +37,7 @@ $server->adminAuthentication();
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
-            <li class="breadcrumb-item"><a href="#">Monthly Dues</a></li>
+            <li class="breadcrumb-item"><a href="#">Membership Fee</a></li>
             <li class="breadcrumb-item">Archive</li>
           </ol>
         </section>
@@ -46,7 +46,7 @@ $server->adminAuthentication();
         <!-- Card Start here -->
         <div class="card card-border">
           <div class="card-header">
-            <h2>Archive List (Monthly Dues)</h2>
+            <h2>Archive List (Membership Fee)</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
@@ -68,7 +68,7 @@ $server->adminAuthentication();
                       <div class="body-box shadow-sm">
 
                         <div class="table-responsive mx-2">
-                          <table id="archiveMonthlyDuesTable" class="table table-striped" style="width:100%">
+                          <table id="archiveMembershipFee" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
                                 <th width="10%">Date</th>
@@ -81,59 +81,55 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                              $monthly_dues = "Monthly Dues";
-                              $query = "SELECT 
-                                archive_payments_list.transaction_number,
-                                archive_payments_list.payment_list_id as payment_id,
-                                archive_payments_list.date_created as date_paid,
-                                archive_payments_list.collection_fee_id,
-                                archive_payments_list.paid,
-                                homeowners_users.firstname,
-                                homeowners_users.middle_initial,
-                                homeowners_users.lastname,
-                                property_list.blk as property_blk,
-                                property_list.lot as property_lot,
-                                property_list.street as property_street,
-                                property_list.phase as property_phase,
-                                collection_list.month as collection_month,
-                                collection_list.year as collection_year
-                                FROM archive_payments_list 
-                                INNER JOIN homeowners_users ON archive_payments_list.homeowners_id = homeowners_users.id
-                                INNER JOIN property_list ON archive_payments_list.property_id = property_list.id
-                                INNER JOIN collection_list ON archive_payments_list.collection_id = collection_list.id
-                                INNER JOIN collection_fee ON archive_payments_list.collection_fee_id = collection_fee.id
-                                WHERE collection_fee.category = :monthly_dues
-                                ";
-                              $data = ["monthly_dues" => $monthly_dues];
-                              $connection = $server->openConn();
-                              $stmt = $connection->prepare($query);
-                              $stmt->execute($data);
-                              if ($stmt->rowCount() > 0) {
-                                while ($result = $stmt->fetch()) {
-                                  $payment_id = $result['payment_id'];
-                                  $date_paid = $result['date_paid'];
-                                  $transaction_number = $result['transaction_number'];
+                              $membership_fee = "Membership Fee";
+                          $query = "SELECT 
+                          archive_payments_list.transaction_number,
+                          archive_payments_list.id as payment_id,
+                          archive_payments_list.date_created as date_paid,
+                          archive_payments_list.collection_fee_id,
+                          archive_payments_list.paid,
+                          homeowners_users.firstname,
+                          homeowners_users.middle_initial,
+                          homeowners_users.lastname,
+                          homeowners_users.blk,
+                          homeowners_users.lot,
+                          homeowners_users.street,
+                          homeowners_users.phase
+                          FROM archive_payments_list 
+                          INNER JOIN homeowners_users ON archive_payments_list.homeowners_id = homeowners_users.id
+                          INNER JOIN collection_fee ON archive_payments_list.collection_fee_id = collection_fee.id
+                          WHERE collection_fee.category = :membership_fee
+                          ";
+                          $data = ["membership_fee" => $membership_fee];
+                        $connection = $server->openConn();
+                        $stmt = $connection->prepare($query);
+                        $stmt->execute($data);
+                        if ($stmt->rowCount() > 0) {
+                          while ($result = $stmt->fetch()) {
+                            $payment_id = $result['payment_id'];
+                            $date_paid = $result['date_paid'];
+                            $transaction_number = $result['transaction_number'];
 
-                                  $firstname = $result['firstname'];
-                                  $middle_initial = $result['middle_initial'];
-                                  $lastname = $result['lastname'];
+                            $firstname = $result['firstname'];
+                            $middle_initial = $result['middle_initial'];
+                            $lastname = $result['lastname'];
 
-                                  $blk = $result['property_blk'];
-                                  $lot = $result['property_lot'];
-                                  $street = $result['property_street'];
-                                  $phase = $result['property_phase'];
+                            $blk = $result['blk'];
+                            $lot = $result['lot'];
+                            $street = $result['street'];
+                            $phase = $result['phase'];
 
-                                  $collection_month = $result['collection_month'];
-                                  $collection_year = $result['collection_year'];
+                        
 
-                                  $paid_amount = $result['paid'];
-                              ?>
-                                  <tr>
-                                    <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
-                                    <td><?php echo $transaction_number; ?></td>
-                                    <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
-                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase . "-" . $collection_month . " " . $collection_year; ?></td>
-                                    <td><?php echo $paid_amount; ?></td>
+
+                            $paid_amount = $result['paid'];
+                             ?>
+                                 <tr>
+                                   <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
+                                   <td><?php echo $transaction_number; ?></td>
+                                   <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
+                                   <td><?php echo "BLK-". $blk . " LOT-". $lot . " " . $street . " St. ". $phase; ?></td>
+                                   <td><?php echo $paid_amount; ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
@@ -184,19 +180,20 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
 
-      $("#archiveMonthlyDuesTable").DataTable({
+      $("#archiveMembershipFee").DataTable({
 
       });
 
 
       // View payment
-      $("#archiveMonthlyDuesTable").on('click', '#view_payment', function() {
+      $("#archiveMembershipFee").on('click', '#view_payment', function() {
         var payment_id = $(this).attr('data-id');
+
         var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
         $("#transactionNum_id_modal").val(transaction_number);
         getPayment(payment_id);
-        
+
         function getPayment(payment_id) {
           $.ajax({
             url: '../ajax/payment_receipt_get_data.php',
@@ -222,7 +219,7 @@ $server->adminAuthentication();
 
 
       // Delete Archive
-      $("#archiveMonthlyDuesTable").on('click', "#delete_archive_md", function() {
+      $("#archiveMembershipFee").on('click', "#delete_archive_md", function() {
         var payment_id = $(this).attr('data-id');
 
         swal({

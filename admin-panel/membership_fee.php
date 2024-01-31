@@ -141,7 +141,7 @@ if (isset($_GET['homeowners_id'])) {
                                       <input type="text" class="form-control" id="address" name="address" value="<?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " St. " . $phase; ?>" readonly>
                                     </div>
                                     <div class="col-12">
-                                      <label for="membership_fee" class="form-label text-success">Fee::</label>
+                                      <label for="membership_fee" class="form-label text-success">Fee:</label>
                                       <input type="text" class="form-control" id="membership_fee" name="membership_fee" value="<?php echo $membership_fee; ?>" readonly>
                                     </div>
                                     <!-- <div class="col-12">
@@ -194,7 +194,7 @@ if (isset($_GET['homeowners_id'])) {
                                             } elseif ($status == "Non-member") {
                                             ?>
 
-                                              <a data-status="<?php echo  $status; ?>" id="renew_btn" name="renew_btn" class="btn btn-danger btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Renew</a>
+                                              <a data-status="<?php echo  $status; ?>" id="renew_btn" name="renew_btn" class="btn btn-success btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                                             <?php
                                             } elseif ($status == "EXPIRED") {
                                             ?>

@@ -11,6 +11,8 @@ body{
   background-attachment: fixed;
  
 }
+
+/* @media print{@page{size: landscape;}} */
 .content{
   margin-top: 50px;
 }

@@ -18,7 +18,7 @@ if (isset($_POST['homeowners_id']) && isset($_POST['collection_fee_id']) && isse
 
   if ($status == "EXPIRED") {
     $remarks = "Renew Membership";
-  } elseif ($status == "Non-Member") {
+  } elseif ($status == "Non-member") {
     $remarks = "New Membership";
   }
 
