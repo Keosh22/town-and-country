@@ -20,6 +20,7 @@ $server->updateAnnouncement();
 $server->updateMembershipStatus();
 
 
+
 // UPDATE EMAIL
 if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 4, $current_year))) {
 	$server->updateEmailNotSent();
