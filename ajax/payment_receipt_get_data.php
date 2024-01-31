@@ -16,6 +16,7 @@ if (isset($_POST['payment_id'])) {
   $table_result = "";
   $number = 0;
   $total_ammount = 0;
+  $INACTIVE = "INACTIVE";
   $query1 = "SELECT 
         payments_list.id as payment_id,
         payments_list.transaction_number,
@@ -38,7 +39,7 @@ if (isset($_POST['payment_id'])) {
         INNER JOIN property_list ON payments_list.property_id = property_list.id
         INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transaction_number LIMIT 1
+        WHERE payments_list.transaction_number = :transaction_number  LIMIT 1
         ";
   $data1 = ["transaction_number" => $transaction_number];
   $connection1 = $server->openConn();
@@ -83,7 +84,7 @@ if (isset($_POST['payment_id'])) {
     INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
     INNER JOIN collection_list ON payments_list.collection_id = collection_list.id 
     INNER JOIN property_list ON payments_list.property_id = property_list.id
-    WHERE payments_list.transaction_number = :transaction_number
+    WHERE payments_list.transaction_number = :transaction_number 
     ";
   $data2 = ["transaction_number" => $transaction_number];
   $connection2 = $server->openConn();

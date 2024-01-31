@@ -81,13 +81,14 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                              $membership_fee = "Membership Fee";
-                          $query = "SELECT 
-                          archive_payments_list.transaction_number,
-                          archive_payments_list.id as payment_id,
-                          archive_payments_list.date_created as date_paid,
-                          archive_payments_list.collection_fee_id,
-                          archive_payments_list.paid,
+                        $membership_fee = "Membership Fee";
+                        $INACTIVE = "INACTIVE";
+                        $query = "SELECT 
+                          payments_list.transaction_number,
+                          payments_list.id as payment_id,
+                          payments_list.date_created as date_paid,
+                          payments_list.collection_fee_id,
+                          payments_list.paid,
                           homeowners_users.firstname,
                           homeowners_users.middle_initial,
                           homeowners_users.lastname,
@@ -95,12 +96,12 @@ $server->adminAuthentication();
                           homeowners_users.lot,
                           homeowners_users.street,
                           homeowners_users.phase
-                          FROM archive_payments_list 
-                          INNER JOIN homeowners_users ON archive_payments_list.homeowners_id = homeowners_users.id
-                          INNER JOIN collection_fee ON archive_payments_list.collection_fee_id = collection_fee.id
-                          WHERE collection_fee.category = :membership_fee
+                          FROM payments_list 
+                          INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
+                          INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                          WHERE collection_fee.category = :membership_fee AND payments_list.archive = :INACTIVE
                           ";
-                          $data = ["membership_fee" => $membership_fee];
+                        $data = ["membership_fee" => $membership_fee, "INACTIVE" => $INACTIVE];
                         $connection = $server->openConn();
                         $stmt = $connection->prepare($query);
                         $stmt->execute($data);
@@ -114,12 +115,12 @@ $server->adminAuthentication();
                             $middle_initial = $result['middle_initial'];
                             $lastname = $result['lastname'];
 
+
                             $blk = $result['blk'];
                             $lot = $result['lot'];
                             $street = $result['street'];
                             $phase = $result['phase'];
 
-                        
 
 
                             $paid_amount = $result['paid'];
@@ -172,7 +173,7 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/monthly_dues_view_modal.php");
+  include("../payments/receipt_view_modal.php");
 
   ?>
 
@@ -188,15 +189,15 @@ $server->adminAuthentication();
       // View payment
       $("#archiveMembershipFee").on('click', '#view_payment', function() {
         var payment_id = $(this).attr('data-id');
-
         var transaction_number = $(this).attr('data-tnumber');
+       
         $("#payment_id_modal").val(payment_id);
         $("#transactionNum_id_modal").val(transaction_number);
         getPayment(payment_id);
 
         function getPayment(payment_id) {
           $.ajax({
-            url: '../ajax/payment_receipt_get_data.php',
+            url: '../ajax/membership_fee_receipt_get.php',
             type: 'POST',
             data: {
               payment_id: payment_id,

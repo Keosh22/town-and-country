@@ -82,29 +82,30 @@ $server->adminAuthentication();
                             <tbody>
                               <?php
                               $monthly_dues = "Monthly Dues";
+                              $INACTIVE = "INACTIVE";
                               $query = "SELECT 
-                                archive_payments_list.transaction_number,
-                                archive_payments_list.payment_list_id as payment_id,
-                                archive_payments_list.date_created as date_paid,
-                                archive_payments_list.collection_fee_id,
-                                archive_payments_list.paid,
-                                homeowners_users.firstname,
-                                homeowners_users.middle_initial,
-                                homeowners_users.lastname,
-                                property_list.blk as property_blk,
-                                property_list.lot as property_lot,
-                                property_list.street as property_street,
-                                property_list.phase as property_phase,
-                                collection_list.month as collection_month,
-                                collection_list.year as collection_year
-                                FROM archive_payments_list 
-                                INNER JOIN homeowners_users ON archive_payments_list.homeowners_id = homeowners_users.id
-                                INNER JOIN property_list ON archive_payments_list.property_id = property_list.id
-                                INNER JOIN collection_list ON archive_payments_list.collection_id = collection_list.id
-                                INNER JOIN collection_fee ON archive_payments_list.collection_fee_id = collection_fee.id
-                                WHERE collection_fee.category = :monthly_dues
-                                ";
-                              $data = ["monthly_dues" => $monthly_dues];
+                           payments_list.transaction_number,
+                           payments_list.id as payment_id,
+                           payments_list.date_created as date_paid,
+                           payments_list.collection_fee_id,
+                           payments_list.paid,
+                           homeowners_users.firstname,
+                           homeowners_users.middle_initial,
+                           homeowners_users.lastname,
+                           property_list.blk as property_blk,
+                           property_list.lot as property_lot,
+                           property_list.street as property_street,
+                           property_list.phase as property_phase,
+                           collection_list.month as collection_month,
+                           collection_list.year as collection_year
+                           FROM payments_list 
+                           INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
+                           INNER JOIN property_list ON payments_list.property_id = property_list.id
+                           INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
+                           INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                           WHERE collection_fee.category = :monthly_dues AND payments_list.archive = :INACTIVE
+                           ";
+                              $data = ["monthly_dues" => $monthly_dues, "INACTIVE" => $INACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);
@@ -176,7 +177,7 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/monthly_dues_view_modal.php");
+  include("../payments/receipt_view_modal.php");
 
   ?>
 
@@ -196,7 +197,7 @@ $server->adminAuthentication();
         $("#payment_id_modal").val(payment_id);
         $("#transactionNum_id_modal").val(transaction_number);
         getPayment(payment_id);
-        
+
         function getPayment(payment_id) {
           $.ajax({
             url: '../ajax/payment_receipt_get_data.php',

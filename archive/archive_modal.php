@@ -31,7 +31,7 @@
       var transaction_number = $("#transaction_number").val();
       var password = $("#archive_monthlyDues_password").val();
       $.ajax({
-        url: '../archive/archive_monthly_dues.php',
+        url: '../archive/archive.php',
         type: 'POST',
         data: {
           payment_id: payment_id,

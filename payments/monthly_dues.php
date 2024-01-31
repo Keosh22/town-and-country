@@ -81,6 +81,7 @@ $server->adminAuthentication();
                             <tbody>
                               <?php
                                 $monthly_dues = "Monthly Dues";
+                                $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                                 payments_list.transaction_number,
                                 payments_list.id as payment_id,
@@ -101,9 +102,9 @@ $server->adminAuthentication();
                                 INNER JOIN property_list ON payments_list.property_id = property_list.id
                                 INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
                                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                                WHERE collection_fee.category = :monthly_dues
+                                WHERE collection_fee.category = :monthly_dues AND payments_list.archive = :ACTIVE
                                 ";
-                                $data = ["monthly_dues" => $monthly_dues];
+                                $data = ["monthly_dues" => $monthly_dues, "ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);
@@ -177,9 +178,9 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/monthly_dues_view_modal.php");
+  include("../payments/receipt_view_modal.php");
   // Archive Payment
-  include("../payments/monthly_dues_archive_modal.php");
+  include("../archive/archive_modal.php");
 
   ?>
 
