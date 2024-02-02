@@ -88,13 +88,15 @@ $server->adminAuthentication();
                                 payments_list.date_created as date_paid,
                                 payments_list.collection_fee_id,
                                 payments_list.paid,
+                                payments_list.remarks,
                                 homeowners_users.firstname,
                                 homeowners_users.middle_initial,
                                 homeowners_users.lastname,
                                 homeowners_users.blk,
                                 homeowners_users.lot,
                                 homeowners_users.street,
-                                homeowners_users.phase
+                                homeowners_users.phase,
+                                homeowners_users.id as homeowners_id
                                 FROM payments_list 
                                 INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
                                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
@@ -120,6 +122,8 @@ $server->adminAuthentication();
                                   $street = $result['street'];
                                   $phase = $result['phase'];
 
+                                  $homeowners_id = $result['homeowners_id'];
+                                  $remarks = $result['remarks'];
 
 
                                   $paid_amount = $result['paid'];
@@ -135,7 +139,7 @@ $server->adminAuthentication();
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="archive_btn" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" href="#arhive_monthlyDues" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
+                                          <li><a id="archive_btn" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" data-homeowners='<?php echo $homeowners_id; ?>' data-remarks='<?php echo $remarks; ?>' href="#archive_membershipFee" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -173,8 +177,8 @@ $server->adminAuthentication();
   <?php
   // View payment
   include("../payments/membership_fee_view_modal.php");
-  // // Archive Payment
-  include("../archive/archive_modal.php");
+  // Archive payment 
+  include("../archive/membership_fee_archive_modal.php");
 
   ?>
 
@@ -187,6 +191,7 @@ $server->adminAuthentication();
       $("#membershipFeeTable").on('click', '#view_payment', function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
+        var archive_status = "ACTIVE";
 
         $("#payment_id_modal").val(payment_id);
         $("#transactionNum_id_modal").val(transaction_number);
@@ -198,7 +203,8 @@ $server->adminAuthentication();
             type: 'POST',
             data: {
               payment_id: payment_id,
-              transaction_number: transaction_number
+              transaction_number: transaction_number,
+              archive_status: archive_status
             },
             dataType: 'JSON',
             success: function(response) {
@@ -221,9 +227,18 @@ $server->adminAuthentication();
       $("#membershipFeeTable").on('click', "#archive_btn", function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
-        console.log(transaction_number)
+        var homeowners_id = $(this).attr('data-homeowners');
+        var remarks = $(this).attr('data-remarks');
+        var archive_status = "INACTIVE";
+
+        console.log(remarks);
+
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
+        $("#homeowners_id").val(homeowners_id);
+        $("#remarks_status").val(remarks);
+        
+
 
         swal({
             title: "Archive Confirmation",
@@ -237,7 +252,7 @@ $server->adminAuthentication();
 
             } else {
               swal("Archiving Canceled!");
-              $("#arhive_monthlyDues").modal('hide');
+              $("#archive_membershipFee").modal('hide');
             }
           })
       });

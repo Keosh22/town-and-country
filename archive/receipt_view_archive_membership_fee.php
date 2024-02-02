@@ -88,7 +88,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
   $(document).ready(function() {
     $("#print_receipt").on('click', function() {
       // var payment_id = $("#payment_id_modal").val();
-      var archive_status = "ACTIVE";
+      var archive_status = "INACTIVE";
       var transaction_number = $("#transactionNum_id_modal").val();
       var receipt = window.open('../payments/membership_fee_receipt.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
       setTimeout(function() {

@@ -733,7 +733,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $PHASE_1 = "Phase 1";
     $PHASE_2 = "Phase 2";
     $PHASE_3 = "Phase 3";
-    $MEMBER = "MEMBER";
+    $MEMBER = "Member";
     $EXPIRED = "EXPIRED";
 
     if ($current_day >= date("j", mktime(0, 0, 0, 1, 6, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 7, $current_year))) {

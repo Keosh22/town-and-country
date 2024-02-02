@@ -135,7 +135,7 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
+                                          <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
                                           <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#" class="dropdown-item">Delete</a></li>
                                         </ul>
                                       </div>
@@ -173,7 +173,8 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/receipt_view_modal.php");
+  include("../archive/receipt_view_archive_membership_fee.php");
+
 
   ?>
 
@@ -190,6 +191,7 @@ $server->adminAuthentication();
       $("#archiveMembershipFee").on('click', '#view_payment', function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
+        var archive_status = "INACTIVE";
        
         $("#payment_id_modal").val(payment_id);
         $("#transactionNum_id_modal").val(transaction_number);
@@ -201,7 +203,8 @@ $server->adminAuthentication();
             type: 'POST',
             data: {
               payment_id: payment_id,
-              transaction_number: transaction_number
+              transaction_number: transaction_number,
+              archive_status: archive_status
             },
             dataType: 'JSON',
             success: function(response) {
