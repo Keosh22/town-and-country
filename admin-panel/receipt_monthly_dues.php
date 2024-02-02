@@ -16,7 +16,12 @@ if (isset($_GET['transactionNumber'])) {
   // $payment_id = $_GET['payment_id'];
   $transactionNumberId = $_GET['transactionNumber'];
   $monthly_dues = "Monthly Dues";
-
+  
+  if(isset($_GET['archive_status']) && $_GET['archive_status'] == "ACTIVE"){
+    $archive_status = $_GET['archive_status'];
+  } else {
+    $archive_status = $_GET['archive_status'];
+  }
 
 
   $table_result = "";
@@ -44,9 +49,9 @@ if (isset($_GET['transactionNumber'])) {
         INNER JOIN property_list ON payments_list.property_id = property_list.id
         INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transactionNumberId AND collection_fee.category = :monthly_dues
+        WHERE payments_list.transaction_number = :transactionNumberId AND collection_fee.category = :monthly_dues AND payments_list.archive = :archive_status
         ";
-  $data1 = ["transactionNumberId" => $transactionNumberId, "monthly_dues" => $monthly_dues ];
+  $data1 = ["transactionNumberId" => $transactionNumberId, "monthly_dues" => $monthly_dues, "archive_status" => $archive_status];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -127,9 +132,9 @@ if (isset($_GET['transactionNumber'])) {
   INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
   INNER JOIN collection_list ON payments_list.collection_id = collection_list.id 
   INNER JOIN property_list ON payments_list.property_id = property_list.id
-  WHERE payments_list.transaction_number = :transaction_number AND collection_fee.category = :monthly_dues
+  WHERE payments_list.transaction_number = :transaction_number AND collection_fee.category = :monthly_dues AND payments_list.archive = :archive_status
   ";
-      $data2 = ["transaction_number" => $transaction_number, "monthly_dues" => $monthly_dues];
+      $data2 = ["transaction_number" => $transaction_number, "monthly_dues" => $monthly_dues, "archive_status" => $archive_status];
       $connection2 = $server->openConn();
       $stmt2 = $connection2->prepare($query2);
       $stmt2->execute($data2);

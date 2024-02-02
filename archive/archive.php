@@ -12,6 +12,8 @@ if (isset($_POST['payment_id']) && isset($_POST['transaction_number'])) {
   $payment_id = filter_input(INPUT_POST, 'payment_id', FILTER_SANITIZE_SPECIAL_CHARS);
   $transaction_number = filter_input(INPUT_POST, 'transaction_number', FILTER_SANITIZE_SPECIAL_CHARS);
   $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+  $collection_id = filter_input(INPUT_POST, 'collection_id', FILTER_SANITIZE_SPECIAL_CHARS);
+  $AVAILABLE = "AVAILABLE";
   $INACTIVE = "INACTIVE";
 
   $admin_id = $_SESSION['admin_id'];
@@ -37,13 +39,19 @@ if (isset($_POST['payment_id']) && isset($_POST['transaction_number'])) {
     $connection2 = $server->openConn();
     $stmt2 = $connection2->prepare($query2);
     $stmt2->execute($data2);
-    if($stmt2->rowCount() > 0){
-      $_SESSION['status'] = "Success";
-      $_SESSION['text'] = "The log has been archived successfuly";
-      $_SESSION['status_code'] = "success";
+    if ($stmt2->rowCount() > 0) {
+      $query3 = "UPDATE collection_list SET status = :AVAILABLE WHERE id = :collection_id";
+      $data3 = ["AVAILABLE" => $AVAILABLE, "collection_id" => $collection_id];
+      $connection3 = $server->openConn();
+      $stmt3 = $connection3->prepare($query3);
+      $stmt3->execute($data3);
+      if($stmt3->rowCount() > 0){
+        $_SESSION['status'] = "Success";
+        $_SESSION['text'] = "The log has been archived successfuly";
+        $_SESSION['status_code'] = "success";
+      }
+      
     }
-
-    
   } else {
     $_SESSION['status'] = "Failed!";
     $_SESSION['text'] = "You input a wrong password";

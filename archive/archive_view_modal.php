@@ -21,6 +21,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       <div class="modal-body mx-3">
         <input type="hidden" name="payment_id_modal" id="payment_id_modal">
         <input type="hidden" name="transactionNum_id_modal" id="transactionNum_id_modal">
+       
 
         <!-- RECEIPT FORMAT -->
 
@@ -89,7 +90,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
     $("#print_receipt").on('click', function() {
       // var payment_id = $("#payment_id_modal").val();
       var transaction_number = $("#transactionNum_id_modal").val();
-      var archive_status = "ACTIVE";
+      var archive_status = "INACTIVE";
       var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number +'&archive_status=' + archive_status, '_blank', 'width=900,height=600');
       setTimeout(function() {
         receipt.print();

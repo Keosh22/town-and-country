@@ -177,7 +177,7 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/receipt_view_modal.php");
+  include("../archive/archive_view_modal.php");
 
   ?>
 
@@ -192,6 +192,7 @@ $server->adminAuthentication();
 
       // View payment
       $("#archiveMonthlyDuesTable").on('click', '#view_payment', function() {
+        const archive_status = "INACTIVE";
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
@@ -204,7 +205,8 @@ $server->adminAuthentication();
             type: 'POST',
             data: {
               payment_id: payment_id,
-              transaction_number: transaction_number
+              transaction_number: transaction_number,
+              archive_status: archive_status
             },
             dataType: 'JSON',
             success: function(response) {

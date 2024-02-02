@@ -16,7 +16,13 @@ if (isset($_POST['payment_id'])) {
   $table_result = "";
   $number = 0;
   $total_ammount = 0;
-  $INACTIVE = "INACTIVE";
+ 
+  
+  if(isset($_POST['archive_status']) && $_POST['archive_status'] == "ACTIVE"){
+    $archive_status = $_POST['archive_status'];
+  } else {
+    $archive_status = $_POST['archive_status'];
+  }
   $query1 = "SELECT 
         payments_list.id as payment_id,
         payments_list.transaction_number,
@@ -39,9 +45,9 @@ if (isset($_POST['payment_id'])) {
         INNER JOIN property_list ON payments_list.property_id = property_list.id
         INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transaction_number  LIMIT 1
+        WHERE payments_list.transaction_number = :transaction_number AND payments_list.archive = :archive_status  LIMIT 1
         ";
-  $data1 = ["transaction_number" => $transaction_number];
+  $data1 = ["transaction_number" => $transaction_number, "archive_status" => $archive_status];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -84,9 +90,9 @@ if (isset($_POST['payment_id'])) {
     INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
     INNER JOIN collection_list ON payments_list.collection_id = collection_list.id 
     INNER JOIN property_list ON payments_list.property_id = property_list.id
-    WHERE payments_list.transaction_number = :transaction_number 
+    WHERE payments_list.transaction_number = :transaction_number AND payments_list.archive = :archive_status 
     ";
-  $data2 = ["transaction_number" => $transaction_number];
+  $data2 = ["transaction_number" => $transaction_number, "archive_status" => $archive_status];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
   $stmt2->execute($data2);
