@@ -15,10 +15,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $phase = $_POST['phase'];
   $street = $_POST['street'];
 
+  $query1 = "SELECT blk,lot FROM property_list WHERE 
+  blk = :blk AND
+  lot = :lot 
+  ";
+  $data1 = [
+    "blk" => $blk,
+    "lot" => $lot
+  ];
+  $connection1 = $server->openConn();
+  $stmt1 = $connection1->prepare($query1);
+  $stmt1->execute($data1);
+  if($stmt1->rowCount() > 0){
+    $_SESSION['status'] = "Failed!";
+    $_SESSION['text'] = "Property already exist!";
+    $_SESSION['status_code'] = "error";
+  } else {
 
 
-  $query = "INSERT INTO property_list (homeowners_id, blk, lot, phase, street) VALUES(:homeowners_id, :blk, :lot, :phase, :street)";
-  $data = [
+  
+
+  $query2 = "INSERT INTO property_list (homeowners_id, blk, lot, phase, street) VALUES(:homeowners_id, :blk, :lot, :phase, :street)";
+  $data2 = [
     "homeowners_id" => $homeowners_id,
     "blk" => $blk,
     "lot" => $lot,
@@ -26,19 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     "street" => $street
   ];
   $path = "../admin-panel/property.php";
-  $server->insert($query, $data);
+  $server->insert($query2, $data2);
 
 
 
-  $query = "SELECT * FROM homeowners_users WHERE id = :id";
-  $data = ["id" => $homeowners_id];
-  $connection = $server->openConn();
-  $stmt = $connection->prepare($query);
-  $stmt->execute($data);
-  $count = $stmt->rowCount();
+  $query3 = "SELECT * FROM homeowners_users WHERE id = :id";
+  $data3 = ["id" => $homeowners_id];
+  $connection3 = $server->openConn();
+  $stmt3 = $connection3->prepare($query3);
+  $stmt3->execute($data3);
+  $count3 = $stmt3->rowCount();
 
-  if ($count) {
-    while ($result = $stmt->fetch()) {
+  if ($count3) {
+    while ($result = $stmt3->fetch()) {
       $account_number = $result['account_number'];
       $firstname = $result['firstname'];
       $lastname = $result['lastname'];
@@ -52,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   // $stmt->execute($data);
   // $count = $stmt->rowCount();
 
-
+}
 
 }
 

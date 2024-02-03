@@ -50,7 +50,7 @@ require_once("../libs/server.php");
               <div id='phoneNumberUpdateHelpBlock'></div>
             </div>
 
-            <div class="col-12">
+            <!-- <div class="col-12">
               <label for="status" class="form-label ">Status</label>
               <select name="status_update" id="status_update" class="form-select" required>
                 <option  id="status_option_update"></option>
@@ -58,7 +58,7 @@ require_once("../libs/server.php");
                 <option value="Non-member">Non-member</option>
                 <option value="Tenant">Tenant</option>
               </select>
-            </div>
+            </div> -->
 
 
             <div class="col-12" id="propertyCard_update">
@@ -138,9 +138,9 @@ require_once("../libs/server.php");
     
 
     // Status on changed
-    $("#status_update").on('change', function() {
-      var status = $("#status_update").val();
-    });
+    // $("#status_update").on('change', function() {
+    //   var status = $("#status_update").val();
+    // });
 
     
       // Phone Number validation
