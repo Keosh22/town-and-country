@@ -28,6 +28,23 @@ if (isset($_POST['delete_property_btn'])) {
         "INACTIVE" => $INACTIVE,
         "property_id" => $property_id
       ];
+
+      $query2 = "SELECT archive FROM collection_list WHERE property_id = :property_id";
+      $data2 = ["property_id" => $property_id];
+      $connection2 = $server->openConn();
+      $stmt2 = $connection2->prepare($query2);
+      $stmt2->execute($data2);
+      if ($stmt2->rowCount() > 0) {
+        while ($result2 = $stmt2->fetch()) {
+          $query3 = "UPDATE collection_list SET archive = :INACTIVE WHERE property_id = :property_id";
+          $data3 = ["INACTIVE" => $INACTIVE, "property_id" => $property_id];
+          $connection3 = $server->openConn();
+          $stmt3 = $connection3->prepare($query3);
+          $stmt3->execute($data3);
+        }
+      }
+
+
       $connection1 = $server->openConn();
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
@@ -36,9 +53,9 @@ if (isset($_POST['delete_property_btn'])) {
         $_SESSION['text'] = "";
         $_SESSION['status_code'] = "success";
       } else {
-          $_SESSION['status'] = "Property Deletion Failed!";
-          $_SESSION['text'] = "You input a wrong password";
-          $_SESSION['status_code'] = "error";
+        $_SESSION['status'] = "Property Deletion Failed!";
+        $_SESSION['text'] = "You input a wrong password";
+        $_SESSION['status_code'] = "error";
       }
 
 

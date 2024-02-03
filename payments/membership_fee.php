@@ -249,7 +249,7 @@ $server->adminAuthentication();
           })
           .then((willDelete) => {
             if (willDelete) {
-
+              
             } else {
               swal("Archiving Canceled!");
               $("#archive_membershipFee").modal('hide');

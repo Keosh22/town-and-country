@@ -194,7 +194,7 @@ if (isset($_GET['homeowners_id'])) {
                                             } elseif ($status == "Non-member") {
                                             ?>
 
-                                              <a data-status="<?php echo  $status; ?>" id="renew_btn" name="renew_btn" class="btn btn-success btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
+                                              <a data-status="<?php echo  $status; ?>"  id="renew_btn" name="renew_btn" class="btn btn-success btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                                             <?php
                                             } elseif ($status == "EXPIRED") {
                                             ?>
@@ -269,7 +269,17 @@ if (isset($_GET['homeowners_id'])) {
                   status: status
                 },
                 success: function(response) {
-                  location.reload(true);
+                  var transaction_number = response;
+                  console.log(transaction_number);
+                  var archive_status = "ACTIVE";
+                  var receipt = window.open('../payments/membership_fee_receipt.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
+                  setTimeout(function () {
+                    receipt.print();
+                    setTimeout(function (){
+                      receipt.close();
+                      location.reload(true);
+                    }, 500);
+                  }, 500);
                 }
               });
             } else {

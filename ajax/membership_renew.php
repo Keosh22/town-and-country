@@ -49,7 +49,9 @@ if (isset($_POST['homeowners_id']) && isset($_POST['collection_fee_id']) && isse
       $_SESSION['status'] = "Payment Success";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
+      
     }
   }
+  echo $transaction_number;
 }
 ?>

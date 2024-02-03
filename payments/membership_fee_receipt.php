@@ -11,7 +11,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 <?php
 $server = new Server;
 
-if (isset($_GET['transactionNumber'])) {
+if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
 
   // $payment_id = $_GET['payment_id'];
   $transactionNumberId = $_GET['transactionNumber'];
