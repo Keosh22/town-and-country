@@ -74,6 +74,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
+                              $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                               property_list.id, 
                               property_list.homeowners_id,
@@ -83,11 +84,12 @@ $server->adminAuthentication();
                               property_list.street as property_street, 
                               homeowners_users.firstname, 
                               homeowners_users.lastname, 
-                              homeowners_users.middle_initial FROM property_list INNER JOIN homeowners_users WHERE property_list.homeowners_id = homeowners_users.id";
+                              homeowners_users.middle_initial FROM property_list INNER JOIN homeowners_users WHERE property_list.homeowners_id = homeowners_users.id AND property_list.archive = :ACTIVE";
+                              $data = ["ACTIVE" => $ACTIVE];
 
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
-                              $stmt->execute();
+                              $stmt->execute($data);
                               $count = $stmt->rowCount();
 
 

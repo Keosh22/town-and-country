@@ -101,6 +101,7 @@ if (isset($_POST['register'])) {
 
     $action = "Register homeowners account of " . $account_number . ": " . $firstname . "";
     $server->insertActivityLog($action);
+    $server->insertCollection();
   }
 }
 ?>

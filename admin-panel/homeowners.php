@@ -73,10 +73,12 @@ $server->adminAuthentication();
 														</thead>
 														<tbody>
 															<?php
-															$query = "SELECT * FROM homeowners_users";
+															$ACTIVE = "ACTIVE";
+															$query = "SELECT * FROM homeowners_users WHERE archive = :ACTIVE";
+															$data = ["ACTIVE" => $ACTIVE];
 															$connection = $server->openConn();
 															$stmt = $connection->prepare($query);
-															$stmt->execute();
+															$stmt->execute($data);
 															while ($result = $stmt->fetch()) {
 																$homeowners_id = $result['id'];
 																$account_number = $result['account_number'];

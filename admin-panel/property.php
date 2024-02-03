@@ -101,9 +101,9 @@ if ($count) {
                             </thead>
                             <tbody>
                               <?php
-
-                              $query = "SELECT * FROM property_list WHERE homeowners_id = :id";
-                              $data = ["id" => $id];
+                              $ACTIVE = "ACTIVE";
+                              $query = "SELECT * FROM property_list WHERE homeowners_id = :id AND archive = :ACTIVE";
+                              $data = ["id" => $id, "ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);

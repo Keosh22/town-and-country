@@ -229,6 +229,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
+                              $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                                   collection_list.id,
                                   collection_list.property_id,
@@ -253,10 +254,12 @@ $server->adminAuthentication();
                                 FROM collection_list 
                                 INNER JOIN property_list ON collection_list.property_id = property_list.id 
                                 INNER JOIN homeowners_users ON property_list.homeowners_id = homeowners_users.id
+                                WHERE collection_list.archive = :ACTIVE
                                 ";
+                                $data = ["ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
-                              $stmt->execute();
+                              $stmt->execute($data);
                               if ($stmt->rowCount() > 0) {
                                 while ($result = $stmt->fetch()) {
                                   //collectionlist table

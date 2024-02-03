@@ -58,8 +58,10 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
     } else {
 
       if (empty($transaction_number)) {
+        $ACTIVE = "ACTIVE";
         // Transaction Number Generator
         $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
+        // $data4 = ["ACTIVE" => $ACTIVE];
         $connection4 = $server->openConn();
         $stmt4 = $connection4->prepare($query4);
         $stmt4->execute();

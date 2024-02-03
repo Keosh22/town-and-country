@@ -40,17 +40,10 @@ if (isset($_POST['payment_id']) && isset($_POST['transaction_number'])) {
     $stmt2 = $connection2->prepare($query2);
     $stmt2->execute($data2);
     if ($stmt2->rowCount() > 0) {
-      $query3 = "UPDATE collection_list SET status = :AVAILABLE WHERE id = :collection_id";
-      $data3 = ["AVAILABLE" => $AVAILABLE, "collection_id" => $collection_id];
-      $connection3 = $server->openConn();
-      $stmt3 = $connection3->prepare($query3);
-      $stmt3->execute($data3);
-      if($stmt3->rowCount() > 0){
-        $_SESSION['status'] = "Success";
-        $_SESSION['text'] = "The log has been archived successfuly";
-        $_SESSION['status_code'] = "success";
-      }
-      
+
+      $_SESSION['status'] = "Success";
+      $_SESSION['text'] = "The log has been archived successfuly";
+      $_SESSION['status_code'] = "success";
     }
   } else {
     $_SESSION['status'] = "Failed!";

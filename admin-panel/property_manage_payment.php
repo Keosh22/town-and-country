@@ -316,6 +316,7 @@ if (isset($_GET['property_id'])) {
         var month = $(this).attr('data-month');
         var status = $(this).attr('data-status');
         var property = $(this).attr('data-property');
+        console.log(collection_id);
 
 
 

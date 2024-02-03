@@ -21,20 +21,21 @@ if (isset($_POST['property_id'])) {
   $first_day_month = date("j", strtotime("first day of this month"));
   $month = date("m", strtotime("now"));
   $year = date("Y", strtotime("now"));
-
+  $ACTIVE = "ACTIVE";
 
   // Get  the proeprty list
-  $query1 = "SELECT * FROM property_list WHERE id = :property_id";
-  $data1 = ["property_id" => $property_id];
+  $query1 = "SELECT * FROM property_list WHERE id = :property_id AND archive = :ACTIVE";
+  $data1 = ["property_id" => $property_id, "ACTIVE" => $ACTIVE];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
   if ($stmt1->rowCount() > 0) {
-    $query2 = "SELECT * FROM collection_list WHERE property_id = :property_id AND month = :current_month AND year = :year_picked";
+    $query2 = "SELECT * FROM collection_list WHERE property_id = :property_id AND month = :current_month AND year = :year_picked AND archive = :ACTIVE";
     $data2 = [
       'property_id' => $property_id,
       'current_month' => $current_month,
-      'year_picked' => $year_picked
+      'year_picked' => $year_picked,
+      'ACTIVE' => $ACTIVE
     ];
     $connection2 = $server->openConn();
     $stmt2 = $connection2->prepare($query2);
