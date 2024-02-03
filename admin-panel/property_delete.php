@@ -35,12 +35,20 @@ if (isset($_POST['delete_property_btn'])) {
       $stmt2 = $connection2->prepare($query2);
       $stmt2->execute($data2);
       if ($stmt2->rowCount() > 0) {
-        while ($result2 = $stmt2->fetch()) {
+        while ($result2 = $stmt2->fetch()) {  
+          // Archive all collection list record
           $query3 = "UPDATE collection_list SET archive = :INACTIVE WHERE property_id = :property_id";
           $data3 = ["INACTIVE" => $INACTIVE, "property_id" => $property_id];
           $connection3 = $server->openConn();
           $stmt3 = $connection3->prepare($query3);
           $stmt3->execute($data3);
+
+          // Archive all payment record
+          $query4 = "UPDATE payments_list SET archive = :INACTIVE WHERE property_id = :property_id";
+          $data4 = ["INACTIVE" => $INACTIVE, "property_id" => $property_id];
+          $connection4 = $server->openConn();
+          $stmt4 = $connection4->prepare($query4);
+          $stmt4->execute($data4);
         }
       }
 

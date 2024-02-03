@@ -204,6 +204,21 @@ $server->adminAuthentication();
       $("#propertyListTable").on('click', '#delete_property', function() {
         var property_id = $(this).attr('data-id');
         $("#delete_property_id").val(property_id);
+        swal({
+          title: "Warning",
+          text: "All the records of this property will be removed. Do you want to continue?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        })
+        .then((willDelete) => {
+          if (willDelete){
+
+          } else {
+            swal("Canceled!");
+            $("#deleteProperty").modal('hide');
+          }
+        })
       });
 
 
