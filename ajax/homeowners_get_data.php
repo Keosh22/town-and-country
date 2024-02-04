@@ -20,7 +20,6 @@ if(isset($_POST['homeowners_id'])){
     echo "No records found";
   }
   
-
 }
 ?>
 

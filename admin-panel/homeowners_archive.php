@@ -56,10 +56,10 @@ if (isset($_POST['homeowners_id'])) {
     $stmt3 = $connection3->prepare($query3);
     $stmt3->execute($data3);
     if ($stmt3->rowCount() > 0) {
-      $_SESSION['status'] = "Account remove successfuly!";
-      $_SESSION['text'] = "";
-      $_SESSION['status_code'] = "success";
     }
+    $_SESSION['status'] = "Account remove successfuly!";
+    $_SESSION['text'] = "";
+    $_SESSION['status_code'] = "success";
   }
 }
 

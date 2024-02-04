@@ -134,8 +134,14 @@ $server->adminAuthentication();
                                       <ul class="dropdown-menu">
                                       <li><a href="#homeowners_view_modal" class="dropdown-item" data-bs-toggle="modal" id="homeowners_view_btn"
                                       data-homeowners-id="<?php echo $homeowners_id; ?>"
+                                      data-acc-num="<?php echo $account_number; ?>"
                                       data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>"
+                                      data-email="<?php echo $email ?>"
+                                      data-phone-num="<?php echo $phone_number ?>"
+                                      data-address="<?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?>"
+                                      data-status="<?php echo $status ?>"
                                       >View</a></li>
+                                      <li><a href="#" class="dropdown-item" id="delete_permanent_btn" data-homeowners-id="<?php echo $homeowners_id; ?>">Delete</a></li>
                                       </ul>
                                     </div>
                                   </td>
@@ -197,14 +203,59 @@ $server->adminAuthentication();
         ]
       });
 
+      // View modal
       $("#homeownersArchiveTable").on('click', '#homeowners_view_btn', function (){
         var homeowners_id = $(this).attr('data-homeowners-id');
+        var account_number = $(this).attr('data-acc-num');
         var name = $(this).attr('data-name');
+        var email_address = $(this).attr('data-email');
+        var phone_number = $(this).attr('data-phone-num');
+        var address = $(this).attr('data-address');
+        var status = $(this).attr('data-status');
+        
 
         $("#homeowners_id_view").val(homeowners_id);
-        $("#account_number_view").val(name);
+        $("#account_number_view").val(account_number);
+        $("#name_view").val(name);
+        $("#email_address_view").val(email_address);
+        $("#phone_number_view").val(phone_number);
+        $("#address_view").val(address);
+        $("#status_view").val(status);
       });
 
+
+      // Delete homeowners
+      $("#homeownersArchiveTable").on('click', '#delete_permanent_btn', function (){
+        var homeowners_id = $(this).attr('data-homeowners-id');
+        swal({
+          title: "Delete Confirmation",
+          text: "All the record of this account will also be permanently deleted. Do you want to continue?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        })
+        .then((willDelete) => {
+          if(willDelete){
+            $.ajax({
+              url: '../ajax/homeowners_account_delete.php',
+              type: 'POST',
+              data: {
+                homeowners_id: homeowners_id
+              },
+              success: function (response){
+                location.reload(true);
+             
+              }
+            });
+
+           
+            // swal("This account has been permanently deleted!","","success");
+          } else {
+            swal("Delete Canceled!","", "error");
+          }
+        })
+
+      });
 
       
     });
