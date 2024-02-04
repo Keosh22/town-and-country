@@ -82,6 +82,7 @@ if (isset($_POST['payment_id'])) {
     collection_fee.fee,
     collection_list.year,
     collection_list.month,
+    collection_list.balance as collection_balance,
     property_list.blk as property_blk,
     property_list.lot as property_lot,
     property_list.street as property_street,
@@ -103,6 +104,7 @@ if (isset($_POST['payment_id'])) {
       $month = $result2['month'];
       $year = $result2['year'];
       $payment_list_id = $result2['payment_list_id'];
+      $collection_balance = $result2['collection_balance'];
 
       $property_blk = $result2['property_blk'];
       $proeprty_lot = $result2['property_lot'];
@@ -111,13 +113,13 @@ if (isset($_POST['payment_id'])) {
 
       $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
       $number = $number + 1;
-      $total_ammount += $fee;
+      $total_ammount += intval($collection_balance);
 
       $table_result .= '
       <tr>
       <td>'. $number .'</td>
       <td>'. $category .'</td>
-      <td>'. $fee .'</td>
+      <td>'. $collection_balance .'</td>
       <td>'.$property.'-'.$month.' '.$year.'</td>
       </tr>
       ';

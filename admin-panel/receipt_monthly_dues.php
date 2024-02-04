@@ -124,6 +124,7 @@ if (isset($_GET['transactionNumber'])) {
   collection_fee.fee,
   collection_list.year,
   collection_list.month,
+  collection_list.balance as collection_balance,
   property_list.blk as property_blk,
   property_list.lot as property_lot,
   property_list.street as property_street,
@@ -142,6 +143,7 @@ if (isset($_GET['transactionNumber'])) {
         while ($result2 = $stmt2->fetch()) {
           $category = $result2['category'];
           $fee = $result2['fee'];
+          $collection_balance = $result2['collection_balance'];
           $month = $result2['month'];
           $year = $result2['year'];
           $payment_list_id = $result2['payment_list_id'];
@@ -153,12 +155,12 @@ if (isset($_GET['transactionNumber'])) {
 
           $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
           $number = $number + 1;
-          $total_ammount += $fee;
+          $total_ammount += intval($collection_balance);
       ?>
           <tr>
             <td><?php echo $number; ?></td>
             <td><?php echo $category; ?></td>
-            <td><?php echo $fee; ?></td>
+            <td><?php echo $collection_balance; ?></td>
             <td><?php echo $property . '-' . $month . ' ' . $year; ?></td>
           </tr>
       <?php

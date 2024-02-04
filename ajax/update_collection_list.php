@@ -23,13 +23,15 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
   $collection_fee_id = $_POST['collection_fee_id'];
   $paid_amount = $_POST['amount'];
   $remarks = filter_input(INPUT_POST, 'remarks', FILTER_SANITIZE_SPECIAL_CHARS);
-
+  $balance = $_POST['balance'];
+  $i = 0;
 
 
 
   foreach ($id_array as $id) {
 
-
+    
+    $current_balance = $balance[$i];
     //Update status to PAID
     $query1 = "UPDATE collection_list SET status = :paid, date_paid = :date_paid WHERE id = :id";
     $data1 = [
@@ -86,13 +88,14 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
         "collection_id" => $id,
         "collection_fee_id" => $collection_fee_id,
         "date_created" => $current_date,
-        "paid" => $paid_amount,
+        "paid" => $current_balance,
         "remarks" => $remarks
       ];
       $connection3 = $server->openConn();
       $stmt3 = $connection3->prepare($query3);
       $stmt3->execute($data3);
     }
+    $i += 1;
   }
 
 

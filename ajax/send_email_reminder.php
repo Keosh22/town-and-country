@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $due = "DUE";
   $available = "AVAILABLE";
   $not_sent = "NOT SENT";
+  $ACTIVE = "ACTIVE";
 
   $day = "";
   $total_ammount_due = 0;
@@ -45,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     FROM collection_list
     INNER JOIN property_list ON collection_list.property_id = property_list.id
     INNER JOIN homeowners_users ON collection_list.owners_id = homeowners_users.id
-    WHERE collection_list.month = :current_month AND collection_list.email_status = :not_sent AND collection_list.status = :available LIMIT 50
+    WHERE collection_list.month = :current_month AND collection_list.email_status = :not_sent AND collection_list.status = :available AND collection_list.archive = :ACTIVE LIMIT 50
      ";
-  $data2 = ["current_month" => $current_month, "not_sent" => $not_sent, "available" => $available];
+  $data2 = ["current_month" => $current_month, "not_sent" => $not_sent, "available" => $available, "ACTIVE" => $ACTIVE];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
   $stmt2->execute($data2);
@@ -79,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
       // Compute the remaining balance
-      $query4 = "SELECT * FROM collection_list WHERE property_id = :collection_property_id AND owners_id = :collection_owners_id AND status = :due";
-      $data4 = ["collection_property_id" => $collection_property_id, "collection_owners_id" => $collection_owners_id, "due" => $due];
+      $query4 = "SELECT * FROM collection_list WHERE property_id = :collection_property_id AND owners_id = :collection_owners_id AND status = :due AND archive = :ACTIVE";
+      $data4 = ["collection_property_id" => $collection_property_id, "collection_owners_id" => $collection_owners_id, "due" => $due, "ACTIVE" => $ACTIVE];
       $connection4 = $server->openConn();
       $stmt4 = $connection4->prepare($query4);
       $stmt4->execute($data4);
@@ -150,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($current_day <= date("j", mktime(0, 0, 0, $current_month_num, 2, $current_year)) && $property_phase == "Phase 1") {
           
           $sent = "SENT";
-          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
-          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk AND archive = :ACTIVE";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk, "ACTIVE" => $ACTIVE];
           $connection3 = $server->openConn();
           $stmt3 = $connection3->prepare($query3);
           $stmt3->execute($data3);
@@ -162,8 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 8, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 9, $current_year))  && $property_phase == "Phase 2") {
           // BUG When email sent is failed still updating 
           $sent = "SENT";
-          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
-          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk AND archive = :ACTIVE";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk, "ACTIVE" => $ACTIVE];
           $connection3 = $server->openConn();
           $stmt3 = $connection3->prepare($query3);
           $stmt3->execute($data3);
@@ -174,8 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         elseif ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 15, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 16, $current_year))  && $property_phase == "Phase 3") {
           // BUG When email sent is failed still updating 
           $sent = "SENT";
-          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk ";
-          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk];
+          $query3 = "UPDATE collection_list SET email_status = :sent WHERE id = :collection_id_pk AND archive = :ACTIVE";
+          $data3 = ["sent" => $sent, "collection_id_pk" => $collection_id_pk, "ACTIVE" => $ACTIVE];
           $connection3 = $server->openConn();
           $stmt3 = $connection3->prepare($query3);
           $stmt3->execute($data3);

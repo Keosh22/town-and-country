@@ -170,6 +170,7 @@ if (isset($_GET['property_id'])) {
                                     $query2 = "SELECT 
                                   collection_list.*, 
                                   collection_fee.*,
+                                  collection_list.balance as collection_balance,
                                   collection_list.status as status_cl,
                                   collection_fee.status as status_cf,
                                   collection_list.id as collection_list_id,
@@ -188,6 +189,7 @@ if (isset($_GET['property_id'])) {
                                         $year = $result2['year'];
                                         $fee = $result2['fee'];
                                         $collection_fee_id = $result2['collection_fee_id'];
+                                        $collection_balance = $result2['collection_balance'];
 
 
                                         if ($month == "January") {
@@ -250,7 +252,7 @@ if (isset($_GET['property_id'])) {
 
                                           <div class="col-2">
                                             <div class="card text-bg-<?php echo $color; ?> text-center">
-                                              <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee-id="<?php echo $collection_fee_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>" data-property="<?php echo $property_id; ?>">
+                                              <input type="checkbox" class="checkbox form-check-input mx-1 mt-1" <?php echo $checkbox_status; ?> value="<?php echo $colleciton_id; ?>" data-fee-id="<?php echo $collection_fee_id; ?>" data-fee="<?php echo $fee; ?>" data-month="<?php echo $month; ?>" data-status="<?php echo $status; ?>" data-owner="<?php echo $homeowners_id; ?>" data-property="<?php echo $property_id; ?>" data-balance="<?php echo $collection_balance; ?>">
                                               <h5 class="card-title month"><b><?php echo $month_abr; ?></b></h5>
                                               <p class="card-text mb-1 status"><?php echo $status_abr; ?></p>
                                             </div>
@@ -301,6 +303,7 @@ if (isset($_GET['property_id'])) {
 
       // Add fee
       var id_array = [];
+      var balance = [];
       var total = 0;
       var homeowners_id;
       var property_id;
@@ -310,30 +313,38 @@ if (isset($_GET['property_id'])) {
       $(".checkbox").on('change', function() {
         var collection_fee = $(this).attr('data-fee');
         var collection_FeeId = $(this).attr('data-fee-id');
+        var collection_balance = $(this).attr('data-balance');
         var new_val = parseInt(collection_fee);
+        var new_collection_balance = parseInt(collection_balance);
         var collection_id = $(this).val();
         var owner = $(this).attr('data-owner');
         var month = $(this).attr('data-month');
         var status = $(this).attr('data-status');
         var property = $(this).attr('data-property');
-        console.log(collection_id);
+        // console.log(parseInt(collection_balance));
+
 
 
 
         if (this.checked) {
-          total = total + new_val;
+          // total = total + new_val;
+          total = total + new_collection_balance;
           homeowners_id = owner;
           collection_fee_id = collection_FeeId;
           property_id = property;
-          amount = collection_fee;
+          //amount = collection_fee;
+          amount = collection_balance;
           id_array.push(collection_id);
+          balance.push(new_collection_balance);
 
         } else {
-          total = total - new_val;
+          // total = total - new_val;
+          total = total - new_collection_balance;
           homeowners_id = owner;
           collection_fee_id = collection_FeeId;
           property_id = property;
-          amount = collection_fee;
+          //amount = collection_fee;
+          amount = collection_balance;
 
           // id array
           for (var i = 0; i <= id_array.length - 1; i++) {
@@ -341,8 +352,15 @@ if (isset($_GET['property_id'])) {
               id_array.splice(i, 1);
             }
           }
-        }
 
+          for (var i = 0; i <= balance.length - 1; i++) {
+            if (new_collection_balance === balance[i]) {
+              balance.splice(i, 1);
+
+            }
+          }
+        }
+        console.log(balance);
         $("#fee").val(total);
       });
 
@@ -370,7 +388,8 @@ if (isset($_GET['property_id'])) {
                   property_id: property_id,
                   collection_fee_id: collection_fee_id,
                   amount: amount,
-                  remarks: remarks
+                  remarks: remarks,
+                  balance: balance
                 },
                 success: function(response) {
                   // $(".content").html(response);
