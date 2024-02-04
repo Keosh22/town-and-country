@@ -81,6 +81,7 @@ $server->adminAuthentication();
                             <tbody>
                               <?php
                               $membership_fee = "Membership Fee";
+                              $membership_fee_num = "C001";
                               $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                                 payments_list.transaction_number,
@@ -100,9 +101,9 @@ $server->adminAuthentication();
                                 FROM payments_list 
                                 INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
                                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                                WHERE collection_fee.category = :membership_fee AND payments_list.archive = :ACTIVE
+                                WHERE collection_fee.collection_fee_number = :membership_fee_num AND payments_list.archive = :ACTIVE
                                 ";
-                              $data = ["membership_fee" => $membership_fee, "ACTIVE" => $ACTIVE];
+                              $data = ["membership_fee_num" => $membership_fee_num, "ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);

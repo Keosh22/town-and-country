@@ -82,6 +82,7 @@ $server->adminAuthentication();
                             <tbody>
                               <?php
                               $monthly_dues = "Monthly Dues";
+                              $monthly_dues_num = "C007";
                               $INACTIVE = "INACTIVE";
                               $query = "SELECT 
                            payments_list.transaction_number,
@@ -104,9 +105,9 @@ $server->adminAuthentication();
                            INNER JOIN property_list ON payments_list.property_id = property_list.id
                            INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
                            INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                           WHERE collection_fee.category = :monthly_dues AND payments_list.archive = :INACTIVE
+                           WHERE collection_fee.collection_fee_number = :monthly_dues_num AND payments_list.archive = :INACTIVE
                            ";
-                              $data = ["monthly_dues" => $monthly_dues, "INACTIVE" => $INACTIVE];
+                              $data = ["monthly_dues_num" => $monthly_dues_num, "INACTIVE" => $INACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);

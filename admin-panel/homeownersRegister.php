@@ -25,6 +25,7 @@ if (isset($_POST['register'])) {
   $phase = filter_input(INPUT_POST, 'phase', FILTER_SANITIZE_SPECIAL_CHARS);
   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y-m-d H:i:sA", strtotime("now"));
+  $ACTIVE = "ACTIVE";
 
 
 
@@ -35,11 +36,13 @@ if (isset($_POST['register'])) {
       // Check if there is current property registered
       $query3 = "SELECT blk,lot FROM property_list WHERE 
       blk = :blk AND
-      lot = :lot 
+      lot = :lot AND
+      archive = :ACTIVE
       ";
         $data3 = [
           "blk" => $blk,
-          "lot" => $lot
+          "lot" => $lot,
+          "ACTIVE" => $ACTIVE
         ];
         $connection3 = $server->openConn();
         $stmt3 = $connection3->prepare($query3);

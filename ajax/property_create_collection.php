@@ -47,8 +47,9 @@ if (isset($_POST['property_id'])) {
     } else {
        // get the current monthly dues fee
        $monthly_dues = "Monthly Dues";
-       $query3 = "SELECT * FROM collection_fee WHERE category = :category";
-       $data3 = ["category" => $monthly_dues];
+       $monthy_dues_id = "C007";
+       $query3 = "SELECT * FROM collection_fee WHERE collection_fee_number = :monthy_dues_id";
+       $data3 = ["monthy_dues_id" => $monthy_dues_id];
        $connection3 = $server->openConn();
        $stmt3 = $connection3->prepare($query3);
        $stmt3->execute($data3);

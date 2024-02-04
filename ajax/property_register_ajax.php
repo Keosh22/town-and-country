@@ -14,14 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $lot = $_POST['lot'];
   $phase = $_POST['phase'];
   $street = $_POST['street'];
+  $ACTIVE = "ACTIVE";
 
+  // CHECK IF THERE IS CURRENT ACTIVE PROPERTY ALREADY REGISTERED
   $query1 = "SELECT blk,lot FROM property_list WHERE 
   blk = :blk AND
-  lot = :lot 
+  lot = :lot AND
+  archive = :ACTIVE
   ";
   $data1 = [
     "blk" => $blk,
-    "lot" => $lot
+    "lot" => $lot,
+    "ACTIVE" => $ACTIVE
   ];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);

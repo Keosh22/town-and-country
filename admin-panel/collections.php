@@ -69,6 +69,7 @@ $server->adminAuthentication();
                             <thead>
                               <tr>
                                 <th width="5%">ID</th>
+                                <th width="10%">Collection #</th>
                                 <th width="30%">Category</th>
                                 <th width="30%">Description</th>
                                 <th width="10%">Fee</th>
@@ -87,6 +88,7 @@ $server->adminAuthentication();
                               if ($count > 0) {
                                 while ($result = $stmt->fetch()) {
                                   $collection_id = $result['id'];
+                                  $collection_number = $result['collection_fee_number'];
                                   $category = $result['category'];
                                   $description = $result['description'];
                                   $fee = $result['fee'];
@@ -95,6 +97,7 @@ $server->adminAuthentication();
                               ?>
                                   <tr>
                                     <td><?php echo $collection_id ?></td>
+                                    <td><?php echo $collection_number ?></td>
                                     <td><?php echo $category ?></td>
                                     <td><?php echo $description ?></td>
                                     <td><?php echo $fee ?></td>
@@ -135,6 +138,7 @@ $server->adminAuthentication();
                             <tfoot>
                               <tr>
                                 <th width="5%">ID</th>
+                                <th width="10%">Collection #</th>
                                 <th width="30%">Category</th>
                                 <th width="30%">Description</th>
                                 <th width="10%">Fee</th>
@@ -163,14 +167,14 @@ $server->adminAuthentication();
   // Add Collection Modal
   include("../admin-panel/collection_create_modal.php");
   // Delete Collection Modal
-  include("../admin-panel/collection_update_modal.php"); 
+  include("../admin-panel/collection_update_modal.php");
   ?>
 
 
   <script>
     $(document).ready(function() {
 
-      
+
       // DataTable
       $("#collectionsTable").DataTable({
         order: [
@@ -181,18 +185,20 @@ $server->adminAuthentication();
 
 
     // Update Collection 
-    $("#collectionsTable").on('click', "#update_collection", function (){
+    $("#collectionsTable").on('click', "#update_collection", function() {
       var collection_id = $(this).attr('data-id');
       $("#update_collection_id").val(collection_id);
       getCollection(collection_id);
 
-      function getCollection(collection_id){
+      function getCollection(collection_id) {
         $.ajax({
           url: "../ajax/collection_get_data.php",
           type: 'POST',
-          data: {collection_id: collection_id},
+          data: {
+            collection_id: collection_id
+          },
           dataType: 'JSON',
-          success: function (response){
+          success: function(response) {
             $("#update_category").val(response.category);
             $("#update_description").val(response.description);
             $("#update_fee").val(response.fee);
@@ -202,29 +208,30 @@ $server->adminAuthentication();
     });
 
     // Delete Collection
-    $("#collectionsTable").on('click', "#delete_collection", function (){
+    $("#collectionsTable").on('click', "#delete_collection", function() {
       var collection_id = $(this).attr('data-id');
       swal({
-        title: "Delete Confirmation",
-        text: "Once deleted, you will not able to recover this record",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) =>{
-        if(willDelete){
-          $.ajax({
-            url: "../ajax/collection_delete.php",
-            type: "POST",
-            data: {collection_id: collection_id},
-            success: function (response) {
-            }
-          });
-          location.reload(true);
-        } else {
-          swal("Delete canceled!")
-        }
-      })
+          title: "Delete Confirmation",
+          text: "Once deleted, you will not able to recover this record",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              url: "../ajax/collection_delete.php",
+              type: "POST",
+              data: {
+                collection_id: collection_id
+              },
+              success: function(response) {}
+            });
+            location.reload(true);
+          } else {
+            swal("Delete canceled!")
+          }
+        })
     });
   </script>
   <!-- FOOTER -->

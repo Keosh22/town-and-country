@@ -15,6 +15,7 @@ if (isset($_POST['homeowners_id'])) {
 
 
 
+
   // Check if there is proeprty registered 
   // Will not delete if there is current registered property
   $query = "SELECT homeowners_id FROM property_list WHERE homeowners_id = :homeowners_id AND archive = :ACTIVE ";
