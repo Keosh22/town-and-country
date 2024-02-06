@@ -29,6 +29,7 @@ if (isset($_POST['payment_id'])) {
         payments_list.transaction_number as payment_list_tnumber,
         payments_list.date_created as date_paid,
         payments_list.remarks,
+        payments_list.paid,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -67,18 +68,19 @@ if (isset($_POST['payment_id'])) {
 
       $remarks = $result1['remarks'];
       $fee = $result1['fee'];
+      $paid = $result1['paid'];
       $category = $result1['category'];
 
       $number = $number + 1;
 
       $name = $firstname . " " . $middle_initial . " " . $lastname;
       $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . ", " . $phase;
-      $total_amount = $fee;
+      $total_amount = $paid;
       $table_result = '
       <tr>
       <td>' . $number . '</td>
       <td>' . $category . '</td>
-      <td>' . $fee . '</td>
+      <td>' . $paid . '</td>
       <td>' . $remarks . ' ' . date("Y", strtotime($date_paid)) . '</td>
       </tr>
       ';

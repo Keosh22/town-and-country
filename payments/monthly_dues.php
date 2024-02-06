@@ -268,6 +268,10 @@ $server->adminAuthentication();
         ]
       });
 
+      // var table = $("#monthlyDuesTable").DataTable();
+      // var value = 300;
+      // table.column( 4 ).search( value ).draw();
+     
 
     });
   </script>

@@ -63,6 +63,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
       $firstname = $result1['firstname'];
       $middle_initial = $result1['middle_initial'];
       $lastname = $result1['lastname'];
+ 
 
 
       $blk = $result1['homeowners_blk'];
@@ -118,6 +119,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
       // Payment Summary
       $query2 = "SELECT
   payments_list.id as payment_list_id,
+  payments_list.paid,
   collection_fee.category,
   collection_fee.fee
   FROM payments_list 
@@ -132,6 +134,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
         while ($result2 = $stmt2->fetch()) {
           $category = $result2['category'];
           $fee = $result2['fee'];
+          $paid = $result2['paid'];
           $payment_list_id = $result2['payment_list_id'];
 
           
@@ -142,7 +145,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
           <tr>
             <td><?php echo $number; ?></td>
             <td><?php echo $category; ?></td>
-            <td><?php echo $fee; ?></td>
+            <td><?php echo $paid; ?></td>
             <td><?php echo  $remarks. " " . date("Y", strtotime($date_paid)); ?></td>
           </tr>
       <?php
@@ -160,7 +163,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
           <label for="total_amount" class="form-label">Total Amount:</label>
         </div>
         <div class="col-4">
-          <input type="text" class="form-control" id="total_amount" value="<?php echo $fee; ?>">
+          <input type="text" class="form-control" id="total_amount" value="<?php echo $paid; ?>">
         </div>
       </div>
     </div>

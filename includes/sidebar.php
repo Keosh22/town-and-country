@@ -78,6 +78,13 @@
         <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
+              <a href="../payments/construction.php" class="sidebar-link-dropdown">Constructions</a>
+            </button>
+          </div>
+        </li>
+        <!-- <li class="sidebar-item">
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
               <a href="#" class="sidebar-link-dropdown">Construction Bond</a>
             </button>
           </div>
@@ -95,7 +102,7 @@
               <a href="#" class="sidebar-link-dropdown">Material Delivery</a>
             </button>
           </div>
-        </li>
+        </li> -->
       </ul>
 
       <!-------- Collections Dropdown -------->
