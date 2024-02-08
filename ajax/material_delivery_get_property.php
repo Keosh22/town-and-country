@@ -19,6 +19,7 @@ if (isset($_POST['blk']) && isset($_POST['lot']) && isset($_POST['phase'])  && i
     property_list.lot as property_lot,
     property_list.phase as property_phase,
     property_list.street as property_street,
+    property_list.id as property_id,
     homeowners_users.firstname,
     homeowners_users.middle_initial,
     homeowners_users.lastname,
@@ -36,11 +37,12 @@ if (isset($_POST['blk']) && isset($_POST['lot']) && isset($_POST['phase'])  && i
       $middle_name = $result1['middle_initial'];
       $lastname = $result1['lastname'];
       $homeowners_id = $result1['homeowners_id'];
+      $property_id = $result1['property_id'];
 
       $name = $firstname . ' ' . $middle_name . ' ' . $lastname;
       
     }
-    $response = ["name" => $name, "homeowners_id" => $homeowners_id];
+    $response = ["name" => $name, "homeowners_id" => $homeowners_id, "property_id" => $property_id];
   } else {
     $response = ["name" => 'No Record Found'];
   }

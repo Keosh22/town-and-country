@@ -1,6 +1,6 @@
-
-<?php 
+<?php
 $default_date = date("Y/m/d", strtotime("now"));
+$date_created = date("Y-m-d H:s:iA", strtotime("now"));
 ?>
 <div id="materialDeliveryModal" class="modal fade">
   <div class="modal-dialog modal-lg">
@@ -9,10 +9,13 @@ $default_date = date("Y/m/d", strtotime("now"));
         <h4 class="modal-title"><b>Material Delivery</b></h4>
         <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
       </div>
-      <form action="" id="material_delivery_form">
+      <div id="material_delivery_form">
         <div class="modal-body mx-3">
           <div class="row gy-3">
             <input type="hidden" class="form-control" id="homeowners_id_md" name="homeowners_id_md" required>
+            <input type="hidden" class="form-control" id="property_id_md" name="property_id_md" required>
+            <input type="hidden" class="form-control" id="collection_fee_id_md" name="collection_fee_id_md" required>
+
             <div class="col-3">
               <div class="form-floating">
                 <input type="text" id="blk_md" name="blk_md" class="form-control" placeholder="Blk" required>
@@ -28,7 +31,7 @@ $default_date = date("Y/m/d", strtotime("now"));
             <div class="col-3">
               <div class="form-floating">
                 <select class="form-select" name="phase_md" id="phase_md" required>
-                  <option value="">- Select -</option>
+                  <option value="" class="default_select">- Select -</option>
                   <option value="Phase 1">Phase 1</option>
                   <option value="Phase 2">Phase 2</option>
                   <option value="Phase 3">Phase 3</option>
@@ -39,7 +42,7 @@ $default_date = date("Y/m/d", strtotime("now"));
             <div class="col-3">
               <div class="form-floating">
                 <select name="street_md" id="street_md" class="form-select" required>
-                  <option value="">- Select -</option>
+                  <option value="" class="default_select">- Select -</option>
                 </select>
                 <label for="street_md">Street</label>
               </div>
@@ -59,12 +62,12 @@ $default_date = date("Y/m/d", strtotime("now"));
             <div class="col-4">
               <div class="form-floating">
                 <select name="wheelers" id="wheelers" class="form-select" required>
-                <option value="">- Select -</option>
-                <option value="C004">6 Wheelers</option>
-                <option value="C005">10 Wheelers</option>
-                <option value="C006">12+ Wheelers</option>
+                  <option value="" class="default_select">- Select -</option>
+                  <option value="C004">6 Wheelers</option>
+                  <option value="C005">10 Wheelers</option>
+                  <option value="C006">12+ Wheelers</option>
                 </select>
-                <label for="wheelers" >Vehicle Type</label>
+                <label for="wheelers">Vehicle Type</label>
               </div>
             </div>
             <div class="col-4">
@@ -84,9 +87,9 @@ $default_date = date("Y/m/d", strtotime("now"));
 
         <div class="modal-footer">
           <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-flat btn-success" id="submit_payment">Submit</button>
+          <button class="btn btn-flat btn-success" id="submit_payment_md">Submit</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
@@ -95,11 +98,11 @@ $default_date = date("Y/m/d", strtotime("now"));
   $(document).ready(function() {
     // Clear inputs when close
     $("#materialDeliveryModal").on('hidden.bs.modal', function(e) {
-      $("#material_delivery_form").find("input[type=text]").val("");
-      $("#phase_md").empty().append('<option value="">- Select -</option>');
-      $("#street_md").empty().append('<option value="">- Select -</option>');
-  
+      $("#material_delivery_form").find("input[type=text], input[type=hidden]").val("");
+      $(".default_select").prop("selected", true);
+
     });
+
 
     // Get current street list
     function getStreet(phase) {
@@ -153,28 +156,71 @@ $default_date = date("Y/m/d", strtotime("now"));
           success: function(response) {
             $("#homeowners_name_md").val(response.name);
             $("#homeowners_id_md").val(response.homeowners_id);
+            $("#property_id_md").val(response.property_id);
           }
         });
       }
     });
 
     // Amount
-    $("#wheelers").on('change', function (){
+    $("#wheelers").on('change', function() {
       var wheelers = $("#wheelers").val();
       materialDeliveryFee(wheelers);
-      function materialDeliveryFee(wheelers){
+
+      function materialDeliveryFee(wheelers) {
         $.ajax({
           url: '../ajax/material_delivery_get_fee.php',
           type: 'POST',
-          data: {wheelers: wheelers},
+          data: {
+            wheelers: wheelers
+          },
           dataType: 'JSON',
-          success: function(response){
-              $("#amount_md").val(response.fee);
+          success: function(response) {
+            $("#amount_md").val(response.fee);
+            $("#collection_fee_id_md").val(response.collection_fee_id);
           }
         });
       }
     });
 
+
+    // Add Material Delivery Payment
+    $("#submit_payment_md").on('click', function() {
+      var property_id = $("#property_id_md").val();
+      var collection_fee_id = $("#collection_fee_id_md").val();
+      var amount = $("#amount_md").val();
+      var delivery_date = $("#delivery_date_md").val();
+      var paid_by = $("#paid_by_md").val();
+
+      swal({
+          title: 'Payment Confirmation',
+          text: 'Are you sure you want to add this payment?',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
+        })
+        .then((proceed) => {
+          if (proceed) {
+            $.ajax({
+              url: '../payments/material_delivery_add_payment.php',
+              type: 'POST',
+              data: {
+                property_id: property_id,
+                collection_fee_id: collection_fee_id,
+                amount: amount,
+                delivery_date: delivery_date,
+                paid_by: paid_by
+              },
+              success: function(response) {
+                location.reload(true);
+              }
+            });
+
+          } else {
+            swal("Canceled")
+          }
+        })
+    })
 
     // Delivery date
     $("#delivery_date_md").daterangepicker({

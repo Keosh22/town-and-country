@@ -9,7 +9,7 @@ if (isset($_POST['wheelers'])) {
 
   $response = [];
 
-  $query1 = "SELECT category, description, fee FROM collection_fee WHERE collection_fee_number = :wheelers";
+  $query1 = "SELECT id,category, description, fee FROM collection_fee WHERE collection_fee_number = :wheelers";
   $data1 = ["wheelers" => $wheelers];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
@@ -18,8 +18,8 @@ if (isset($_POST['wheelers'])) {
     while($result1 = $stmt1->fetch()){
       $fee = $result1['fee'];
       $collection_fee_number = ['collection_fee_number'];
-
-      $response = ["fee" => $fee];
+      $collection_id = $result1['id'];
+      $response = ["fee" => $fee, "collection_fee_id" => $collection_id];
       
     }
   }

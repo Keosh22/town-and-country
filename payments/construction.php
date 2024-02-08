@@ -70,24 +70,73 @@ $server->adminAuthentication();
                           <table id="constrcutionPaymentTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="10%">Date</th>
-                                <th width="10%">Transaction No.</th>
-                                <th width="10%">Name</th>
-                                <th width="20%">Details</th>
-                                <th width="5%">Paid Ammount</th>
+                                <th width="5%">Date Paid</th>
+                                <th width="15%">Property</th>
+                                <th width="10%">Paid By</th>
+                                <th width="15%">Payment</th>
+                                <th width="5%">Ammount</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
+                              <?php
+                              $ACTIVE = "ACTIVE";
+                              $query1 = "SELECT 
+                              property_list.id as property_id,
+                              property_list.blk as property_blk,
+                              property_list.lot as property_lot,
+                              property_list.phase as property_phase,
+                              property_list.street as property_street,
+                              collection_fee.id as collection_id,
+                              collection_fee.category,
+                              collection_fee.description,
+                              collection_fee.description,
+                              construction_payment.paid as amount,
+                              construction_payment.date_created as payment_date,
+                              construction_payment.delivery_date,
+                              construction_payment.paid_by
+                              FROM construction_payment 
+                              INNER JOIN property_list ON construction_payment.property_id = property_list.id
+                              INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
+                              WHERE construction_payment.archive = :ACTIVE
+                              ";
+                              $data1 = ["ACTIVE" => $ACTIVE];
+                              $connection1 = $server->openConn();
+                              $stmt1 = $connection1->prepare($query1);
+                              $stmt1->execute($data1);
+                              if ($stmt1->rowCount() > 0) {
+                                while ($result1 = $stmt1->fetch()) {
+                                  $payment_date = date("M j, Y g:iA", strtotime("now"));
+                                  $address = "BLK-" . $result1['property_blk'] . " LOT-" . $result1['property_lot'] . " " . $result1['property_street'] . " " . $result1['property_phase'];
+                                  $paid_by = $result1['paid_by'];
+                                  $payment = $result1['category'] . "-" . $result1['description'];
+                                  $amount = $result1['amount'];
+                              ?>
+                                  <td><?php echo $payment_date; ?></td>
+                                  <td><?php echo $address; ?></td>
+                                  <td><?php echo $paid_by; ?></td>
+                                  <td><?php echo $payment; ?></td>
+                                  <td><?php echo $amount; ?></td>
+                                  <td>
+                                    <div class="dropdown">
+                                      <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
+                                      <ul class="dropdown-menu">
 
+                                      </ul>
+                                    </div>
+                                  </td>
+                              <?php
+                                }
+                              }
+                              ?>
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="10%">Date</th>
-                                <th width="10%">Transaction No.</th>
-                                <th width="10%">Name</th>
-                                <th width="20%">Details</th>
-                                <th width="5%">Paid Ammount</th>
+                                <th width="5%">Date Paid</th>
+                                <th width="15%">Property</th>
+                                <th width="10%">Paid By</th>
+                                <th width="15%">Payment</th>
+                                <th width="5%">Ammount</th>
                                 <th scope="col" width="5%">Action</th>
                               </tr>
                             </tfoot>
