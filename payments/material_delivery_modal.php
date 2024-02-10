@@ -192,6 +192,11 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       var delivery_date = $("#delivery_date_md").val();
       var paid_by = $("#paid_by_md").val();
 
+      if (paid_by.length > 0) {
+
+      } else {
+        paid_by = $("#homeowners_name_md").val();
+      }
       swal({
           title: 'Payment Confirmation',
           text: 'Are you sure you want to add this payment?',
@@ -212,7 +217,15 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
                 paid_by: paid_by
               },
               success: function(response) {
-                location.reload(true);
+                var  transaction_number_md = response;
+                var material_delivery_receipt = window.open('../payments/material_delivery_receipt.php?transaction_number_md=' + transaction_number_md + '&property_id_receipt='+ property_id,'_blank', 'width=900, height=600');
+                setTimeout(function () {
+                  material_delivery_receipt.print();
+                  setTimeout(function () {
+                    material_delivery_receipt.close();
+                    location.reload(true);
+                  }, 500);
+                }, 500)
               }
             });
 

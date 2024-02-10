@@ -1100,7 +1100,6 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $default = 0;
     $ACTIVE = "ACTIVE";
 
-
     // Count the Due collection during 10th to 12th day of the month
     if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 11, $year_email))) {
       // Phase 1
@@ -1110,7 +1109,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
-      echo $count = $stmt->fetchColumn();
+     return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 17th to 19th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 18, $year_email))) {
@@ -1122,7 +1121,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
-      echo $count = $stmt->fetchColumn();
+      return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 23th to 25th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 23, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 24, $year_email))) {

@@ -70,12 +70,13 @@ $server->adminAuthentication();
                           <table id="constrcutionPaymentTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
+                                <th width="1%">Transaction #</th>
                                 <th width="5%">Date Paid</th>
-                                <th width="15%">Property</th>
+                                <th width="10%">Property</th>
                                 <th width="10%">Paid By</th>
                                 <th width="15%">Payment</th>
-                                <th width="5%">Ammount</th>
-                                <th scope="col" width="5%">Action</th>
+                                <th width="1%">Ammount</th>
+                                <th scope="col" width="3%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -91,10 +92,12 @@ $server->adminAuthentication();
                               collection_fee.category,
                               collection_fee.description,
                               collection_fee.description,
+                              construction_payment.id as construction_payment_id,
                               construction_payment.paid as amount,
                               construction_payment.date_created as payment_date,
                               construction_payment.delivery_date,
-                              construction_payment.paid_by
+                              construction_payment.paid_by,
+                              construction_payment.transaction_number as construction_tn_number
                               FROM construction_payment 
                               INNER JOIN property_list ON construction_payment.property_id = property_list.id
                               INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
@@ -106,25 +109,39 @@ $server->adminAuthentication();
                               $stmt1->execute($data1);
                               if ($stmt1->rowCount() > 0) {
                                 while ($result1 = $stmt1->fetch()) {
-                                  $payment_date = date("M j, Y g:iA", strtotime("now"));
-                                  $address = "BLK-" . $result1['property_blk'] . " LOT-" . $result1['property_lot'] . " " . $result1['property_street'] . " " . $result1['property_phase'];
+                                  $payment_date = date("M j, Y g:iA", strtotime($result1['payment_date']));
+                                  $property_id = $result1['property_id'];
+                                  $blk = $result1['property_blk'];
+                                  $lot = $result1['property_lot'];
+                                  $phase =  $result1['property_street'];
+                                  $street = $result1['property_phase'];
+
+                                  $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
                                   $paid_by = $result1['paid_by'];
                                   $payment = $result1['category'] . "-" . $result1['description'];
                                   $amount = $result1['amount'];
+                                  $transaction_number = $result1['construction_tn_number'];
+                                  $construction_payment_id = $result1['construction_payment_id'];
                               ?>
-                                  <td><?php echo $payment_date; ?></td>
-                                  <td><?php echo $address; ?></td>
-                                  <td><?php echo $paid_by; ?></td>
-                                  <td><?php echo $payment; ?></td>
-                                  <td><?php echo $amount; ?></td>
-                                  <td>
-                                    <div class="dropdown">
-                                      <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
-                                      <ul class="dropdown-menu">
-
-                                      </ul>
-                                    </div>
-                                  </td>
+                                  <tr>
+                                    <td><?php echo $transaction_number; ?></td>
+                                    <td><?php echo $payment_date; ?></td>
+                                    <td><?php echo $address; ?></td>
+                                    <td><?php echo $paid_by; ?></td>
+                                    <td><?php echo $payment; ?></td>
+                                    <td><?php echo $amount; ?></td>
+                                    <td>
+                                      <div class="dropdown">
+                                        <a class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
+                                        <ul class="dropdown-menu">
+                                          <li><a  id="view_payment" href="#construction_view" data-bs-toggle="modal" class="dropdown-item"
+                                          data-property="<?php echo $property_id; ?>"
+                                          data-id="<?php echo $construction_payment_id; ?>"
+                                          >View</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
                               <?php
                                 }
                               }
@@ -132,12 +149,13 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
+                                <th width="1%">Transaction #</th>
                                 <th width="5%">Date Paid</th>
-                                <th width="15%">Property</th>
+                                <th width="10%">Property</th>
                                 <th width="10%">Paid By</th>
                                 <th width="15%">Payment</th>
-                                <th width="5%">Ammount</th>
-                                <th scope="col" width="5%">Action</th>
+                                <th width="1%">Ammount</th>
+                                <th scope="col" width="3%">Action</th>
                               </tr>
                             </tfoot>
                           </table>
@@ -158,6 +176,8 @@ $server->adminAuthentication();
   <?php
   // Material Delivery Modal
   include('../payments/material_delivery_modal.php');
+  // Material Delivery View
+  include('../payments/material_delivery_view_modal.php');
 
   ?>
 
@@ -166,7 +186,34 @@ $server->adminAuthentication();
     $(document).ready(function() {
 
 
+      // View Payment
+      $("#constrcutionPaymentTable").on('click', '#view_payment', function (){
+       var property_id = $(this).attr('data-property');
+       var construction_payment_id = $(this).attr('data-id');
+        console.log(construction_payment_id)
+        $.ajax({
+          url: '../ajax/material_delivery_receipt_view.php',
+          type: 'POST',
+          data: {
+            property_id: property_id,
+            construction_payment_id: construction_payment_id
+          },
+          dataType: 'JSON',
+          success: function(response){
+            $("#name").html(response.name);
+            $("#account_number").html(response.account_number);
+            $("#transaction_number").html(response.transaction_number);
+            $("#date_paid").html(response.date_created);
+            $("#paid_by").html(response.paid_by);
+            $(".table_result").html(response.table);
+            $("#table_header").html(response.table_header); 
+            $("#total_amount").val(response.total_amount);
+            $("#property_id_receipt").val(response.property_id);
+            $("#transaction_number_md").val(response.transaction_number);
+          }
+        })
 
+      });
 
       // DataTable
       $("#constrcutionPaymentTable").DataTable({

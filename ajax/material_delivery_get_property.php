@@ -23,7 +23,8 @@ if (isset($_POST['blk']) && isset($_POST['lot']) && isset($_POST['phase'])  && i
     homeowners_users.firstname,
     homeowners_users.middle_initial,
     homeowners_users.lastname,
-    homeowners_users.id as homeowners_id
+    homeowners_users.id as homeowners_id,
+    homeowners_users.account_number
     FROM property_list INNER JOIN
     homeowners_users ON property_list.homeowners_id = homeowners_users.id WHERE property_list.archive = :ACTIVE AND property_list.blk = :blk AND property_list.lot = :lot AND property_list.phase = :phase AND property_list.street = :street LIMIT 1
   ";
@@ -38,11 +39,13 @@ if (isset($_POST['blk']) && isset($_POST['lot']) && isset($_POST['phase'])  && i
       $lastname = $result1['lastname'];
       $homeowners_id = $result1['homeowners_id'];
       $property_id = $result1['property_id'];
+      $account_number = $result1['account_number'];
 
       $name = $firstname . ' ' . $middle_name . ' ' . $lastname;
       
+      
     }
-    $response = ["name" => $name, "homeowners_id" => $homeowners_id, "property_id" => $property_id];
+    $response = ["name" => $name, "homeowners_id" => $homeowners_id, "property_id" => $property_id, "account_number" => $account_number];
   } else {
     $response = ["name" => 'No Record Found'];
   }
