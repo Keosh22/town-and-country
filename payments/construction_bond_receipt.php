@@ -76,7 +76,6 @@ if (isset($_GET['property_id_receipt']) && isset($_GET['transaction_number_md'])
       $paid_by = $result2['paid_by'];
       $category = $result2['category'];
       $amount = $result2['paid'];
-      $delivery_date = date("M j, Y", strtotime($result2['delivery_date']));
       $description = $result2['description'];
       $admin_name = $result2['admin'];
       $number += 1;
@@ -112,8 +111,8 @@ if (isset($_GET['property_id_receipt']) && isset($_GET['transaction_number_md'])
         <th scope="col" width="1%">#</th>
         <th scope="col" width="15%">Category</th>
         <th scope="col" width="1%">Amount</th>
-        <th scope="col" width="15%">Delivery Address</th>
-        <th scope="col" width="5%">Delivery Date</th>
+        <th scope="col" width="15%">Property</th>
+       
       </tr>
     </thead>
     <tbody class="table_result">
@@ -122,7 +121,7 @@ if (isset($_GET['property_id_receipt']) && isset($_GET['transaction_number_md'])
         <td><?php echo $category . '-' . $description; ?></td>
         <td><?php echo $amount; ?></td>
         <td><?php echo $address; ?></td>
-        <td><?php echo $delivery_date; ?></td>
+     
       </tr>
     </tbody>
   </table>

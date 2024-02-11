@@ -224,6 +224,7 @@ class Server
         // $username = $result['username'];
         $password = $result['password'];
         $firstname = $result['firstname'];
+        $lastname = $result['lastname'];
         $user_id = $result['id'];
         $account_number = $result['account_number'];
         $type = $result['type'];
@@ -236,6 +237,7 @@ class Server
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
+        $_SESSION['admin_name'] = $firstname." ". $lastname;
 
 
         // pass the value to adminAuthentication()

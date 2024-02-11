@@ -54,12 +54,11 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   $query2 = "SELECT 
   construction_payment.transaction_number, 
   construction_payment.date_created as date_paid, 
-  construction_payment.delivery_date, 
   construction_payment.paid_by,
   construction_payment.paid,
   construction_payment.admin,
   collection_fee.category,
-  collection_fee.description
+  collection_fee.description  
   FROM construction_payment 
   INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id
   WHERE construction_payment.id =  :construction_payment_id AND construction_payment.archive = :ACTIVE";
@@ -74,10 +73,8 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
       $paid_by = $result2['paid_by'];
       $category = $result2['category'];
       $amount = $result2['paid'];
-      $delivery_date = date("M j, Y", strtotime($result2['delivery_date']));
       $description = $result2['description'];
       $admin_name = $result2['admin'];
-    
       $number += 1;
       $total_amount = $amount;
     }
@@ -88,9 +85,8 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   <th scope="col" width="5%">#</th>
   <th scope="col" width="15%">Category</th>
   <th scope="col" width="5%">Amount</th>
-  <th scope="col" width="15%">Delivery Address</th>
-  <th scope="col" width="5%">Delivery Date</th>
-</tr>
+  <th scope="col" width="15%">Property</th>
+  </tr>
 
   ';
 
@@ -101,14 +97,8 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
     <td>' . $category . '-' . $description . '</td>
     <td>' . $amount . '</td>
     <td>' . $address . '</td>
-    <td>' . $delivery_date . '</td>
   </tr>
 ';
-
-//   $modal_footer = '
-//   <button class="btn btn-flat btn-primary" id="print_receipt_md">Print</button>
-//   <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
-// ';
 
   $response = [
     "name" => $name,

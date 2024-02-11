@@ -6,14 +6,12 @@ date_default_timezone_set('Asia/Manila');
 <?php
 session_start();
 $server = new Server;
-if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) &&  isset($_POST['amount']) && isset($_POST['delivery_date'])) {
+if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset($_POST['amount_deposit'])) {
 
   $property_id = filter_input(INPUT_POST, 'property_id', FILTER_SANITIZE_SPECIAL_CHARS);
   $collection_fee_id = filter_input(INPUT_POST, 'collection_fee_id', FILTER_SANITIZE_SPECIAL_CHARS);
-
-  $amount = filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_SPECIAL_CHARS);
-  $delivery_date = filter_input(INPUT_POST, 'delivery_date', FILTER_SANITIZE_SPECIAL_CHARS);
   $paid_by = filter_input(INPUT_POST, 'paid_by', FILTER_SANITIZE_SPECIAL_CHARS);
+  $amount_deposit = filter_input(INPUT_POST, 'amount_deposit', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y-m-d H:s:iA", strtotime("now"));
   $admin_name = $_SESSION['admin_name'];
 
@@ -30,22 +28,21 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) &&  isset
       $new_transaction_number = "C" . $get_string;
     }
 
-
-    $query = "INSERT INTO construction_payment (transaction_number, property_id, collection_fee_id, paid, date_created, delivery_date, paid_by, admin) VALUES (:transaction_number, :property_id, :collection_fee_id, :paid, :date_created, :delivery_date, :paid_by, :admin_name)";
-    $data = [
+    $query2 = "INSERT INTO construction_payment (transaction_number, property_id, collection_fee_id, paid, date_created, paid_by, admin) VALUES (:transaction_number, :property_id, :collection_fee_id, :paid, :date_created, :paid_by, :admin)
+    ";
+    $data2 = [
       "transaction_number" => $new_transaction_number,
       "property_id" => $property_id,
       "collection_fee_id" => $collection_fee_id,
-      "paid" => $amount,
+      "paid" => $amount_deposit,
       "date_created" => $date_created,
-      "delivery_date" => $delivery_date,
       "paid_by" => $paid_by,
-      "admin_name" => $admin_name
+      "admin" => $admin_name
     ];
-    $connection = $server->openConn();
-    $stmt = $connection->prepare($query);
-    $stmt->execute($data);
-    if ($stmt->rowCount() > 0) {
+    $connection2 = $server->openConn();
+    $stmt2 = $connection2->prepare($query2);
+    $stmt2->execute($data2);
+    if ($stmt2->rowCount() > 0) {
       $_SESSION['status'] = "Payment Success!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
@@ -55,7 +52,7 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) &&  isset
       $_SESSION['status_code'] = "error";
     }
   }
-  echo  $new_transaction_number;
+  echo $new_transaction_number;
 }
 
 ?>
