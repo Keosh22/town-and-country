@@ -25,6 +25,7 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
   $remarks = filter_input(INPUT_POST, 'remarks', FILTER_SANITIZE_SPECIAL_CHARS);
   $balance = $_POST['balance'];
   $i = 0;
+  $admin = $_SESSION['admin_name'];
 
 
 
@@ -80,7 +81,7 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
       } 
    
       // if there is no record, Insert a paid receipt record to this table
-      $query3 = "INSERT INTO payments_list (transaction_number, homeowners_id, property_id, collection_id, collection_fee_id, date_created, paid, remarks) VALUES (:transaction_number, :homeowners_id, :property_id, :collection_id, :collection_fee_id, :date_created, :paid, :remarks)";
+      $query3 = "INSERT INTO payments_list (transaction_number, homeowners_id, property_id, collection_id, collection_fee_id, date_created, paid, remarks, admin) VALUES (:transaction_number, :homeowners_id, :property_id, :collection_id, :collection_fee_id, :date_created, :paid, :remarks, :admin)";
       $data3 = [
         "transaction_number" => $transaction_number,
         "homeowners_id" => $homeowners_id,
@@ -89,7 +90,8 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
         "collection_fee_id" => $collection_fee_id,
         "date_created" => $current_date,
         "paid" => $current_balance,
-        "remarks" => $remarks
+        "remarks" => $remarks,
+        "admin" => $admin
       ];
       $connection3 = $server->openConn();
       $stmt3 = $connection3->prepare($query3);

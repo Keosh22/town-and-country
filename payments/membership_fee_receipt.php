@@ -23,7 +23,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
   $number = 0;
   $total_ammount = 0;
 
-  if(isset($_GET['archive_status']) && $_GET['archive_status'] == "ACTIVE"){
+  if (isset($_GET['archive_status']) && $_GET['archive_status'] == "ACTIVE") {
     $archive_status = filter_input(INPUT_GET, 'archive_status', FILTER_SANITIZE_SPECIAL_CHARS);
   } else {
     $archive_status = filter_input(INPUT_GET, 'archive_status', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -34,6 +34,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
         payments_list.transaction_number as payment_list_tnumber,
         payments_list.date_created as date_paid,
         payments_list.remarks,
+        payments_list.admin,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -49,7 +50,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
         WHERE payments_list.transaction_number = :transactionNumberId AND collection_fee.category = :membership_fee AND payments_list.archive = :archive_status
         ";
-  $data1 = ["transactionNumberId" => $transactionNumberId, "membership_fee" => $membership_fee, "archive_status" => $archive_status ];
+  $data1 = ["transactionNumberId" => $transactionNumberId, "membership_fee" => $membership_fee, "archive_status" => $archive_status];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -63,7 +64,7 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
       $firstname = $result1['firstname'];
       $middle_initial = $result1['middle_initial'];
       $lastname = $result1['lastname'];
- 
+
 
 
       $blk = $result1['homeowners_blk'];
@@ -72,6 +73,8 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
       $phase = $result1['homeowners_phase'];
 
       $remarks = $result1['remarks'];
+
+      $admin_name = $result1['admin'];
     }
   }
 
@@ -137,16 +140,16 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
           $paid = $result2['paid'];
           $payment_list_id = $result2['payment_list_id'];
 
-          
+
 
           $number = $number + 1;
-        
+
       ?>
           <tr>
             <td><?php echo $number; ?></td>
             <td><?php echo $category; ?></td>
             <td><?php echo $paid; ?></td>
-            <td><?php echo  $remarks. " " . date("Y", strtotime($date_paid)); ?></td>
+            <td><?php echo  $remarks . " " . date("Y", strtotime($date_paid)); ?></td>
           </tr>
       <?php
         }
@@ -156,9 +159,18 @@ if (isset($_GET['transactionNumber']) || isset($_GET['transactionNumber'])) {
   </table>
 
   <div class="flex">
-    <div class="w-50"></div>
     <div class="w-50">
       <div class="row align-items-center">
+        <div class="col-12 d-flex">
+          <span class="border-bottom"><b id="admin_name"><?php echo $admin_name; ?></b></span>
+        </div>
+        <div class="col-12 d-flex">
+          <span class="text-secondary">Process by</span>
+        </div>
+      </div>
+    </div>
+    <div class="w-50">
+      <div class="row justify-content-end">
         <div class="col-auto">
           <label for="total_amount" class="form-label">Total Amount:</label>
         </div>

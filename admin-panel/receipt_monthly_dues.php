@@ -1,5 +1,5 @@
 <?php
- require_once("../libs/server.php");
+require_once("../libs/server.php");
 require_once("../includes/header.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
@@ -16,8 +16,8 @@ if (isset($_GET['transactionNumber'])) {
   // $payment_id = $_GET['payment_id'];
   $transactionNumberId = $_GET['transactionNumber'];
   $monthly_dues = "Monthly Dues";
-  
-  if(isset($_GET['archive_status']) && $_GET['archive_status'] == "ACTIVE"){
+
+  if (isset($_GET['archive_status']) && $_GET['archive_status'] == "ACTIVE") {
     $archive_status = $_GET['archive_status'];
   } else {
     $archive_status = $_GET['archive_status'];
@@ -120,6 +120,7 @@ if (isset($_GET['transactionNumber'])) {
       // Payment Summary
       $query2 = "SELECT
   payments_list.id as payment_list_id,
+  payments_list.admin,
   collection_fee.category,
   collection_fee.fee,
   collection_list.year,
@@ -153,6 +154,8 @@ if (isset($_GET['transactionNumber'])) {
           $property_street = $result2['property_street'];
           $property_phase = $result2['property_phase'];
 
+          $admin_name = $result2['admin'];
+
           $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
           $number = $number + 1;
           $total_ammount += intval($collection_balance);
@@ -171,7 +174,16 @@ if (isset($_GET['transactionNumber'])) {
   </table>
 
   <div class="flex">
-    <div class="w-50"></div>
+    <div class="w-50">
+      <div class="row align-items-center">
+        <div class="col-12 d-flex">
+          <span class="border-bottom"><b id="admin_name"><?php echo $admin_name; ?></b></span>
+        </div>
+        <div class="col-12 d-flex">
+          <span class="text-secondary">Process by</span>
+        </div>
+      </div>
+    </div>
     <div class="w-50">
       <div class="row align-items-center">
         <div class="col-auto">

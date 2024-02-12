@@ -30,6 +30,7 @@ if (isset($_POST['payment_id'])) {
         payments_list.date_created as date_paid,
         payments_list.remarks,
         payments_list.paid,
+        payments_list.admin,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -71,6 +72,8 @@ if (isset($_POST['payment_id'])) {
       $paid = $result1['paid'];
       $category = $result1['category'];
 
+      $admin_name = $result1['admin'];
+
       $number = $number + 1;
 
       $name = $firstname . " " . $middle_initial . " " . $lastname;
@@ -95,7 +98,8 @@ if (isset($_POST['payment_id'])) {
     "date_paid" => $date_paid,
     "remarks" => $remarks,
     "table_result" => $table_result,
-    "total_amount" => $total_amount
+    "total_amount" => $total_amount,
+    "admin_name" => $admin_name
 
   );
 

@@ -14,6 +14,7 @@ if (isset($_POST['homeowners_id']) && isset($_POST['collection_fee_id']) && isse
   $remarks = "";
   $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
   $Member = "Member";
+  $admin_name = $_SESSION['admin_name'];
   $transaction_number = $server->transactionNumberGenerator();
 
   if ($status == "EXPIRED") {
@@ -23,14 +24,15 @@ if (isset($_POST['homeowners_id']) && isset($_POST['collection_fee_id']) && isse
   }
 
 
-  $query1 = "INSERT INTO payments_list (transaction_number, homeowners_id, collection_fee_id, date_created, paid, remarks) VALUES (:transaction_number, :homeowners_id, :collection_fee_id, :date_created, :membership_fee, :remarks)";
+  $query1 = "INSERT INTO payments_list (transaction_number, homeowners_id, collection_fee_id, date_created, paid, remarks, admin) VALUES (:transaction_number, :homeowners_id, :collection_fee_id, :date_created, :membership_fee, :remarks, :admin)";
   $data1 = [
     "transaction_number" => $transaction_number,
     "homeowners_id" => $homeowners_id,
     "collection_fee_id" => $collection_fee_id,
     "date_created" => $date_created,
     "membership_fee" => $membership_fee,
-    "remarks" => $remarks
+    "remarks" => $remarks,
+    "admin" => $admin_name
   ];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);

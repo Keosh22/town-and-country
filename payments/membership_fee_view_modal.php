@@ -60,7 +60,16 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           </table>
 
           <div class="flex">
-            <div class="w-50"></div>
+            <div class="w-50">
+            <div class="row align-items-center">
+        <div class="col-12 d-flex">
+          <span class="border-bottom"><b id="admin_name"></b></span>
+        </div>
+        <div class="col-12 d-flex">
+          <span class="text-secondary">Process by</span>
+        </div>
+      </div>
+            </div>
             <div class="w-50">
               <div class="row align-items-center">
                 <div class="col-auto">

@@ -78,6 +78,7 @@ if (isset($_POST['payment_id'])) {
   // Payment Summary
   $query2 = "SELECT
     payments_list.id as payment_list_id,
+    payments_list.admin,
     collection_fee.category,
     collection_fee.fee,
     collection_list.year,
@@ -111,6 +112,8 @@ if (isset($_POST['payment_id'])) {
       $property_street = $result2['property_street'];
       $property_phase = $result2['property_phase'];
 
+      $admin_name = $result2['admin'];
+
       $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
       $number = $number + 1;
       $total_ammount += intval($collection_balance);
@@ -140,7 +143,8 @@ if (isset($_POST['payment_id'])) {
     "account_number" => $account_number,
     "table_result" => $table_result,
     "total_amount" => $total_ammount,
-    "remarks" => $remarks
+    "remarks" => $remarks,
+    "admin_name" => $admin_name
   );
 
 

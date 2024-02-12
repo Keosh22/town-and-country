@@ -46,6 +46,7 @@ $server->adminAuthentication();
         <div class="card card-border">
           <div class="card-header">
             <h2>Constructions Payments List</h2>
+
           </div>
           <div class="card-body">
             <div class="container-fluid">
@@ -55,13 +56,25 @@ $server->adminAuthentication();
                   <div class="col-xs-12">
                     <div class="box">
                       <!-- 	HEADER TABLE -->
-                      <div class="row header-box container-fluid d-flex align-items-center ">
-                        <div class="col d-flex justify-content-start">
-                          <a href="#materialDeliveryModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Material Delivery</a>
-                          <a href="#constructionBondModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Construction Bond</a>
+                      <div class="row header-box container-fluid d-flex align-items-center">
+                        <div class="col d-flex justify-content-start
+                        ">
+                          <div class="gx-3">
+                            <a href="#materialDeliveryModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat "><i class='bx bx-plus bx-xs bx-tada-hover'></i>Material Delivery</a>
+                            <a href="#constructionBondModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Construction Bond</a>
+                            <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Clearance</a>
+                          </div>
                         </div>
                         <div class="col d-flex justify-content-end">
-                          <a href="" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          <div class="col-3 mx-3">
+                            <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
+                              <option value="">Filter:</option>
+                              <option value="Material Delivery">Material Delivery</option>
+                              <option value="Construction Bond">Construction Bond</option>
+                              <option value="Construction Clearance">Clearance</option>
+                            </select>
+                          </div>
+                          <a href="" class="btn btn-warning btn-sm btn-flat "><i class='bx bx-archive bx-xs bx-tada-hover '></i>Archive</a>
                         </div>
                       </div>
 
@@ -206,7 +219,7 @@ $server->adminAuthentication();
         var construction_payment_id = $(this).attr('data-id');
         var collection_fee_number = $(this).attr('data-collection-fee');
         $("#collection_fee_number").val(collection_fee_number);
-       
+
         $.ajax({
           url: '../ajax/material_delivery_receipt_view.php',
           type: 'POST',
@@ -227,12 +240,12 @@ $server->adminAuthentication();
             $("#property_id_receipt").val(response.property_id);
             $("#transaction_number_md").val(response.transaction_number);
             $("#admin_name").html(response.admin_name);
-       
+
           }
         })
       });
 
-      
+
       // Construction Bond View Payment
       $("#constrcutionPaymentTable").on('click', '#view_payment_cb', function() {
         var property_id = $(this).attr('data-property');
@@ -272,6 +285,10 @@ $server->adminAuthentication();
         ]
       });
 
+      const table = $("#constrcutionPaymentTable").DataTable();
+      $("#filter_table").on('change', function (){
+        table.search(this.value).draw();
+      });
 
     });
   </script>
