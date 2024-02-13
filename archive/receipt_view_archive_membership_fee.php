@@ -11,7 +11,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 
 <!-- Modal Promotion -->
-<div id="monthly_dues_view" class="modal fade">
+<div id="membership_fee_view" class="modal fade">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -60,7 +60,16 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           </table>
 
           <div class="flex">
-            <div class="w-50"></div>
+            <div class="w-50">
+              <div class="row align-items-center">
+                <div class="col-12 d-flex">
+                  <span class="border-bottom"><b id="admin_name"></b></span>
+                </div>
+                <div class="col-12 d-flex">
+                  <span class="text-secondary">Process by</span>
+                </div>
+              </div>
+            </div>
             <div class="w-50">
               <div class="row align-items-center">
                 <div class="col-auto">
@@ -88,8 +97,9 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
   $(document).ready(function() {
     $("#print_receipt").on('click', function() {
       // var payment_id = $("#payment_id_modal").val();
+      var archive_status = "INACTIVE";
       var transaction_number = $("#transactionNum_id_modal").val();
-      var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number, '_blank', 'width=900,height=600');
+      var receipt = window.open('../payments/membership_fee_receipt.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
       setTimeout(function() {
         receipt.print();
         setTimeout(function() {

@@ -56,7 +56,9 @@ $server->adminAuthentication();
                         <!-- <div class="col">
 													<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i></a>
 												</div> -->
-
+                        <div class="col d-flex justify-content-end">
+                          <a href="../archive/property_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                        </div>
                       </div>
 
                       <div class="body-box shadow-sm">
@@ -74,6 +76,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
+                              $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                               property_list.id, 
                               property_list.homeowners_id,
@@ -83,11 +86,12 @@ $server->adminAuthentication();
                               property_list.street as property_street, 
                               homeowners_users.firstname, 
                               homeowners_users.lastname, 
-                              homeowners_users.middle_initial FROM property_list INNER JOIN homeowners_users WHERE property_list.homeowners_id = homeowners_users.id";
+                              homeowners_users.middle_initial FROM property_list INNER JOIN homeowners_users WHERE property_list.homeowners_id = homeowners_users.id AND property_list.archive = :ACTIVE";
+                              $data = ["ACTIVE" => $ACTIVE];
 
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
-                              $stmt->execute();
+                              $stmt->execute($data);
                               $count = $stmt->rowCount();
 
 
@@ -200,6 +204,21 @@ $server->adminAuthentication();
       $("#propertyListTable").on('click', '#delete_property', function() {
         var property_id = $(this).attr('data-id');
         $("#delete_property_id").val(property_id);
+        swal({
+          title: "Warning",
+          text: "All the records of this property will be removed. Do you want to continue?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        })
+        .then((willDelete) => {
+          if (willDelete){
+
+          } else {
+            swal("Canceled!");
+            $("#deleteProperty").modal('hide');
+          }
+        })
       });
 
 

@@ -51,9 +51,14 @@ $server->adminAuthentication();
 									<div class="col-xs-12">
 										<div class="box">
 											<!-- 	HEADER TABLE -->
-											<div class="header-box container-fluid d-flex align-items-center">
-												<div class="col">
-													<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+											<div class="header-box container-fluid  align-items-center">
+												<div class="row">
+													<div class="col">
+														<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add User</a>
+													</div>
+													<div class="col d-flex justify-content-end">
+														<a href="../admin-panel/homeowners_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+													</div>
 												</div>
 											</div>
 											<div class="body-box shadow-sm">
@@ -73,10 +78,12 @@ $server->adminAuthentication();
 														</thead>
 														<tbody>
 															<?php
-															$query = "SELECT * FROM homeowners_users";
+															$ACTIVE = "ACTIVE";
+															$query = "SELECT * FROM homeowners_users WHERE archive = :ACTIVE";
+															$data = ["ACTIVE" => $ACTIVE];
 															$connection = $server->openConn();
 															$stmt = $connection->prepare($query);
-															$stmt->execute();
+															$stmt->execute($data);
 															while ($result = $stmt->fetch()) {
 																$homeowners_id = $result['id'];
 																$account_number = $result['account_number'];
@@ -120,10 +127,10 @@ $server->adminAuthentication();
 																			<span class="badge rounded-pill text-bg-info">Tenant</span>
 																		<?php
 																		} elseif ($status == 'EXPIRED') {
-																			?>
-																				<span class="badge rounded-pill text-bg-warning">Expired</span>
-																			<?php
-																			}
+																		?>
+																			<span class="badge rounded-pill text-bg-warning">Expired</span>
+																		<?php
+																		}
 
 																		?>
 																	</td>
@@ -139,10 +146,11 @@ $server->adminAuthentication();
 																				<?php
 																				} else {
 																				?>
-																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="../admin-panel/membership_fee.php?homeowners_id=<?php echo $homeowners_id; ?>" class="dropdown-item" id="membership_fee_btn">Membership Fee</a></li>
+																					<li><a href="#homeowners_view_modal" class="dropdown-item" data-bs-toggle="modal" id="homeowners_view_btn" data-homeowners-id="<?php echo $homeowners_id; ?>" data-acc-num="<?php echo $account_number; ?>" data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-email="<?php echo $email ?>" data-phone-num="<?php echo $phone_number ?>" data-address="<?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?>" data-status="<?php echo $status ?>">View</a></li>
 																					<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
 																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
-																					<li><a data-id="<?php echo $homeowners_id; ?>" href="../admin-panel/membership_fee.php?homeowners_id=<?php echo $homeowners_id; ?>"  class="dropdown-item" id="membership_fee_btn">Membership Fee</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#delete_homeowners" data-bs-toggle="modal" class="dropdown-item" id="delete_btn">Delete</a></li>
 																				<?php
 																				}
 																				?>
@@ -195,7 +203,10 @@ $server->adminAuthentication();
 	include("../admin-panel/homeowners_register_modal.php");
 	//Update Homeowners modal
 	include("../admin-panel/homeowners_update_modal.php");
-
+	// ARchive homeowners modal
+	include("../admin-panel/homeowners_archive_modal.php");
+	// View homeowners modal
+	include("../admin-panel/homeowners_view.modal.php");
 	?>
 
 
@@ -256,6 +267,49 @@ $server->adminAuthentication();
 					});
 				}
 			});
+
+			// Delete homeowners
+			$("#homeownersTable").on('click', '#delete_btn', function() {
+				var homeowners_id = $(this).attr('data-id');
+				$("#homeowners_id_delete").val(homeowners_id);
+				swal({
+						title: "Warning!",
+						text: "All the records of this account will be removed. Do you want to continue?",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true
+					})
+					.then((willDelete) => {
+						if (willDelete) {
+
+						} else {
+							swal("Canceled!");
+							$("#delete_homeowners").modal('hide');
+						}
+					})
+			});
+
+
+			// View homeowners
+			$("#homeownersTable").on('click', '#homeowners_view_btn', function() {
+				var homeowners_id = $(this).attr('data-homeowners-id');
+				var account_number = $(this).attr('data-acc-num');
+				var name = $(this).attr('data-name');
+				var email_address = $(this).attr('data-email');
+				var phone_number = $(this).attr('data-phone-num');
+				var address = $(this).attr('data-address');
+				var status = $(this).attr('data-status');
+
+
+				$("#homeowners_id_view").val(homeowners_id);
+				$("#account_number_view").val(account_number);
+				$("#name_view").val(name);
+				$("#email_address_view").val(email_address);
+				$("#phone_number_view").val(phone_number);
+				$("#address_view").val(address);
+				$("#status_view").val(status);
+			});
+
 
 		});
 	</script>

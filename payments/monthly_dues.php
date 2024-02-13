@@ -80,13 +80,16 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                                $monthly_dues = "Monthly Dues";
+                              $monthly_dues = "Monthly Dues";
+                              $monthy_dues_id = "C007";
+                              $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                                 payments_list.transaction_number,
                                 payments_list.id as payment_id,
                                 payments_list.date_created as date_paid,
                                 payments_list.collection_fee_id,
                                 payments_list.paid,
+                                payments_list.collection_id as collection_id,
                                 homeowners_users.firstname,
                                 homeowners_users.middle_initial,
                                 homeowners_users.lastname,
@@ -101,9 +104,9 @@ $server->adminAuthentication();
                                 INNER JOIN property_list ON payments_list.property_id = property_list.id
                                 INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
                                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                                WHERE collection_fee.category = :monthly_dues
+                                WHERE collection_fee.collection_fee_number = :monthy_dues_id AND payments_list.archive = :ACTIVE
                                 ";
-                                $data = ["monthly_dues" => $monthly_dues];
+                              $data = ["monthy_dues_id" => $monthy_dues_id, "ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);
@@ -124,6 +127,7 @@ $server->adminAuthentication();
 
                                   $collection_month = $result['collection_month'];
                                   $collection_year = $result['collection_year'];
+                                  $collection_id = $result['collection_id'];
 
 
 
@@ -133,14 +137,14 @@ $server->adminAuthentication();
                                     <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
                                     <td><?php echo $transaction_number; ?></td>
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
-                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase."-".$collection_month." ".$collection_year; ?></td>
+                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase . "-" . $collection_month . " " . $collection_year; ?></td>
                                     <td><?php echo $paid_amount; ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="archive_btn" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#arhive_monthlyDues" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
+                                          <li><a id="archive_btn" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection-id='<?php echo $collection_id; ?>' href="#arhive_monthlyDues" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -177,19 +181,20 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/monthly_dues_view_modal.php");
+  include("../payments/receipt_view_modal.php");
   // Archive Payment
-  include("../payments/monthly_dues_archive_modal.php");
+  include("../archive/archive_modal.php");
 
   ?>
 
 
   <script>
     $(document).ready(function() {
-     
+
 
       // View payment
       $("#monthlyDuesTable").on('click', '#view_payment', function() {
+        const archive_status = "ACTIVE";
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
@@ -202,7 +207,8 @@ $server->adminAuthentication();
             type: 'POST',
             data: {
               payment_id: payment_id,
-              transaction_number: transaction_number
+              transaction_number: transaction_number,
+              archive_status: archive_status
             },
             dataType: 'JSON',
             success: function(response) {
@@ -214,6 +220,7 @@ $server->adminAuthentication();
               $(".table_result").html(response.table_result);
               $("#total_amount").val(response.total_amount);
               $("#remarks").html(response.remarks);
+              $("#admin_name").html(response.admin_name);
             }
           });
         }
@@ -225,8 +232,11 @@ $server->adminAuthentication();
       $("#monthlyDuesTable").on('click', "#archive_btn", function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
+        var collection_id = $(this).attr('data-collection-id');
+        console.log(collection_id);
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
+        $("#collection_id").val(collection_id);
 
         swal({
             title: "Archive Confirmation",
@@ -259,6 +269,10 @@ $server->adminAuthentication();
         ]
       });
 
+      // var table = $("#monthlyDuesTable").DataTable();
+      // var value = 300;
+      // table.column( 4 ).search( value ).draw();
+     
 
     });
   </script>

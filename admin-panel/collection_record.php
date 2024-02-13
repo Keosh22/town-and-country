@@ -202,13 +202,9 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
-                        <div class="col">
-                          <!-- <form action="" method="POST">
-                           
-                            <button class="btn btn-warning" type="submit" name="send_email" id="send_email">Send Email</button>
-                          </form> -->
+                        <div class="col d-flex justify-content-end">
+                          <a href="../archive/collection_record_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
                         </div>
-
                       </div>
 
                       <div class="body-box shadow-sm">
@@ -229,6 +225,8 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
+                              $ACTIVE = "ACTIVE";
+                              $monthly_dues_num = "C007";
                               $query = "SELECT 
                                   collection_list.id,
                                   collection_list.property_id,
@@ -249,14 +247,18 @@ $server->adminAuthentication();
                                   homeowners_users.account_number,
                                   homeowners_users.firstname,
                                   homeowners_users.lastname,
-                                  homeowners_users.middle_initial
+                                  homeowners_users.middle_initial,
+                                  collection_fee.fee as collection_fee
                                 FROM collection_list 
                                 INNER JOIN property_list ON collection_list.property_id = property_list.id 
                                 INNER JOIN homeowners_users ON property_list.homeowners_id = homeowners_users.id
+                                INNER JOIN collection_fee ON collection_list.collection_fee_id = collection_fee.id
+                                WHERE collection_list.archive = :ACTIVE 
                                 ";
+                              $data = ["ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
-                              $stmt->execute();
+                              $stmt->execute($data);
                               if ($stmt->rowCount() > 0) {
                                 while ($result = $stmt->fetch()) {
                                   //collectionlist table
@@ -266,6 +268,7 @@ $server->adminAuthentication();
                                   $balance = $result['balance'];
                                   $month = $result['month'];
                                   $year = $result['year'];
+                                  $collection_fee = $result['collection_fee'];
 
                                   // propertylist table
                                   $proeprty_id = $result['id'];

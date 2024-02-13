@@ -20,64 +20,84 @@ if (isset($_POST['update_property_modal'])) {
     $_SESSION['text'] = "Invalid input, please fill all the required fields";
     $_SESSION['status_code'] = "danger";
   } else {
-    $query = "SELECT * FROM property_list WHERE id = :property_id";
-    $data = ["property_id" => $property_id];
-    $connection = $server->openConn();
-    $stmt = $connection->prepare($query);
-    $stmt->execute($data);
-    $count = $stmt->rowCount();
 
-    if ($count > 0) {
-      while ($result = $stmt->fetch()) {
-        $property_id_fetch = $result['id'];
-        $blk_property_fetch = $result['blk'];
-        $lot_property_fetch = $result['lot'];
-        $phase_property_fetch = $result['phase'];
-        $street_property_fetch = $result['street'];
-      }
+    // Check if there is current property record
+    $query1 = "SELECT blk,lot FROM property_list WHERE 
+  blk = :blk AND
+  lot = :lot 
+  ";
+    $data1 = [
+      "blk" => $blk_property,
+      "lot" => $lot_property
+    ];
+    $connection1 = $server->openConn();
+    $stmt1 = $connection1->prepare($query1);
+    $stmt1->execute($data1);
+    if ($stmt1->rowCount() > 0) {
+      $_SESSION['status'] = "Failed!";
+      $_SESSION['text'] = "Property already exist!";
+      $_SESSION['status_code'] = "error";
+    } else {
 
-
-      $query = "UPDATE property_list SET blk = :blk_property, lot = :lot_property, phase = :phase_property, street = :street_property WHERE id = :property_id";
-      $data = [
-        "blk_property" => $blk_property,
-        "lot_property" => $lot_property,
-        "phase_property" => $phase_property,
-        "street_property" => $street_property,
-        "property_id" => $property_id
-      ];
+      $query = "SELECT * FROM property_list WHERE id = :property_id";
+      $data = ["property_id" => $property_id];
       $connection = $server->openConn();
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
       $count = $stmt->rowCount();
-      $changed = "The following information has been updated: ";
 
-      if ($blk_property_fetch == $blk_property && $lot_property_fetch == $lot_property && $phase_property_fetch == $phase_property && $street_property_fetch == $street_property) {
-        $_SESSION['status'] = "No information has been changed!";
-        $_SESSION['text'] = "";
-        $_SESSION['status_code'] = "info";
-      } else {
+      if ($count > 0) {
+        while ($result = $stmt->fetch()) {
+          $property_id_fetch = $result['id'];
+          $blk_property_fetch = $result['blk'];
+          $lot_property_fetch = $result['lot'];
+          $phase_property_fetch = $result['phase'];
+          $street_property_fetch = $result['street'];
+        }
 
 
-        if ($blk_property_fetch != $blk_property) {
-          $changed .= " BLK";
+        $query = "UPDATE property_list SET blk = :blk_property, lot = :lot_property, phase = :phase_property, street = :street_property WHERE id = :property_id";
+        $data = [
+          "blk_property" => $blk_property,
+          "lot_property" => $lot_property,
+          "phase_property" => $phase_property,
+          "street_property" => $street_property,
+          "property_id" => $property_id
+        ];
+        $connection = $server->openConn();
+        $stmt = $connection->prepare($query);
+        $stmt->execute($data);
+        $count = $stmt->rowCount();
+        $changed = "The following information has been updated: ";
+
+        if ($blk_property_fetch == $blk_property && $lot_property_fetch == $lot_property && $phase_property_fetch == $phase_property && $street_property_fetch == $street_property) {
+          $_SESSION['status'] = "No information has been changed!";
+          $_SESSION['text'] = "";
+          $_SESSION['status_code'] = "info";
+        } else {
+
+
+          if ($blk_property_fetch != $blk_property) {
+            $changed .= " BLK";
+          }
+          if ($lot_property_fetch != $lot_property) {
+            $changed .= "LOT";
+          }
+          if ($phase_property_fetch != $phase_property) {
+            $changed .= "PHASE";
+          }
+          if ($street_property_fetch != $street_property) {
+            $changed .= "STREET";
+          }
+          $_SESSION['status'] = "Success!";
+          $_SESSION['text'] = $changed;
+          $_SESSION['status_code'] = "success";
+          // Activity log
+          $action = "Update property information of " . $account_number . ": " . $firstname . " = " . $changed . "";
+          $server->insertActivityLog($action);
         }
-        if ($lot_property_fetch != $lot_property) {
-          $changed .= "LOT";
-        }
-        if ($phase_property_fetch != $phase_property) {
-          $changed .= "PHASE";
-        }
-        if ($street_property_fetch != $street_property) {
-          $changed .= "STREET";
-        }
-        $_SESSION['status'] = "Success!";
-        $_SESSION['text'] = $changed;
-        $_SESSION['status_code'] = "success";
-        // Activity log
-        $action = "Update property information of " . $account_number . ": " . $firstname . " = " . $changed . "";
-        $server->insertActivityLog($action);
       }
     }
   }
-header("location: ../admin-panel/homeowners.php");
+  header("location: ../admin-panel/homeowners.php");
 }

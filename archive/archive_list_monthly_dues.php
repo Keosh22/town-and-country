@@ -81,31 +81,36 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-
+                              $monthly_dues = "Monthly Dues";
+                              $monthly_dues_num = "C007";
+                              $INACTIVE = "INACTIVE";
                               $query = "SELECT 
-                                archive_payments_list.transaction_number,
-                                archive_payments_list.id as payment_id,
-                                archive_payments_list.date_created as date_paid,
-                                archive_payments_list.collection_fee_id,
-                                archive_payments_list.paid,
-                                homeowners_users.firstname,
-                                homeowners_users.middle_initial,
-                                homeowners_users.lastname,
-                                property_list.blk as property_blk,
-                                property_list.lot as property_lot,
-                                property_list.street as property_street,
-                                property_list.phase as property_phase,
-                                collection_list.month as collection_month,
-                                collection_list.year as collection_year
-                                FROM archive_payments_list 
-                                INNER JOIN homeowners_users ON archive_payments_list.homeowners_id = homeowners_users.id
-                                INNER JOIN property_list ON archive_payments_list.property_id = property_list.id
-                                INNER JOIN collection_list ON archive_payments_list.collection_id = collection_list.id
-                                INNER JOIN collection_fee ON archive_payments_list.collection_fee_id = collection_fee.id
-                                ";
+                           payments_list.transaction_number,
+                           payments_list.id as payment_id,
+                           payments_list.date_created as date_paid,
+                           payments_list.collection_fee_id,
+                           payments_list.paid,
+                           homeowners_users.firstname,
+                           homeowners_users.middle_initial,
+                           homeowners_users.lastname,
+                           property_list.blk as property_blk,
+                           property_list.lot as property_lot,
+                           property_list.street as property_street,
+                           property_list.phase as property_phase,
+                           collection_list.month as collection_month,
+                           collection_list.year as collection_year,
+                           collection_list.id as collection_id
+                           FROM payments_list 
+                           INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
+                           INNER JOIN property_list ON payments_list.property_id = property_list.id
+                           INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
+                           INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                           WHERE collection_fee.collection_fee_number = :monthly_dues_num AND payments_list.archive = :INACTIVE
+                           ";
+                              $data = ["monthly_dues_num" => $monthly_dues_num, "INACTIVE" => $INACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
-                              $stmt->execute();
+                              $stmt->execute($data);
                               if ($stmt->rowCount() > 0) {
                                 while ($result = $stmt->fetch()) {
                                   $payment_id = $result['payment_id'];
@@ -123,6 +128,7 @@ $server->adminAuthentication();
 
                                   $collection_month = $result['collection_month'];
                                   $collection_year = $result['collection_year'];
+                                  $collection_id = $result['collection_id'];
 
                                   $paid_amount = $result['paid'];
                               ?>
@@ -130,14 +136,14 @@ $server->adminAuthentication();
                                     <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
                                     <td><?php echo $transaction_number; ?></td>
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
-                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase."-".$collection_month." ".$collection_year; ?></td>
+                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase . "-" . $collection_month . " " . $collection_year; ?></td>
                                     <td><?php echo $paid_amount; ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#" class="dropdown-item">Delete</a></li>
+                                          <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection="<?php echo $collection_id; ?>" href="#" class="dropdown-item">Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -174,7 +180,7 @@ $server->adminAuthentication();
   </div>
   <?php
   // View payment
-  include("../payments/monthly_dues_view_modal.php");
+  include("../archive/archive_view_modal.php");
 
   ?>
 
@@ -189,6 +195,7 @@ $server->adminAuthentication();
 
       // View payment
       $("#archiveMonthlyDuesTable").on('click', '#view_payment', function() {
+        const archive_status = "INACTIVE";
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         $("#payment_id_modal").val(payment_id);
@@ -201,7 +208,8 @@ $server->adminAuthentication();
             type: 'POST',
             data: {
               payment_id: payment_id,
-              transaction_number: transaction_number
+              transaction_number: transaction_number,
+              archive_status: archive_status
             },
             dataType: 'JSON',
             success: function(response) {
@@ -212,6 +220,8 @@ $server->adminAuthentication();
               $("#date_paid").html(response.date_paid);
               $(".table_result").html(response.table_result);
               $("#total_amount").val(response.total_amount);
+              $("#remarks").html(response.remarks);
+              $("#admin_name").html(response.admin_name);
             }
           });
         }
@@ -221,6 +231,7 @@ $server->adminAuthentication();
       // Delete Archive
       $("#archiveMonthlyDuesTable").on('click', "#delete_archive_md", function() {
         var payment_id = $(this).attr('data-id');
+        var collection_id = $(this).attr('data-collection');
 
         swal({
             title: "Delete Confirmation",
@@ -236,7 +247,8 @@ $server->adminAuthentication();
                 url: '../archive/delete_archive_monthly_dues.php',
                 type: 'POST',
                 data: {
-                  payment_id: payment_id
+                  payment_id: payment_id,
+                  collection_id: collection_id
                 },
                 success: function(response) {
                   // swal("This record has been permanently deleted!", {

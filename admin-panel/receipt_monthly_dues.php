@@ -1,5 +1,5 @@
 <?php
- 
+require_once("../libs/server.php");
 require_once("../includes/header.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
@@ -17,6 +17,11 @@ if (isset($_GET['transactionNumber'])) {
   $transactionNumberId = $_GET['transactionNumber'];
   $monthly_dues = "Monthly Dues";
 
+  if (isset($_GET['archive_status']) && $_GET['archive_status'] == "ACTIVE") {
+    $archive_status = $_GET['archive_status'];
+  } else {
+    $archive_status = $_GET['archive_status'];
+  }
 
 
   $table_result = "";
@@ -44,9 +49,9 @@ if (isset($_GET['transactionNumber'])) {
         INNER JOIN property_list ON payments_list.property_id = property_list.id
         INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transactionNumberId AND collection_fee.category = :monthly_dues
+        WHERE payments_list.transaction_number = :transactionNumberId AND collection_fee.category = :monthly_dues AND payments_list.archive = :archive_status
         ";
-  $data1 = ["transactionNumberId" => $transactionNumberId, "monthly_dues" => $monthly_dues ];
+  $data1 = ["transactionNumberId" => $transactionNumberId, "monthly_dues" => $monthly_dues, "archive_status" => $archive_status];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -115,10 +120,12 @@ if (isset($_GET['transactionNumber'])) {
       // Payment Summary
       $query2 = "SELECT
   payments_list.id as payment_list_id,
+  payments_list.admin,
   collection_fee.category,
   collection_fee.fee,
   collection_list.year,
   collection_list.month,
+  collection_list.balance as collection_balance,
   property_list.blk as property_blk,
   property_list.lot as property_lot,
   property_list.street as property_street,
@@ -127,9 +134,9 @@ if (isset($_GET['transactionNumber'])) {
   INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
   INNER JOIN collection_list ON payments_list.collection_id = collection_list.id 
   INNER JOIN property_list ON payments_list.property_id = property_list.id
-  WHERE payments_list.transaction_number = :transaction_number AND collection_fee.category = :monthly_dues
+  WHERE payments_list.transaction_number = :transaction_number AND collection_fee.category = :monthly_dues AND payments_list.archive = :archive_status
   ";
-      $data2 = ["transaction_number" => $transaction_number, "monthly_dues" => $monthly_dues];
+      $data2 = ["transaction_number" => $transaction_number, "monthly_dues" => $monthly_dues, "archive_status" => $archive_status];
       $connection2 = $server->openConn();
       $stmt2 = $connection2->prepare($query2);
       $stmt2->execute($data2);
@@ -137,6 +144,7 @@ if (isset($_GET['transactionNumber'])) {
         while ($result2 = $stmt2->fetch()) {
           $category = $result2['category'];
           $fee = $result2['fee'];
+          $collection_balance = $result2['collection_balance'];
           $month = $result2['month'];
           $year = $result2['year'];
           $payment_list_id = $result2['payment_list_id'];
@@ -146,14 +154,16 @@ if (isset($_GET['transactionNumber'])) {
           $property_street = $result2['property_street'];
           $property_phase = $result2['property_phase'];
 
+          $admin_name = $result2['admin'];
+
           $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
           $number = $number + 1;
-          $total_ammount += $fee;
+          $total_ammount += intval($collection_balance);
       ?>
           <tr>
             <td><?php echo $number; ?></td>
             <td><?php echo $category; ?></td>
-            <td><?php echo $fee; ?></td>
+            <td><?php echo $collection_balance; ?></td>
             <td><?php echo $property . '-' . $month . ' ' . $year; ?></td>
           </tr>
       <?php
@@ -164,7 +174,16 @@ if (isset($_GET['transactionNumber'])) {
   </table>
 
   <div class="flex">
-    <div class="w-50"></div>
+    <div class="w-50">
+      <div class="row align-items-center">
+        <div class="col-12 d-flex">
+          <span class="border-bottom"><b id="admin_name"><?php echo $admin_name; ?></b></span>
+        </div>
+        <div class="col-12 d-flex">
+          <span class="text-secondary">Process by</span>
+        </div>
+      </div>
+    </div>
     <div class="w-50">
       <div class="row align-items-center">
         <div class="col-auto">

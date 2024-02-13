@@ -60,7 +60,7 @@ $server->adminAuthentication();
                           <!-- <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a> -->
                         </div>
                         <div class="col d-flex justify-content-end">
-                          <a href="" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          <a href="../archive/membership_fee_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
                         </div>
                       </div>
 
@@ -80,26 +80,30 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                                $membership_fee = "Membership Fee";
+                              $membership_fee = "Membership Fee";
+                              $membership_fee_num = "C001";
+                              $ACTIVE = "ACTIVE";
                               $query = "SELECT 
                                 payments_list.transaction_number,
                                 payments_list.id as payment_id,
                                 payments_list.date_created as date_paid,
                                 payments_list.collection_fee_id,
                                 payments_list.paid,
+                                payments_list.remarks,
                                 homeowners_users.firstname,
                                 homeowners_users.middle_initial,
                                 homeowners_users.lastname,
                                 homeowners_users.blk,
                                 homeowners_users.lot,
                                 homeowners_users.street,
-                                homeowners_users.phase
+                                homeowners_users.phase,
+                                homeowners_users.id as homeowners_id
                                 FROM payments_list 
                                 INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
                                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                                WHERE collection_fee.category = :membership_fee
+                                WHERE collection_fee.collection_fee_number = :membership_fee_num AND payments_list.archive = :ACTIVE
                                 ";
-                                $data = ["membership_fee" => $membership_fee];
+                              $data = ["membership_fee_num" => $membership_fee_num, "ACTIVE" => $ACTIVE];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
                               $stmt->execute($data);
@@ -113,12 +117,14 @@ $server->adminAuthentication();
                                   $middle_initial = $result['middle_initial'];
                                   $lastname = $result['lastname'];
 
-                                
+
                                   $blk = $result['blk'];
                                   $lot = $result['lot'];
                                   $street = $result['street'];
                                   $phase = $result['phase'];
 
+                                  $homeowners_id = $result['homeowners_id'];
+                                  $remarks = $result['remarks'];
 
 
                                   $paid_amount = $result['paid'];
@@ -127,14 +133,14 @@ $server->adminAuthentication();
                                     <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
                                     <td><?php echo $transaction_number; ?></td>
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
-                                    <td><?php echo "BLK-". $blk . " LOT-". $lot . " " . $street . " St. ". $phase; ?></td>
+                                    <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " St. " . $phase; ?></td>
                                     <td><?php echo $paid_amount; ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="archive_btn" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" href="#" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
+                                          <li><a id="archive_btn" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" data-homeowners='<?php echo $homeowners_id; ?>' data-remarks='<?php echo $remarks; ?>' href="#archive_membershipFee" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -172,21 +178,22 @@ $server->adminAuthentication();
   <?php
   // View payment
   include("../payments/membership_fee_view_modal.php");
-  // // Archive Payment
-  // include("../payments/monthly_dues_archive_modal.php");
+  // Archive payment 
+  include("../archive/membership_fee_archive_modal.php");
 
   ?>
 
 
   <script>
     $(document).ready(function() {
-     
+
 
       // View payment
       $("#membershipFeeTable").on('click', '#view_payment', function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
-     
+        var archive_status = "ACTIVE";
+
         $("#payment_id_modal").val(payment_id);
         $("#transactionNum_id_modal").val(transaction_number);
         getPayment(payment_id);
@@ -197,18 +204,20 @@ $server->adminAuthentication();
             type: 'POST',
             data: {
               payment_id: payment_id,
-              transaction_number: transaction_number
+              transaction_number: transaction_number,
+              archive_status: archive_status
             },
             dataType: 'JSON',
             success: function(response) {
               $("#account_number").html(response.account_number);
               $("#name").html(response.name);
               $("#current_address").html(response.address);
-               $("#transaction_number").html(response.transaction_number);
-               $("#date_paid").html(response.date_paid);
+              $("#transaction_number").html(response.transaction_number);
+              $("#date_paid").html(response.date_paid);
               $(".table_result").html(response.table_result);
               $("#total_amount").val(response.total_amount);
               $("#remarks").html(response.remarks);
+              $("#admin_name").html(response.admin_name);
             }
           });
         }
@@ -220,9 +229,18 @@ $server->adminAuthentication();
       $("#membershipFeeTable").on('click', "#archive_btn", function() {
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
-        console.log(transaction_number)
+        var homeowners_id = $(this).attr('data-homeowners');
+        var remarks = $(this).attr('data-remarks');
+        var archive_status = "INACTIVE";
+
+        console.log(remarks);
+
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
+        $("#homeowners_id").val(homeowners_id);
+        $("#remarks_status").val(remarks);
+        
+
 
         swal({
             title: "Archive Confirmation",
@@ -233,16 +251,16 @@ $server->adminAuthentication();
           })
           .then((willDelete) => {
             if (willDelete) {
-
+              
             } else {
               swal("Archiving Canceled!");
-              $("#arhive_monthlyDues").modal('hide');
+              $("#archive_membershipFee").modal('hide');
             }
           })
       });
 
 
- 
+
 
 
       // DataTable

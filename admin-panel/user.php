@@ -192,7 +192,8 @@ $server->adminAuthentication();
 	// Delete Modal
 	include("../admin-panel/user_delete_modal.php");
 	?>
-
+  
+	
 	<!-- Delete Modal -->
 	<script>
 		$(document).ready(function() {

@@ -16,6 +16,13 @@ if (isset($_POST['payment_id'])) {
   $table_result = "";
   $number = 0;
   $total_ammount = 0;
+ 
+  
+  if(isset($_POST['archive_status']) && $_POST['archive_status'] == "ACTIVE"){
+    $archive_status = $_POST['archive_status'];
+  } else {
+    $archive_status = $_POST['archive_status'];
+  }
   $query1 = "SELECT 
         payments_list.id as payment_id,
         payments_list.transaction_number,
@@ -38,9 +45,9 @@ if (isset($_POST['payment_id'])) {
         INNER JOIN property_list ON payments_list.property_id = property_list.id
         INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transaction_number LIMIT 1
+        WHERE payments_list.transaction_number = :transaction_number AND payments_list.archive = :archive_status  LIMIT 1
         ";
-  $data1 = ["transaction_number" => $transaction_number];
+  $data1 = ["transaction_number" => $transaction_number, "archive_status" => $archive_status];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -71,10 +78,12 @@ if (isset($_POST['payment_id'])) {
   // Payment Summary
   $query2 = "SELECT
     payments_list.id as payment_list_id,
+    payments_list.admin,
     collection_fee.category,
     collection_fee.fee,
     collection_list.year,
     collection_list.month,
+    collection_list.balance as collection_balance,
     property_list.blk as property_blk,
     property_list.lot as property_lot,
     property_list.street as property_street,
@@ -83,9 +92,9 @@ if (isset($_POST['payment_id'])) {
     INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
     INNER JOIN collection_list ON payments_list.collection_id = collection_list.id 
     INNER JOIN property_list ON payments_list.property_id = property_list.id
-    WHERE payments_list.transaction_number = :transaction_number
+    WHERE payments_list.transaction_number = :transaction_number AND payments_list.archive = :archive_status 
     ";
-  $data2 = ["transaction_number" => $transaction_number];
+  $data2 = ["transaction_number" => $transaction_number, "archive_status" => $archive_status];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
   $stmt2->execute($data2);
@@ -96,21 +105,24 @@ if (isset($_POST['payment_id'])) {
       $month = $result2['month'];
       $year = $result2['year'];
       $payment_list_id = $result2['payment_list_id'];
+      $collection_balance = $result2['collection_balance'];
 
       $property_blk = $result2['property_blk'];
       $proeprty_lot = $result2['property_lot'];
       $property_street = $result2['property_street'];
       $property_phase = $result2['property_phase'];
 
+      $admin_name = $result2['admin'];
+
       $property = "BLK-" . $property_blk . " LOT-" . $proeprty_lot . " " . $property_street . ", " . $property_phase;
       $number = $number + 1;
-      $total_ammount += $fee;
+      $total_ammount += intval($collection_balance);
 
       $table_result .= '
       <tr>
       <td>'. $number .'</td>
       <td>'. $category .'</td>
-      <td>'. $fee .'</td>
+      <td>'. $collection_balance .'</td>
       <td>'.$property.'-'.$month.' '.$year.'</td>
       </tr>
       ';
@@ -131,7 +143,8 @@ if (isset($_POST['payment_id'])) {
     "account_number" => $account_number,
     "table_result" => $table_result,
     "total_amount" => $total_ammount,
-    "remarks" => $remarks
+    "remarks" => $remarks,
+    "admin_name" => $admin_name
   );
 
 

@@ -23,13 +23,13 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER; 
-  private $pass = LESPASS;
+  // private $user = LESUSER; 
+  // private $pass = LESPASS;
   // //private $lesDBname = LESDBNAME;
-  private $port = PORT;
+  // private $port = PORT;
 
-  // private $user = USER;
-  // private $pass = PASS;
+  private $user = USER;
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
 
@@ -57,10 +57,10 @@ class Server
   public function conn()
   {
     // Lesther
-    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    //$conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
     return $conn;
   }
 
@@ -70,12 +70,12 @@ class Server
 
     try {
       // Lesther 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
       // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
-      //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
       return $this->conn;
     } catch (PDOException $e) {
       die("connection failed" . $e->getMessage());
@@ -156,10 +156,10 @@ class Server
   public function pagination($numberofPage)
   {
     // Lesther
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 
@@ -224,6 +224,7 @@ class Server
         // $username = $result['username'];
         $password = $result['password'];
         $firstname = $result['firstname'];
+        $lastname = $result['lastname'];
         $user_id = $result['id'];
         $account_number = $result['account_number'];
         $type = $result['type'];
@@ -236,6 +237,7 @@ class Server
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
+        $_SESSION['admin_name'] = $firstname." ". $lastname;
 
 
         // pass the value to adminAuthentication()
@@ -522,13 +524,15 @@ class Server
     $first_day_month = date("j", strtotime("first day of this month"));
     $month = date("m", strtotime("now"));
     $year = date("Y", strtotime("now"));
+    $ACTIVE = "ACTIVE";
 
 
     // Get all row in the proeprty list
-    $query1 = "SELECT * FROM property_list";
+    $query1 = "SELECT * FROM property_list WHERE archive = :ACTIVE";
+    $data1 = ["ACTIVE" => $ACTIVE];
     $connection1 = $this->conn;
     $stmt1 = $connection1->prepare($query1);
-    $stmt1->execute();
+    $stmt1->execute($data1);
 
     if ($stmt1->rowCount() > 0) {
       while ($property_row = $stmt1->fetch()) {
@@ -536,11 +540,12 @@ class Server
         $property_list_phase = $property_row['phase'];
         $homeowners_id = $property_row['homeowners_id'];
         // Check If there is no current collection for this year 
-        $query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year";
+        $query2 = "SELECT * FROM collection_list WHERE property_id = :property_list_id AND month = :current_month AND year = :current_year AND archive = :ACTIVE";
         $data2 = [
           'property_list_id' => $property_list_id,
           'current_month' => $current_month,
-          'current_year' => $current_year
+          'current_year' => $current_year,
+          'ACTIVE' => $ACTIVE
         ];
         $connection2 = $this->conn;
         $stmt2 = $connection2->prepare($query2);
@@ -653,8 +658,8 @@ collection_list.month,
 collection_list.year,
 collection_list.property_id,
 property_list.phase
-FROM collection_list INNER JOIN property_list WHERE collection_list.property_id = property_list.id AND collection_list.status = :available AND year =:current_year";
-    $data5 = ["available" => $available, "current_year" => $current_year];
+FROM collection_list INNER JOIN property_list WHERE collection_list.property_id = property_list.id AND collection_list.status = :available AND year =:current_year AND collection_list.archive = :ACTIVE_collection AND property_list.archive = :ACTIVE_property";
+    $data5 = ["available" => $available, "current_year" => $current_year, "ACTIVE_collection" => $ACTIVE, "ACTIVE_property" => $ACTIVE];
     $connection5 = $this->conn;
     $stmt5 = $connection5->prepare($query5);
     $stmt5->execute($data5);
@@ -733,12 +738,13 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $PHASE_1 = "Phase 1";
     $PHASE_2 = "Phase 2";
     $PHASE_3 = "Phase 3";
-    $MEMBER = "MEMBER";
+    $MEMBER = "Member";
     $EXPIRED = "EXPIRED";
+    $ACTIVE = "ACTIVE";
 
     if ($current_day >= date("j", mktime(0, 0, 0, 1, 6, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 7, $current_year))) {
-      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_1 AND status = :member ";
-      $data1 = ["phase_1" => $PHASE_1, "member" => $MEMBER];
+      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_1 AND status = :member AND archive = :ACTIVE";
+      $data1 = ["phase_1" => $PHASE_1, "member" => $MEMBER, "ACTIVE" => $ACTIVE];
       $connection1 = $this->conn;
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
@@ -753,8 +759,8 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
         }
       }
     } elseif ($current_day >= date("j", mktime(0, 0, 0, 1, 13, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 14, $current_year))) {
-      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_2 AND status = :member ";
-      $data1 = ["phase_2" => $PHASE_2, "member" => $MEMBER];
+      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_1 AND status = :member AND archive = :ACTIVE";
+      $data1 = ["phase_1" => $PHASE_1, "member" => $MEMBER, "ACTIVE" => $ACTIVE];
       $connection1 = $this->conn;
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
@@ -768,10 +774,9 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
           $stmt2->execute($data2);
         }
       }
-
-    } elseif ($current_day >= date("j", mktime(0, 0, 0, 1, 20, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 21, $current_year))){
-      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_3 AND status = :member ";
-      $data1 = ["phase_3" => $PHASE_3, "member" => $MEMBER];
+    } elseif ($current_day >= date("j", mktime(0, 0, 0, 1, 20, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, 1, 21, $current_year))) {
+      $query1 = "SELECT id,phase,status FROM homeowners_users WHERE phase = :phase_1 AND status = :member AND archive = :ACTIVE";
+      $data1 = ["phase_1" => $PHASE_1, "member" => $MEMBER, "ACTIVE" => $ACTIVE];
       $connection1 = $this->conn;
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
@@ -872,10 +877,11 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $due = "DUE";
     $not_sent = "NOT SENT";
     $sent = "SENT";
+    $ACTIVE = "ACTIVE";
 
     if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 27, $current_year)) && $current_day <= date("j", mktime(0, 0, 0, $current_month_num, 28, $current_year))) {
-      $query1 = "SELECT id, email_status, month, year, status FROM collection_list WHERE email_status = :sent AND month = :current_month AND year = :current_year AND status IN (:available, :due)";
-      $data1 = ["sent" => $sent, "current_month" => $current_month, "current_year" => $current_year, "available" => $available, "due" => $due];
+      $query1 = "SELECT id, email_status, month, year, status FROM collection_list WHERE archive = :ACTIVE AND email_status = :sent AND month = :current_month AND year = :current_year AND status IN (:available, :due)";
+      $data1 = ["ACTIVE" => $ACTIVE, "sent" => $sent, "current_month" => $current_month, "current_year" => $current_year, "available" => $available, "due" => $due];
 
       $connection1 = $this->conn;
       $stmt1 = $connection1->prepare($query1);
@@ -904,6 +910,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $available = "AVAILABLE";
     $not_sent = "NOT SENT";
     $sent = "SENT";
+    $ACTIVE = "ACTIVE";
 
     $query1 = "SELECT 
     collection_list.id as collection_id,
@@ -913,9 +920,9 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     collection_list.year,
     property_list.phase as property_phase 
     FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id
-    WHERE collection_list.status = :available AND collection_list.email_status = :sent AND collection_list.month = :current_month AND collection_list.year = :current_year";
+    WHERE collection_list.status = :available AND collection_list.email_status = :sent AND collection_list.month = :current_month AND collection_list.year = :current_year AND collection_list.archive = :ACTIVE";
 
-    $data1 = ["available" => $available, "sent" => $sent, "current_month" => $current_month, "current_year" => $current_year];
+    $data1 = ["available" => $available, "sent" => $sent, "current_month" => $current_month, "current_year" => $current_year, "ACTIVE" => $ACTIVE];
     $connection1 = $this->conn;
     $stmt1 = $connection1->prepare($query1);
     $stmt1->execute($data1);
@@ -960,10 +967,12 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
   // ------------------------- COUNT FUNCTION --------------------------
-  public function countTenant(){
+  public function countTenant()
+  {
     $TENANT = "Tenant";
-    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :tenant";
-    $data = ["tenant" => $TENANT];
+    $ACTIVE = "ACTIVE";
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :tenant AND archive = :ACTIVE";
+    $data = ["tenant" => $TENANT, "ACTIVE" => $ACTIVE];
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
@@ -974,13 +983,14 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     } else {
       echo $default = 0;
     }
-
   }
 
-  public function countExpired(){
+  public function countExpired()
+  {
+    $ACTIVE = "ACTIVE";
     $EXPIRED = "EXPIRED";
-    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :expired";
-    $data = ["expired" => $EXPIRED];
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :expired AND archive = :ACTIVE";
+    $data = ["expired" => $EXPIRED, "ACTIVE" => $ACTIVE];
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
@@ -991,14 +1001,14 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     } else {
       echo $default = 0;
     }
-
   }
 
   public function countMembers()
   {
+    $ACTIVE = "ACTIVE";
     $member = "Member";
-    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :member";
-    $data = ["member" => $member];
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :member AND archive = :ACTIVE";
+    $data = ["member" => $member, "ACTIVE" => $ACTIVE];
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
@@ -1013,9 +1023,10 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
   public function countNonMembers()
   {
+    $ACTIVE = "ACTIVE";
     $member = "Non-Member";
-    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :non_member";
-    $data = ["non_member" => $member];
+    $query = "SELECT COUNT(status) FROM homeowners_users WHERE status = :non_member AND archive = :ACTIVE";
+    $data = ["non_member" => $member, "ACTIVE" => $ACTIVE];
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
@@ -1035,40 +1046,40 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $current_month_num = date("n", strtotime("now"));
     $year_email = date("Y", strtotime("now"));
     $day_email = date("j", strtotime("now"));
-
+    $ACTIVE = "ACTIVE";
     $available = "available";
     $not_sent = "NOT SENT";
     $default = 0;
 
     // Count collection during 1st to 2nd day of the month
-    if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 2, $year_email))) {
+    if ($day_email <= date("j", mktime(0, 0, 0, $current_month_num, 2, $year_email))) {
       // Phase 1
       $phase_1 = "Phase 1";
-      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
-      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_1];
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
+      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_1, "ACTIVE" => $ACTIVE];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
-      echo $count = $stmt->fetchColumn();
+      return $count = $stmt->fetchColumn();
     }
     // Count collection during 8th to 9th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 8, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 9, $year_email))) {
       // Phase 2
       $phase_2 = "Phase 2";
-      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
-      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_2];
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
+      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_2, "ACTIVE" => $ACTIVE];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
 
-      echo $count = $stmt->fetchColumn();
+      return $count = $stmt->fetchColumn();
     }
     // Count collection during 15th to 16th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 15, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 16, $year_email))) {
       // Phase 3
       $phase_3 = "Phase 3";
-      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
-      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_3];
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
+      $data = ["available" => $available, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_3, "ACTIVE" => $ACTIVE];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
@@ -1089,39 +1100,38 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $due = "DUE";
     $not_sent = "NOT SENT";
     $default = 0;
-
-
+    $ACTIVE = "ACTIVE";
 
     // Count the Due collection during 10th to 12th day of the month
     if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 11, $year_email))) {
       // Phase 1
       $phase_1 = "Phase 1";
-      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
-      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_1];
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
+      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_1, "ACTIVE" => $ACTIVE];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
-      echo $count = $stmt->fetchColumn();
+     return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 17th to 19th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 18, $year_email))) {
       // Phase 2
       $phase_2 = "Phase 2";
       // $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
-      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
-      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_2];
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
+      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_2, "ACTIVE" => $ACTIVE];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
-      echo $count = $stmt->fetchColumn();
+      return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 23th to 25th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 23, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 24, $year_email))) {
       $phase_3 = "Phase 3";
       // Phase 3
       // $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
-      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase";
-      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_3];
+      $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
+      $data = ["due" => $due, "current_month" => $current_month_email, "not_sent" => $not_sent, "phase" => $phase_3, "ACTIVE" => $ACTIVE];
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
@@ -1138,8 +1148,9 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
 
-public function transactionNumberGenerator(){
-  
+  public function transactionNumberGenerator()
+  {
+
 
     // Transaction Number Generator
     $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
@@ -1158,7 +1169,7 @@ public function transactionNumberGenerator(){
     }
 
     return $transaction_number;
-}
+  }
 
 
 

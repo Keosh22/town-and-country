@@ -17,11 +17,20 @@ if (isset($_POST['payment_id'])) {
   $table_result = "";
   $number = 0;
   $total_ammount = 0;
+
+  if (isset($_POST['archive_status']) && $_POST['archive_status'] == "ACTIVE") {
+    $archive_status = filter_input(INPUT_POST, 'archive_status', FILTER_SANITIZE_SPECIAL_CHARS);
+  } else {
+    $archive_status = filter_input(INPUT_POST, 'archive_status', FILTER_SANITIZE_SPECIAL_CHARS);
+  }
+
   $query1 = "SELECT 
         payments_list.id as payment_id,
         payments_list.transaction_number as payment_list_tnumber,
         payments_list.date_created as date_paid,
         payments_list.remarks,
+        payments_list.paid,
+        payments_list.admin,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -35,9 +44,9 @@ if (isset($_POST['payment_id'])) {
         FROM payments_list 
         INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
         INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-        WHERE payments_list.transaction_number = :transaction_number AND payments_list.id = :payment_id
+        WHERE payments_list.transaction_number = :transaction_number AND payments_list.id = :payment_id AND payments_list.archive = :archive_status
         ";
-  $data1 = ["transaction_number" => $transaction_number, "payment_id" => $payment_id];
+  $data1 = ["transaction_number" => $transaction_number, "payment_id" => $payment_id, "archive_status" => $archive_status];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
@@ -60,19 +69,22 @@ if (isset($_POST['payment_id'])) {
 
       $remarks = $result1['remarks'];
       $fee = $result1['fee'];
+      $paid = $result1['paid'];
       $category = $result1['category'];
+
+      $admin_name = $result1['admin'];
 
       $number = $number + 1;
 
       $name = $firstname . " " . $middle_initial . " " . $lastname;
       $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . ", " . $phase;
-      $total_amount = $fee;
-      $table_result ='
+      $total_amount = $paid;
+      $table_result = '
       <tr>
-      <td>'. $number .'</td>
-      <td>'. $category .'</td>
-      <td>'. $fee .'</td>
-      <td>'. $remarks .' '. date("Y",strtotime($date_paid)).'</td>
+      <td>' . $number . '</td>
+      <td>' . $category . '</td>
+      <td>' . $paid . '</td>
+      <td>' . $remarks . ' ' . date("Y", strtotime($date_paid)) . '</td>
       </tr>
       ';
     }
@@ -86,7 +98,8 @@ if (isset($_POST['payment_id'])) {
     "date_paid" => $date_paid,
     "remarks" => $remarks,
     "table_result" => $table_result,
-    "total_amount" => $total_amount
+    "total_amount" => $total_amount,
+    "admin_name" => $admin_name
 
   );
 

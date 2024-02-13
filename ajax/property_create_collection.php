@@ -21,20 +21,21 @@ if (isset($_POST['property_id'])) {
   $first_day_month = date("j", strtotime("first day of this month"));
   $month = date("m", strtotime("now"));
   $year = date("Y", strtotime("now"));
-
+  $ACTIVE = "ACTIVE";
 
   // Get  the proeprty list
-  $query1 = "SELECT * FROM property_list WHERE id = :property_id";
-  $data1 = ["property_id" => $property_id];
+  $query1 = "SELECT * FROM property_list WHERE id = :property_id AND archive = :ACTIVE";
+  $data1 = ["property_id" => $property_id, "ACTIVE" => $ACTIVE];
   $connection1 = $server->openConn();
   $stmt1 = $connection1->prepare($query1);
   $stmt1->execute($data1);
   if ($stmt1->rowCount() > 0) {
-    $query2 = "SELECT * FROM collection_list WHERE property_id = :property_id AND month = :current_month AND year = :year_picked";
+    $query2 = "SELECT * FROM collection_list WHERE property_id = :property_id AND month = :current_month AND year = :year_picked AND archive = :ACTIVE";
     $data2 = [
       'property_id' => $property_id,
       'current_month' => $current_month,
-      'year_picked' => $year_picked
+      'year_picked' => $year_picked,
+      'ACTIVE' => $ACTIVE
     ];
     $connection2 = $server->openConn();
     $stmt2 = $connection2->prepare($query2);
@@ -46,8 +47,9 @@ if (isset($_POST['property_id'])) {
     } else {
        // get the current monthly dues fee
        $monthly_dues = "Monthly Dues";
-       $query3 = "SELECT * FROM collection_fee WHERE category = :category";
-       $data3 = ["category" => $monthly_dues];
+       $monthy_dues_id = "C007";
+       $query3 = "SELECT * FROM collection_fee WHERE collection_fee_number = :monthy_dues_id";
+       $data3 = ["monthy_dues_id" => $monthy_dues_id];
        $connection3 = $server->openConn();
        $stmt3 = $connection3->prepare($query3);
        $stmt3->execute($data3);
