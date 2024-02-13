@@ -1,15 +1,18 @@
 <!-- Modal -->
+
+
 <style>
   .ui-datepicker tbody td {
     height: 40px;
 
   }
 
-  .date input span i{
+  .date input span i {
     font-size: 2em;
-    
+
   }
 </style>
+
 
 <div class="modal fade" id="request_transaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -21,8 +24,8 @@
       <form action="" method="post">
         <div class="modal-body" style="color: black;">
           <label style="color:black;">Start Date: </label>
-          <div id="datepicker" class="input-group date"  style="width: 50%;">
-            <input id="start_date" class="form-control input-sm-to" type="text" readonly />
+          <div id="datepicker" class="input-group date" style="width: 50%;">
+            <input id="start_date" class="form-control input-sm-to" name="start_date" type="text" readonly />
             <span class="input-group-addon">
               <i class="fa-regular fa-calendar" style="color: #000000; font-size:2em; margin-left:1rem"></i>
             </span>
@@ -30,31 +33,33 @@
 
 
           <label style="color:black;">End Date: </label>
-          <div id="datepicker2" class="input-group date" style="width: 50%;" >
-            <input id="end_date" class="form-control input-sm-to" type="text" readonly />
+          <div id="datepicker2" class="input-group date" style="width: 50%;">
+            <input id="end_date" class="form-control input-sm-to" name="start_date" type="text" readonly />
             <span class="input-group-addon">
-            <i class="fa-regular fa-calendar" style="color: #000000; font-size:2em; margin-left:1rem"></i>
+              <i class="fa-regular fa-calendar" style="color: #000000; font-size:2em; margin-left:1rem"></i>
             </span>
           </div>
         </div>
-        <div class="message_result" style="color: black;">
-          <h1 style="color:black"></h1>
-        </div>
+
       </form>
+      <div class="message_result" style="color: black;">
+        <h1 style="color:black"></h1>
+      </div>
+
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
 
+        <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
         <input type="submit" class="btn btn-primary" value="Request" id="request"></button>
 
-        <?php
 
 
-        ?>
+
       </div>
     </div>
   </div>
 </div>
+
 
 <script>
   $(document).ready(function() {
@@ -80,13 +85,13 @@
         highest_date = data.max_year_month;
         lowest_date = data.min_year_month;
 
-        highest_date_split = highest_date.split("-")
-        highestYear = highest_date_split[0];
-        highestMonth = highest_date_split[1];
+        // highest_date_split = highest_date.split("-")
+        // highestYear = highest_date_split[0];
+        // highestMonth = highest_date_split[1];
 
-        lowest_date_split = lowest_date.split("-");
-        lowestYear = lowest_date_split[0];
-        lowestMonth = lowest_date_split[1];
+        // lowest_date_split = lowest_date.split("-");
+        // lowestYear = lowest_date_split[0];
+        // lowestMonth = lowest_date_split[1];
       },
 
       error: function(error) {
@@ -99,29 +104,51 @@
         $(".message_result").empty();
 
         var startDate = $("#start_date").val();
-        var start_date_parts = startDate.split("/")
-        var startMonth = start_date_parts[0];
-        var startYear = start_date_parts[1];
+        // var start_date_parts = startDate.split("/")
+        // var startMonth = start_date_parts[0];
+        // var startYear = start_date_parts[1];
 
         var endDate = $("#end_date").val();
-        var end_date_parts = endDate.split("/")
-        var endMonth = end_date_parts[0];
-        var endYear = end_date_parts[1];
-        $(".message_result").append("<h4>" + lowestMonth + "/" + highestYear + "</h4>");
+        // var end_date_parts = endDate.split("/")
+        // var endMonth = end_date_parts[0];
+        // var endYear = end_date_parts[1];
+        $(".message_result").append("<h4>" + startDate + "/" + highest_date + "</h4>");
 
 
         if (
-          ((startMonth >= lowestMonth && startYear >= lowestYear) &&
-            (startMonth <= highestMonth && startYear <= highestYear)) &&
-          ((endMonth <= highestMonth && endYear <= highestYear) &&
-            (endMonth >= lowestMonth && endYear >= lowestYear))) {
-          $(".message_result").append("<h1>PROCEED</h1>");
+          ((startDate >= lowest_date && startDate <= highest_date) &&
+            (endDate <= highest_date && endDate >= lowest_date))) {
+          $(".message_result").append("<h1>Proceed</h1>");
+
+          $.ajax({
+
+            url: '../user-panel/receipt.php',
+            type: "POST",
+            dataType: "json",
+            
+            
+            success: function(data) {
+              var result = data
+                //window.open("../user-panel/receipt.php");
+                $(".message_result").append("<h4>" + result +"</h4>");
+                
+             
+            },
+
+            error: function(error) {
+              console.log("Error fetching data: " + JSON.stringify(error));
+            }
+          });
+
+
+
+
         } else {
           $(".message_result").append("<h1>There is no transaction on this date</h1>");
 
         };
 
-      
+
       });
     });
   });
@@ -162,13 +189,13 @@
     var datePickerInput = $("#datepicker").find("input");
 
     $("#datepicker").datepicker({
-      orientation: "top",
-      format: 'mm/yyyy',
-      viewMode: 'months',
-      minViewMode: 1,
+      
+      format: 'yyyy-mm-dd',
+      viewMode: 'days',
+      minViewMode: "month",
       autoclose: true,
       todayHighlight: true,
-      
+
 
 
 
@@ -179,9 +206,9 @@
   $(function() {
     $("#datepicker2").datepicker({
       inline: false,
-      format: 'mm/yyyy',
-      viewMode: 'months',
-      minViewMode: 'months',
+      format: 'yyyy-mm-dd',
+      viewMode: 'days',
+      minViewMode: 'month',
       autoclose: true,
       todayHighlight: true,
     }).datepicker('update', new Date());
