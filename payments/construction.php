@@ -62,7 +62,7 @@ $server->adminAuthentication();
                           <div class="gx-3">
                             <a href="#materialDeliveryModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat "><i class='bx bx-plus bx-xs bx-tada-hover'></i>Material Delivery</a>
                             <a href="#constructionBondModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Construction Bond</a>
-                            <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Clearance</a>
+                            <a href="#constructionClearanceModal" id="construction_clearance_btn" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Clearance</a>
                           </div>
                         </div>
                         <div class="col d-flex justify-content-end">
@@ -111,7 +111,8 @@ $server->adminAuthentication();
                               construction_payment.date_created as payment_date,
                               construction_payment.delivery_date,
                               construction_payment.paid_by,
-                              construction_payment.transaction_number as construction_tn_number
+                              construction_payment.transaction_number as construction_tn_number,
+                              construction_payment.refund
                               FROM construction_payment 
                               INNER JOIN property_list ON construction_payment.property_id = property_list.id
                               INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
@@ -137,6 +138,7 @@ $server->adminAuthentication();
                                   $transaction_number = $result1['construction_tn_number'];
                                   $construction_payment_id = $result1['construction_payment_id'];
                                   $collection_fee_number = $result1['collection_fee_number'];
+                                  $refund = $result1['refund'];
                               ?>
                                   <tr>
                                     <td><?php echo $transaction_number; ?></td>
@@ -144,7 +146,11 @@ $server->adminAuthentication();
                                     <td><?php echo $address; ?></td>
                                     <td><?php echo $paid_by; ?></td>
                                     <td><?php echo $payment; ?></td>
-                                    <td><?php echo $amount; ?></td>
+                                    <td><?php echo $amount
+                                        ?>
+                                      <span class="badge rounded-pill text-bg-success"><?php echo $refund; ?></span>
+                                      <?php ?>
+                                    </td>
                                     <td>
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
@@ -157,7 +163,7 @@ $server->adminAuthentication();
                                           } elseif ($collection_fee_number == "C002") {
                                           ?>
                                             <li><a id="view_payment_cb" href="#construction_view" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">View</a></li>
-                                            <li><a id="view_payment_cb" href="#construction_view" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Refund</a></li>
+                                            <li><a id="refund_btn" href="" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Refund</a></li>
                                           <?php
                                           }
                                           ?>
@@ -205,6 +211,9 @@ $server->adminAuthentication();
 
   // Constrution Bond Modal
   include('../payments/construction_bond_modal.php');
+
+  // Construction Clearance Modal
+  include('../payments/construction_clearance_modal.php');
 
   ?>
 
@@ -276,7 +285,46 @@ $server->adminAuthentication();
         })
       });
 
+      // Refund Construct
+      $("#refund_btn").on('click', function() {
+        var construction_payment_id = $(this).attr('data-id');
+        swal({
+            title: 'Refund Confirmation',
+            text: 'Are you sure you want to refund this payment?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if (proceed) {
+              $.ajax({
+                url: '../payments/construction_bond_refund.php',
+                type: 'POST',
+                data: {
+                  construction_payment_id: construction_payment_id
+                },
+                success: function(response) {
+                  location.reload(true);
+                }
+              });
+            } else {
+              swal("Canceled");
+            }
+          })
+      });
 
+      // Construction CLearance
+      $("#construction_clearance_btn").on('click', function () {
+        $.ajax({
+          url: '../ajax/construction_clearance_get_fee.php',
+          type: 'POST',
+          dataType: 'JSON',
+          success: function (response){
+            $("#amount_cc").val(response.collection_fee);
+            $("#collection_fee_id_cc").val(response.collection_fee_id);
+          }
+        });
+      });
 
       // DataTable
       $("#constrcutionPaymentTable").DataTable({
@@ -286,7 +334,7 @@ $server->adminAuthentication();
       });
 
       const table = $("#constrcutionPaymentTable").DataTable();
-      $("#filter_table").on('change', function (){
+      $("#filter_table").on('change', function() {
         table.search(this.value).draw();
       });
 

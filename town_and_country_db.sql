@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2024 at 06:46 AM
+-- Generation Time: Feb 13, 2024 at 03:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -34,6 +34,13 @@ CREATE TABLE `activity_log` (
   `action` varchar(250) NOT NULL,
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `activity_log`
+--
+
+INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date`) VALUES
+(412, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-02-13 13:49:35');
 
 -- --------------------------------------------------------
 
@@ -189,10 +196,10 @@ INSERT INTO `collection_list` (`id`, `property_id`, `owners_id`, `collection_fee
 (654, 82, 9, 18, '2024-02-04 18:59:45', '300', '2024-02-06 21:49:45', 'PAID', 'June', '06', '2024', 'NOT SENT', 'ACTIVE'),
 (655, 82, 9, 18, '2024-02-04 18:59:45', '250', '2024-02-12 22:03:09', 'PAID', 'July', '07', '2024', 'NOT SENT', 'ACTIVE'),
 (656, 82, 9, 18, '2024-02-04 18:59:45', '250', '2024-02-12 22:10:18', 'PAID', 'August', '08', '2024', 'NOT SENT', 'ACTIVE'),
-(657, 82, 9, 18, '2024-02-04 18:59:45', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'September', '09', '2024', 'NOT SENT', 'ACTIVE'),
-(658, 82, 9, 18, '2024-02-04 18:59:45', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2024', 'NOT SENT', 'ACTIVE'),
-(659, 82, 9, 18, '2024-02-04 18:59:45', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2024', 'NOT SENT', 'ACTIVE'),
-(660, 82, 9, 18, '2024-02-04 18:59:45', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2024', 'NOT SENT', 'ACTIVE'),
+(657, 82, 9, 18, '2024-02-04 18:59:45', '250', '2024-02-13 14:02:57', 'PAID', 'September', '09', '2024', 'NOT SENT', 'ACTIVE'),
+(658, 82, 9, 18, '2024-02-04 18:59:45', '250', '2024-02-13 14:02:57', 'PAID', 'October', '10', '2024', 'NOT SENT', 'ACTIVE'),
+(659, 82, 9, 18, '2024-02-04 18:59:45', '250', '2024-02-13 14:02:57', 'PAID', 'November', '11', '2024', 'NOT SENT', 'ACTIVE'),
+(660, 82, 9, 18, '2024-02-04 18:59:45', '250', '2024-02-13 14:02:57', 'PAID', 'December', '12', '2024', 'NOT SENT', 'ACTIVE'),
 (661, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'January', '01', '2024', 'NOT SENT', 'ACTIVE'),
 (662, 83, 10, 18, '2024-02-04 19:05:02', '300', '0000-00-00 00:00:00', 'DUE', 'February', '02', '2024', 'SENT', 'ACTIVE'),
 (663, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'March', '03', '2024', 'NOT SENT', 'ACTIVE'),
@@ -240,7 +247,19 @@ INSERT INTO `collection_list` (`id`, `property_id`, `owners_id`, `collection_fee
 (705, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'September', '09', '2024', 'NOT SENT', 'ACTIVE'),
 (706, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2024', 'NOT SENT', 'ACTIVE'),
 (707, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2024', 'NOT SENT', 'ACTIVE'),
-(708, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2024', 'NOT SENT', 'ACTIVE');
+(708, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2024', 'NOT SENT', 'ACTIVE'),
+(709, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'January', '01', '2025', 'NOT SENT', 'ACTIVE'),
+(710, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'February', '02', '2025', 'NOT SENT', 'ACTIVE'),
+(711, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'March', '03', '2025', 'NOT SENT', 'ACTIVE'),
+(712, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2025', 'NOT SENT', 'ACTIVE'),
+(713, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'May', '05', '2025', 'NOT SENT', 'ACTIVE'),
+(714, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'June', '06', '2025', 'NOT SENT', 'ACTIVE'),
+(715, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'July', '07', '2025', 'NOT SENT', 'ACTIVE'),
+(716, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'August', '08', '2025', 'NOT SENT', 'ACTIVE'),
+(717, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'September', '09', '2025', 'NOT SENT', 'ACTIVE'),
+(718, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'October', '10', '2025', 'NOT SENT', 'ACTIVE'),
+(719, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'November', '11', '2025', 'NOT SENT', 'ACTIVE'),
+(720, 82, 0, 18, '2024-02-13 14:02:41', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'December', '12', '2025', 'NOT SENT', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -257,7 +276,7 @@ CREATE TABLE `construction_payment` (
   `date_created` datetime NOT NULL,
   `delivery_date` datetime NOT NULL,
   `paid_by` varchar(255) NOT NULL,
-  `remarks` varchar(255) NOT NULL,
+  `refund` varchar(255) NOT NULL,
   `admin` varchar(255) NOT NULL,
   `archive` varchar(255) NOT NULL DEFAULT 'ACTIVE'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -266,9 +285,9 @@ CREATE TABLE `construction_payment` (
 -- Dumping data for table `construction_payment`
 --
 
-INSERT INTO `construction_payment` (`id`, `transaction_number`, `property_id`, `collection_fee_id`, `paid`, `date_created`, `delivery_date`, `paid_by`, `remarks`, `admin`, `archive`) VALUES
+INSERT INTO `construction_payment` (`id`, `transaction_number`, `property_id`, `collection_fee_id`, `paid`, `date_created`, `delivery_date`, `paid_by`, `refund`, `admin`, `archive`) VALUES
 (4, 'C00000001', 0, 0, 0, '2024-02-10 13:59:21', '2024-02-10 13:59:21', 'DO NOT DELETE THIS', '', '', 'DO NOT DELETE THIS'),
-(10, 'C00000003', 82, 5, 24000, '2024-02-11 18:30:29', '0000-00-00 00:00:00', 'Beverly Baasis', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(10, 'C00000003', 82, 5, 24000, '2024-02-11 18:30:29', '0000-00-00 00:00:00', 'Beverly Baasis', 'REFUNDED', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
 (12, 'C00000005', 83, 5, 20000, '2024-02-11 18:36:31', '0000-00-00 00:00:00', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
 (13, 'C00000006', 83, 14, 2000, '2024-02-11 19:21:01', '2024-02-10 00:00:00', 'Kirby R. Rivera', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
 (14, 'C00000007', 83, 5, 2400, '2024-02-11 20:19:30', '0000-00-00 00:00:00', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE');
@@ -348,7 +367,11 @@ INSERT INTO `payments_list` (`id`, `transaction_number`, `homeowners_id`, `prope
 (53, 'TN00000008', 9, 82, 655, 18, '2024-02-12 22:03:09', '250', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
 (54, 'TN00000009', 9, 82, 656, 18, '2024-02-12 22:10:18', '250', '', '', 'KEN JOSHUA BUENAVIDES', 'INACTIVE'),
 (55, 'TN00000010', 11, 0, 0, 4, '2024-02-12 22:05:13', '1000', '', 'New Membership', '', 'ACTIVE'),
-(56, 'TN00000011', 13, 0, 0, 4, '2024-02-12 22:04:21', '1000', '', 'Renew Membership', 'KEN JOSHUA BUENAVIDES', 'INACTIVE');
+(56, 'TN00000011', 13, 0, 0, 4, '2024-02-12 22:04:21', '1000', '', 'Renew Membership', 'KEN JOSHUA BUENAVIDES', 'INACTIVE'),
+(57, 'TN00000012', 9, 82, 657, 18, '2024-02-13 14:02:57', '250', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(58, 'TN00000012', 9, 82, 658, 18, '2024-02-13 14:02:57', '250', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(59, 'TN00000012', 9, 82, 659, 18, '2024-02-13 14:02:57', '250', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(60, 'TN00000012', 9, 82, 660, 18, '2024-02-13 14:02:57', '250', '', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -534,7 +557,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=412;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=413;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -564,7 +587,7 @@ ALTER TABLE `collection_fee`
 -- AUTO_INCREMENT for table `collection_list`
 --
 ALTER TABLE `collection_list`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=709;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=721;
 
 --
 -- AUTO_INCREMENT for table `construction_payment`
@@ -582,7 +605,7 @@ ALTER TABLE `homeowners_users`
 -- AUTO_INCREMENT for table `payments_list`
 --
 ALTER TABLE `payments_list`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `promotion`
