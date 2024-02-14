@@ -133,7 +133,11 @@ $server->adminAuthentication();
 
                                   $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
                                   $paid_by = $result1['paid_by'];
-                                  $payment = $result1['category'] . "-" . $result1['description'];
+                                  if ($result1['description']) {
+                                    $payment = $result1['category'] . "-" . $result1['description'];
+                                  } else {
+                                    $payment = $result1['category'];
+                                  }
                                   $amount = $result1['amount'];
                                   $transaction_number = $result1['construction_tn_number'];
                                   $construction_payment_id = $result1['construction_payment_id'];
@@ -164,6 +168,10 @@ $server->adminAuthentication();
                                           ?>
                                             <li><a id="view_payment_cb" href="#construction_view" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">View</a></li>
                                             <li><a id="refund_btn" href="" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Refund</a></li>
+                                          <?php
+                                          } elseif ($collection_fee_number == "C003") {
+                                          ?>
+                                            <li><a id="view_payment_cc" href="#construction_view" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">View</a></li>
                                           <?php
                                           }
                                           ?>
@@ -285,6 +293,7 @@ $server->adminAuthentication();
         })
       });
 
+
       // Refund Construct
       $("#refund_btn").on('click', function() {
         var construction_payment_id = $(this).attr('data-id');
@@ -314,17 +323,51 @@ $server->adminAuthentication();
       });
 
       // Construction CLearance
-      $("#construction_clearance_btn").on('click', function () {
+      $("#construction_clearance_btn").on('click', function() {
         $.ajax({
           url: '../ajax/construction_clearance_get_fee.php',
           type: 'POST',
           dataType: 'JSON',
-          success: function (response){
+          success: function(response) {
             $("#amount_cc").val(response.collection_fee);
             $("#collection_fee_id_cc").val(response.collection_fee_id);
           }
         });
       });
+
+
+      $("#constrcutionPaymentTable").on('click', '#view_payment_cc', function() {
+        var property_id = $(this).attr('data-property');
+        var construction_payment_id = $(this).attr('data-id');
+        var collection_fee_number = $(this).attr('data-collection-fee');
+        $("#collection_fee_number").val(collection_fee_number);
+        $.ajax({
+          url: '../ajax/construction_clearance_receipt_view.php',
+          type: 'POST',
+          data: {
+            property_id: property_id,
+            construction_payment_id: construction_payment_id
+          },
+          dataType: 'JSON',
+          success: function(response) {
+            $("#name").html(response.name);
+            $("#account_number").html(response.account_number);
+            $("#transaction_number").html(response.transaction_number);
+            $("#date_paid").html(response.date_created);
+            $("#paid_by").html(response.paid_by);
+            $(".table_result").html(response.table);
+            $("#table_header").html(response.table_header);
+            $("#total_amount").val(response.total_amount);
+            $("#property_id_receipt").val(response.property_id);
+            $("#transaction_number_md").val(response.transaction_number);
+            $("#admin_name").empty().append(response.admin_name);
+          }
+        })
+      });
+
+
+
+
 
       // DataTable
       $("#constrcutionPaymentTable").DataTable({

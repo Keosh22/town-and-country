@@ -124,6 +124,17 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
             receipt.close();
           }, 500)
         }, 500)
+      } else if (collection_fee_number === "C003") {
+        var archive_status = "ACTIVE";
+        var transaction_number_md = $("#transaction_number_md").val();
+        var property_id_receipt = $("#property_id_receipt").val();
+        var receipt = window.open('../payments/construction_clearance_receipt.php?transaction_number_md=' + transaction_number_md + '&property_id_receipt=' + property_id_receipt, '_blank', 'width=900,height=600');
+        setTimeout(function() {
+          receipt.print();
+          setTimeout(function() {
+            receipt.close();
+          }, 500)
+        }, 500)
       }
 
     });

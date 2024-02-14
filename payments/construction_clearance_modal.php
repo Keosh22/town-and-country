@@ -75,7 +75,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
   </div>
 </div>
 <script>
-  $(document).ready(function (){
+  $(document).ready(function() {
     $("#constructionClearanceModal").on('hidden.bs.modal', function(e) {
       $("#form_construction_clearance").find('input[type=text], input[type=hidden], input[type=number]').val("");
       $(".default_select").prop("selected", true);
@@ -140,6 +140,45 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       }
     });
 
+    $("#add_construction_clearance").click('click', function() {
+      var property_id = $("#property_id_cc").val();
+      var collection_fee_id = $("#collection_fee_id_cc").val();
+      var paid_by = $("#paid_by_cc").val();
+  
+      var amount = $("#amount_cc").val();
+
+      if(paid_by.length > 0){
+
+      } else {
+        paid_by = $("#homeowners_name_cc").val();
+      }
+      swal({
+        title: 'Payment Confirmation',
+        text: 'Are you sure you want to add this payment?',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+      })
+      .then((proceed) => {
+        if (proceed){
+          $.ajax({
+            url: '../payments/construction_clearance_add_payment.php',
+            type: 'POST',
+            data: {
+              property_id: property_id,
+              collection_fee_id: collection_fee_id,
+              paid_by: paid_by,
+              amount: amount
+            },
+            success: function (response){
+              location.reload();
+            }
+          })
+        } else {
+          swal('Canceled');
+        }
+      })
+    });
 
 
   })
