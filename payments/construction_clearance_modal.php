@@ -144,40 +144,49 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       var property_id = $("#property_id_cc").val();
       var collection_fee_id = $("#collection_fee_id_cc").val();
       var paid_by = $("#paid_by_cc").val();
-  
+
       var amount = $("#amount_cc").val();
 
-      if(paid_by.length > 0){
+      if (paid_by.length > 0) {
 
       } else {
         paid_by = $("#homeowners_name_cc").val();
       }
       swal({
-        title: 'Payment Confirmation',
-        text: 'Are you sure you want to add this payment?',
-        icon: 'warning',
-        buttons: true,
-        dangerMode: true
-      })
-      .then((proceed) => {
-        if (proceed){
-          $.ajax({
-            url: '../payments/construction_clearance_add_payment.php',
-            type: 'POST',
-            data: {
-              property_id: property_id,
-              collection_fee_id: collection_fee_id,
-              paid_by: paid_by,
-              amount: amount
-            },
-            success: function (response){
-              location.reload();
-            }
-          })
-        } else {
-          swal('Canceled');
-        }
-      })
+          title: 'Payment Confirmation',
+          text: 'Are you sure you want to add this payment?',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
+        })
+        .then((proceed) => {
+          if (proceed) {
+            $.ajax({
+              url: '../payments/construction_clearance_add_payment.php',
+              type: 'POST',
+              data: {
+                property_id: property_id,
+                collection_fee_id: collection_fee_id,
+                paid_by: paid_by,
+                amount: amount
+              },
+              success: function(response) {
+
+                var transaction_number = response
+                var property_id_ = $("#property_id_cc").val();
+                var receipt = window.open('../payments/construction_clearance_receipt.php?transaction_number_md=' + transaction_number + '&property_id_receipt=' + property_id_, '_blank', 'width=900,height=600');
+                setTimeout(function() {
+                  receipt.print();
+                  setTimeout(function() {
+                    receipt.close();
+                  }, 500)
+                }, 500)
+              }
+            })
+          } else {
+            swal('Canceled');
+          }
+        })
     });
 
 

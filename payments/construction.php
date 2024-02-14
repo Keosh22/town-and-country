@@ -336,6 +336,7 @@ $server->adminAuthentication();
       });
 
 
+      // Construction Clearance View
       $("#constrcutionPaymentTable").on('click', '#view_payment_cc', function() {
         var property_id = $(this).attr('data-property');
         var construction_payment_id = $(this).attr('data-id');

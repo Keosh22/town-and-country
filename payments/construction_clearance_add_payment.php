@@ -54,6 +54,8 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "error";
     }
+
+    echo $new_transaction_number;
   }
 }
 ?>
