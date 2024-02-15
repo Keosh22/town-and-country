@@ -75,7 +75,7 @@ $server->adminAuthentication();
                           <table id="propertyListTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="10%">#</th>
+                                <!-- <th width="10%">#</th> -->
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
@@ -116,7 +116,7 @@ $server->adminAuthentication();
                                   $property_phase = $result['property_phase'];
                               ?>
                                   <tr>
-                                    <td><?php echo $property_id; ?></td>
+                           
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
                                     <td><?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?></td>
                                     <td><?php echo $property_phase;  ?></td>
@@ -147,7 +147,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="10%">#</th>
+                                <!-- <th width="10%">#</th> -->
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
@@ -255,16 +255,13 @@ $server->adminAuthentication();
 
       // DataTable
       $("#propertyListTable").DataTable({
-        order: [
-          [1, 'desc'],
-          [0, 'desc']
-        ]
+        
       });
 
       // Filter Table
       const filter_table = $("#propertyListTable").DataTable();
       $("#filter_table").on('change', function (){
-        filter_table.columns(3).search(this.value).draw();
+        filter_table.columns(2).search(this.value).draw();
       })
 
 
