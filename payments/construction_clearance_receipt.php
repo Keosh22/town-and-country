@@ -17,7 +17,7 @@ if (isset($_GET['property_id_receipt']) && isset($_GET['transaction_number_md'])
   $transaction_number_md = filter_input(INPUT_GET, 'transaction_number_md', FILTER_SANITIZE_SPECIAL_CHARS);
   $response = [];
   $number = 0;
-  $ACTIVE = "ACTIVE";
+
 
   // Get homeowners details
   $query1 = "SELECT 
@@ -64,8 +64,8 @@ if (isset($_GET['property_id_receipt']) && isset($_GET['transaction_number_md'])
   collection_fee.description  
   FROM construction_payment 
   INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id
-  WHERE construction_payment.transaction_number =  :transaction_number_md AND construction_payment.archive = :ACTIVE";
-  $data2 = ["transaction_number_md" => $transaction_number_md, "ACTIVE" => $ACTIVE];
+  WHERE construction_payment.transaction_number =  :transaction_number_md ";
+  $data2 = ["transaction_number_md" => $transaction_number_md];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
   $stmt2->execute($data2);
