@@ -38,8 +38,15 @@ $row = mysqli_fetch_array($result['result']);
 
       <div class="card-header about">
         
-        <h3 class="">ABOUT: <?= $row['about'] ?></h3>
-        <p><p ><span style="color: #064420;" >Date: </span><?= date('M d, Y', strtotime($row['date'])) ?></p></p>
+        <h3 class="">ABOUT: <?php if(isset($row['about'])){
+          echo $row['about'];
+        } ?></h3>
+        <p><p ><span style="color: #064420;" >Date: </span><?php
+      
+        if(isset($row['date'])){
+          echo date('M d, Y', strtotime($row['date']));
+        }
+        ?></p></p>
       </div>
 
       <div class="announcement-title">
@@ -52,13 +59,19 @@ $row = mysqli_fetch_array($result['result']);
       
 
       <div class="card-body">  
-          <p class="scrollable-content">&nbsp &nbsp  &nbsp  &nbsp<?= preg_replace('/\s+/', ' ', trim(nl2br($row['content']))) ?></p>
+          <p class="scrollable-content">&nbsp &nbsp  &nbsp  &nbsp<?php 
+            if(isset($row['content'])){
+              echo preg_replace('/\s+/', ' ', trim(nl2br($row['content'])));
+            }
+          ?></p>
           
       </div>
 
       <div class="footer">
 
-        <small class="date-created"><?="Date Created: " .  date('M d, Y', strtotime($row['date_created'])). " " ?></small>
+        <small class="date-created">Date Created: <?php if(isset($row['date_created'])){
+           echo date('M d, Y', strtotime($row['date_created']));
+        } ?></small>
         <small class="content-signature"> By: Town and Country Heights Executive Village</small>
       </div>
 

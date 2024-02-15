@@ -1,5 +1,5 @@
 <?php
- session_start(); ?>
+session_start(); ?>
 
 
 <?php
@@ -22,13 +22,23 @@ $current_date = date('d');
 ?>
 
 
-<body>
-  <div class="wrapper">
-    <div class="row">
-      <div class="col">
-        <a href="#" class="announcement-title fs-1"><b>Promotional</b></a>
+<main>
+  <div class="backbtn-title d-flex flex-column">
+
+    <!-- First Column -->
+    <div class="col-12 back-button">
+      <a href="home.php" class="d-flex justify-content-start">
+        <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
+      </a>
+    </div>
+
+    <!-- Second Column -->
+    <div class="row d-flex mt-2 mb-5 justify-content-center">
+      <div class="col col-xl-12 option-title">
+        <h1>Promotions</h1>
       </div>
     </div>
+
   </div>
 
   <div class="row mx-3 my-5 justify-content-center">
@@ -41,38 +51,38 @@ $current_date = date('d');
           $content = $result['content'];
           $date_created = date("d", strtotime($result['date_created']));
           $days_ago = $current_date - $date_created;
-          ?>
+      ?>
           <div class="card mb-4 shadow-lg">
             <img src="../promotion_photos/<?php
-               if($photo == ""){
-                echo "default_image_promotion.jpg";
-              } else {
-                 echo $photo;
-              }
-            ?>" alt="..." class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $business_name; ?></h5>
-              <p class="card-text"><?php echo $content; ?></p>
-              <p class="card-text"><small class="text-body-secondary">
-                  <?php
-                  if ($current_date == $date_created) {
-                  ?>
-                    posted today
-                  <?php
-                  } elseif ($days_ago == 1) {
-                    echo $days_ago;
-                  ?>
-                    day ago
-                  <?php
-                  } else {
-                    echo $days_ago
-                  ?>
-                    days ago
-                  <?php
-                  }
-                  ?>
-                </small>
-              </p>
+                                          if ($photo == "") {
+                                            echo "default_image_promotion.jpg";
+                                          } else {
+                                            echo $photo;
+                                          }
+                                          ?>" alt="..." class="card-img-top">
+            <div class="row m-2">
+            <h5 class="card-title"><?php echo $business_name; ?></h5>
+            <p class="card-text"><?php echo $content; ?></p>
+            <p class="card-text"><small class="text-body-secondary">
+                <?php
+                if ($current_date == $date_created) {
+                ?>
+                  posted today
+                <?php
+                } elseif ($days_ago == 1) {
+                  echo $days_ago;
+                ?>
+                  day ago
+                <?php
+                } else {
+                  echo $days_ago
+                ?>
+                  days ago
+                <?php
+                }
+                ?>
+              </small>
+            </p>
             </div>
           </div>
       <?php
@@ -82,4 +92,4 @@ $current_date = date('d');
     </div>
 
   </div>
-</body>
+</main>

@@ -34,7 +34,7 @@ $server = new Server();
       Request Transaction
     </button>
   </div>
-  <table class="table table-striped">
+  <table class="table table-striped" id="">
     <thead class="table-header bg-dark">
       <tr>
         <th scope="col ">TRANSACTION NUMBER</th>
@@ -144,6 +144,11 @@ $server = new Server();
       $("#request_transaction").modal("show");
       $(".message_result").empty();
     })
+
+    // DataTable
+    // $("#transactionTable").DataTable({
+
+    // });
   });
 </script>
 
