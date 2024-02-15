@@ -1209,6 +1209,13 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       echo "<script>window.location.href='../index.php'</script>";
     }
   }
+
+  // Password Reset Authentication
+  public function changePasswordAuthentication(){
+    if(empty($_SESSION['token_verify']) || time()-$_SESSION['forgot_password_timestamp'] > 600){
+      echo "<script>window.location.href='../forgot_password.php'</script>";
+    }
+  }
 }
 
 ?>
