@@ -203,7 +203,21 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col d-flex justify-content-end">
+                        <div class="col d-flex justify-content-start">
+                        
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                          <div class="col-3 mx-3">
+                            <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
+                              <option value="">Filter:</option>
+                              <option value="AVAILABLE">AVAILABLE</option>
+                              <option value="PAID">PAID</option>
+                              <option value="DUE">DUE</option>
+                            </select>
+                          </div>
                           <a href="../archive/collection_record_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                        </div>
+                          
                         </div>
                       </div>
 
@@ -236,7 +250,7 @@ $server->adminAuthentication();
                                   collection_list.status,
                                   collection_list.month,
                                   collection_list.year,
-                                  property_list.id,
+                                  property_list.id as property_id,
                                   property_list.homeowners_id,
                                   property_list.blk,
                                   property_list.lot,
@@ -271,7 +285,7 @@ $server->adminAuthentication();
                                   $collection_fee = $result['collection_fee'];
 
                                   // propertylist table
-                                  $proeprty_id = $result['id'];
+                                  $property_id = $result['property_id'];
                                   $blk = $result['blk'];
                                   $lot = $result['lot'];
                                   $phase = $result['phase'];
@@ -311,7 +325,7 @@ $server->adminAuthentication();
                                       <?php
                                       if ($status == "AVAILABLE") {
                                       ?>
-                                        <span class="badge rounded-pill text-bg-primary">AVAILBALE</span>
+                                        <span class="badge rounded-pill text-bg-primary">AVAILABLE</span>
                                       <?php
                                       } elseif ($status == "DUE") {
                                       ?>
@@ -335,6 +349,7 @@ $server->adminAuthentication();
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a href="#" class="dropdown-item">Edit</a></li>
+                                          <li><a href="../admin-panel/property_manage_payment.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">Manage Payment</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -387,6 +402,13 @@ $server->adminAuthentication();
           [1, 'desc']
         ]
       });
+
+      // Filter Table
+      var filter_table = $("#collectionRecord").DataTable();
+      $("#filter_table").on('change', function (){
+        filter_table.columns(4).search(this.value).draw();
+      })
+
     });
   </script>
   <!-- FOOTER -->
