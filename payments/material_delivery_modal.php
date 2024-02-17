@@ -72,7 +72,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
             </div>
             <div class="col-4">
               <div class="form-floating">
-                <input type="text" class="form-control" name="amount_md" id="amount_md" required>
+                <input type="text" class="form-control" name="amount_md" id="amount_md" required readonly>
                 <label for="amount_md">Amount:</label>
               </div>
             </div>

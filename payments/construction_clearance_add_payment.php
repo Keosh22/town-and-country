@@ -16,21 +16,20 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
   $admin_name = $_SESSION['admin_name'];
 
   // Transaction Number Generator
-  $query1 = "SELECT transaction_number FROM construction_payment ORDER BY transaction_number DESC LIMIT 1";
-  $connection1 = $server->openConn();
-  $stmt1 = $connection1->prepare($query1);
-  $stmt1->execute();
-  if ($stmt1->rowCount() > 0) {
+  // $query1 = "SELECT transaction_number FROM construction_payment ORDER BY transaction_number DESC LIMIT 1";
+  // $connection1 = $server->openConn();
+  // $stmt1 = $connection1->prepare($query1);
+  // $stmt1->execute();
+  // if ($stmt1->rowCount() > 0) {
+  //   if ($result1 = $stmt1->fetch()) {
+  //     $transaction_number = $result1['transaction_number'];
+  //     $get_number = str_replace("C", "", $transaction_number);
+  //     $increment_number = $get_number + 1;
+  //     $get_string = str_pad($increment_number, 8, 0, STR_PAD_LEFT);
+  //     $new_transaction_number = "C" . $get_string;
+  //   }
 
-    if ($result1 = $stmt1->fetch()) {
-      $transaction_number = $result1['transaction_number'];
-
-      $get_number = str_replace("C", "", $transaction_number);
-      $increment_number = $get_number + 1;
-      $get_string = str_pad($increment_number, 8, 0, STR_PAD_LEFT);
-
-      $new_transaction_number = "C" . $get_string;
-    }
+  $new_transaction_number = $server->transactionNumberGenerator();
 
     $query2 ="INSERT INTO construction_payment (transaction_number, property_id, collection_fee_id, paid, date_created, paid_by, admin)  VALUES (:transaction_number, :property_id, :collection_fee_id, :paid, :date_created, :paid_by, :admin)";
     $data2 = [
@@ -56,6 +55,6 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
     }
 
     echo $new_transaction_number;
-  }
+  
 }
 ?>

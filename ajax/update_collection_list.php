@@ -62,22 +62,29 @@ if (isset($_POST['id_array']) && isset($_POST['homeowners_id']) && isset($_POST[
 
       if (empty($transaction_number)) {
         $ACTIVE = "ACTIVE";
-        // Transaction Number Generator
-        $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
-        // $data4 = ["ACTIVE" => $ACTIVE];
-        $connection4 = $server->openConn();
-        $stmt4 = $connection4->prepare($query4);
-        $stmt4->execute();
-        if ($stmt4->rowCount() > 0) {
-          if ($row = $stmt4->fetch()) {
+        $transaction_number = $server->transactionNumberGenerator();
+        // // Transaction Number Generator
+        // $query4 = "SELECT transaction_number FROM transaction_number_list ORDER BY transaction_number DESC LIMIT 1";
+        // // $data4 = ["ACTIVE" => $ACTIVE];
+        // $connection4 = $server->openConn();
+        // $stmt4 = $connection4->prepare($query4);
+        // $stmt4->execute();
+        // if ($stmt4->rowCount() > 0) {
+        //   if ($row = $stmt4->fetch()) {
 
-            $result = $row['transaction_number'];
-            $get_number = str_replace("TN", "", $result);
-            $id_increment = $get_number + 1;
-            $get_string = str_pad($id_increment, 8, 0, STR_PAD_LEFT);
-            $transaction_number = "TN" . $get_string;
-          }
-        }
+        //     $result = $row['transaction_number'];
+        //     $get_number = str_replace("TN-", "", $result);
+        //     $id_increment = $get_number + 1;
+        //     $get_string = str_pad($id_increment, 7, 0, STR_PAD_LEFT);
+        //     $transaction_number = "TN-" . $get_string;
+
+            // $query5 = "INSERT INTO transaction_number_list (transaction_number) VALUES (:transaction_number)";
+            // $data5 = ["transaction_number" => $transaction_number];
+            // $connection5 = $server->openConn();
+            // $stmt5 = $connection5->prepare($query5);
+            // $stmt5->execute($data5);
+        //   }
+        // }
       } 
    
       // if there is no record, Insert a paid receipt record to this table
