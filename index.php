@@ -27,6 +27,7 @@ if (isset($_POST['login'])) {
     $_SESSION['text'] = "Please fill all the fields!";
     $_SESSION['status_code'] = "warning";
   } else {
+    // $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
     $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
     $data = ["username" =>  $login_Username, "ACTIVE" => $ACTIVE];
     $path = "user/home.php";

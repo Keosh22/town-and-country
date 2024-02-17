@@ -1,15 +1,18 @@
 <!-- Modal -->
+
+
 <style>
   .ui-datepicker tbody td {
     height: 40px;
 
   }
 
-  .date input span i{
+  .date input span i {
     font-size: 2em;
-    
+
   }
 </style>
+
 
 <div class="modal fade" id="request_transaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -18,11 +21,11 @@
         <h5 class="modal-title" id="exampleModalLabel" style="color: black;">SELECT DATE</h5>
 
       </div>
-      <form action="" method="post">
+      <form action="" method="POST">
         <div class="modal-body" style="color: black;">
           <label style="color:black;">Start Date: </label>
-          <div id="datepicker" class="input-group date"  style="width: 50%;">
-            <input id="start_date" class="form-control input-sm-to" type="text" readonly />
+          <div id="datepicker" class="input-group date" style="width: 50%;">
+            <input id="start_date" class="form-control input-sm-to" name="start_date" type="text" readonly />
             <span class="input-group-addon">
               <i class="fa-regular fa-calendar" style="color: #000000; font-size:2em; margin-left:1rem"></i>
             </span>
@@ -30,37 +33,42 @@
 
 
           <label style="color:black;">End Date: </label>
-          <div id="datepicker2" class="input-group date" style="width: 50%;" >
-            <input id="end_date" class="form-control input-sm-to" type="text" readonly />
+          <div id="datepicker2" class="input-group date" style="width: 50%;">
+            <input id="end_date" class="form-control input-sm-to" name="end_date" type="text" readonly />
             <span class="input-group-addon">
-            <i class="fa-regular fa-calendar" style="color: #000000; font-size:2em; margin-left:1rem"></i>
+              <i class="fa-regular fa-calendar" style="color: #000000; font-size:2em; margin-left:1rem"></i>
             </span>
           </div>
         </div>
-        <div class="message_result" style="color: black;">
-          <h1 style="color:black"></h1>
-        </div>
+        <!-- <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Request" id="request"></button> -->
+
       </form>
+      <div class="message_result" style="color: black;">
+        <h1 style="color:black"></h1>
+      </div>
+
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
 
+        <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
         <input type="submit" class="btn btn-primary" value="Request" id="request"></button>
 
-        <?php
 
 
-        ?>
+
       </div>
     </div>
   </div>
 </div>
 
+
+
 <script>
   $(document).ready(function() {
     //'$("#request").prop("disabled", true);
 
-
+    //dates
     var highest_date;
     var lowest_date;
 
@@ -69,24 +77,62 @@
 
     var highestMonth;
     var lowestMonth;
+
+    //data
+
+    var transaction_number;
+    var user_id;
+    var category;
+    var month_date;
+    var transaction_date;
+    var firstname;
+    var lastname;
+    var middle_initial;
+    var blk;
+    var lot;
+    var street;
+    var phase;
+    var transaction_number;
+
+
+    var startDate;
+    var endDate;
+
+
     $.ajax({
 
       url: '../user-panel/profile_validate_date.php',
-      type: "POST",
+      type: "GET",
       dataType: "json",
       success: function(data) {
-
-
+        // date_response = response.date_range
+        // payment_response = response.payment_data
+        //date
         highest_date = data.max_year_month;
         lowest_date = data.min_year_month;
 
-        highest_date_split = highest_date.split("-")
-        highestYear = highest_date_split[0];
-        highestMonth = highest_date_split[1];
+        //personal data
 
-        lowest_date_split = lowest_date.split("-");
-        lowestYear = lowest_date_split[0];
-        lowestMonth = lowest_date_split[1];
+        //name
+        //     firstname = payment_response.firstname;
+        //     lastname = payment_response.lastname;
+        //     middle_initial = payment_response.middle_initial;
+        //     blk = payment_response.blk;
+        //     lot = payment_response.lot;
+        //     street = payment_response.street;
+
+
+        //     var name = lastname + "," + firstname + ", " + middle_initial + ".";
+        // var address = blk + " " + lot + "" + street + "" + phase;
+
+
+        // highest_date_split = highest_date.split("-")
+        // highestYear = highest_date_split[0];
+        // highestMonth = highest_date_split[1];
+
+        // lowest_date_split = lowest_date.split("-");
+        // lowestYear = lowest_date_split[0];
+        // lowestMonth = lowest_date_split[1];
       },
 
       error: function(error) {
@@ -98,30 +144,63 @@
       $("#request").on("click", function() {
         $(".message_result").empty();
 
-        var startDate = $("#start_date").val();
-        var start_date_parts = startDate.split("/")
-        var startMonth = start_date_parts[0];
-        var startYear = start_date_parts[1];
+        startDate = $("#start_date").val();
+        // var start_date_parts = startDate.split("/")
+        // var startMonth = start_date_parts[0];
+        // var startYear = start_date_parts[1];
 
-        var endDate = $("#end_date").val();
-        var end_date_parts = endDate.split("/")
-        var endMonth = end_date_parts[0];
-        var endYear = end_date_parts[1];
-        $(".message_result").append("<h4>" + lowestMonth + "/" + highestYear + "</h4>");
+        endDate = $("#end_date").val();
+        // var end_date_parts = endDate.split("/")
+        // var endMonth = end_date_parts[0];
+        // var endYear = end_date_parts[1];
+        $(".message_result").append("<h4>" + startDate + "/" + highest_date + "</h4>");
+
 
 
         if (
-          ((startMonth >= lowestMonth && startYear >= lowestYear) &&
-            (startMonth <= highestMonth && startYear <= highestYear)) &&
-          ((endMonth <= highestMonth && endYear <= highestYear) &&
-            (endMonth >= lowestMonth && endYear >= lowestYear))) {
-          $(".message_result").append("<h1>PROCEED</h1>");
+          ((startDate >= lowest_date && startDate <= highest_date) &&
+            (endDate <= highest_date && endDate >= lowest_date))) {
+          $(".message_result").append("<h1>Proceed</h1>");
+          var url = '../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate;
+
+
+          var newWindow = window.open(url, "_blank");
+
+          newWindow.onload = function() {
+            newWindow.print();
+          };
+          // window.open('../user-panel/receipt.php?name=' + startDate , "_blank", 'width=900,height=600');
+          // $.ajax({
+
+          //   url: '../user-panel/receipt.php',
+          //   type: "POST",
+          //   dataType: "json",
+
+
+          //   success: function(data) {
+          //     var result = data
+          //       //window.open("../user-panel/receipt.php");
+          //       $(".message_result").append("<h4>" + result +"</h4>");
+
+
+
+
+          //   },
+
+          //   error: function(error) {
+          //     console.log("Error fetching data: " + JSON.stringify(error));
+          //   }
+          // });
+
+
+
+
         } else {
           $(".message_result").append("<h1>There is no transaction on this date</h1>");
 
         };
 
-      
+
       });
     });
   });
@@ -162,13 +241,13 @@
     var datePickerInput = $("#datepicker").find("input");
 
     $("#datepicker").datepicker({
-      orientation: "top",
-      format: 'mm/yyyy',
-      viewMode: 'months',
-      minViewMode: 1,
+
+      format: 'yyyy-mm-dd',
+      viewMode: 'days',
+      minViewMode: "month",
       autoclose: true,
       todayHighlight: true,
-      
+
 
 
 
@@ -179,9 +258,9 @@
   $(function() {
     $("#datepicker2").datepicker({
       inline: false,
-      format: 'mm/yyyy',
-      viewMode: 'months',
-      minViewMode: 'months',
+      format: 'yyyy-mm-dd',
+      viewMode: 'days',
+      minViewMode: 'month',
       autoclose: true,
       todayHighlight: true,
     }).datepicker('update', new Date());

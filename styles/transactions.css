@@ -1,12 +1,29 @@
 
-
-
-
-table{
-  background-color: bisque;
+.btn{
+  background-color: #DAD992;
+  color: black;
 }
 
-th{
-  color: blue;
+thead{
+  background-color: aqua;
 }
 
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  
+}
+thead tr {
+  font-weight: 500;
+  color: #999999;
+}
