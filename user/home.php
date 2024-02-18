@@ -71,17 +71,7 @@ $row = mysqli_fetch_array($result['result']);
   <div class="arrows">
 
     <div class="col-2 arrow previous">
-      <?php
-        function autoSlide($currentPage){
-
-          $start = microtime(true);
-          if($start == 5000000){
-            $currentPage = $currentPage + 1;
-            $start = 0000000;
-            
-          }
-        }
-      ?>
+      
 
       <a id ="previous" class="page-link 
       <?= ($result['page_no'] <= 1) ? 'arrow-hover-style disabled' : ''; ?>
@@ -94,9 +84,9 @@ $row = mysqli_fetch_array($result['result']);
     </div>
 
     <div class="col-2 arrow next">
-      <a id="next" class="page-link<?= ($result['page_no'] >= $result['total_number_per_page']) ? 'disabled' : ''; ?>" href="<?= ($result['page_no'] < $result['total_number_per_page']) ? '?page_no=' . $result['next_page'] : ''; ?>" aria-label="Next">
+      <a id="next" class="page-link <?= ($result['page_no'] >= $result['total_number_per_page']) ? 'arrow-hover-style disabled' : ''; ?>" href="<?= ($result['page_no'] < $result['total_number_per_page']) ? '?page_no=' . $result['next_page'] : ''; ?>" aria-label="Next">
         
-          <span  aria-hidden="true" class="icon">&raquo;</span>
+        <span  aria-hidden="true" class="icon">&raquo;</span>
       </a>
     </div>
 </div>

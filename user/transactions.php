@@ -84,7 +84,9 @@ $server = new Server();
                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
                 
                 
-                WHERE payments_list.homeowners_id = :user_id";
+                WHERE payments_list.homeowners_id = :user_id
+                
+                ORDER BY date_created DESC;";
 
 
       $data = ["user_id" => $id];
