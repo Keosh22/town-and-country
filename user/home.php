@@ -11,10 +11,6 @@ $homeServer->userAuthentication();
 $result = $homeServer->pagination(1);
 $row = mysqli_fetch_array($result['result']);
 
-
-
-
-
 ?>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet" />
