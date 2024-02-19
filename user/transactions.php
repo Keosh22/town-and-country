@@ -30,19 +30,20 @@ $server = new Server();
   </div>
   <div class="request-transaction mb-5">
     <?php include "../user-panel/profile_request_transaction.php" ?>
-    <button type="button" class="btn btn-primary d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
+    <button type="button" class="btn d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
       Request Transaction
     </button>
   </div>
-  <table class="table table-striped">
-    <thead class="table-header bg-dark">
+<div class="table-responsive">
+<table class="table mb-0">
+    <thead class="thead-dark">
       <tr>
-        <th scope="col ">TRANSACTION NUMBER</th>
-        <th scope="col">USER ID</th>
-        <th scope="col">CATEGORY</th>
-        <th scope="col">MONTH AND YEAR</th>
-        <th scope="col">STATUS</th>
-        <th scope="col">DATE</th>
+        <th scope="col" width="20%">TRANSACTION NUMBER</th>
+        <th scope="col" width="10%">USER ID</th>
+        <th scope="col" width="20%">CATEGORY</th>
+        <th scope="col" width="20%">MONTH AND YEAR</th>
+        <th scope="col" width="10">STATUS</th>
+        <th scope="col" width="20%">DATE</th>
       </tr>
     </thead>
     <tbody>
@@ -55,7 +56,7 @@ $server = new Server();
                 payments_list.property_id,
                 payments_list.collection_id,
                 payments_list.collection_fee_id,
-                payments_list.date_created,
+                DATE(payments_list.date_created) AS date_created,
                 payments_list.paid,
                 homeowners_users.id,
                 homeowners_users.account_number,
@@ -138,10 +139,13 @@ $server = new Server();
 
     </tbody>
   </table>
+</div>
 </main>
 </body>
 <script>
   $(document).ready(function() {
+    $(".table-header").css("background-color", "pink");
+
     $(".btn-primary").on("click", function() {
       $("#request_transaction").modal("show");
       $(".message_result").empty();
