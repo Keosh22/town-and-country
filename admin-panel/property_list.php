@@ -53,10 +53,18 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
-                        <!-- <div class="col">
-													<a href="#addHomeowners" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i></a>
-												</div> -->
+                      <div class="col d-flex justify-content-start">
+                        
+                        </div>
                         <div class="col d-flex justify-content-end">
+                          <div class="col-3 mx-3">
+                            <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
+                              <option value="">Filter:</option>
+                              <option value="Phase 1">Phase 1</option>
+                              <option value="Phase 2">Phase 2</option>
+                              <option value="Phase 3">Phase 3</option>
+                            </select>
+                          </div>
                           <a href="../archive/property_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
                         </div>
                       </div>
@@ -67,7 +75,7 @@ $server->adminAuthentication();
                           <table id="propertyListTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="10%">#</th>
+                                <!-- <th width="10%">#</th> -->
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
@@ -108,7 +116,7 @@ $server->adminAuthentication();
                                   $property_phase = $result['property_phase'];
                               ?>
                                   <tr>
-                                    <td><?php echo $property_id; ?></td>
+                           
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
                                     <td><?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?></td>
                                     <td><?php echo $property_phase;  ?></td>
@@ -116,7 +124,7 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="../admin-panel/property_manage_payment.php?property_id=<?php echo $property_id;?>" class="dropdown-item">Manage Payment</a></li>
+                                          <li><a href="../admin-panel/property_manage_payment.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">Manage Payment</a></li>
                                           <li>
                                             <a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a>
                                           </li>
@@ -139,7 +147,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="10%">#</th>
+                                <!-- <th width="10%">#</th> -->
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
@@ -178,7 +186,7 @@ $server->adminAuthentication();
     $(document).ready(function() {
 
       // Manage Payment
-      $("#propertyListTable").on('click', '#manage_payments_btn', function (){
+      $("#propertyListTable").on('click', '#manage_payments_btn', function() {
         var property_id = $(this).attr('data-id');
         var homeowners_name = $(this).attr('data-name');
         var property_address = $(this).attr('data-address');
@@ -187,17 +195,19 @@ $server->adminAuthentication();
         $("#address").val(property_address);
         getCollectionList(property_id);
 
-        function getCollectionList(property_id){
+        function getCollectionList(property_id) {
           $.ajax({
             url: '../ajax/collection_list_get_data.php',
             type: 'POST',
-            data: {property_id: property_id},
-            success: function (response){
+            data: {
+              property_id: property_id
+            },
+            success: function(response) {
               $("#collection_container").html(response);
             }
           });
         }
-        
+
       });
 
       // Delete Button
@@ -205,20 +215,20 @@ $server->adminAuthentication();
         var property_id = $(this).attr('data-id');
         $("#delete_property_id").val(property_id);
         swal({
-          title: "Warning",
-          text: "All the records of this property will be removed. Do you want to continue?",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true
-        })
-        .then((willDelete) => {
-          if (willDelete){
+            title: "Warning",
+            text: "All the records of this property will be removed. Do you want to continue?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+          })
+          .then((willDelete) => {
+            if (willDelete) {
 
-          } else {
-            swal("Canceled!");
-            $("#deleteProperty").modal('hide');
-          }
-        })
+            } else {
+              swal("Canceled!");
+              $("#deleteProperty").modal('hide');
+            }
+          })
       });
 
 
@@ -245,11 +255,14 @@ $server->adminAuthentication();
 
       // DataTable
       $("#propertyListTable").DataTable({
-        order: [
-          [1, 'desc'],
-          [0, 'desc']
-        ]
+        
       });
+
+      // Filter Table
+      const filter_table = $("#propertyListTable").DataTable();
+      $("#filter_table").on('change', function (){
+        filter_table.columns(2).search(this.value).draw();
+      })
 
 
 

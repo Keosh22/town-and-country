@@ -25,13 +25,13 @@ require "../user-panel/user-nav.php";
 
 
   <!-- START OF ANNOUNCEMENT CAROUSEL -->
+<<<<<<< HEAD
   <div class="whole-carousel">
     <div class="arrow previous">
       <i id="back" class="fa-solid fa-angles-left" style="color: #f7f7f7;" aria-disabled="true"></i>
-    </div>
-
-    <a class="carousel-a" href="./announcement.php">
-      <div class="row carousel-container">
+=======
+  <a class="carousel-a" href="./announcement.php">
+    <div class="row carousel-container d-flex m-auto">
 
         <div class="card-header about">
 
@@ -55,6 +55,25 @@ require "../user-panel/user-nav.php";
           <p class="scrollable-content">&nbsp &nbsp &nbsp &nbsp <span id="span_content"></span></p>
 
         </div>
+
+        <div class="footer">
+
+          <small class="date-created">Date Created: <span id="span_date_created"></span></small>
+          <small class="content-signature"> By: Town and Country Heights Executive Village</small>
+        </div>
+
+
+>>>>>>> master
+    </div>
+
+
+    
+  </a>
+  <div class="arrows">
+
+    <div class="arrow next">
+      <i id="next" class="fa-solid fa-angles-right" style="color: #ffffff;"></i>
+    </div>
 
         <div class="footer">
 

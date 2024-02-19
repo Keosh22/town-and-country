@@ -150,6 +150,11 @@ $server = new Server();
       $("#request_transaction").modal("show");
       $(".message_result").empty();
     })
+
+    // DataTable
+    // $("#transactionTable").DataTable({
+
+    // });
   });
 </script>
 

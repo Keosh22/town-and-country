@@ -14,7 +14,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   $construction_payment_id = filter_input(INPUT_POST, 'construction_payment_id', FILTER_SANITIZE_SPECIAL_CHARS);
   $response = [];
   $number = 0;
-  $ACTIVE = "ACTIVE";
+
 
   // Get homeowners details
   $query1 = "SELECT 
@@ -62,7 +62,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   collection_fee.description  
   FROM construction_payment 
   INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id
-  WHERE construction_payment.id =  :construction_payment_id";
+  WHERE construction_payment.id =  :construction_payment_id ";
   $data2 = ["construction_payment_id" => $construction_payment_id];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
@@ -73,7 +73,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
       $date_created = date("M j, Y g:iA", strtotime($result2['date_paid']));
       $paid_by = $result2['paid_by'];
       $category = $result2['category'];
-      $amount = $result2['paid'] . '-' .$result2['refund'];
+      $amount = $result2['paid'];
       $description = $result2['description'];
       $admin_name = $result2['admin'];
       $number += 1;

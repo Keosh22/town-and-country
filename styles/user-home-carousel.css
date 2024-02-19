@@ -77,7 +77,6 @@
 .announcement-divider{
     border-top: 3px solid  #064420;
     border-radius: 20px;
-
 }
 .card-body {
     min-height: 244px; /* Set a maximum height for the table container */

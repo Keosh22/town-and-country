@@ -152,7 +152,7 @@ if (isset($_POST['login'])) {
             <label for="checkbox">Remember me</label>
           </div>
           <div class="col-6 text-end">
-            <a href="#" class="link-underline link-underline-opacity-0 text-muted link-primary">Forgot Password?</a>
+            <a href="forgot_password.php" class="link-underline link-underline-opacity-0 text-muted link-primary">Forgot Password?</a>
           </div>
         </div>
       </form>

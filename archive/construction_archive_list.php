@@ -37,7 +37,8 @@ $server->adminAuthentication();
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
-            <li class="breadcrumb-item">Constructions</li>
+            <li class="breadcrumb-item"><a href="#">Constructions</a></li>
+            <li class="breadcrumb-item">Constructions Archive</li>
           </ol>
         </section>
 
@@ -45,7 +46,7 @@ $server->adminAuthentication();
         <!-- Card Start here -->
         <div class="card card-border">
           <div class="card-header">
-            <h2>Constructions Payments List</h2>
+            <h2>Archive List (Construction)</h2>
 
           </div>
           <div class="card-body">
@@ -57,16 +58,9 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="row header-box container-fluid d-flex align-items-center">
-                        <div class="col d-flex justify-content-start
-                        ">
-                          <div class="gx-3">
-                            <a href="#materialDeliveryModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat "><i class='bx bx-plus bx-xs bx-tada-hover'></i>Material Delivery</a>
-                            <a href="#constructionBondModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Construction Bond</a>
-                            <a href="#constructionClearanceModal" id="construction_clearance_btn" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Clearance</a>
-                          </div>
-                        </div>
+
                         <div class="col d-flex justify-content-end">
-                          <div class="col-3 mx-3">
+                          <div class="col-2">
                             <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
                               <option value="">Filter:</option>
                               <?php
@@ -103,14 +97,14 @@ $server->adminAuthentication();
                               <option value="Construction Clearance">Clearance</option> -->
                             </select>
                           </div>
-                          <a href="../archive/construction_archive_list.php" class="btn btn-warning btn-sm btn-flat "><i class='bx bx-archive bx-xs bx-tada-hover '></i>Archive</a>
+
                         </div>
                       </div>
 
                       <div class="body-box shadow-sm">
 
                         <div class="table-responsive mx-2">
-                          <table id="constrcutionPaymentTable" class="table table-striped" style="width:100%">
+                          <table id="constructionArchiveTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
                                 <th width="1%">Transaction #</th>
@@ -124,7 +118,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                              $ACTIVE = "ACTIVE";
+                              $INACTIVE = "INACTIVE";
                               $query1 = "SELECT 
                               property_list.id as property_id,
                               property_list.blk as property_blk,
@@ -145,9 +139,9 @@ $server->adminAuthentication();
                               FROM construction_payment 
                               INNER JOIN property_list ON construction_payment.property_id = property_list.id
                               INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
-                              WHERE construction_payment.archive = :ACTIVE
+                              WHERE construction_payment.archive = :INACTIVE
                               ";
-                              $data1 = ["ACTIVE" => $ACTIVE];
+                              $data1 = ["INACTIVE" => $INACTIVE];
                               $connection1 = $server->openConn();
                               $stmt1 = $connection1->prepare($query1);
                               $stmt1->execute($data1);
@@ -188,7 +182,6 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-
                                           <?php
                                           if ($collection_fee_number == "C004" || $collection_fee_number == "C005" || $collection_fee_number == "C006") {
                                           ?>
@@ -197,16 +190,15 @@ $server->adminAuthentication();
                                           } elseif ($collection_fee_number == "C002") {
                                           ?>
                                             <li><a id="view_payment_cb" href="#construction_view" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">View</a></li>
-                                            <li><a id="refund_btn" href="" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Refund</a></li>
+
                                           <?php
                                           } elseif ($collection_fee_number == "C003") {
                                           ?>
                                             <li><a id="view_payment_cc" href="#construction_view" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">View</a></li>
                                           <?php
-
                                           }
                                           ?>
-                                          <li><a id="archive_payment" href="#constructionArchiveModal" data-bs-toggle="modal" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Archive</a></li>
+                                          <li><a id="delete_payment_btn" href="#" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -243,19 +235,8 @@ $server->adminAuthentication();
     </div>
   </div>
   <?php
-  // Material Delivery Modal
-  include('../payments/material_delivery_modal.php');
   // Material Delivery View
   include('../payments/construction_view_modal.php');
-
-  // Constrution Bond Modal
-  include('../payments/construction_bond_modal.php');
-
-  // Construction Clearance Modal
-  include('../payments/construction_clearance_modal.php');
-
-  // Archive Modal
-  include("../archive/construction_archive_modal.php")
 
   ?>
 
@@ -265,7 +246,7 @@ $server->adminAuthentication();
 
 
       // Material Delivery View Payment
-      $("#constrcutionPaymentTable").on('click', '#view_payment_md', function() {
+      $("#constructionArchiveTable").on('click', '#view_payment_md', function() {
         var property_id = $(this).attr('data-property');
         var construction_payment_id = $(this).attr('data-id');
         var collection_fee_number = $(this).attr('data-collection-fee');
@@ -298,7 +279,7 @@ $server->adminAuthentication();
 
 
       // Construction Bond View Payment
-      $("#constrcutionPaymentTable").on('click', '#view_payment_cb', function() {
+      $("#constructionArchiveTable").on('click', '#view_payment_cb', function() {
         var property_id = $(this).attr('data-property');
         var construction_payment_id = $(this).attr('data-id');
         var collection_fee_number = $(this).attr('data-collection-fee');
@@ -328,33 +309,7 @@ $server->adminAuthentication();
       });
 
 
-      // Refund Construct
-      $("#refund_btn").on('click', function() {
-        var construction_payment_id = $(this).attr('data-id');
-        swal({
-            title: 'Refund Confirmation',
-            text: 'Are you sure you want to refund this payment?',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true
-          })
-          .then((proceed) => {
-            if (proceed) {
-              $.ajax({
-                url: '../payments/construction_bond_refund.php',
-                type: 'POST',
-                data: {
-                  construction_payment_id: construction_payment_id
-                },
-                success: function(response) {
-                  location.reload(true);
-                }
-              });
-            } else {
-              swal("Canceled");
-            }
-          })
-      });
+
 
       // Construction CLearance
       $("#construction_clearance_btn").on('click', function() {
@@ -371,7 +326,7 @@ $server->adminAuthentication();
 
 
       // Construction Clearance View
-      $("#constrcutionPaymentTable").on('click', '#view_payment_cc', function() {
+      $("#constructionArchiveTable").on('click', '#view_payment_cc', function() {
         var property_id = $(this).attr('data-property');
         var construction_payment_id = $(this).attr('data-id');
         var collection_fee_number = $(this).attr('data-collection-fee');
@@ -401,16 +356,14 @@ $server->adminAuthentication();
       });
 
 
-      // Archive modal
-      $("#constrcutionPaymentTable").on('click', '#archive_payment', function() {
+      // Delete Payment
+      $("#constructionArchiveTable").on('click', '#delete_payment_btn', function() {
         var transaction_number = $(this).attr('data-tnum');
-        var constrcution_payment_id = $(this).attr('data-id');
-        $("#transaction_number_archive").val(transaction_number);
-        $("#construction_payment_id").val(constrcution_payment_id);
+        var construction_payment_id = $(this).attr('data-id');
 
         swal({
-            title: "Archive Confirmation",
-            text: "Do you want to archive this payment?",
+            title: "Delete Confirmation",
+            text: "Once deleted, you will not able to recover this record!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -418,22 +371,33 @@ $server->adminAuthentication();
           .then((willDelete) => {
             if (willDelete) {
 
+              $.ajax({
+                url: '../archive/construction_delete_archive.php',
+                type: 'POST',
+                data: {
+                  construction_payment_id: construction_payment_id,
+                  transaction_number: transaction_number
+                },
+                success: function(response) {
+
+                  location.reload(true);
+                }
+              });
             } else {
-              swal("Archiving Canceled!");
-              $("#constructionArchiveModal").modal('hide');
+              swal("Delete Canceled");
             }
-          })
+          });
       })
 
 
       // DataTable
-      $("#constrcutionPaymentTable").DataTable({
+      $("#constructionArchiveTable").DataTable({
         order: [
           [1, 'desc']
         ]
       });
 
-      const table = $("#constrcutionPaymentTable").DataTable();
+      const table = $("#constructionArchiveTable").DataTable();
       $("#filter_table").on('change', function() {
         table.search(this.value).draw();
       });
