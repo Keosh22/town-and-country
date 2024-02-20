@@ -81,7 +81,7 @@ $server->adminAuthentication();
                               <option value="">Status:</option>
                               <option value="PENDING">PENDING</option>
                               <option value="ONGOING">ONGOING</option>
-                              <option value="DONE">DONE</option>
+                              <option value="FINISHED">FINISHED</option>
                             </select>
                           </div>
                         </div>
@@ -148,13 +148,13 @@ $server->adminAuthentication();
                                       ?>
                                         <span class="badge rounded-pill text-bg-danger">Pending</span>
                                       <?php
+                                      } elseif ($status == "FINISHED") {
+                                      ?>
+                                        <span class="badge rounded-pill text-bg-success">Finished</span>
+                                      <?php
                                       } elseif ($status == "ONGOING") {
                                       ?>
                                         <span class="badge rounded-pill text-bg-info">Ongoing</span>
-                                      <?php
-                                      } elseif ($status == "DONE") {
-                                      ?>
-                                        <span class="badge rounded-pill text-bg-success">Done</span>
                                       <?php
                                       } else {
                                       ?>
@@ -167,7 +167,9 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="#" data-bs-toggle="modal" class="dropdown-item" id="">Approve</a></li>
+                                          <li><a class="dropdown-item btn" id="ongoing_btn" data-id="<?php echo $maintenance_request_id; ?>">Approve</a></li>
+                                          <li><a class="dropdown-item btn" id="finish_btn" data-id="<?php echo $maintenance_request_id; ?>">Finished</a></li>
+                                          <li><a class="dropdown-item btn" id="pending_btn" data-id="<?php echo $maintenance_request_id; ?>">Pending</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -215,12 +217,100 @@ $server->adminAuthentication();
     $(document).ready(function() {
       // DataTable
       $("#maintenanceRequestTable").DataTable({
-
+        order : [
+          [0,'desc']
+        ]
       });
       const TABLE = $("#maintenanceRequestTable").DataTable();
 
+      // Ongoing Button
+      $("#maintenanceRequestTable").on('click', '#ongoing_btn', function() {
+        var maintenance_request_id = $(this).attr('data-id');
+
+        swal({
+            title: 'Confirmation',
+            text: 'Are you sure you want to update the status of this request?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if (proceed) {
+              $.ajax({
+                url: '../admin-panel/maintenance_request_ongoing.php',
+                type: 'POST',
+                data: {
+                  maintenance_request_id: maintenance_request_id
+                },
+                success: function(response) {
+                  location.reload();
+                }
+              });
+            } else {
+              swal('Canceled');
+            }
+          });
+      });
 
 
+      // Fiinish Button
+      $("#maintenanceRequestTable").on('click', '#finish_btn', function() {
+        var maintenance_request_id = $(this).attr('data-id');
+
+        swal({
+            title: 'Confirmation',
+            text: 'Are you sure you want to update the status of this request?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if (proceed) {
+              $.ajax({
+                url: '../admin-panel/maintenance_request_finish.php',
+                type: 'POST',
+                data: {
+                  maintenance_request_id: maintenance_request_id
+                },
+                success: function(response) {
+                  location.reload();
+                }
+              });
+            } else {
+              swal('Canceled');
+            }
+          });
+      });
+
+
+      // Pending Button
+      $("#maintenanceRequestTable").on('click', '#pending_btn', function() {
+        var maintenance_request_id = $(this).attr('data-id');
+
+        swal({
+            title: 'Confirmation',
+            text: 'Are you sure you want to update the status of this request?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if (proceed) {
+              $.ajax({
+                url: '../admin-panel/maintenance_request_pending.php',
+                type: 'POST',
+                data: {
+                  maintenance_request_id: maintenance_request_id
+                },
+                success: function(response) {
+                  location.reload();
+                }
+              });
+            } else {
+              swal('Canceled');
+            }
+          });
+      });
 
 
 
@@ -229,10 +319,10 @@ $server->adminAuthentication();
       // Fitler maintenance
       $("#filter_maintenance").on('change', function() {
         TABLE.columns(1).search(this.value).draw();
-      }); 
+      });
 
       // Filter Status
-      $("#filter_status").on('change', function () {
+      $("#filter_status").on('change', function() {
         TABLE.columns(3).search(this.value).draw();
       });
 
