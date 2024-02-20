@@ -168,7 +168,7 @@
         var newWindow = window.open(url, "_blank");
 
         newWindow.onload = function() {
-          newWindow.printThis();
+          newWindow.print();
         };
 
       } else {
