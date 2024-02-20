@@ -54,7 +54,7 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                       <div class="col d-flex justify-content-start">
-                        
+                      
                         </div>
                         <div class="col d-flex justify-content-end">
                           <div class="col-3 mx-3">

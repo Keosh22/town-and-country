@@ -395,6 +395,7 @@ if (isset($_GET['property_id'])) {
                   // $(".content").html(response);
 
                   var transaction_number = response;
+                  
                   var archive_status = "ACTIVE";
                   var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
                   setTimeout(function() {

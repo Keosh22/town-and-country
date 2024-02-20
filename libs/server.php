@@ -23,13 +23,13 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER; 
-  private $pass = LESPASS;
+  // private $user = LESUSER; 
+  // private $pass = LESPASS;
   // //private $lesDBname = LESDBNAME;
-  private $port = PORT;
+  // private $port = PORT;
 
-  // private $user = USER;
-  // private $pass = PASS;
+  private $user = USER;
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
 
@@ -57,10 +57,10 @@ class Server
   public function conn()
   {
     // Lesther
-    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     //Ken
-    // $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
     return $conn;
   }
@@ -71,10 +71,10 @@ class Server
 
     try {
       // Lesther 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
@@ -158,10 +158,10 @@ class Server
   public function pagination($numberofPage)
   {
     // Lesther
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 
@@ -1155,7 +1155,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
 
     // Transaction Number Generator
-    $query4 = "SELECT * FROM payments_list ORDER BY transaction_number DESC LIMIT 1";
+    $query4 = "SELECT transaction_number FROM transaction_number_list  ORDER BY transaction_number DESC LIMIT 1";
     $connection4 = $this->conn;
     $stmt4 = $connection4->prepare($query4);
     $stmt4->execute();
@@ -1163,10 +1163,16 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       if ($row = $stmt4->fetch()) {
 
         $result = $row['transaction_number'];
-        $get_number = str_replace("TN", "", $result);
+        $get_number = str_replace("TN-", "", $result);
         $id_increment = $get_number + 1;
-        $get_string = str_pad($id_increment, 8, 0, STR_PAD_LEFT);
-        $transaction_number = "TN" . $get_string;
+        $get_string = str_pad($id_increment, 7, 0, STR_PAD_LEFT);
+        $transaction_number = "TN-" . $get_string;
+
+        $query5 = "INSERT INTO transaction_number_list (transaction_number) VALUES (:transaction_number)";
+        $data5 = ["transaction_number" => $transaction_number];
+        $connection5 = $this->conn;
+        $stmt5 = $connection5->prepare($query5);
+        $stmt5->execute($data5);
       }
     }
 

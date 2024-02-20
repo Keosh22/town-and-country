@@ -179,6 +179,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
                   receipt.print();
                   setTimeout(function() {
                     receipt.close();
+                    location.reload();
                   }, 500)
                 }, 500)
               }

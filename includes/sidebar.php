@@ -147,7 +147,7 @@
         <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
-              <a href="#" class="sidebar-link-dropdown">Maintenance</a>
+              <a href="../admin-panel/maintenance_request.php" class="sidebar-link-dropdown">Maintenance</a>
             </button>
           </div>
         </li>
@@ -220,6 +220,11 @@
           <div class="d-grid">
             <button class="btn btn-dropdown">
               <a href="../admin-panel/street.php" class="sidebar-link-dropdown">Street List</a>
+            </button>
+          </div>
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
+              <a href="../admin-panel/maintenance_list.php" class="sidebar-link-dropdown">Maintenance List</a>
             </button>
           </div>
         </li>
