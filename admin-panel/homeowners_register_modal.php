@@ -89,11 +89,13 @@ require_once("../libs/server.php");
 
             <div class="col-md-6">
               <label for="email" class="form-label ">Email</label>
-              <input type="text" class="form-control" id="email" name="email" required>
+              <input type="text" class="form-control " id="email" name="email" required>
+
+              <div id="emailHelpBlock"></div>
             </div>
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
-              <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+              <input type="number" class="form-control" id="phone_number" name="phone_number" required>
               <div id="phoneNumberHelpBlock"></div>
             </div>
 
@@ -103,7 +105,7 @@ require_once("../libs/server.php");
                 <option value=""></option>
                 <option value="Member">Member</option>
                 <option value="Non-member">Non-member</option>
-                <option value="Tenant">Tenant</option>
+                <!-- <option value="Tenant">Tenant</option> -->
               </select>
             </div>
 
@@ -117,11 +119,11 @@ require_once("../libs/server.php");
                   <div class="row">
                     <div class="col-2">
                       <label for="blk" class="form-label ">Blk#</label>
-                      <input type="text" class="form-control " id="blk" name="blk" required>
+                      <input type="number" class="form-control " id="blk" name="blk" required>
                     </div>
                     <div class="col-2">
                       <label for="lot" class="form-label ">Lot#</label>
-                      <input type="text" class="form-control" id="lot" name="lot" required>
+                      <input type="number" class="form-control" id="lot" name="lot" required>
                     </div>
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
@@ -197,7 +199,7 @@ require_once("../libs/server.php");
   $(document).ready(function() {
     // Clear input when close
     $("#addHomeowners").on('hidden.bs.modal', function(e) {
-      $("#form-input").find("input[type=text], input[type=password], select[class=form-select]").val("");
+      $("#form-input").find("input[type=text], input[type=password], input[type=number], select[class=form-select]").val("");
       $("#street").empty().append('<option selected>- Select -</option>');
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
@@ -209,7 +211,7 @@ require_once("../libs/server.php");
       $(".confirm-password-input").removeClass("input-success");
       $(".confirm-password-input").removeClass("input-danger");
       $("#confirmpasswordHelpBlock").empty().append('<div id="confirmpasswordHelpBlock"></div>');
-     
+
       $("#showPassword").prop('checked', false);
 
       $("#password").attr('type', "password");
@@ -401,6 +403,32 @@ require_once("../libs/server.php");
         }
       });
     }
+
+
+    // Email validation
+    // $("#email").on('keyup', function() {
+    //   var email = $("#email").val();
+
+    //   $.ajax({
+    //     url: '../ajax/validation_email.php',
+    //     type: 'POST',
+    //     data: {
+    //       email: email
+    //     },
+    //     success: function(response) {
+    //       if (response > 0) {
+    //         $(".email_input").removeClass("input-success");
+    //         $(".email_input").addClass("input-dangers");
+    //         $("#confirmpasswordHelpBlock").empty().append('<div id="emailHelpBlock" class="form-text text-danger">Email Already Exist</div>');
+    //       } else {
+    //         $(".email_input").removeClass("input-success");
+    //         $(".email_input").addClass("input-dangers");
+    //         $("#confirmpasswordHelpBlock").empty().append('<div id="emailHelpBlock" class="form-text text-danger">Email Already Exist</div>');
+    //       }
+       
+    //     }
+    //   })
+    // })
 
 
   });

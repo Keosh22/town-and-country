@@ -4,11 +4,11 @@ require_once "../libs/server.php";
 $server = new Server;
 ?>
 
-<div id="grassCuttingRequestModal" class="modal fade">
+<div id="requestModal" class="modal fade">
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"><b>Grass Cutting Request</b></h4>
+        <h4 class="modal-title"><b>Maintenance Request</b></h4>
         <button class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body mx-2">
@@ -51,6 +51,8 @@ $server = new Server;
       <div class="modal-footer">
         <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Cancel</button>
         <button class="btn btn-flat btn-success" id="request_grasscutting_btn">Request</button>
+        <button class="btn btn-flat btn-success" id="request_streetsweeping_btn">Request</button>
+        <button class="btn btn-flat btn-success" id="request_treepruning_btn">Request</button>
       </div>
     </div>
   </div>
@@ -59,8 +61,9 @@ $server = new Server;
   $(document).ready(function() {
     var property_id_arr = [];
 
-    $("#grassCuttingRequestModal").on('hidden.bs.modal', function(e) {
+    $("#requestModal").on('hidden.bs.modal', function(e) {
       $("#property_list_modal").find("input[type=checkbox], input[type=hidden]").prop('checked', false);
+      property_id_arr = [];
     });
 
 
@@ -77,16 +80,17 @@ $server = new Server;
           }
         }
       }
+      console.log(property_id_arr)
     });
 
 
-    // Request Button
+    // Grass Cutting Button
     $("#request_grasscutting_btn").on('click', function() {
       if (property_id_arr.length > 0) {
         var service_maintenance = $("#service_maintenance").val();
-    
+
         $.ajax({
-          url: '../user_ajax/grass_cutting_request.php',
+          url: '../user_ajax/request_maintenance.php',
           type: 'POST',
           data: {
             property_id_arr: property_id_arr,
@@ -99,6 +103,43 @@ $server = new Server;
       }
     });
 
+    // Street Sweeping Button
+    $("#request_streetsweeping_btn").on('click', function() {
+      if (property_id_arr.length > 0) {
+        var service_maintenance = $("#service_maintenance").val();
+
+        $.ajax({
+          url: '../user_ajax/request_maintenance.php',
+          type: 'POST',
+          data: {
+            property_id_arr: property_id_arr,
+            service_maintenance: service_maintenance
+          },
+          success: function() {
+            location.reload();
+          }
+        })
+      }
+    });
+
+    // Street Sweeping Button
+    $("#request_treepruning_btn").on('click', function() {
+      if (property_id_arr.length > 0) {
+        var service_maintenance = $("#service_maintenance").val();
+
+        $.ajax({
+          url: '../user_ajax/request_maintenance.php',
+          type: 'POST',
+          data: {
+            property_id_arr: property_id_arr,
+            service_maintenance: service_maintenance
+          },
+          success: function() {
+            location.reload();
+          }
+        })
+      }
+    });
 
   });
 </script>

@@ -139,7 +139,7 @@ $server->adminAuthentication();
 
                               ?>
                                   <tr>
-                                    <td><?php echo date("M j, Y, g:sA", strtotime($date_requested)); ?></td>
+                                    <td><?php echo date("M j, Y, H:sA", strtotime($date_requested)); ?></td>
                                     <td><?php echo $maintenance; ?></td>
                                     <td><?php echo $address; ?></td>
                                     <td>
