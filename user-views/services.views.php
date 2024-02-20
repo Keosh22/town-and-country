@@ -127,3 +127,7 @@
 include("../user-views/grass_cutting_request_modal.php");
 
 ?>
+
+<?php
+require_once("../includes/footer.php");
+?>

@@ -435,9 +435,8 @@ $server->adminAuthentication();
 
       const table = $("#constrcutionPaymentTable").DataTable();
       $("#filter_table").on('change', function() {
-        table.search(this.value).draw();
+        table.columns(4).search(this.value).draw();
       });
-
     });
   </script>
   <!-- FOOTER -->

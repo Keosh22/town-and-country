@@ -60,7 +60,7 @@ $server = new Server;
     var property_id_arr = [];
 
     $("#grassCuttingRequestModal").on('hidden.bs.modal', function(e) {
-      $("#property_list_modal").find("input[type=checkbox], input[type=hidden]").prop('checked',false);
+      $("#property_list_modal").find("input[type=checkbox], input[type=hidden]").prop('checked', false);
     });
 
 
@@ -77,7 +77,28 @@ $server = new Server;
           }
         }
       }
+    });
 
-    })
+
+    // Request Button
+    $("#request_grasscutting_btn").on('click', function() {
+      if (property_id_arr.length > 0) {
+        var service_maintenance = $("#service_maintenance").val();
+    
+        $.ajax({
+          url: '../user_ajax/grass_cutting_request.php',
+          type: 'POST',
+          data: {
+            property_id_arr: property_id_arr,
+            service_maintenance: service_maintenance
+          },
+          success: function() {
+            location.reload();
+          }
+        })
+      }
+    });
+
+
   });
 </script>

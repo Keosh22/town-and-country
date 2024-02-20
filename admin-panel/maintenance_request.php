@@ -51,8 +51,40 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
+                        <div class="col d-flex justify-content-start">
 
-                     
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                          <div class="col-3 mx-3">
+                            <select name="filter_maintenance" id="filter_maintenance" class="form-control form-control-sm text-secondary">
+                              <option value="">Maintenance:</option>
+                              <?php
+                              $query1 = "SELECT category FROM maintenance";
+                              $connection1 = $server->openConn();
+                              $stmt1 = $connection1->prepare($query1);
+                              $stmt1->execute();
+                              if ($stmt1->rowCount() > 0) {
+                                while ($result1 = $stmt1->fetch()) {
+                                  $category = $result1['category'];
+                              ?>
+                                  <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
+                              <?php
+                                }
+                              }
+                              ?>
+
+
+                            </select>
+                          </div>
+                          <div class="col-3">
+                            <select name="filter_status" id="filter_status" class="form-control form-control-sm text-secondary">
+                              <option value="">Status:</option>
+                              <option value="PENDING">PENDING</option>
+                              <option value="ONGOING">ONGOING</option>
+                              <option value="DONE">DONE</option>
+                            </select>
+                          </div>
+                        </div>
 
 
                       </div>
@@ -116,16 +148,16 @@ $server->adminAuthentication();
                                       ?>
                                         <span class="badge rounded-pill text-bg-danger">Pending</span>
                                       <?php
-                                      } elseif ($status == "ONGOING"){
-                                        ?>
+                                      } elseif ($status == "ONGOING") {
+                                      ?>
                                         <span class="badge rounded-pill text-bg-info">Ongoing</span>
                                       <?php
-                                      } elseif ($status == "DONE"){
-                                        ?>
+                                      } elseif ($status == "DONE") {
+                                      ?>
                                         <span class="badge rounded-pill text-bg-success">Done</span>
                                       <?php
                                       } else {
-                                        ?>
+                                      ?>
                                         <span class="badge rounded-pill text-bg-secondary">status</span>
                                       <?php
                                       }
@@ -181,18 +213,28 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-
-
-
-
-
-
-
       // DataTable
       $("#maintenanceRequestTable").DataTable({
 
       });
+      const TABLE = $("#maintenanceRequestTable").DataTable();
 
+
+
+
+
+
+
+
+      // Fitler maintenance
+      $("#filter_maintenance").on('change', function() {
+        TABLE.columns(1).search(this.value).draw();
+      }); 
+
+      // Filter Status
+      $("#filter_status").on('change', function () {
+        TABLE.columns(3).search(this.value).draw();
+      });
 
 
     });
