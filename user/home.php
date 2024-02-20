@@ -26,7 +26,6 @@ require "../user-panel/user-nav.php";
 
   <!-- START OF ANNOUNCEMENT CAROUSEL -->
   <div class="whole-carousel">
-
     <div class="arrow previous">
       <i id="back" class="fa-solid fa-angles-left" style="color: #f7f7f7;" aria-disabled="true"></i>
     </div>
@@ -57,19 +56,19 @@ require "../user-panel/user-nav.php";
 
         </div>
 
-      <div class="footer">
+        <div class="footer">
 
-        <!-- <small class="date-created">Date Created: <span id="span_date_created"></span></small> -->
-        <!-- <small class="content-signature"> By: Town and Country Heights Executive Village</small> -->
+          <small class="date-created">Date Created: <span id="span_date_created"></span></small>
+          <small class="content-signature"> By: Town and Country Heights Executive Village</small>
+        </div>
+
+
       </div>
-
-
-    </div>
     </a>
 
-    <!-- <div class="arrow next">
+    <div class="arrow next">
       <i id="next" class="fa-solid fa-angles-right" style="color: #ffffff;"></i>
-    </div> -->
+    </div>
 
   </div>
 
@@ -85,32 +84,32 @@ require "../user-panel/user-nav.php";
 
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="transactions.php" class="btn text-white features ">
-        <i class="far fa-file-lines" style="color: white;"></i>
-        <p>TRANSACTIONS</p>
-      </a>
+      <i class="far fa-file-lines" style="color: white;"></i>
+      <p>TRANSACTIONS</p>
+    </a>
     </div>
-
+    
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="services.php" class="btn text-white features ">
-        <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
-        <p>SERVICES</p>
-      </a>
+      <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
+      <p>SERVICES</p>
+    </a>
     </div>
-
+    
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="../user/profile.php" class="btn text-white features ">
-        <i class="fa-regular fa-user" style="color:white;"></i>
-        <p>PROFILE</p>
-      </a>
+      <i class="fa-regular fa-user" style="color:white;"></i>
+      <p>PROFILE</p>
+    </a>
     </div>
-
+    
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="../user/promotion.php" class="btn text-white features ">
-        <i class="fa-solid fa-rectangle-ad" style="color:white;"></i>
-        <p>PROMOTIONAL</p>
-      </a>
+      <i class="fa-solid fa-rectangle-ad" style="color:white;"></i>
+      <p>PROMOTIONAL</p>
+    </a>
     </div>
-  </div>
+</div>
 
 
 </main>
@@ -121,5 +120,5 @@ require "../user-panel/user-nav.php";
 </html>
 
 <script src="../scripts/carousel.js">
-
+ 
 </script>
