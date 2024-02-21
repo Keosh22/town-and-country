@@ -73,8 +73,6 @@ if (isset($_POST['register'])) {
 
 
 
-
-
         $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status, date_created ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status, :date_created)";
         $data = [
           "account_number" => $account_number,

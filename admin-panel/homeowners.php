@@ -97,6 +97,7 @@ $server->adminAuthentication();
 																$status = $result['status'];
 																$email = $result['email'];
 																$phone_number = $result['phone_number'];
+																$position = $result['position'];
 																// $tenant_name = $result['tenant_name'];
 															?>
 																<tr>
@@ -130,9 +131,14 @@ $server->adminAuthentication();
 																		?>
 																			<span class="badge rounded-pill text-bg-warning">Expired</span>
 																		<?php
+																		} 
+																		if (strlen($position) > 0){
+																			?>
+																			<span class="badge rounded-pill text-bg-info"><?php echo " ".$position; ?></span>
+																		<?php
 																		}
-
 																		?>
+
 																	</td>
 																	<td>
 																		<div class="dropdown">
