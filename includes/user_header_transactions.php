@@ -20,7 +20,8 @@
 
   <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
 
-
+  <!-- ICON  -->
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
 
   <!-- <link href=”https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” /> -->

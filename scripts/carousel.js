@@ -38,7 +38,10 @@ $(document).ready(function () {
                 if (counter == announcement_list_length) {
                     counter = 0;
                 }
-            }, 10000)
+
+
+                updateButtonAppearance();
+            }, 2000)
 
             
             // Next button 

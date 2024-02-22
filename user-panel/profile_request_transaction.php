@@ -165,11 +165,21 @@
         var url = '../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate;
 
 
-        var newWindow = window.open(url, "_blank");
+        var print_transaction = window.open('../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate,"_blank",'width=900,height=600');
 
-        newWindow.onload = function() {
-          newWindow.printThis();
-        };
+        // newWindow.onload = function() {
+        //   newWindow.print();
+ 
+        // };
+
+
+        print_transaction.print();
+        setTimeout(function(){
+          print_transaction.close();
+          location.reload(true);
+        }, 500)
+          
+
 
       } else {
         $(".message_result").append("<h1>There is no transaction on this date</h1>");
@@ -182,7 +192,7 @@
 
 
   $("#download").on("click", function() {
-  
+
 
     // Make an HTTP request to fetch the content of receipt.php
     $.get(url, function(data) {
