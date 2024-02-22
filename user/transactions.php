@@ -61,55 +61,49 @@ $server = new Server();
                     <table id="transactionTable" class="table table-striped" style="width:100%">
                       <thead>
                         <tr>
-                          <th scope="col" width="20%">TRANSACTION NUMBER</th>
-                          <th scope="col" width="10%">USER ID</th>
-                          <th scope="col" width="20%">CATEGORY</th>
-                          <th scope="col" width="20%">MONTH AND YEAR</th>
-                          <th scope="col" width="10">STATUS</th>
-                          <th scope="col" width="20%">DATE</th>
+                          <th scope="col" width="5%">TRANSACTION NUMBER</th>
+                          <th scope="col" width="15%">DATE</th>
+                          <th scope="col" width="30%">Payment</th>
+                          <th scope="col" width="10%">Amount</th>
+                          <th scope="col" width="15%">Paid by</th>
+
+
                         </tr>
                       </thead>
                       <tbody class="">
+                         <!----------------------------- MonthlyDues & MEMberhsip Fee PAYMENT  --------------------------------->
                         <?php
+                        
                         $id = $_SESSION["user_id"];
                         $query =  "SELECT
                 payments_list.id,
-                payments_list.transaction_number,
+                payments_list.transaction_number as payment_transaction_number,
                 payments_list.homeowners_id,
                 payments_list.property_id,
                 payments_list.collection_id,
                 payments_list.collection_fee_id,
-                DATE(payments_list.date_created) AS date_created,
+                payments_list.date_created as date_created,
                 payments_list.paid,
                 homeowners_users.id,
                 homeowners_users.account_number,
-                
                 property_list.id,
-                
                 collection_list.id,
                 collection_list.property_id,
                 collection_list.collection_fee_id,
                 collection_list.month,
                 collection_list.year,
-          
-
                 collection_list.balance,
                 collection_list.status,
                 collection_fee.id,
                 collection_fee.category,
                 collection_fee.fee
-
-                
-                
                 FROM payments_list
                 INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
                 INNER JOIN property_list ON payments_list.property_id = property_list.id
                 INNER JOIN collection_list ON payments_list.collection_id = collection_list.id
                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                
-                
+        
                 WHERE payments_list.homeowners_id = :user_id
-                
                 ORDER BY date_created DESC;";
 
 
@@ -121,7 +115,7 @@ $server = new Server();
                         if ($stmt->rowCount() > 0) {
 
                           while ($result = $stmt->fetch()) {
-                            $transaction_number = $result["transaction_number"];
+                            $transaction_number = $result["payment_transaction_number"];
 
                             // User information
                             $id = $result['id'];
@@ -129,36 +123,92 @@ $server = new Server();
 
                             // collection fee id
                             $collection_fee_id = $result["category"];
-                            $date_created = $result["date_created"];
+                            $date_created = date("M j, Y H:iA", strtotime( $result["date_created"]));
+                          
                             $status = $result["status"];
                             $month = $result["month"];
                             $year = $result["year"];
                             $monthyear = "{$month}, {$year}";
+                            $paid = $result['paid'];
                         ?>
                             <tr>
                               <td><?= $transaction_number ?></td>
-                              <td><?= $account_number ?></td>
-
-                              <td><?= $collection_fee_id ?></td>
-                              <td><?= $monthyear ?></td>
-                              <td><?php
-
-                                  if ($status === "PAID") {
-                                    // Add additional HTML or styles for "PAID" status
-                                    echo '<span style="color: green; font-weight: bold;"> (PAID)</span>';
-                                  } else {
-                                    // Add additional HTML or styles for other status
-                                    echo '<span style="color: red; font-weight: bold;"> (UNPAID)</span>';
-                                  }
-                                  ?>
-
-                              </td>
                               <td><?= $date_created ?></td>
+                              <td><?= $collection_fee_id ?></td>
+                              <td><?= $paid ?></td>
+                              <td></td>
                             </tr>
                         <?php
                           }
                         }
                         ?>
+
+
+
+
+                        <!----------------------------- CONSTRUCTION PAYMENT  --------------------------------->
+                        <?php
+                        $ACTIVE = "ACTIVE";
+                        $query1 = "SELECT 
+                              property_list.id as property_id,
+                              property_list.blk as property_blk,
+                              property_list.lot as property_lot,
+                              property_list.phase as property_phase,
+                              property_list.street as property_street,
+                              collection_fee.id as collection_id,
+                              collection_fee.collection_fee_number,
+                              collection_fee.category,
+                              collection_fee.description,
+                              construction_payment.id as construction_payment_id,
+                              construction_payment.paid as amount,
+                              construction_payment.date_created as payment_date,
+                              construction_payment.delivery_date,
+                              construction_payment.paid_by,
+                              construction_payment.transaction_number as construction_tn_number,
+                              construction_payment.refund
+                              FROM construction_payment 
+                              INNER JOIN property_list ON construction_payment.property_id = property_list.id
+                              INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
+                              WHERE construction_payment.archive = :ACTIVE
+                              ";
+                        $data1 = ["ACTIVE" => $ACTIVE];
+                        $connection1 = $server->openConn();
+                        $stmt1 = $connection1->prepare($query1);
+                        $stmt1->execute($data1);
+                        if ($stmt1->rowCount() > 0) {
+                          while ($result1 = $stmt1->fetch()) {
+                            $payment_date = date("M j, Y H:iA", strtotime($result1['payment_date']));
+                            $property_id = $result1['property_id'];
+                            $blk = $result1['property_blk'];
+                            $lot = $result1['property_lot'];
+                            $phase =  $result1['property_street'];
+                            $street = $result1['property_phase'];
+
+                            $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
+                            $paid_by = $result1['paid_by'];
+                            if ($result1['description']) {
+                              $payment = $result1['category'] . "-" . $result1['description'];
+                            } else {
+                              $payment = $result1['category'];
+                            }
+                            $amount = $result1['amount'];
+                            $transaction_number_cp = $result1['construction_tn_number'];
+                            $construction_payment_id = $result1['construction_payment_id'];
+                            $collection_fee_number = $result1['collection_fee_number'];
+                            $refund = $result1['refund'];
+                        ?>
+                            <tr>
+                              <td><?= $transaction_number_cp ?></td>
+                              <td><?= $payment_date ?></td>
+                              <td><?= $payment ?></td>
+                              <td><?= $amount ?></td>
+                              <td><?= $paid_by ?></td>
+                            </tr>
+                        <?php
+                          }
+                        }
+                        ?>
+
 
                       </tbody>
                       <!-- <tfoot>
@@ -197,7 +247,9 @@ $server = new Server();
 
     // DataTable
     $("#transactionTable").DataTable({
-
+      order: [
+        [1, 'desc']
+      ]
     });
   });
 </script>

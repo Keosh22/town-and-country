@@ -56,7 +56,7 @@ $server->adminAuthentication();
                         </div>
                         <div class="col d-flex justify-content-end">
                           <div class="col-3 mx-3">
-                            <select name="filter_maintenance" id="filter_maintenance" class="form-control form-control-sm text-secondary">
+                            <select name="filter_maintenance" id="filter_maintenance" class="form-select form-select-sm text-secondary">
                               <option value="">Maintenance:</option>
                               <?php
                               $query1 = "SELECT category FROM maintenance";
@@ -77,7 +77,7 @@ $server->adminAuthentication();
                             </select>
                           </div>
                           <div class="col-3">
-                            <select name="filter_status" id="filter_status" class="form-control form-control-sm text-secondary">
+                            <select name="filter_status" id="filter_status" class="form-select form-select-sm text-secondary">
                               <option value="">Status:</option>
                               <option value="PENDING">PENDING</option>
                               <option value="ONGOING">ONGOING</option>

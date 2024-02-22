@@ -2,7 +2,7 @@
 <aside id="sidebar" class="">
   <div class="">
     <div class="sidebar-logo">
-      <a href="#"><img class="logo-img" src="../img/logo.png" alt=""></a>
+      <a href="../admin-panel/dashboard.php"><img class="logo-img" src="../img/logo.png" alt=""></a>
     </div>
     <ul class="sidebar-nav">
       <li class="sidebar-item">

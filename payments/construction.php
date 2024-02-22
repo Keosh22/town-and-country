@@ -67,7 +67,7 @@ $server->adminAuthentication();
                         </div>
                         <div class="col d-flex justify-content-end">
                           <div class="col-3 mx-3">
-                            <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
+                            <select name="filter_table" id="filter_table" class="form-select form-select-sm text-secondary">
                               <option value="">Filter:</option>
                               <?php
                               $C002 = "C002";
