@@ -46,9 +46,9 @@
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
 
-                                <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Fogging</a></h4>
-                                <p>Elevate cleanliness with our advanced fogging treatments. Our fine mist disinfectants reach every nook and cranny, ensuring thorough germ elimination. From homes to offices, experience a precise and effective solution for a safer environment.</p>
-
+                                <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Tree Pruning</a></h4>
+                                <p>Tree pruning is an essential part of maintaining the health and beauty of your trees, it is also a safety precaution to minimize the liability from falling branches.</p>
+                                <a class="btn btn-flat btn-success" id="tree_pruning" href="#requestModal" data-bs-toggle="modal">Request</a>
                             </div>
 
                             <div class="card-footer">
@@ -70,10 +70,11 @@
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
 
-                                <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Work Order</a></h4>
+                                <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Street Sweeping</a></h4>
                                 <p>
-                                    A work order is a formal document or request issued by an organization, typically to its internal departments or external service providers, outlining specific details and instructions for a particular job or task.
+                                    Street sweeping is an essential maintenance procedure that helps our communities. Through thorough removal of dirt, debris, and trash from road surfaces, street sweeping keeps our roadways safe and clear for all users.
                                 </p>
+                                <a class="btn btn-flat btn-success" id="street_sweeping" href="#requestModal" data-bs-toggle="modal">Request</a>
                             </div>
                             <div class="card-footer">
                                 <div class="media">
@@ -94,7 +95,7 @@
                                 <p>
                                     Transform your outdoor space into a verdant paradise with our expert grass cutting services. Our team of skilled professionals is dedicated to creating and maintaining impeccably manicured lawns that reflect the beauty of nature.
                                 </p>
-                                <a class="btn btn-flat btn-success" id="grass_cutting" href="#grassCuttingRequestModal" data-bs-toggle="modal">Request</a>
+                                <a class="btn btn-flat btn-success" id="grass_cutting" href="#requestModal" data-bs-toggle="modal">Request</a>
                             </div>
                             <div class="card-footer">
                                 <div class="media">
@@ -119,12 +120,46 @@
             var service_maintenance = "Grass Cutting";
             $("#service_maintenance").val(service_maintenance);
 
-        })
+            $("#request_grasscutting_btn").show();
+            $("#request_grasscutting_btn").prop('disabled', false);
+
+            $("#request_streetsweeping_btn").hide();
+            $("#request_streetsweeping_btn").prop('disabled', true);
+            $("#request_treepruning_btn").hide();
+            $("#request_treepruning_btn").prop('disabled', true);
+        });
+
+        $("#street_sweeping").on('click', function() {
+            var service_maintenance = "Street Sweeping";
+            $("#service_maintenance").val(service_maintenance);
+
+            $("#request_streetsweeping_btn").show();
+            $("#request_streetsweeping_btn").prop('disabled', false);
+
+            $("#request_grasscutting_btn").hide();
+            $("#request_grasscutting_btn").prop('disabled', true);
+            $("#request_treepruning_btn").hide();
+            $("#request_treepruning_btn").prop('disabled', true);
+        });
+
+        $("#tree_pruning").on('click', function() {
+            var service_maintenance = "Tree Pruning";
+            $("#service_maintenance").val(service_maintenance);
+
+            $("#request_treepruning_btn").show();
+            $("#request_treepruning_btn").prop('disabled', false);
+
+            $("#request_grasscutting_btn").hide();
+            $("#request_grasscutting_btn").prop('disabled', true);
+            $("#request_streetsweeping_btn").hide();
+            $("#request_streetsweeping_btn").prop('disabled', true);
+        });
+
     });
 </script>
 <?php
-// 
-include("../user-views/grass_cutting_request_modal.php");
+//  grass cutting
+include("../user-views/request_modal.php");
 
 ?>
 

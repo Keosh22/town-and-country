@@ -33,72 +33,91 @@ if (isset($_POST['register'])) {
   if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($blk) && empty($lot) && empty($street) && empty($phase) && empty($username) && empty($password) && empty($confirm_password)) {
   } else {
 
-      // Check if there is current property registered
-      $query3 = "SELECT blk,lot FROM property_list WHERE 
+    // Check if there is current property registered
+    $query3 = "SELECT blk,lot FROM property_list WHERE 
       blk = :blk AND
       lot = :lot AND
       archive = :ACTIVE
       ";
-        $data3 = [
-          "blk" => $blk,
-          "lot" => $lot,
-          "ACTIVE" => $ACTIVE
-        ];
-        $connection3 = $server->openConn();
-        $stmt3 = $connection3->prepare($query3);
-        $stmt3->execute($data3);
-        if ($stmt3->rowCount() > 0) {
-          $_SESSION['status'] = "Failed!";
-          $_SESSION['text'] = "Property already exist!";
-          $_SESSION['status_code'] = "error";
-          header("location: ../admin-panel/homeowners.php");
-        } else {
-
-
-    $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status, date_created ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status, :date_created)";
-    $data = [
-      "account_number" => $account_number,
-      "username" => $username,
-      "password" => $password,
-      "firstname" => $firstname,
-      "lastname" => $lastname,
-      "middle_initial" => $middle_initial,
-      "email" => $email,
-      "phone_number" => $phone_number,
+    $data3 = [
       "blk" => $blk,
       "lot" => $lot,
-      "street" => $street,
-      "phase" => $phase,
-      "status" => $status,
-      "date_created" => $date_created
+      "ACTIVE" => $ACTIVE
     ];
-    $path = "../admin-panel/homeowners.php";
-    $server->register($query, $data, $path);
+    $connection3 = $server->openConn();
+    $stmt3 = $connection3->prepare($query3);
+    $stmt3->execute($data3);
+    if ($stmt3->rowCount() > 0) {
+      $_SESSION['status'] = "Failed!";
+      $_SESSION['text'] = "Property already exist!";
+      $_SESSION['status_code'] = "error";
+      header("location: ../admin-panel/homeowners.php");
+    } else {
 
-    $query1 = "SELECT id,account_number FROM homeowners_users WHERE account_number = :account_number";
-    $data1 = ["account_number" => $account_number];
-    $connection1 = $server->openConn();
-    $stmt1 = $connection1->prepare($query1);
-    $stmt1->execute($data1);
-    if ($stmt1->rowCount() > 0) {
-      while ($result1 = $stmt1->fetch()) {
-        $homeowners_id = $result1['id'];
-      }
-    }
 
-  
-
-      $query2 = "INSERT INTO property_list (homeowners_id, blk, lot, phase, street) VALUES (:homeowners_id, :blk, :lot, :phase, :street)";
-      $data2 = [
-        "homeowners_id" => $homeowners_id,
-        "blk" => $blk,
-        "lot" => $lot,
-        "phase" => $phase,
-        "street" => $street
+      // Validates Email
+      $query4 = "SELECT email FROM homeowners_users WHERE email = :email AND archive = :ACTIVE LIMIT 1";
+      $data4 = [
+        "email" => $email,
+        "ACTIVE" => $ACTIVE
       ];
-      $connection2 = $server->openConn();
-      $stmt2 = $connection2->prepare($query2);
-      $stmt2->execute($data2);
+      $connection4 = $server->openConn();
+      $stmt4 = $connection4->prepare($query4);
+      $stmt4->execute($data4);
+      if ($stmt4->rowCount() > 0) {
+        $_SESSION['status'] = "Failed!";
+        $_SESSION['text'] = "Email already exist!";
+        $_SESSION['status_code'] = "error";
+        header("location: ../admin-panel/homeowners.php");
+      } else {
+
+
+
+        $query = "INSERT INTO homeowners_users (account_number, username, password, firstname, lastname, middle_initial, email, phone_number, blk, lot, street, phase, status, date_created ) VALUES (:account_number, :username, :password, :firstname, :lastname, :middle_initial, :email, :phone_number, :blk, :lot, :street, :phase, :status, :date_created)";
+        $data = [
+          "account_number" => $account_number,
+          "username" => $username,
+          "password" => $password,
+          "firstname" => $firstname,
+          "lastname" => $lastname,
+          "middle_initial" => $middle_initial,
+          "email" => $email,
+          "phone_number" => $phone_number,
+          "blk" => $blk,
+          "lot" => $lot,
+          "street" => $street,
+          "phase" => $phase,
+          "status" => $status,
+          "date_created" => $date_created
+        ];
+        $path = "../admin-panel/homeowners.php";
+        $server->register($query, $data, $path);
+
+        $query1 = "SELECT id,account_number FROM homeowners_users WHERE account_number = :account_number";
+        $data1 = ["account_number" => $account_number];
+        $connection1 = $server->openConn();
+        $stmt1 = $connection1->prepare($query1);
+        $stmt1->execute($data1);
+        if ($stmt1->rowCount() > 0) {
+          while ($result1 = $stmt1->fetch()) {
+            $homeowners_id = $result1['id'];
+          }
+        }
+
+
+
+        $query2 = "INSERT INTO property_list (homeowners_id, blk, lot, phase, street) VALUES (:homeowners_id, :blk, :lot, :phase, :street)";
+        $data2 = [
+          "homeowners_id" => $homeowners_id,
+          "blk" => $blk,
+          "lot" => $lot,
+          "phase" => $phase,
+          "street" => $street
+        ];
+        $connection2 = $server->openConn();
+        $stmt2 = $connection2->prepare($query2);
+        $stmt2->execute($data2);
+      }
     }
 
 

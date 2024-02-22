@@ -20,7 +20,7 @@ require_once("../libs/server.php");
 
       <div class="modal-body mx-3">
         <form action="homeownersUpdate.php" method="POST" id="update_homeowners">
-            <input type="hidden" name="homeowners_id" id="homeowners_id">
+          <input type="hidden" name="homeowners_id" id="homeowners_id">
           <div class="row gy-3">
             <p class="fs-5 text-secondary divider personal-info mt-3 mb-0">Personal Information</p>
 
@@ -48,6 +48,16 @@ require_once("../libs/server.php");
               <label for="phone_number" class="form-label ">Phone Number</label>
               <input type="text" class="form-control" id="phone_number_update" name="phone_number_update" required>
               <div id='phoneNumberUpdateHelpBlock'></div>
+            </div>
+            <div class="col-12">
+              <select name="position" id="position" class="form-select" required>
+                <option class="default_select" value="">- Select -</option>
+                <option value="President">President</option>
+                <option value="Vice-President">Vice-President</option>
+                <option value="President">Secretary</option>
+                <option value="President">Treasurer</option>
+              </select>
+              <label for="position">Position:</label>
             </div>
 
             <!-- <div class="col-12">
@@ -118,11 +128,11 @@ require_once("../libs/server.php");
     $("#updateHomeowners").on('hidden.bs.modal', function(e) {
       $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden] ").val("");
       $("#street_update").empty().append('<option id="street_option_update" selected>- Select -</option>');
-      
+
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
-  
-     
+
+
 
       $("#phone_number_update").prop('disabled', false);
       $("#phone_number_update").removeClass("input-success");
@@ -135,16 +145,16 @@ require_once("../libs/server.php");
 
 
 
-    
+
 
     // Status on changed
     // $("#status_update").on('change', function() {
     //   var status = $("#status_update").val();
     // });
 
-    
-      // Phone Number validation
-      $("#phone_number_update").on('keyup', function() {
+
+    // Phone Number validation
+    $("#phone_number_update").on('keyup', function() {
       var phone_number = $(this).val().trim();
       var number = /([0-9])/;
 
@@ -162,7 +172,7 @@ require_once("../libs/server.php");
 
     });
 
-    
+
 
 
     // Fetch street to Combo box (select)
@@ -171,7 +181,7 @@ require_once("../libs/server.php");
       if (phase == "Phase 1") {
         $("#street_update").empty().append('<option>- Select -</option>');
         getStreet(phase);
-      
+
       } else if (phase == "Phase 2") {
         $("#street_update").empty().append('<option>- Select -</option>');
         getStreet(phase);
@@ -187,20 +197,20 @@ require_once("../libs/server.php");
 
 
     // ajax function get street
-    function getStreet(phase){
+    function getStreet(phase) {
       $.ajax({
-          url: '../ajax/street_fetch_select.php',
-          method: 'POST',
-          data: {
-            phase: phase
-          },
-          dataType: 'JSON',
-          success: function(response) {
-            $.each(response, function(key, value) {
-              $("#street_update").append(' <option>' + value['street'] + '</option>');
-            })
-          }
-        });
+        url: '../ajax/street_fetch_select.php',
+        method: 'POST',
+        data: {
+          phase: phase
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          $.each(response, function(key, value) {
+            $("#street_update").append(' <option>' + value['street'] + '</option>');
+          })
+        }
+      });
     }
 
 

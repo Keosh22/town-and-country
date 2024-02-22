@@ -52,8 +52,8 @@ if (isset($_POST['login'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Data Table script -->
-  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <!-- <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> -->
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -70,8 +70,8 @@ if (isset($_POST['login'])) {
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" /> -->
 
 
 
@@ -141,15 +141,15 @@ if (isset($_POST['login'])) {
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="bx bx-lock-alt"></i></span>
-          <input type="password" class="form-control input" placeholder="Password" name="password">
+          <input type="password" class="form-control input" placeholder="Password" name="password" id="password">
         </div>
         <div class="d-grid col-6 mx-auto">
           <input type="submit" class="btn btn-success" value="Sign in" name="login">
         </div>
         <div class="row my-3">
           <div class="col-6">
-            <input type="checkbox" id="checkbox">
-            <label for="checkbox">Remember me</label>
+            <input type="checkbox" id="show_password" class="form-check-input">
+            <label for="show_password" class="text-secondary">Show password</label>
           </div>
           <div class="col-6 text-end">
             <a href="forgot_password.php" class="link-underline link-underline-opacity-0 text-muted link-primary">Forgot Password?</a>
@@ -172,31 +172,27 @@ if (isset($_POST['login'])) {
   <script src="./libraries/sweetalert.js"></script>
 
   <!-- DataTables CDN -->
-  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  <!-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
 
 
 
   <script>
     $(document).ready(function() {
-      // $('#myTable').DataTable();
-      // const dataTable = $('#myTable').DataTable({
-      //   "paging": true,
-      //   "processing": true,
-      //   "serverSide": true,
-      //   "order": [],
-      //   "info": true,
-      //   "ajax": {
-      //     url:"../fetch.php",
-      //     type:"POST",
-      //   },
-      //   "columDefs": [
-      //     {
-      //     "targets": [0,3,4],
-      //     "orderable":false,
-      //     },
-      // ],
 
-      // });
+      $("#show_password").on('change', function() {
+
+        if (this.checked) {
+          $("#password").attr('type', 'text');
+        } else {
+          $("#password").attr('type', 'password');
+        }
+
+      });
+
+
+
+
+
 
     });
   </script>
