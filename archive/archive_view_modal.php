@@ -26,8 +26,9 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         <!-- RECEIPT FORMAT -->
 
         <div class="receipt-wrapper">
-          <h1 class="text-center title-receipt">Payment Receipt</h1>
-          <h5 class="text-center title-receipt">Town And Country Heights Subdivision</h5>
+          <h2 class="text-center title-receipt"><b>Payment Receipt</b></h2>
+          <h5 class="text-center title-receipt m-0">Town And Country Heights Homeowners' ASSN. INC.</h5>
+          <p class="text-center title-receipt text-secondary mb-1">Clubhouse 1 La Salle Avenue, Town & Country Heights San Luis, Antipolo City</p>
           <div class="divider-receipt"></div>
           <div class="flex">
             <div class="w-50">
