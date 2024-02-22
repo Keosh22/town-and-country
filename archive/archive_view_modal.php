@@ -15,7 +15,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"><b>View Payment</b></h4>
+        <h5 class="modal-title"><b>View Payment</b></h5>
         <button class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body mx-3">
@@ -31,20 +31,21 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           <div class="divider-receipt"></div>
           <div class="flex">
             <div class="w-50">
-              <h4 class="details-title">Homeowners Details</h4>
-              <p>Account Number: <b id="account_number"></b></p>
-              <p>Name: <b id="name"></b></p>
-              <p>Current Address: <b id="current_address"></b></p>
+              <h5 class="details-title text-secondary">Homeowners Details</h5>
+              <p class="m-0">Account Number: <b id="account_number"></b></p>
+              <p class="m-0">Name: <b id="name"></b></p>
+              <p class="m-0">Current Address: <b id="current_address"></b></p>
             </div>
             <div class="w-50">
-              <h4 class="details-title">Payment Details</h4>
-              <p>Transaction Number: <b id="transaction_number"></b></p>
-              <p>Date Paid: <b id="date_paid"></b></p>
-              <p>Remarks: <b id="remarks"></b></p>
+              <h5 class="details-title text-secondary">Payment Details</h5>
+              <p class="m-0">Transaction Number: <b id="transaction_number"></b></p>
+              <p class="m-0">Date Paid: <b id="date_paid"></b></p>
+              <p class="m-0">Paid by: <b id="paid_by"></b></p>
+              <p class="m-0">Remarks: <b id="remarks"></b></p>
             </div>
           </div>
           <div class="divider-receipt"></div>
-          <h4>Payment Summary:</h4>
+          <h5 class="text-secondary">Payment Summary:</h5>
           <table class="table">
             <thead>
               <tr>

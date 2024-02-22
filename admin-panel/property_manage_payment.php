@@ -123,10 +123,15 @@ if (isset($_GET['property_id'])) {
                                       <label for="address" class="form-label text-success">Property:</label>
                                       <input type="text" class="form-control" id="address" name="address" value="<?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " Phase " . $phase; ?>" readonly>
                                     </div>
-                                    <div class="col-12">
-                                      <label for="fee" class="form-label text-success">Fee::</label>
+                                    <div class="col-4">
+                                      <label for="fee" class="form-label text-success">Fee:</label>
                                       <input type="text" class="form-control" id="fee" name="fee" value="" readonly>
                                     </div>
+                                    <div class="col-8">
+                                      <label for="paid_by" class="form-label text-success">Paid by:</label>
+                                      <input type="text" class="form-control" id="paid_by" name="paid_by" maxlength="25">
+                                    </div>
+                                    
                                     <div class="col-12">
                                       <label for="remarks" class="form-label text-success">Remarks:</label>
                                       <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control" maxlength="25"></textarea>
@@ -370,6 +375,15 @@ if (isset($_GET['property_id'])) {
       // Update collection
       $("#add_payment_btn").on('click', function() {
         var remarks = $("#remarks").val();
+        var paid_by = $("#paid_by").val()
+        var owners_name = $("#owners_name").val()
+        if(paid_by.length > 0){
+          
+        } else {
+          paid_by = owners_name;
+        }
+
+
         swal({
             title: 'Confirmation',
             text: 'Are you sure you want to add this payment?',
@@ -389,7 +403,8 @@ if (isset($_GET['property_id'])) {
                   collection_fee_id: collection_fee_id,
                   amount: amount,
                   remarks: remarks,
-                  balance: balance
+                  balance: balance,
+                  paid_by: paid_by
                 },
                 success: function(response) {
                   // $(".content").html(response);

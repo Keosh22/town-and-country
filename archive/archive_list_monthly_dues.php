@@ -222,6 +222,7 @@ $server->adminAuthentication();
               $("#total_amount").val(response.total_amount);
               $("#remarks").html(response.remarks);
               $("#admin_name").html(response.admin_name);
+              $("#paid_by").html(response.paid_by);
             }
           });
         }
