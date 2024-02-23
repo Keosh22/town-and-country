@@ -62,24 +62,24 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 				<div class="row py-2 px-2 gy-3">
 					<div class="card-group gap-2">
 
-						<div class="card  border-0 shadow-sm" style="background-color: #F5EBE0;">
+						<div class="card  border-0 shadow-sm" style="background-color: #a9b2ac;">
 							<div class="card-body">
 								<div class="row">
 									<h4 class="card-title">Homeowners</h4>
 									<div class="col-6">
-										<h6 class="card-subttitle text-success">Members</h6>
+										<h6 class="card-subttitle text-success"><b>Members</b></h6>
 										<p class="card-text fs-3"><?php $server->countMembers(); ?></p>
 									</div>
 									<div class="col-6">
-										<h6 class="card-subttitle text-danger">Non-Members</h6>
+										<h6 class="card-subttitle text-danger"><b>Non-Members</b></h6>
 										<p class="card-text fs-3"><?php $server->countNonMembers(); ?></p>
 									</div>
 									<div class="col-6">
-										<h6 class="card-subttitle text-warning">Expired</h6>
+										<h6 class="card-subttitle text-warning"><b>Expired</b></h6>
 										<p class="card-text fs-3"><?php $server->countExpired(); ?></p>
 									</div>
 									<div class="col-6">
-										<h6 class="card-subttitle text-info">Tenants</h6>
+										<h6 class="card-subttitle text-info"><b>Tenants</b></h6>
 										<p class="card-text fs-3"><?php $server->countTenant(); ?></p>
 									</div>
 								</div>
@@ -87,23 +87,23 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 						</div>
 
 
-						<div class="card border-0 shadow-sm" style="background-color: #F5EBE0;">
+						<div class="card border-0 shadow-sm" style="background-color: #bcd0c7;">
 							<div class="card-body">
 								<h4 class="card-title">Announcement</h4>
-								<h6 class="card-subttitle text-success">Active</h6>
+								<h6 class="card-subttitle text-success"><b>Active</b></h6>
 								<p class="card-text fs-3"><?php $server->countAnnouncementActive(); ?></p>
-								<h6 class="card-subtitle text-danger">Inactive</h6>
+								<h6 class="card-subtitle text-danger"><b>Inactive</b></h6>
 								<p class="card-text fs-3"><?php $server->countAnnouncementInactive(); ?></p>
 							</div>
 						</div>
 
 
-						<div class="card  border-0 shadow-sm" style="background-color: #F5EBE0;">
+						<div class="card  border-0 shadow-sm" style="background-color: #c5dac1;">
 							<div class="card-body">
 								<h4 class="card-title">Maintenance</h4>
-								<h6 class="card-subttitle text-danger">Pending</h6>
+								<h6 class="card-subttitle text-danger"><b>Pending</b></h6>
 								<p class="card-text fs-3"><?php $server->countPending(); ?></p>
-								<h6 class="card-subtitle text-info">Ongoing</h6>
+								<h6 class="card-subtitle text-info"><b>Ongoing</b></h6>
 								<p class="card-text fs-3"><?php $server->countPending(); ?></p>
 							</div>
 						</div>
@@ -120,11 +120,11 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 						</div>
 					</div> -->
 
-						<div class="card  border-0 shadow-sm" style="background-color: #F5EBE0;">
+						<div class="card  border-0 shadow-sm" style="background-color: #def2c8;">
 							<div class="card-body">
 								<div class="row">
 									<h4 class="card-title">Send Email</h4>
-									<h6 class="card-subttitle text-success">Payment Reminders</h6>
+									<h6 class="card-subttitle text-success"><b>Payment Reminders</b></h6>
 									<div class="col-6">
 										<p class="card-text fs-3"><?php echo $email_reminder =  $server->countEmailReminder(); ?></p>
 									</div>
@@ -141,7 +141,7 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 																																																																				?>
 										'></i>Send</button>
 									</div>
-									<h6 class="card-subttitle text-danger">Payment Dues</h6>
+									<h6 class="card-subttitle text-danger"><b>Payment Dues</b></h6>
 									<div class="col-6">
 										<p class="card-text fs-3"><?php echo $email_due = $server->countEmailDue(); ?></p>
 									</div>
