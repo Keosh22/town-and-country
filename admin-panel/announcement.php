@@ -56,8 +56,19 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
-                        <div class="col">
-                          <a href="#announcementCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Announcement</a>
+                        <div class="col d-flex justify-content-start">
+                          <div class="col">
+                            <a href="#announcementCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Announcement</a>
+                          </div>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                          <div class="col-3">
+                            <select name="filter_status" id="filter_status" class="form-select form-select-sm text-secondary">
+                              <option value="">Status:</option>
+                              <option value="ACTIVE">ACTIVE</option>
+                              <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                          </div>
                         </div>
 
                       </div>
@@ -71,7 +82,7 @@ $server->adminAuthentication();
 
                                 <th width="10%">About</th>
                                 <th width="30%">Content</th>
-                           
+
                                 <th width="10%">Event Date</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
@@ -96,7 +107,7 @@ $server->adminAuthentication();
 
                                   $announcement_expired = date("Y/m/d", strtotime($date . "+1 day"));
                                   $current_date = date("Y/m/d", strtotime("now"));
-                                  if ($announcement_expired <= $current_date ) {
+                                  if ($announcement_expired <= $current_date) {
                                     $status = "INACTIVE";
                                     $query_expired = "UPDATE announcement SET status = :status WHERE id = :announcement_id";
                                     $data_expired = [
@@ -114,7 +125,7 @@ $server->adminAuthentication();
 
                                     <td><?php echo $about ?></td>
                                     <td><?php echo nl2br($content) ?></td>
-                                    
+
                                     <td><?php echo date("F j, Y  g:i a", strtotime($date)) ?></td>
                                     <td>
                                       <?php
@@ -153,7 +164,7 @@ $server->adminAuthentication();
 
                                 <th width="10%">About</th>
                                 <th width="30%">Content</th>
-                              
+
                                 <th width="10%">Date & Time</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
@@ -187,8 +198,8 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-      
-      
+
+
 
       // Update announcement
       $("#announcementTable").on('click', '#update_dropdown_btn', function() {
@@ -208,40 +219,42 @@ $server->adminAuthentication();
               $("#about_update").val(response.about);
               $("#announcement_date_update").val(response.date);
               $("#content_update").val(response.content);
-              
+
             }
           });
         }
       });
 
       // Delete announcement
-      $("#announcementTable").on('click', '#delete_announcement', function (){
+      $("#announcementTable").on('click', '#delete_announcement', function() {
         var announcement_id = $(this).attr('data-id');
         swal({
-          title: "Delete Confirmation",
-          text: "Once deleted, you will not able to recover this record",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if(willDelete){
-            
-            $.ajax({
-              url: '../ajax/announcement_delete.php',
-              type: 'POST',
-              data: {announcement_id: announcement_id},
-              success: function (response){
-                location.reload(true);
-              }
-            });
-            
-          
-            
-          } else {
-            swal("Delete cancel!");
-          }
-        })
+            title: "Delete Confirmation",
+            text: "Once deleted, you will not able to recover this record",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+
+              $.ajax({
+                url: '../ajax/announcement_delete.php',
+                type: 'POST',
+                data: {
+                  announcement_id: announcement_id
+                },
+                success: function(response) {
+                  location.reload(true);
+                }
+              });
+
+
+
+            } else {
+              swal("Delete cancel!");
+            }
+          })
       });
 
 
@@ -251,9 +264,13 @@ $server->adminAuthentication();
         order: [
           [3, 'asc'],
           [2, 'asc']
-
         ]
       });
+      const TABLE = $("#announcementTable").DataTable();
+
+      $("#filter_status").on('change', function(){
+        TABLE.columns(3).search(this.value).draw();
+      })
 
 
 
