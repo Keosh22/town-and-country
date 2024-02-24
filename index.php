@@ -54,7 +54,7 @@ if (isset($_POST['login'])) {
   <!-- Data Table script -->
   <!-- <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> -->
-
+  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 

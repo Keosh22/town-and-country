@@ -190,7 +190,12 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-
+     // DataTable
+     $("#monthlyDuesTable").DataTable({
+        order: [
+          [1, 'desc']
+        ]
+      });
 
       // View payment
       $("#monthlyDuesTable").on('click', '#view_payment', function() {
@@ -257,18 +262,10 @@ $server->adminAuthentication();
       });
 
 
-      // Print payment
-      $("#monthlyDuesTable").on('click', '#print_payment', function() {
-
-      });
+   
 
 
-      // DataTable
-      $("#monthlyDuesTable").DataTable({
-        order: [
-          [1, 'desc']
-        ]
-      });
+ 
 
       // var table = $("#monthlyDuesTable").DataTable();
       // var value = 300;
