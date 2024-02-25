@@ -27,3 +27,33 @@ thead tr {
   font-weight: 500;
   color: #999999;
 }
+
+/* RECEIPT */
+.receipt-wrapper {
+  margin: 10px 20px;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: inline-flex;
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.divider-receipt {
+  width: 100%;
+  border-bottom: 3px solid black;
+  margin-bottom: 5px;
+}
+
+.details-title {
+  margin-bottom: 5px;
+}
+

@@ -55,7 +55,7 @@ $server = new Server();
                     </div>
                   </div>
                   <div class="col d-flex justify-content-end">
-                    <div class="col-3">
+                    <div class="col-lg-3 col-8">
                       <select name="filter_payment" id="filter_payment" class="form-select form-select-sm text-secondary">
                         <option value="">Payment:</option>
                         <?php
@@ -95,16 +95,17 @@ $server = new Server();
 
                 <div class="body-box shadow-sm">
 
-                  <div class="table-responsive mx-2">
-                    <table id="transactionTable" class="table table-striped" style="width:100%">
+                  <div class=" table table-responsive-sm mx-2">
+                    <table id="transactionTable" class="table table-striped table-sm" style="width:100%">
                       <thead>
                         <tr>
-                          <th scope="col" width="5%">TRANSACTION NUMBER</th>
-                          <th scope="col" width="15%">DATE</th>
-                          <th scope="col" width="30%">Payment</th>
+
+                          <th scope="col" width="5%">#</th>
+                          <th scope="col" width="20%">Payment</th>
                           <th scope="col" width="10%">Amount</th>
+                          <th scope="col" width="15%">DATE</th>
                           <th scope="col" width="15%">Paid by</th>
-                          <th scope="col" width="5%">Action</th>
+
 
 
                         </tr>
@@ -136,7 +137,8 @@ $server = new Server();
                 collection_list.status,
                 collection_fee.id,
                 collection_fee.category,
-                collection_fee.fee
+                collection_fee.fee,
+                collection_fee.collection_fee_number
                 FROM payments_list
                 INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
                 LEFT JOIN property_list ON payments_list.property_id = property_list.id
@@ -163,6 +165,7 @@ $server = new Server();
                             // collection fee id
                             $collection_fee_id = $result["category"];
                             $date_created = date("M j, Y H:iA", strtotime($result["date_created"]));
+                            $collection_fee_number = $result['collection_fee_number'];
 
                             $status = $result["status"];
                             $month = $result["month"];
@@ -172,23 +175,33 @@ $server = new Server();
                             $paid_by_pl = $result['paid_by_pl'];
                         ?>
                             <tr>
-                              <td><?= $transaction_number ?></td>
-                              <td><?= $date_created ?></td>
+                              <td>
+                                <div class="dropdown">
+                                  <a href="#" class="dropdown-toggle btn btn-sm" data-bs-toggle="dropdown"><?= $transaction_number ?></a>
+                                  <ul class="dropdown-menu">
+                                    <?php
+                                    if ($collection_fee_number == "C007") {
+                                    ?>
+                                      <li><a id="view_monthly_dues" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
+                                    <?php
+                                    } elseif ($collection_fee_number == "C001") {
+                                    ?>
+                                      <li><a id="view_membership_fee" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
+                                    <?php
+                                    }
+                                    ?>
+
+                                  </ul>
+                                </div>
+                              </td>
                               <td><?= $collection_fee_id;
                                   if (isset($monthyear)) {
                                     echo " " . $monthyear;
                                   }
                                   ?></td>
-                              <td><?= $paid ?></td>
+                              <td><span class="badge rounded-pill text-bg-success"><?= $paid ?></span></td>
+                              <td><?= $date_created ?></td>
                               <td><?= $paid_by_pl ?></td>
-                              <td>
-                                <div class="dropdown">
-                                  <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Action</a>
-                                  <ul class="dropdown-menu">
-                                    <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                  </ul>
-                                </div>
-                              </td>
                             </tr>
                         <?php
                           }
@@ -250,19 +263,18 @@ $server = new Server();
                             $refund = $result1['refund'];
                         ?>
                             <tr>
-                              <td><?= $transaction_number_cp ?></td>
-                              <td><?= $payment_date ?></td>
-                              <td><?= $payment ?></td>
-                              <td><?= $amount ?></td>
-                              <td><?= $paid_by_cp ?></td>
                               <td>
                                 <div class="dropdown">
-                                  <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Action</a>
+                                  <a href="#" class="dropdown-toggle btn btn-sm" data-bs-toggle="dropdown"><?= $transaction_number_cp ?></a>
                                   <ul class="dropdown-menu">
                                     <li><a href="#" class="dropdown-item">Print</a></li>
                                   </ul>
                                 </div>
                               </td>
+                              <td><?= $payment ?></td>
+                              <td><span class="badge rounded-pill text-bg-success"><?= $amount ?></span></td>
+                              <td><?= $payment_date ?></td>
+                              <td><?= $paid_by_cp ?></td>
                             </tr>
                         <?php
                           }
@@ -298,7 +310,10 @@ $server = new Server();
 </body>
 
 <?php
+// Monthly Dues View
 include("../user/monthly_dues_view.php");
+// Membership fee view
+include("../user/membership_fee_view.php");
 ?>
 <script>
   $(document).ready(function() {
@@ -312,19 +327,19 @@ include("../user/monthly_dues_view.php");
     // DataTable
     $("#transactionTable").DataTable({
       order: [
-        [1, 'desc']
+        [3, 'desc']
       ]
     });
     const TABLE = $("#transactionTable").DataTable();
 
     $("#filter_payment").on('change', function() {
-      TABLE.columns(2).search(this.value).draw();
+      TABLE.columns(1).search(this.value).draw();
     })
 
 
 
-    // View payment
-    $("#transactionTable").on('click', '#view_payment', function() {
+    // View payment MONTHLY DUES
+    $("#transactionTable").on('click', '#view_monthly_dues', function() {
       const archive_status = "ACTIVE";
       var payment_id = $(this).attr('data-id');
       var transaction_number = $(this).attr('data-tnumber');
@@ -360,9 +375,52 @@ include("../user/monthly_dues_view.php");
 
 
 
+    // View payment MEMBERSHIP FEE
+    $("#transactionTable").on('click', '#view_membership_fee', function() {
+      var payment_id = $(this).attr('data-id');
+      var transaction_number = $(this).attr('data-tnumber');
+      var archive_status = "ACTIVE";
+
+      $("#payment_id_modal_mf").val(payment_id);
+      $("#transactionNum_id_mf").val(transaction_number);
+      getPayment(payment_id);
+
+      function getPayment(payment_id) {
+        $.ajax({
+          url: '../ajax/membership_fee_receipt_get.php',
+          type: 'POST',
+          data: {
+            payment_id: payment_id,
+            transaction_number: transaction_number,
+            archive_status: archive_status
+          },
+          dataType: 'JSON',
+          success: function(response) {
+            $("#account_number_mf").html(response.account_number);
+            $("#name_mf").html(response.name);
+            $("#current_address_mf").html(response.address);
+            $("#transaction_number_mf").html(response.transaction_number);
+            $("#date_paid_mf").html(response.date_paid);
+            $(".table_result_mf").html(response.table_result);
+            $("#total_amount_mf").val(response.total_amount);
+            $("#remarks_mf").html(response.remarks);
+            $("#admin_name_mf").html(response.admin_name);
+          }
+        });
+      }
+    });
+
+
+
+
+
+
   });
 </script>
-
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- HTML Canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <?php
 require "../includes/footer.php";
 ?>
