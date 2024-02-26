@@ -58,6 +58,8 @@ require "../libs/server.php";
 
         <?php
           }
+        } else {
+          
         }
         ?>
       </div>
