@@ -32,12 +32,12 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+        <a href="../payments/monthly_dues.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
-            <li class="breadcrumb-item"><a href="#">Monthly Dues</a></li>
+            <li class="breadcrumb-item"><a href="../payments/monthly_dues.php">Monthly Dues</a></li>
             <li class="breadcrumb-item">Archive</li>
           </ol>
         </section>

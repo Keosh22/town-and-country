@@ -245,10 +245,10 @@ if (isset($_GET['property_id'])) {
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/property_list.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Collections</a></li>
             <li class="breadcrumb-item">Collections List</li>
           </ol>
@@ -363,14 +363,14 @@ if (isset($_GET['property_id'])) {
                                             ?>
                                             <tr class="table-danger">
                                             <?php
-                                          } elseif ($status_collection == "PAID"){
+                                          } elseif ($status_collection == "PAID") {
                                             ?>
                                             <tr class="table-success">
-                                          <?php
+                                            <?php
                                           } else {
                                             ?>
                                             <tr class="table-secondary">
-                                          <?php
+                                            <?php
                                           }
                                             ?>
 
@@ -424,18 +424,21 @@ if (isset($_GET['property_id'])) {
     $(document).ready(function() {
 
 
-      
+
       $("#collection_list_Table").DataTable({
         "pageLength": 12,
         order: [
           [1, 'asc'],
           [2, 'desc']
-       
+
         ],
-        'columnDefs' : [
-        //hide the first column
-        { 'visible': false, 'targets': [1] }
-    ]
+        'columnDefs': [
+          //hide the first column
+          {
+            'visible': false,
+            'targets': [1]
+          }
+        ]
       });
 
     });
