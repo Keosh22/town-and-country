@@ -4,7 +4,7 @@ session_start(); ?>
 
 require "../includes/user-header.php";
 require "../user-panel/user-nav.php";
-//require "../libs/server.php";
+require "../libs/server.php";
 // $homeServer = new Server();
 
 // $homeServer->userAuthentication();
@@ -13,8 +13,59 @@ require "../user-panel/user-nav.php";
 
 ?>
 
-<main>
 
+<!-- PROMOTION PUSH NOTIFICATION TOAST -->
+<div class=" d-flex justify-content-end">
+  <div class="toast  text-bg-success position-fixed" role="alert" data-bs-delay="5000">
+    <div class="toast-header">
+      <strong class="me-auto">Promotions</strong>
+      <button class="btn btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">
+      <div class="promotion_container flex-wrap">
+        <?php
+        $server = new Server();
+        $status = "ACTIVE";
+        $query = "SELECT * FROM promotion WHERE status = :status ORDER BY RAND() LIMIT 1";
+        $data = ["status" => $status];
+        $connection = $server->openConn();
+        $stmt = $connection->prepare($query);
+        $stmt->execute($data);
+        $count = $stmt->rowCount();
+        $current_date = date('d');
+        if ($count > 0) {
+          while ($result = $stmt->fetch()) {
+            $photo = $result['photo'];
+            $business_name = $result['business_name'];
+            $content = $result['content'];
+            $date_created = date("d", strtotime($result['date_created']));
+            $days_ago = $current_date - $date_created;
+        ?>
+            <div class="promotion-toast-size">
+              <img src="../promotion_photos/<?php
+                                            if ($photo == "") {
+                                              echo "default_image_promotion.jpg";
+                                            } else {
+                                              echo $photo;
+                                            }
+                                            ?>" alt="..." class="card-img-top promotion_toast_img">
+            </div>
+
+            <h6 class="my-1 promotion_toast_body"><?php echo $business_name; ?></h6>
+            <a href="../user/promotion.php" class="btn btn-sm btn-warning">View</a>
+
+
+
+        <?php
+          }
+        }
+        ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
 
   <div class="row row-title mt-3 mb-3">
     <div class="col-sm-12 col-title text-center">
@@ -84,35 +135,37 @@ require "../user-panel/user-nav.php";
 
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="transactions.php" class="btn text-white features ">
-      <i class="far fa-file-lines" style="color: white;"></i>
-      <p>TRANSACTIONS</p>
-    </a>
+        <i class="far fa-file-lines" style="color: white;"></i>
+        <p>TRANSACTIONS</p>
+      </a>
     </div>
-    
+
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="services.php" class="btn text-white features ">
-      <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
-      <p>SERVICES</p>
-    </a>
+        <i class="fa-solid fa-bell-concierge" style="color: white;"></i>
+        <p>SERVICES</p>
+      </a>
     </div>
-    
+
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="../user/profile.php" class="btn text-white features ">
-      <i class="fa-regular fa-user" style="color:white;"></i>
-      <p>PROFILE</p>
-    </a>
+        <i class="fa-regular fa-user" style="color:white;"></i>
+        <p>PROFILE</p>
+      </a>
     </div>
-    
+
     <div class="col-xl-3 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
       <a href="../user/promotion.php" class="btn text-white features ">
-      <i class="fa-solid fa-rectangle-ad" style="color:white;"></i>
-      <p>PROMOTIONAL</p>
-    </a>
+        <i class="fa-solid fa-rectangle-ad" style="color:white;"></i>
+        <p>PROMOTIONAL</p>
+      </a>
     </div>
-</div>
+  </div>
+
 
 
 </main>
+
 
 
 </body>
@@ -120,5 +173,10 @@ require "../user-panel/user-nav.php";
 </html>
 
 <script src="../scripts/carousel.js">
- 
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('.toast').toast('show');
+  })
 </script>

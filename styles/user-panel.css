@@ -61,7 +61,9 @@ form .form-control:focus{
   background: rgba(39, 39, 39, 0.4);
 }
 
-
+.bx-arrow-back:hover{
+  color: #DAD992 !important;
+}
 
 
 @media (max-width: 576px){

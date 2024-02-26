@@ -30,15 +30,14 @@ $server = new Server();
 
   </div>
 
-
+  
 
   <div class="card">
     <div class="card-header">
       <h2>Transactions List</h2>
     </div>
-    <div class="card-body">
+    <div class="my-2">
       <div class="container-fluid">
-
         <section class="main-content">
           <div class="row">
             <div class="col-xs-12">
@@ -49,14 +48,14 @@ $server = new Server();
                   <div class="col d-flex justify-content-start">
                     <div class="request-transaction mb-3">
                       <?php include "../user-panel/profile_request_transaction.php" ?>
-                      <button type="button" class="btn d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
+                      <button type="button" class="btn btn-sm d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
                         Request Transaction
                       </button>
                     </div>
                   </div>
                   <div class="col d-flex justify-content-end">
-                    <div class="col-lg-3 col-8">
-                      <select name="filter_payment" id="filter_payment" class="form-select form-select-sm text-secondary">
+                    <div class="col-lg-3 col-sm-5">
+                      <select name="filter_payment" id="filter_payment" class="form-select form-select-sm text-secondary mx-2">
                         <option value="">Payment:</option>
                         <?php
                         // $C002 = "C002";
@@ -94,28 +93,28 @@ $server = new Server();
                 </div>
 
                 <div class="body-box shadow-sm">
+                  <div class="col-lg-12">
+                    <div class="table-responsive-xl mx-2">
+                      <table id="transactionTable" class="table table-striped table-sm" style="width:100%;">
+                        <thead>
+                          <tr>
+                            <th scope="col" width="5%"></th>
+                            <th scope="col" width="10%">#</th>
+                            <th scope="col" width="20%">Payment</th>
+                            <th scope="col" width="10%">Amount</th>
+                            <th scope="col" width="15%">DATE</th>
+                            <th scope="col" width="15%">Paid by</th>
 
-                  <div class=" table table-responsive-sm mx-2">
-                    <table id="transactionTable" class="table table-striped table-sm" style="width:100%">
-                      <thead>
-                        <tr>
-
-                          <th scope="col" width="5%">#</th>
-                          <th scope="col" width="20%">Payment</th>
-                          <th scope="col" width="10%">Amount</th>
-                          <th scope="col" width="15%">DATE</th>
-                          <th scope="col" width="15%">Paid by</th>
 
 
+                          </tr>
+                        </thead>
+                        <tbody class="">
+                          <!----------------------------- MonthlyDues & MEMberhsip Fee PAYMENT  --------------------------------->
+                          <?php
 
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <!----------------------------- MonthlyDues & MEMberhsip Fee PAYMENT  --------------------------------->
-                        <?php
-
-                        $id = $_SESSION["user_id"];
-                        $query =  "SELECT
+                          $id = $_SESSION["user_id"];
+                          $query =  "SELECT
                 payments_list.id as payment_id,
                 payments_list.transaction_number as payment_transaction_number,
                 payments_list.homeowners_id,
@@ -148,73 +147,71 @@ $server = new Server();
                 ORDER BY date_created DESC;";
 
 
-                        $data = ["user_id" => $id];
-                        $connection = $server->openConn();
-                        $stmt = $connection->prepare($query);
-                        $stmt->execute($data);
+                          $data = ["user_id" => $id];
+                          $connection = $server->openConn();
+                          $stmt = $connection->prepare($query);
+                          $stmt->execute($data);
 
-                        if ($stmt->rowCount() > 0) {
+                          if ($stmt->rowCount() > 0) {
 
-                          while ($result = $stmt->fetch()) {
-                            $transaction_number = $result["payment_transaction_number"];
-                            $payment_id = $result['payment_id'];
-                            // User information
-                            $id = $result['id'];
-                            $account_number = $result['account_number'];
+                            while ($result = $stmt->fetch()) {
+                              $transaction_number = $result["payment_transaction_number"];
+                              $payment_id = $result['payment_id'];
+                              // User information
+                              $id = $result['id'];
+                              $account_number = $result['account_number'];
 
-                            // collection fee id
-                            $collection_fee_id = $result["category"];
-                            $date_created = date("M j, Y H:iA", strtotime($result["date_created"]));
-                            $collection_fee_number = $result['collection_fee_number'];
+                              // collection fee id
+                              $collection_fee_id = $result["category"];
+                              $date_created = date("M j, Y H:iA", strtotime($result["date_created"]));
+                              $collection_fee_number = $result['collection_fee_number'];
 
-                            $status = $result["status"];
-                            $month = $result["month"];
-                            $year = $result["year"];
-                            $monthyear = "{$month} {$year}";
-                            $paid = $result['paid'];
-                            $paid_by_pl = $result['paid_by_pl'];
-                        ?>
-                            <tr>
-                              <td>
-                                <div class="dropdown">
-                                  <a href="#" class="dropdown-toggle btn btn-sm" data-bs-toggle="dropdown"><?= $transaction_number ?></a>
-                                  <ul class="dropdown-menu">
-                                    <?php
-                                    if ($collection_fee_number == "C007") {
-                                    ?>
-                                      <li><a id="view_monthly_dues" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                    <?php
-                                    } elseif ($collection_fee_number == "C001") {
-                                    ?>
-                                      <li><a id="view_membership_fee" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                    <?php
-                                    }
-                                    ?>
+                              $status = $result["status"];
+                              $month = $result["month"];
+                              $year = $result["year"];
+                              $monthyear = "{$month} {$year}";
+                              $paid = $result['paid'];
+                              $paid_by_pl = $result['paid_by_pl'];
+                          ?>
+                              <tr>
+                                <td>
 
-                                  </ul>
-                                </div>
-                              </td>
-                              <td><?= $collection_fee_id;
-                                  if (isset($monthyear)) {
-                                    echo " " . $monthyear;
+                                  <?php
+                                  if ($collection_fee_number == "C007") {
+                                  ?>
+                                    <a id="view_monthly_dues" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="btn btn-sm ">View</a>
+                                  <?php
+                                  } elseif ($collection_fee_number == "C001") {
+                                  ?>
+                                    <a id="view_membership_fee" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="btn btn-sm">View</a>
+                                  <?php
                                   }
-                                  ?></td>
-                              <td><span class="badge rounded-pill text-bg-success"><?= $paid ?></span></td>
-                              <td><?= $date_created ?></td>
-                              <td><?= $paid_by_pl ?></td>
-                            </tr>
-                        <?php
+                                  ?>
+
+
+                                </td>
+                                <td><?= $transaction_number ?></td>
+                                <td><?= $collection_fee_id;
+                                    if (isset($monthyear)) {
+                                      echo " " . $monthyear;
+                                    }
+                                    ?></td>
+                                <td><span class="badge rounded-pill text-bg-success"><?= $paid ?></span></td>
+                                <td><?= $date_created ?></td>
+                                <td><?= $paid_by_pl ?></td>
+                              </tr>
+                          <?php
+                            }
                           }
-                        }
-                        ?>
+                          ?>
 
 
 
 
-                        <!----------------------------- CONSTRUCTION PAYMENT  --------------------------------->
-                        <?php
-                        $ACTIVE = "ACTIVE";
-                        $query1 = "SELECT 
+                          <!----------------------------- CONSTRUCTION PAYMENT  --------------------------------->
+                          <?php
+                          $ACTIVE = "ACTIVE";
+                          $query1 = "SELECT 
                               property_list.id as property_id,
                               property_list.blk as property_blk,
                               property_list.lot as property_lot,
@@ -236,54 +233,52 @@ $server = new Server();
                               INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
                               WHERE construction_payment.archive = :ACTIVE
                               ";
-                        $data1 = ["ACTIVE" => $ACTIVE];
-                        $connection1 = $server->openConn();
-                        $stmt1 = $connection1->prepare($query1);
-                        $stmt1->execute($data1);
-                        if ($stmt1->rowCount() > 0) {
-                          while ($result1 = $stmt1->fetch()) {
-                            $payment_date = date("M j, Y H:iA", strtotime($result1['payment_date']));
-                            $property_id = $result1['property_id'];
-                            $blk = $result1['property_blk'];
-                            $lot = $result1['property_lot'];
-                            $phase =  $result1['property_street'];
-                            $street = $result1['property_phase'];
+                          $data1 = ["ACTIVE" => $ACTIVE];
+                          $connection1 = $server->openConn();
+                          $stmt1 = $connection1->prepare($query1);
+                          $stmt1->execute($data1);
+                          if ($stmt1->rowCount() > 0) {
+                            while ($result1 = $stmt1->fetch()) {
+                              $payment_date = date("M j, Y H:iA", strtotime($result1['payment_date']));
+                              $property_id = $result1['property_id'];
+                              $blk = $result1['property_blk'];
+                              $lot = $result1['property_lot'];
+                              $phase =  $result1['property_street'];
+                              $street = $result1['property_phase'];
 
-                            $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
-                            $paid_by_cp = $result1['paid_by_cp'];
-                            if ($result1['description']) {
-                              $payment = $result1['category'] . "-" . $result1['description'];
-                            } else {
-                              $payment = $result1['category'];
+                              $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
+                              $paid_by_cp = $result1['paid_by_cp'];
+                              if ($result1['description']) {
+                                $payment = $result1['category'] . "-" . $result1['description'];
+                              } else {
+                                $payment = $result1['category'];
+                              }
+                              $amount = $result1['amount'];
+                              $transaction_number_cp = $result1['construction_tn_number'];
+                              $construction_payment_id = $result1['construction_payment_id'];
+                              $collection_fee_number = $result1['collection_fee_number'];
+                              $refund = $result1['refund'];
+                          ?>
+                              <tr>
+                                <td>
+
+                                  <a href="#" class="btn btn-sm">View</a>
+
+                                </td>
+                                <td><?= $transaction_number ?></td>
+                                <td><?= $payment ?></td>
+                                <td><span class="badge rounded-pill text-bg-success"><?= $amount ?></span></td>
+                                <td><?= $payment_date ?></td>
+                                <td><?= $paid_by_cp ?></td>
+                              </tr>
+                          <?php
                             }
-                            $amount = $result1['amount'];
-                            $transaction_number_cp = $result1['construction_tn_number'];
-                            $construction_payment_id = $result1['construction_payment_id'];
-                            $collection_fee_number = $result1['collection_fee_number'];
-                            $refund = $result1['refund'];
-                        ?>
-                            <tr>
-                              <td>
-                                <div class="dropdown">
-                                  <a href="#" class="dropdown-toggle btn btn-sm" data-bs-toggle="dropdown"><?= $transaction_number_cp ?></a>
-                                  <ul class="dropdown-menu">
-                                    <li><a href="#" class="dropdown-item">Print</a></li>
-                                  </ul>
-                                </div>
-                              </td>
-                              <td><?= $payment ?></td>
-                              <td><span class="badge rounded-pill text-bg-success"><?= $amount ?></span></td>
-                              <td><?= $payment_date ?></td>
-                              <td><?= $paid_by_cp ?></td>
-                            </tr>
-                        <?php
                           }
-                        }
-                        ?>
+                          ?>
 
 
-                      </tbody>
-                      <!-- <tfoot>
+                        </tbody>
+                        <!-- <tfoot>
                         <tr>
                           <th scope="col" width="20%">TRANSACTION NUMBER</th>
                           <th scope="col" width="10%">USER ID</th>
@@ -293,9 +288,10 @@ $server = new Server();
                           <th scope="col" width="20%">DATE</th>
                         </tr>
                       </tfoot> -->
-                    </table>
-                  </div>
+                      </table>
+                    </div>
 
+                  </div>
                 </div>
               </div>
             </div>

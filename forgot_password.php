@@ -55,16 +55,16 @@ function send_reset_pass($id, $email, $name, $token)
   </div>
 </div>';
 
-$mail = new PHPMailer(true);
-$mail->isSMTP();
-$mail->SMTPAuth = true;
-$mail->Host = $MAILHOST;
-$mail->Username = $USERNAME;
-$mail->Password = $PASSWORD;
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-$mail->setFrom($SEND_FROM, $SEND_FROM_NAME);
-$mail->addAddress($email);
+  $mail = new PHPMailer(true);
+  $mail->isSMTP();
+  $mail->SMTPAuth = true;
+  $mail->Host = $MAILHOST;
+  $mail->Username = $USERNAME;
+  $mail->Password = $PASSWORD;
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  $mail->Port = 587;
+  $mail->setFrom($SEND_FROM, $SEND_FROM_NAME);
+  $mail->addAddress($email);
 
   $mail->isHTML(true);
   $mail->Subject = $SUBJECT;
@@ -183,7 +183,14 @@ if (isset($_POST['send_link'])) {
 
   <div class="row row-register justify-content-center align-items-center overflow-hidden">
     <div class="col-lg-5 col-md-6 col-sm-7 col-8 bg-white shadow-lg rounded">
-      <h2 class="text-center mt-3">Reset Password</h2>
+      <div class="row">
+        <div class="col-3">
+          <a href="./index.php" class=""><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-1 my-2'></i></a>
+        </div>
+        <div class="col-6">
+          <h2 class="text-center mt-3">Reset Password</h2>
+        </div>
+      </div>
       <p class="text-center text-muted">Enter your registered email address and we'll send you the link to reset your password.</p>
 
       <!-- Login Form -->

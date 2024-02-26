@@ -4,8 +4,8 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 ?>
 
 <?php
-  $default_date = date("Y/m/d g:i A", strtotime("now")); 
-   ?>
+$default_date = date("Y/m/d g:i A", strtotime("now"));
+?>
 
 
 
@@ -26,11 +26,11 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
             <div class="col-md-6">
               <label for="update_business_name" class="form-label">Business Name:</label>
-              <input type="text" name="update_business_name" id="update_business_name" class="form-control" required>
+              <input type="text" name="update_business_name" id="update_business_name" class="form-control" maxlength="35" required>
             </div>
             <div class="col-md-6">
               <label for="update_promotion_due" class="form-label">Promotion Due:</label>
-              <input name="update_promotion_due" id="update_promotion_due"  class="form-control" required>
+              <input name="update_promotion_due" id="update_promotion_due" class="form-control" required>
             </div>
             <!-- <div class="col-md-6">
               <label for="update_promotion_photo" class="form-label">Photo:</label>
@@ -46,7 +46,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             </div>
             <div class="col">
               <label for="update_promotion_content" class="form-label">Content:</label>
-              <textarea name="update_promotion_content" id="update_promotion_content" rows="10"  wrap="hard"  class="form-control" required></textarea>
+              <textarea name="update_promotion_content" id="update_promotion_content" rows="10" wrap="hard" class="form-control" required></textarea>
             </div>
 
             <div class="modal-footer">
@@ -64,7 +64,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 <script>
   $(document).ready(function() {
-    $("#promotionUpdate").on('hidden.bs.modal',function(e){
+    $("#promotionUpdate").on('hidden.bs.modal', function(e) {
       $("#update_promotion_form").find('input[type=text], input[type=file], textarea').val("");
       $("#promotion_status_default").prop('selected', true);
     });
