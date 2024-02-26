@@ -30,7 +30,7 @@ $server = new Server();
 
   </div>
 
-  
+
 
   <div class="card">
     <div class="card-header">
@@ -43,55 +43,57 @@ $server = new Server();
             <div class="col-xs-12">
               <div class="box">
                 <!-- 	HEADER TABLE -->
-                <div class="header-box container-fluid d-flex align-items-center">
+                <div class="header-box container-fluid d-flex align-items-center mb-2">
                   <!-- PLACE BUTTON HERE -->
-                  <div class="col d-flex justify-content-start">
-                    <div class="request-transaction mb-3">
+                  <div class="col-sm-12 d-flex justify-content-start">
+                    <div class="request-transaction ">
                       <?php include "../user-panel/profile_request_transaction.php" ?>
                       <button type="button" class="btn btn-sm d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
-                        Request Transaction
+                        Request
                       </button>
-                    </div>
-                  </div>
-                  <div class="col d-flex justify-content-end">
-                    <div class="col-lg-3 col-sm-5">
-                      <select name="filter_payment" id="filter_payment" class="form-select form-select-sm text-secondary mx-2">
-                        <option value="">Payment:</option>
-                        <?php
-                        // $C002 = "C002";
-                        // $C003 = "C003";
-                        // $C004 = "C004";
-                        // $C005 = "C005";
-                        // $C006 = "C006";
-                        $isCategory = "";
-                        $query2 = "SELECT category FROM collection_fee ";
-                        // $data2 = ["C002" => $C002, "C003" => $C003, "C004" => $C004, "C005" => $C005, "C006" => $C006];
-                        $connection2 = $server->openConn();
-                        $stmt2 = $connection2->prepare($query2);
-                        $stmt2->execute();
-                        if ($stmt2->rowCount() > 0) {
-                          while ($result2 = $stmt2->fetch()) {
-                            $category = $result2['category'];
-                            if ($category == $isCategory) {
-                            } else {
-
-
-
-
-                        ?>
-                              <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
-                        <?php
-                            }
-                            $isCategory = $category;
-                          }
-                        }
-                        ?>
-                      </select>
                     </div>
                   </div>
 
                 </div>
+                <div class="col-sm-12 d-flex justify-content-center mb-2">
+                  <div class="col-lg-3 col-sm-4 mx-2">
+                    <select name="filter_payment" id="filter_payment" class="form-select form-select-sm text-secondary mx-2">
+                      <option value="">Payment:</option>
+                      <?php
+                      // $C002 = "C002";
+                      // $C003 = "C003";
+                      // $C004 = "C004";
+                      // $C005 = "C005";
+                      // $C006 = "C006";
+                      $isCategory = "";
+                      $query2 = "SELECT category FROM collection_fee ";
+                      // $data2 = ["C002" => $C002, "C003" => $C003, "C004" => $C004, "C005" => $C005, "C006" => $C006];
+                      $connection2 = $server->openConn();
+                      $stmt2 = $connection2->prepare($query2);
+                      $stmt2->execute();
+                      if ($stmt2->rowCount() > 0) {
+                        while ($result2 = $stmt2->fetch()) {
+                          $category = $result2['category'];
+                          if ($category == $isCategory) {
+                          } else {
 
+
+
+
+                      ?>
+                            <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
+                      <?php
+                          }
+                          $isCategory = $category;
+                        }
+                      }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="col-lg-3 col-sm-4 mx-2">
+                    <input name="filter_date" id="filter_date" class="form-control form-control-sm text-secondary mx-2" readonly>
+                  </div>
+                </div>
                 <div class="body-box shadow-sm">
                   <div class="col-lg-12">
                     <div class="table-responsive-xl mx-2">
@@ -405,6 +407,22 @@ include("../user/membership_fee_view.php");
         });
       }
     });
+
+
+
+    // filter date
+    $("#filter_date").daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      autpApply: true,
+      locale: {
+        format: 'MMM DD, YYYY'
+      }
+    });
+
+    $("#filter_date").on('change', function() {
+      TABLE.columns(4).search(this.value).draw()
+    })
 
 
 
