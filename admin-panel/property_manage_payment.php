@@ -131,7 +131,7 @@ if (isset($_GET['property_id'])) {
                                       <label for="paid_by" class="form-label text-success">Paid by:</label>
                                       <input type="text" class="form-control" id="paid_by" name="paid_by" maxlength="25">
                                     </div>
-                                    
+
                                     <div class="col-12">
                                       <label for="remarks" class="form-label text-success">Remarks:</label>
                                       <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control" maxlength="25"></textarea>
@@ -377,8 +377,8 @@ if (isset($_GET['property_id'])) {
         var remarks = $("#remarks").val();
         var paid_by = $("#paid_by").val()
         var owners_name = $("#owners_name").val()
-        if(paid_by.length > 0){
-          
+        if (paid_by.length > 0) {
+
         } else {
           paid_by = owners_name;
         }
@@ -410,7 +410,7 @@ if (isset($_GET['property_id'])) {
                   // $(".content").html(response);
 
                   var transaction_number = response;
-                  
+
                   var archive_status = "ACTIVE";
                   var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
                   setTimeout(function() {

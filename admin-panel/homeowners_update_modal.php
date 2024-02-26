@@ -46,18 +46,22 @@ require_once("../libs/server.php");
             </div>
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
-              <input type="text" class="form-control" id="phone_number_update" name="phone_number_update" required>
+              <input type="number" class="form-control" id="phone_number_update" name="phone_number_update" maxlength="11" required>
               <div id='phoneNumberUpdateHelpBlock'></div>
             </div>
-            <div class="col-12">
-              <select name="position" id="position" class="form-select" required>
+            <div class="col-6">
+              <label for="position">Position:</label>
+              <select name="position" id="position" class="form-select">
                 <option class="default_select" value="">- Select -</option>
                 <option value="President">President</option>
                 <option value="Vice-President">Vice-President</option>
                 <option value="President">Secretary</option>
                 <option value="President">Treasurer</option>
               </select>
-              <label for="position">Position:</label>
+            </div>
+            <div class="col-6">
+              <label for="status">Status:</label>
+              <input type="text" id="status_update" class="form-control" readonly>
             </div>
 
             <!-- <div class="col-12">
@@ -80,11 +84,11 @@ require_once("../libs/server.php");
                   <div class="row">
                     <div class="col-2">
                       <label for="blk" class="form-label ">Blk#</label>
-                      <input type="text" class="form-control " id="blk_update" name="blk_update" required>
+                      <input type="number" class="form-control " id="blk_update" name="blk_update" required>
                     </div>
                     <div class="col-2">
                       <label for="lot" class="form-label ">Lot#</label>
-                      <input type="text" class="form-control" id="lot_update" name="lot_update" required>
+                      <input type="number" class="form-control" id="lot_update" name="lot_update" required>
                     </div>
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
@@ -111,6 +115,7 @@ require_once("../libs/server.php");
 
             <div class="modal-footer">
               <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+              <a class="btn btn-secondary btn-flat" id="edit_btn">Edit</a>
               <button type="submit" class="btn btn-primary btn-flat" name="update_btn" class="update" id="update_btn">Update</button>
             </div>
           </div>
@@ -125,16 +130,18 @@ require_once("../libs/server.php");
 <script>
   $(document).ready(function() {
     // Clear input when close
+    $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', true);
+   
     $("#updateHomeowners").on('hidden.bs.modal', function(e) {
-      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden] ").val("");
+      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number] ").val("");
       $("#street_update").empty().append('<option id="street_option_update" selected>- Select -</option>');
 
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
+      $("#edit_btn").removeClass().addClass("btn btn-secondary btn-flat")
+      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', true);
 
-
-
-      $("#phone_number_update").prop('disabled', false);
+      // $("#phone_number_update").prop('disabled', false);
       $("#phone_number_update").removeClass("input-success");
       $("#phone_number_update").removeClass("input-danger");
       $("#phoneNumberUpdateHelpBlock").empty().append("<div id='phoneNumberUpdateHelpBlock'></div>");
@@ -213,6 +220,12 @@ require_once("../libs/server.php");
       });
     }
 
+    $("#edit_btn").on('click', function() {
+      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', function(i, val) {
+        $("#edit_btn").toggleClass("btn-warning")
+        return !val;
+      })
+    })
 
   });
 </script>
