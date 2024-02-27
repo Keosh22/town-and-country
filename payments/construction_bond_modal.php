@@ -76,7 +76,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
+     
         <button class="btn btn-flat btn-success" id="add_construction_bond">Submit</button>
       </div>
     </div>

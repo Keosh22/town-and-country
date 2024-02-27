@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
+       
         <button class="btn btn-falt btn-success" id="add_maintenance_btn">Add</button>
       </div>
     </div>

@@ -50,7 +50,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+              
               <button type="submit" class="btn btn-primary btn-flat" name="update_promotion" id="update_promotion">Update</button>
             </div>
           </div>

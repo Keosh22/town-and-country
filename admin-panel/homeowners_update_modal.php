@@ -114,7 +114,7 @@ require_once("../libs/server.php");
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+           
               <a class="btn btn-secondary btn-flat" id="edit_btn">Edit</a>
               <button type="submit" class="btn btn-primary btn-flat" name="update_btn" class="update" id="update_btn">Update</button>
             </div>

@@ -183,7 +183,7 @@ require_once("../libs/server.php");
 
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+              
               <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register">Register</button>
             </div>
           </div>
