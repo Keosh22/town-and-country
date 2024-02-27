@@ -18,7 +18,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       <form action="collection_update.php" method="POST" id="update_collection_form">
         <div class="modal-body mx-3">
           <div class="row gy-3">
-            <input type="text" name="update_collection_id" id="update_collection_id" required>
+            <input type="hidden" name="update_collection_id" id="update_collection_id" required>
             <div class="col-12">
               <label for="update_category" class="form-label">Category:</label>
               <input type="text" class="form-control" name="update_category" id="update_category" required>
@@ -31,13 +31,13 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
               <label for="update_fee" class="form-label">Fee:</label>
               <div class="input-group">
                 <span class="input-group-text">₱</span>
-                <input type="text" class="form-control" name="update_fee" id="update_fee" required>
+                <input type="number" class="form-control" name="update_fee" id="update_fee" required>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger btn-flat" data-bs-dismiss="modal" type="button">Close</button>
+          <a class="btn btn-flat btn-secondary" id="edit_btn">Edit</a>
           <button class="btn btn-primary btn-primary" name="update_collection_btn" id="update_collection_btn">Update</button>
         </div>
       </form>
@@ -47,11 +47,21 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 </div>
 
 <script>
-  $(document).ready(function(){
-    $("#collectionUpdate").on('hidden.bs.modal', function (e){
-      $("#update_collection_form").find('input[type=text], input[type=hidden]').val("");
-    });
-  });
+  $(document).ready(function() {
+    $("#update_collection_form").find("input[type=text], input[type=hidden], input[type=number], #update_collection_btn").prop('disabled', true);
 
-  
+    $("#collectionUpdate").on('hidden.bs.modal', function(e) {
+      $("#update_collection_form").find('input[type=text], input[type=hidden], input[type=number]').val("");
+      $("#update_collection_form").find("input[type=text], input[type=hidden], input[type=number], #update_collection_btn").prop('disabled', true);
+      $("#edit_btn").removeClass().addClass("btn btn-flat btn-secondary");
+    });
+
+    $("#edit_btn").on('click', function(){
+      $("#update_collection_form").find("input[type=text], input[type=hidden], input[type=number], #update_collection_btn").prop('disabled', function(i, val){
+        $("#edit_btn").toggleClass("btn-warning");
+        return !val;
+      });
+    })
+
+  });
 </script>
