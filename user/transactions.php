@@ -248,6 +248,8 @@ $server = new Server();
                               $phase =  $result1['property_street'];
                               $street = $result1['property_phase'];
 
+                              $collection_fee_id_cons = $result1['collection_id'];
+
                               $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
                               $paid_by_cp = $result1['paid_by_cp'];
                               if ($result1['description']) {
@@ -263,8 +265,14 @@ $server = new Server();
                           ?>
                               <tr>
                                 <td>
+                                  <?php
+                                  if ($collection_fee_id_cons == "C002") {
+                                  ?>
+                                    <a id="view_construction_bond" data-tnumber='<?php echo $transaction_number_cp; ?>' data-id="<?php echo $construction_payment_id; ?>" href="#" data-bs-toggle="modal" class="btn btn-sm">View</a>
+                                  <?php
+                                  }
+                                  ?>
 
-                                  <a href="#" class="btn btn-sm">View</a>
 
                                 </td>
                                 <td><?= $transaction_number ?></td>

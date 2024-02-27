@@ -24,7 +24,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
         <!-- RECEIPT FORMAT -->
 
-        <div class="receipt-wrapper">
+        <div class="receipt-wrapper" id="monthly_dues_receipt">
           <h2 class="text-center title-receipt"><b>Payment Receipt</b></h2>
           <h5 class="text-center title-receipt m-0">Town And Country Heights Homeowners' ASSN. INC.</h5>
           <p class="text-center title-receipt text-secondary mb-1">Clubhouse 1 La Salle Avenue, Town & Country Heights San Luis, Antipolo City</p>
@@ -90,7 +90,8 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       </div>
       <div class="modal-footer">
         <button class="btn btn-flat btn-primary" id="print_receipt" name="print_receipt">Print</button>
-        <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-flat btn-success" id="download_receipt_md">Download</button>
+
       </div>
     </div>
   </div>
@@ -98,6 +99,9 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 <script>
   $(document).ready(function() {
+    window.jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF();
+
     $("#print_receipt").on('click', function() {
       // var payment_id = $("#payment_id_modal").val();
       var transaction_number = $("#transactionNum_id_modal").val();
@@ -110,5 +114,50 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         }, 500)
       }, 500)
     });
+
+
+    $("#download_receipt_md").on('click', function() {
+      var transaction_number = $("#transactionNum_id_modal").val();
+
+      // Remove tbody and thead {jsPDF BUG}
+      i = 1;
+      j = 1;
+      var tbodies = document.getElementsByTagName('tbody');
+      while (tbodies.length - 1 > i) {
+        var parent = tbodies[i].parentNode;
+        while (tbodies[i].firstChild) {
+          parent.insertBefore(tbodies[i].firstChild, tbodies[i]);
+        }
+        parent.removeChild(tbodies[i]);
+        i++
+      }
+      var tbodies = document.getElementsByTagName("thead");
+      while (tbodies.length - 1 > j) {
+        var parent = tbodies[j].parentNode;
+        while (tbodies[j].firstChild) {
+          parent.insertBefore(tbodies[j].firstChild, tbodies[j]);
+        }
+        parent.removeChild(tbodies[j]);
+        j++
+      }
+      downloadReceipt();
+
+      function downloadReceipt() {
+        var receipt = document.querySelector("#monthly_dues_receipt");
+        doc.html(receipt, {
+          callback: function() {
+            doc.save(transaction_number + "-Monthly-Dues.pdf");
+            location.reload();
+          },
+          x: 10,
+          y: 10,
+          width: 170,
+          windowWidth: 650
+        })
+      }
+
+    })
+
+
   });
 </script>

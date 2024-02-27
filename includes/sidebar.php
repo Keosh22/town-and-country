@@ -238,6 +238,7 @@
 <script>
   $(document).ready(function() {
     // Save dropdown State
+  
     var saveState = localStorage.getItem('collapseBtn');
     if (saveState) {
       $("#" + saveState).collapse('show')

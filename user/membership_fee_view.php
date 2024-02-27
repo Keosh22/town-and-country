@@ -89,7 +89,6 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       <div class="modal-footer">
         <button class="btn btn-flat btn-primary" id="print_receipt_mf" name="print_receipt_mf">Print</button>
         <button class="btn btn-flat btn-success" id="download_receipt_mf">Download</button>
-        <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
 
       </div>
     </div>
