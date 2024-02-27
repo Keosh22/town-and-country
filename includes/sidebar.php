@@ -238,7 +238,7 @@
 <script>
   $(document).ready(function() {
     // Save dropdown State
-  
+ 
     var saveState = localStorage.getItem('collapseBtn');
     if (saveState) {
       $("#" + saveState).collapse('show')
@@ -248,12 +248,12 @@
 
     $(".collapse").on('shown.bs.collapse', function() {
       var id = $(this).attr('id')
- 
+
       localStorage.setItem('collapseBtn', id);
     });
 
     $(".btn-sidebar").on('click', function() {
-    
+
       localStorage.removeItem('collapseBtn')
     })
 

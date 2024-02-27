@@ -73,7 +73,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
       $date_created = date("M j, Y g:iA", strtotime($result2['date_paid']));
       $paid_by = $result2['paid_by'];
       $category = $result2['category'];
-      $amount = $result2['paid'] . '-' .$result2['refund'];
+      $amount = $result2['paid'] . ' ' .$result2['refund'];
       $description = $result2['description'];
       $admin_name = $result2['admin'];
       $number += 1;
@@ -95,7 +95,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   $table = '
   <tr>
     <td>' . $number . '</td>
-    <td>' . $category . '-' . $description . '</td>
+    <td>' . $category . ' ' . $description . '</td>
     <td>' . $amount . '</td>
     <td>' . $address . '</td>
   </tr>

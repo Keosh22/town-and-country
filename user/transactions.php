@@ -157,7 +157,7 @@ $server = new Server();
                           if ($stmt->rowCount() > 0) {
 
                             while ($result = $stmt->fetch()) {
-                              $transaction_number = $result["payment_transaction_number"];
+                              $payment_transaction_number = $result["payment_transaction_number"];
                               $payment_id = $result['payment_id'];
                               // User information
                               $id = $result['id'];
@@ -181,18 +181,18 @@ $server = new Server();
                                   <?php
                                   if ($collection_fee_number == "C007") {
                                   ?>
-                                    <a id="view_monthly_dues" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="btn btn-sm ">View</a>
+                                    <a id="view_monthly_dues" data-tnumber='<?php echo $payment_transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="btn btn-sm ">View</a>
                                   <?php
                                   } elseif ($collection_fee_number == "C001") {
                                   ?>
-                                    <a id="view_membership_fee" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="btn btn-sm">View</a>
+                                    <a id="view_membership_fee" data-tnumber='<?php echo $payment_transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="btn btn-sm">View</a>
                                   <?php
                                   }
                                   ?>
 
 
                                 </td>
-                                <td><?= $transaction_number ?></td>
+                                <td><?= $payment_transaction_number ?></td>
                                 <td><?= $collection_fee_id;
                                     if (isset($monthyear)) {
                                       echo " " . $monthyear;
@@ -248,7 +248,7 @@ $server = new Server();
                               $phase =  $result1['property_street'];
                               $street = $result1['property_phase'];
 
-                              $collection_fee_id_cons = $result1['collection_id'];
+
 
                               $address = "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase;
                               $paid_by_cp = $result1['paid_by_cp'];
@@ -260,22 +260,32 @@ $server = new Server();
                               $amount = $result1['amount'];
                               $transaction_number_cp = $result1['construction_tn_number'];
                               $construction_payment_id = $result1['construction_payment_id'];
-                              $collection_fee_number = $result1['collection_fee_number'];
+                              $collection_fee_number_cons = $result1['collection_fee_number'];
                               $refund = $result1['refund'];
                           ?>
                               <tr>
                                 <td>
                                   <?php
-                                  if ($collection_fee_id_cons == "C002") {
+                                  if ($collection_fee_number_cons == "C004" || $collection_fee_number_cons == "C005" || $collection_fee_number_cons == "C006") {
                                   ?>
-                                    <a id="view_construction_bond" data-tnumber='<?php echo $transaction_number_cp; ?>' data-id="<?php echo $construction_payment_id; ?>" href="#" data-bs-toggle="modal" class="btn btn-sm">View</a>
+                                    <a id="view_payment_md" data-property="<?php echo $property_id; ?>" data-tnumber='<?php echo $transaction_number_cp; ?>' data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number_cons; ?>" href="#construction_view" data-bs-toggle="modal" class="btn btn-sm">View</a>
+                                  <?php
+                                  } elseif ($collection_fee_number_cons == "C003") {
+                                  ?>
+                                    <a id="view_payment_cc" data-property="<?php echo $property_id; ?>" data-tnumber='<?php echo $transaction_number_cp; ?>' data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number_cons; ?>" href="#construction_view" data-bs-toggle="modal" class="btn btn-sm">View</a>
+                                  <?php
+                                  } elseif ($collection_fee_number_cons == "C002") {
+                                  ?>
+                                    <a id="view_payment_cb" data-property="<?php echo $property_id; ?>" data-tnumber='<?php echo $transaction_number_cp; ?>' data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number_cons; ?>" href="#construction_view" data-bs-toggle="modal" class="btn btn-sm">View</a>
                                   <?php
                                   }
+
+
                                   ?>
 
 
                                 </td>
-                                <td><?= $transaction_number ?></td>
+                                <td><?= $transaction_number_cp ?></td>
                                 <td><?= $payment ?></td>
                                 <td><span class="badge rounded-pill text-bg-success"><?= $amount ?></span></td>
                                 <td><?= $payment_date ?></td>
@@ -320,6 +330,8 @@ $server = new Server();
 include("../user/monthly_dues_view.php");
 // Membership fee view
 include("../user/membership_fee_view.php");
+// construction_view
+include("../user/construction_view.php");
 ?>
 <script>
   $(document).ready(function() {
@@ -333,7 +345,7 @@ include("../user/membership_fee_view.php");
     // DataTable
     $("#transactionTable").DataTable({
       order: [
-        [3, 'desc']
+        [4, 'desc']
       ]
     });
     const TABLE = $("#transactionTable").DataTable();
@@ -415,6 +427,102 @@ include("../user/membership_fee_view.php");
         });
       }
     });
+
+
+    // Material Delivery View Payment
+    $("#transactionTable").on('click', '#view_payment_md', function() {
+      var property_id = $(this).attr('data-property');
+      var construction_payment_id = $(this).attr('data-id');
+      var collection_fee_number = $(this).attr('data-collection-fee');
+      $("#collection_fee_number_cc").val(collection_fee_number);
+
+      $.ajax({
+        url: '../ajax/material_delivery_receipt_view.php',
+        type: 'POST',
+        data: {
+          property_id: property_id,
+          construction_payment_id: construction_payment_id
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          $("#name_cc").html(response.name);
+          $("#account_number_cc").html(response.account_number);
+          $("#transaction_number_cc").html(response.transaction_number);
+          $("#date_paid_cc").html(response.date_created);
+          $("#paid_by_cc").html(response.paid_by);
+          $(".table_result_cc").html(response.table);
+          $("#table_header_cc").html(response.table_header);
+          $("#total_amount_cc").val(response.total_amount);
+          $("#property_id_receipt_cc").val(response.property_id);
+          $("#transaction_number_cc").val(response.transaction_number);
+          $("#admin_name_cc").html(response.admin_name);
+
+        }
+      })
+    });
+
+
+    // Construction Bond View Payment
+    $("#transactionTable").on('click', '#view_payment_cc', function() {
+      var property_id = $(this).attr('data-property');
+      var construction_payment_id = $(this).attr('data-id');
+      var collection_fee_number = $(this).attr('data-collection-fee');
+      $("#collection_fee_number_cc").val(collection_fee_number);
+      $.ajax({
+        url: '../ajax/construction_bond_receipt_view.php',
+        type: 'POST',
+        data: {
+          property_id: property_id,
+          construction_payment_id: construction_payment_id
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          $("#name_cc").html(response.name);
+          $("#account_number_cc").html(response.account_number);
+          $("#transaction_number_cc").html(response.transaction_number);
+          $("#date_paid_cc").html(response.date_created);
+          $("#paid_by_cc").html(response.paid_by);
+          $(".table_result_cc").html(response.table);
+          $("#table_header_cc").html(response.table_header);
+          $("#total_amount_cc").val(response.total_amount);
+          $("#property_id_receipt_cc").val(response.property_id);
+          $("#transaction_number_cc").val(response.transaction_number);
+          $("#admin_name_cc").empty().append(response.admin_name);
+        }
+      })
+    });
+
+    // Construction Clearance View Payment
+    $("#transactionTable").on('click', '#view_payment_cb', function() {
+      var property_id = $(this).attr('data-property');
+      var construction_payment_id = $(this).attr('data-id');
+      var collection_fee_number = $(this).attr('data-collection-fee');
+      $("#collection_fee_number_cc").val(collection_fee_number);
+      $.ajax({
+        url: '../ajax/construction_bond_receipt_view.php',
+        type: 'POST',
+        data: {
+          property_id: property_id,
+          construction_payment_id: construction_payment_id
+        },
+        dataType: 'JSON',
+        success: function(response) {
+          $("#name_cc").html(response.name);
+          $("#account_number_cc").html(response.account_number);
+          $("#transaction_number_cc").html(response.transaction_number);
+          $("#date_paid_cc").html(response.date_created);
+          $("#paid_by_cc").html(response.paid_by);
+          $(".table_result_cc").html(response.table);
+          $("#table_header_cc").html(response.table_header);
+          $("#total_amount_cc").val(response.total_amount);
+          $("#property_id_receipt_cc").val(response.property_id);
+          $("#transaction_number_cc").val(response.transaction_number);
+          $("#admin_name_cc").empty().append(response.admin_name);
+        }
+      })
+    });
+
+
 
 
 
