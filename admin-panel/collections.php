@@ -32,10 +32,10 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Collections</a></li>
             <li class="breadcrumb-item">Collections Fee</li>
           </ol>
@@ -68,7 +68,7 @@ $server->adminAuthentication();
                           <table id="collectionsTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="5%">ID</th>
+
                                 <th width="10%">Collection #</th>
                                 <th width="30%">Category</th>
                                 <th width="30%">Description</th>
@@ -96,7 +96,7 @@ $server->adminAuthentication();
                                   $status = $result['status'];
                               ?>
                                   <tr>
-                                    <td><?php echo $collection_id ?></td>
+
                                     <td><?php echo $collection_number ?></td>
                                     <td><?php echo $category ?></td>
                                     <td><?php echo $description ?></td>
@@ -137,7 +137,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="5%">ID</th>
+
                                 <th width="10%">Collection #</th>
                                 <th width="30%">Category</th>
                                 <th width="30%">Description</th>
@@ -178,7 +178,7 @@ $server->adminAuthentication();
       // DataTable
       $("#collectionsTable").DataTable({
         order: [
-          [1, 'desc']
+          [0, 'asc']
         ]
       });
     });

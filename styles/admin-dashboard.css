@@ -136,6 +136,8 @@ body{
   padding: 6px 12px;
 }
 
+
+
 /* Button left Icon */
 .bxs-dashboard,
 .bxs-home, 
@@ -223,7 +225,7 @@ body{
 .sidebar-link-dropdown{
   margin-left: 30px;
   text-decoration: none;
-  color: #FDFAF6;
+  color: #DAD992;
 }
 .rotate-chevron-up{
   transform: rotate(180deg);
