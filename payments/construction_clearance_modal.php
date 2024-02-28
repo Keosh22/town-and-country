@@ -58,7 +58,6 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
               <label for="paid_by_cc">Paid By</label>
             </div>
           </div>
-
           <div class="col-6">
             <div class="form-floating">
               <input type="number" class="form-control" id="amount_cc" required readonly>

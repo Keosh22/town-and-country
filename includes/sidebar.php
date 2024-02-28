@@ -227,6 +227,11 @@
               <a href="../admin-panel/maintenance_list.php" class="sidebar-link-dropdown">Maintenance List</a>
             </button>
           </div>
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
+              <a href="../reports/print_reports.php" class="sidebar-link-dropdown">Print Reports</a>
+            </button>
+          </div>
         </li>
 
       </ul>
@@ -238,7 +243,7 @@
 <script>
   $(document).ready(function() {
     // Save dropdown State
- 
+
     var saveState = localStorage.getItem('collapseBtn');
     if (saveState) {
       $("#" + saveState).collapse('show')

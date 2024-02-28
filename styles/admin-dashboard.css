@@ -266,7 +266,10 @@ h2{
 }
 .bx-plus,
 .bx-refresh,
-.bx-archive
+.bx-archive,
+.bx-printer,
+.bx-filter-alt,
+.bxs-download
 {
   vertical-align: middle;
   margin-right: 3px;

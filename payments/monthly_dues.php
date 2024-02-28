@@ -33,7 +33,7 @@ $server->adminAuthentication();
       <main class="content px-3 py-2">
         <!-- conten header -->
         <section class="content-header d-flex justify-content-between align-items-center mb-3">
-        <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
@@ -190,8 +190,8 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-     // DataTable
-     $("#monthlyDuesTable").DataTable({
+      // DataTable
+      $("#monthlyDuesTable").DataTable({
         order: [
           [1, 'desc']
         ]
@@ -262,15 +262,15 @@ $server->adminAuthentication();
       });
 
 
-   
 
 
- 
+
+
 
       // var table = $("#monthlyDuesTable").DataTable();
       // var value = 300;
       // table.column( 4 ).search( value ).draw();
-     
+
 
     });
   </script>
