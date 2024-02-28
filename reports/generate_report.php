@@ -7,7 +7,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 $server = new Server;
 session_start();
 
-if (isset($_POST['payment'])) {
+if (isset($_POST['payment']) && isset($_POST['year']) ) {
   $ACTIVE = "ACTIVE";
   $payment = filter_input(INPUT_POST, 'payment', FILTER_SANITIZE_SPECIAL_CHARS);
   $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_SPECIAL_CHARS);

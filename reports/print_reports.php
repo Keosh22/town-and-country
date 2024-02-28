@@ -45,7 +45,7 @@ $INACTIVE = "INACTIVE";
           </div>
           <div class="card-body">
             <div class="container-fluid">
-              <form method="POST">
+            
                 <div class="row gy-2">
                   <div class="col-3">
                     <div class="form-floating">
@@ -115,7 +115,7 @@ $INACTIVE = "INACTIVE";
                     </div>
                   </div>
                 </div>
-              </form>
+           
 
               <section class="main-content">
                 <div class="row">
@@ -205,11 +205,9 @@ $INACTIVE = "INACTIVE";
   <script>
     $(document).ready(function() {
 
-      var payment_number = ""
-      $(".payment_number").on('click', function(){
-        payment_number = $(this).attr('data-number')
-        console.log("payment_number")
-      })
+      window.jsPDF = window.jspdf.jsPDF;
+      const doc = new jsPDF();
+
 
       $("#download, #print").prop('disabled', true);
       // Year Picker
@@ -222,13 +220,13 @@ $INACTIVE = "INACTIVE";
         location.reload();
       })
 
-
+      // Filter Button
       $("#filter").on('click', function(e) {
         e.preventDefault()
         var payment = $("#payment").val();
         var month = $("#month").val();
         var year = $("#year").val();
-        console.log(payment)
+        
         $.ajax({
           url: '../reports/generate_report.php',
           type: 'POST',
@@ -246,13 +244,71 @@ $INACTIVE = "INACTIVE";
             $("#date_created_rp").html(response.date_created)
             $("#created_by").html(response.admin)
             $("#download, #print").prop('disabled', false);
-            
+
           }
         });
       })
 
 
+      // Download btn
+      $("#download").on('click', function() {
+        var payment = $("#payment").val();
+        var month = $("#month").val();
+        var year = $("#year").val();
+        i = 0
+      var tbodies = document.getElementsByTagName("tbody");
+      while (tbodies.length - 1 == i) {
+        var parent = tbodies[i].parentNode;
+        while (tbodies[i].firstChild) {
+          parent.insertBefore(tbodies[i].firstChild, tbodies[i]);
+        }
+        parent.removeChild(tbodies[i]);
+        i++
+      }
 
+      j = 0
+      var tbodies = document.getElementsByTagName("thead");
+      while (tbodies.length - 1 == j) {
+        var parent = tbodies[j].parentNode;
+        while (tbodies[j].firstChild) {
+          parent.insertBefore(tbodies[j].firstChild, tbodies[j]);
+        }
+        parent.removeChild(tbodies[j]);
+        j++
+      } 
+      downloadReport()
+        function downloadReport(){
+          var report = document.querySelector("#payment_report")
+          doc.html(report, {
+            callback: function(){
+              doc.save(payment + "-" +"Payment-Reports.pdf");
+              // location.reload();
+            },
+            x: 10,
+            y: 10,
+            width: 170,
+            windowWidth: 650
+          })
+        }
+      });
+
+
+      // Print 
+      $("#print").on('click', function(){
+        var payment = $("#payment").val();
+        var month = $("#month").val();
+        var year = $("#year").val();
+        var reports = window.open('../reports/print_report_doc.php?payment=' + payment +'&year='+ year +'&month='+ month, '_blank','width=900, height=600');
+        setTimeout(function(){
+          reports.print();
+          setTimeout(function(){
+            reports.close();
+            location.reload();
+          }, 500)
+        }, 500)
+
+
+      })
 
 
     });
