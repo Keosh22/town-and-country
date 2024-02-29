@@ -14,8 +14,9 @@ $server = new Server;
 
 if (isset($_GET['payment']) && isset($_GET['year'])) {
   $ACTIVE = "ACTIVE";
-  $payment = filter_input(INPUT_GET, 'payment', FILTER_SANITIZE_SPECIAL_CHARS);
+  $payment = urldecode(filter_input(INPUT_GET, 'payment', FILTER_SANITIZE_SPECIAL_CHARS));
   $month = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS);
+  $month_num = date("m", strtotime($month));
   $year = filter_input(INPUT_GET, 'year', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y-m-d H:i:sA", strtotime("now"));
   $table_body = "";
@@ -28,7 +29,7 @@ if (isset($_GET['payment']) && isset($_GET['year'])) {
   $admin = $_SESSION['admin_name'];
 
 
-  if ($payment == "18") {
+  if (strtolower($payment) == strtolower("Monthly Dues") || strtolower($payment) == strtolower("Membership Fee") ) {
     if (isset($month)) {
       $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
     } else {
@@ -43,11 +44,11 @@ if (isset($_GET['payment']) && isset($_GET['year'])) {
     collection_fee.description
     FROM payments_list
     INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-    WHERE YEAR(payments_list.date_created) = :year AND MONTH(payments_list.date_created) = :month AND payments_list.collection_fee_id = :payment  AND  archive = :ACTIVE
+    WHERE YEAR(payments_list.date_created) = :year AND MONTH(payments_list.date_created) = :month AND collection_fee.category = :payment  AND  payments_list.archive = :ACTIVE
     ";
     $data1 = [
       "year" => $year,
-      "month" => $month,
+      "month" => $month_num,
       "payment" => $payment,
       "ACTIVE" => $ACTIVE
     ];

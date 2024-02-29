@@ -45,77 +45,77 @@ $INACTIVE = "INACTIVE";
           </div>
           <div class="card-body">
             <div class="container-fluid">
-            
-                <div class="row gy-2">
-                  <div class="col-3">
-                    <div class="form-floating">
-                      <select name="payment" id="payment" class="form-control form-control-sm" required readonly>
-                        <option value=""></option>
-                        <?php
-                        $checkCategory = "";
-                        $query1 = "SELECT id, collection_fee_number, category FROM collection_fee WHERE status = :ACTIVE";
-                        $data1 = ["ACTIVE" => $ACTIVE];
-                        $connection1 = $server->openConn();
-                        $stmt1 = $connection1->prepare($query1);
-                        $stmt1->execute($data1);
-                        if ($stmt1->rowCount() > 0) {
-                          while ($result1 = $stmt1->fetch()) {
-                            $payment_category = $result1['category'];
-                            if ($checkCategory == $payment_category) {
-                            } else {
-                              $payment_id = $result1['id'];
-                              $payment_number = $result1['collection_fee_number'];
-                        ?>
-                              <option class="payment_number" value="<?php echo $payment_id; ?>" data-number="<?php echo $payment_number; ?>"><?php echo $payment_category; ?></option>
-                        <?php
-                            }
-                            $checkCategory = $payment_category;
+
+              <div class="row gy-2">
+                <div class="col-3">
+                  <div class="form-floating">
+                    <select name="payment" id="payment" class="form-control form-control-sm" required readonly>
+                      <option value=""></option>
+                      <?php
+                      $checkCategory = "";
+                      $query1 = "SELECT id, collection_fee_number, category FROM collection_fee WHERE status = :ACTIVE";
+                      $data1 = ["ACTIVE" => $ACTIVE];
+                      $connection1 = $server->openConn();
+                      $stmt1 = $connection1->prepare($query1);
+                      $stmt1->execute($data1);
+                      if ($stmt1->rowCount() > 0) {
+                        while ($result1 = $stmt1->fetch()) {
+                          $payment_category = $result1['category'];
+                          if ($checkCategory == $payment_category) {
+                          } else {
+                            $payment_id = $result1['id'];
+                            $payment_number = $result1['collection_fee_number'];
+                      ?>
+                            <option class="payment_number" value="<?php echo $payment_category; ?>" data-number="<?php echo $payment_number; ?>"><?php echo $payment_category; ?></option>
+                      <?php
                           }
+                          $checkCategory = $payment_category;
                         }
-                        ?>
-                      </select>
-                      <label for="payment">Payment:</label>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-floating">
-                      <select name="month" id="month" class="form-select form-select-sm">
-                        <option value=""></option>
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                      </select>
-                      <label for="month">Month:</label>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-floating">
-                      <input type="number" id="year" name="year" class="form-control form-control-sm" required readonly>
-                      <label for="year">Year:</label>
-                    </div>
-                  </div>
-                  <div class="col-3"></div>
-                  <div class="col-12 d-flex mt-2">
-                    <div class="col-6">
-                      <button id="filter" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-filter-alt bx-xs bx-tada-hover'></i>Filter</button>
-                      <button id="refresh" class="btn btn-sm btn-secondary"><i class="bx bx-xs bx-refresh bx-tada-hover"></i>Refresh</button>
-                    </div>
-                    <div class="col-6">
-                      <button id="download" class="btn btn-success btn-sm btn-flat"><i class='bx bxs-download bx-xs bx-tada-hover'></i>Download</button>
-                      <button id="print" class="btn btn-sm btn-warning"><i class="bx bx-xs bx-printer bx-tada-hover"></i>Print</button>
-                    </div>
+                      }
+                      ?>
+                    </select>
+                    <label for="payment">Payment:</label>
                   </div>
                 </div>
-           
+                <div class="col-3">
+                  <div class="form-floating">
+                    <select name="month" id="month" class="form-select form-select-sm">
+                      <option value=""></option>
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="November">November</option>
+                      <option value="December">December</option>
+                    </select>
+                    <label for="month">Month:</label>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-floating">
+                    <input type="number" id="year" name="year" class="form-control form-control-sm" required readonly>
+                    <label for="year">Year:</label>
+                  </div>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-12 d-flex mt-2">
+                  <div class="col-6">
+                    <button id="filter" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-filter-alt bx-xs bx-tada-hover'></i>Filter</button>
+                    <button id="refresh" class="btn btn-sm btn-secondary"><i class="bx bx-xs bx-refresh bx-tada-hover"></i>Refresh</button>
+                  </div>
+                  <div class="col-6">
+                    <button id="download" class="btn btn-success btn-sm btn-flat"><i class='bx bxs-download bx-xs bx-tada-hover'></i>Download</button>
+                    <button id="print" class="btn btn-sm btn-warning"><i class="bx bx-xs bx-printer bx-tada-hover"></i>Print</button>
+                  </div>
+                </div>
+              </div>
+
 
               <section class="main-content">
                 <div class="row">
@@ -207,9 +207,8 @@ $INACTIVE = "INACTIVE";
 
       window.jsPDF = window.jspdf.jsPDF;
       const doc = new jsPDF();
-
-
       $("#download, #print").prop('disabled', true);
+
       // Year Picker
       $("#year").yearpicker({
 
@@ -226,7 +225,7 @@ $INACTIVE = "INACTIVE";
         var payment = $("#payment").val();
         var month = $("#month").val();
         var year = $("#year").val();
-        
+
         $.ajax({
           url: '../reports/generate_report.php',
           type: 'POST',
@@ -243,7 +242,7 @@ $INACTIVE = "INACTIVE";
             $("#report_date_rp").html(response.report_date)
             $("#date_created_rp").html(response.date_created)
             $("#created_by").html(response.admin)
-            $("#download, #print").prop('disabled', false);
+            $("#download, #print").prop('disabled', response.disabled);
 
           }
         });
@@ -256,32 +255,33 @@ $INACTIVE = "INACTIVE";
         var month = $("#month").val();
         var year = $("#year").val();
         i = 0
-      var tbodies = document.getElementsByTagName("tbody");
-      while (tbodies.length - 1 == i) {
-        var parent = tbodies[i].parentNode;
-        while (tbodies[i].firstChild) {
-          parent.insertBefore(tbodies[i].firstChild, tbodies[i]);
+        var tbodies = document.getElementsByTagName("tbody");
+        while (tbodies.length - 1 == i) {
+          var parent = tbodies[i].parentNode;
+          while (tbodies[i].firstChild) {
+            parent.insertBefore(tbodies[i].firstChild, tbodies[i]);
+          }
+          parent.removeChild(tbodies[i]);
+          i++
         }
-        parent.removeChild(tbodies[i]);
-        i++
-      }
 
-      j = 0
-      var tbodies = document.getElementsByTagName("thead");
-      while (tbodies.length - 1 == j) {
-        var parent = tbodies[j].parentNode;
-        while (tbodies[j].firstChild) {
-          parent.insertBefore(tbodies[j].firstChild, tbodies[j]);
+        j = 0
+        var tbodies = document.getElementsByTagName("thead");
+        while (tbodies.length - 1 == j) {
+          var parent = tbodies[j].parentNode;
+          while (tbodies[j].firstChild) {
+            parent.insertBefore(tbodies[j].firstChild, tbodies[j]);
+          }
+          parent.removeChild(tbodies[j]);
+          j++
         }
-        parent.removeChild(tbodies[j]);
-        j++
-      } 
-      downloadReport()
-        function downloadReport(){
+        downloadReport()
+
+        function downloadReport() {
           var report = document.querySelector("#payment_report")
           doc.html(report, {
-            callback: function(){
-              doc.save(payment + "-" +"Payment-Reports.pdf");
+            callback: function() {
+              doc.save(payment + "-" + "Payment-Reports.pdf");
               // location.reload();
             },
             x: 10,
@@ -294,18 +294,39 @@ $INACTIVE = "INACTIVE";
 
 
       // Print 
-      $("#print").on('click', function(){
+      $("#print").on('click', function() {
         var payment = $("#payment").val();
         var month = $("#month").val();
         var year = $("#year").val();
-        var reports = window.open('../reports/print_report_doc.php?payment=' + payment +'&year='+ year +'&month='+ month, '_blank','width=900, height=600');
-        setTimeout(function(){
-          reports.print();
-          setTimeout(function(){
-            reports.close();
-            location.reload();
+        
+        var monthly_dues = "Monthly Dues";
+        var membership_fee = "Membership Fee";
+        var construction_bond = "Construction Bond";
+        var construction_clearance = "Construction Clearance";
+        var material_delivery = "Material Delivery";
+    
+        // payment.toLowerCase() == monthly_dues.toLowerCase() || payment.toLowerCase() == membership_fee.toLowerCase()
+        if (payment.toLowerCase() == monthly_dues.toLowerCase() || payment.toLowerCase() == membership_fee.toLowerCase()) {
+          var reports = window.open('../reports/print_report_doc.php?payment=' + payment + '&year=' + year + '&month=' + month, '_blank', 'width=900, height=600');
+          setTimeout(function() {
+            reports.print();
+            setTimeout(function() {
+              reports.close();
+              location.reload();
+            }, 500)
           }, 500)
-        }, 500)
+        } 
+        else if (payment.toLowerCase() == construction_bond.toLowerCase() || payment.toLowerCase() == construction_clearance.toLowerCase() || payment.toLowerCase() == material_delivery.toLocaleLowerCase()) {
+          var reports = window.open('../reports/construction_report_doc.php?payment='+ payment +'&year='+ year +'&month='+ month ,'_blank', 'width=900, height=600');
+          setTimeout(function(){
+            reports.print();
+            setTimeout(function(){
+              reports.close();
+              location.reload();
+            }, 500)
+          }, 500)
+        }
+
 
 
       })
