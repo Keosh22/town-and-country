@@ -82,6 +82,15 @@
             </button>
           </div>
         </li>
+        <li class="sidebar-item">
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
+              <a href="../payments/additional_payment.php" class="sidebar-link-dropdown">
+                Additional Payments
+              </a>
+            </button>
+          </div>
+        </li>
         <!-- <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
@@ -132,6 +141,7 @@
             </button>
           </div>
         </li>
+
       </ul>
 
 

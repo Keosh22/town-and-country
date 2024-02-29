@@ -29,11 +29,7 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
 
   // Check if payment is MONTHLY DUES
   if (strtolower($payment) == strtolower("Monthly Dues") || strtolower($payment) == strtolower("Membership Fee")) {
-    if (isset($month)) {
-      $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
-    } else {
-      $report_date = "Annual report of " . $year;
-    }
+  
     // $checkCategory = "";
     // $query = "SELECT id,category FROM collection_fee WHERE category = :payment status = :ACTIVE";
     // $data = ["payment" => $payment, "ACTIVE" => $ACTIVE];
@@ -74,6 +70,11 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
     $stmt1 = $connection1->prepare($query1);
     $stmt1->execute($data1);
     if ($stmt1->rowCount() > 0) {
+      if (isset($month)) {
+        $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
+      } else {
+        $report_date = "Annual report of " . $year;
+      }
       $current_date = date("F j, Y - g:iA", strtotime("now"));
       $admin = $_SESSION['admin_name'];
       while ($result1 = $stmt1->fetch()) {
@@ -111,11 +112,6 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
   // Construction Payment
   elseif (strtolower($payment) == strtolower("Material Delivery") || strtolower($payment) == strtolower("Construction Bond") || strtolower($payment) == strtolower("Construction Clearance")) {
 
-    if (isset($month)) {
-      $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
-    } else {
-      $report_date = "Annual report of " . $year;
-    }
 
     $query2 = "SELECT
     construction_payment.id as construction_payment_id,
@@ -137,6 +133,12 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
     $stmt2 = $connection2->prepare($query2);
     $stmt2->execute($data2);
     if ($stmt2->rowCount() > 0) {
+      
+    if (isset($month)) {
+      $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
+    } else {
+      $report_date = "Annual report of " . $year;
+    }
       $current_date = date("F j, Y - g:iA", strtotime("now"));
       $admin = $_SESSION['admin_name'];
       while ($result2 = $stmt2->fetch()) {
