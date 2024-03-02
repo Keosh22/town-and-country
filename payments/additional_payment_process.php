@@ -93,8 +93,8 @@ $material_delivery = "Material Delivery";
                                       <input type="text" class="form-control" id="address" name="address" value="<?php  ?>" readonly>
                                     </div> -->
                                     <div class="col-4">
-                                      <label for="fee" class="form-label text-success">Fee:</label>
-                                      <input type="text" class="form-control" id="fee" name="fee" value="" readonly>
+                                      <label for="total_amount" class="form-label text-success">Total:</label>
+                                      <input type="text" class="form-control" id="total_amount" name="total_amount" value="" readonly>
                                     </div>
                                     <div class="col-8">
                                       <label for="paid_by" class="form-label text-success">Paid by:</label>
@@ -120,16 +120,16 @@ $material_delivery = "Material Delivery";
                                 <div class="card-header">
                                   <h5>Collections List</h5>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body mx-2">
                                   <div id="collection_list_container" class="row gy-2">
                                     <div class="row d-flex align-items-center">
                                       <div class="col-4">
                                         <div class="form-floating">
                                           <select name="payment" id="payment" class="form-select form-select-sm" required>
-                                            <option value=""></option>
+                                            <option class="default-select" data-fee="0" value=""></option>
                                             <?php
 
-                                            $query1 = "SELECT id,category FROM collection_fee WHERE NOT category IN (
+                                            $query1 = "SELECT id,category,fee FROM collection_fee WHERE NOT category IN (
                                                   :monthly_dues, 
                                                   :memberhsip_fee,
                                                   :construction_bond,
@@ -151,8 +151,9 @@ $material_delivery = "Material Delivery";
                                               while ($result1 = $stmt1->fetch()) {
                                                 $payment_category = $result1['category'];
                                                 $payment_id = $result1['id'];
+                                                $payment_fee = $result1['fee'];
                                             ?>
-                                                <option value="<?php echo $payment_category ?>"><?php echo $payment_category ?></option>
+                                                <option data-fee="<?php echo $payment_fee ?>" value="<?php echo $payment_category ?>"><?php echo $payment_category ?></option>
                                             <?php
                                               }
                                             }
@@ -163,13 +164,32 @@ $material_delivery = "Material Delivery";
                                         </div>
                                       </div>
                                       <div class="col-2">
-                                        <a href="#" class="text-info"><i class='bx bxs-plus-circle bx-tada-hover fs-2'></i></a>
+                                        <div class="form-floating">
+                                          <input type="number" id="quantity" class="form-control">
+                                          <label for="quantity">Quantity:</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-2">
+                                        <a href="#" type="button" class="text-info" id="add"><i class='bx bxs-plus-circle bx-tada-hover fs-2'></i></a>
                                       </div>
 
+                                    </div>
+
+                                    <div class="row my-3 mx-2">
+                                      <table id="additionalPaymentTable" class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th width="1%">Quantity</th>
+                                            <th width="10%">Payment</th>
+                                            <th width="10%">Amount</th>
+                                            <th width="1%"></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="table-body">
 
 
-
-
+                                        </tbody>
+                                      </table>
                                     </div>
                                   </div>
                                 </div>
@@ -198,9 +218,57 @@ $material_delivery = "Material Delivery";
 
   <script>
     $(document).ready(function() {
+      var total_amount = 0;
+      var payment_arr = {
+        "payment": []
+      };
+      var id = 0;
+
+      $("#add").on('click', function() {
+        var quantity = $("#quantity").val();
+        var payment = $("#payment").val();
+
+        if (quantity > 0 && payment.length > 0) {
+          var payment_fee = $("#payment option:selected").data('fee');
+          var amount = payment_fee * parseInt(quantity)
+          total_amount += amount
+          var payment = $("#payment").val();
+          new_payment = {
+            "id": id,
+            "quantity": quantity,
+            "payment": payment,
+            "amount": amount
+          }
+          payment_arr.payment.push(new_payment);
+          console.log(payment_arr.length)
+
+
+          $("#table-body").append('<tr class="table-row"><td>' + quantity + '</td><td>' + payment + '</td><td>' + amount + '</td><td><a data-id="' + id + '" class="btn btn-sm btn-danger remove_btn">remove</a></td></tr>')
+          $("#total_amount").val(total_amount);
+          $(".default-select").prop('selected', true)
+          $("#quantity").val("");
+          id += 1;
+        }
+      })
 
 
 
+      $("#additionalPaymentTable").on('click', '.remove_btn', function(){
+        var id = $(this).attr('data-id')
+        $(this).closest('.table-row').remove();
+        // var i = payment_arr.length - 1;
+        // console.log(i)
+        // var payment = payment_arr.payment[0];
+        // while( i >= 0){
+        //   var payment = payment_arr.payment[i];
+        //   if(payment.id == id){
+        //     payment.splice(i, 1)
+        //     $(this).closest('.table-row').remove();
+        //   }
+        //   i--;
+        // }
+        
+      })
 
     });
   </script>
