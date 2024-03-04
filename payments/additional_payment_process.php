@@ -153,7 +153,7 @@ $material_delivery = "Material Delivery";
                                                 $payment_id = $result1['id'];
                                                 $payment_fee = $result1['fee'];
                                             ?>
-                                                <option data-fee="<?php echo $payment_fee ?>" value="<?php echo $payment_category ?>"><?php echo $payment_category ?></option>
+                                                <option data-fee="<?php echo $payment_fee ?>" data-id="<?php echo $payment_id ?>" value="<?php echo $payment_category ?>"><?php echo $payment_category ?></option>
                                             <?php
                                               }
                                             }
@@ -231,13 +231,14 @@ $material_delivery = "Material Delivery";
         // Add the payment in array
         if (quantity > 0 && payment.length > 0) {
           var payment_fee = $("#payment option:selected").data('fee');
+          var payment_id = $("#payment option:selected").data('id');
           var amount = payment_fee * parseInt(quantity);
           total_amount += amount;
           var payment = $("#payment").val();
           new_payment = {
             "id": id,
             "quantity": quantity,
-            "payment": payment,
+            "payment": payment_id,
             "amount": amount
           }
           payment_arr.payment.push(new_payment);
@@ -279,7 +280,21 @@ $material_delivery = "Material Delivery";
         var paid_by = $("#paid_by").val();
         var remarks = $("#remarks").val();
 
-        
+        if(payment_arr.payment.length > 0 && amount > 0){
+          $.ajax({
+            url: '../payments/additional_payment_add.php',
+            type: 'POST',
+            data: {
+              amount: amount,
+              paid_by: paid_by,
+              remarks: remarks,
+              payment_arr: payment_arr
+            },
+            success: function(response){
+              location.reload();
+            }
+          });
+        }
       })
 
     });
