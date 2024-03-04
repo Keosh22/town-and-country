@@ -67,7 +67,7 @@ $material_delivery = "Material Delivery";
                       <form method="POST">
                         <div class="header-box container-fluid d-flex align-items-center ">
                           <div class="col">
-                            <a id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</a>
+                            <button id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</button>
 
                           </div>
 
@@ -125,7 +125,7 @@ $material_delivery = "Material Delivery";
                                     <div class="row d-flex align-items-center">
                                       <div class="col-4">
                                         <div class="form-floating">
-                                          <select name="payment" id="payment" class="form-select form-select-sm" required>
+                                          <select name="payment" id="payment" class="form-select form-select-sm">
                                             <option class="default-select" data-fee="0" value=""></option>
                                             <?php
 
@@ -228,10 +228,11 @@ $material_delivery = "Material Delivery";
         var quantity = $("#quantity").val();
         var payment = $("#payment").val();
 
+        // Add the payment in array
         if (quantity > 0 && payment.length > 0) {
           var payment_fee = $("#payment option:selected").data('fee');
-          var amount = payment_fee * parseInt(quantity)
-          total_amount += amount
+          var amount = payment_fee * parseInt(quantity);
+          total_amount += amount;
           var payment = $("#payment").val();
           new_payment = {
             "id": id,
@@ -240,12 +241,12 @@ $material_delivery = "Material Delivery";
             "amount": amount
           }
           payment_arr.payment.push(new_payment);
-          console.log(payment_arr.length)
+          console.log(payment_arr.payment.length)
 
 
           $("#table-body").append('<tr class="table-row"><td>' + quantity + '</td><td>' + payment + '</td><td>' + amount + '</td><td><a data-id="' + id + '" class="btn btn-sm btn-danger remove_btn">remove</a></td></tr>')
           $("#total_amount").val(total_amount);
-          $(".default-select").prop('selected', true)
+          $(".default-select").prop('selected', true);
           $("#quantity").val("");
           id += 1;
         }
@@ -253,20 +254,31 @@ $material_delivery = "Material Delivery";
 
 
 
-      $("#additionalPaymentTable").on('click', '.remove_btn', function(){
+      $("#additionalPaymentTable").on('click', '.remove_btn', function() {
+        
         var id = $(this).attr('data-id')
-        $(this).closest('.table-row').remove();
-        // var i = payment_arr.length - 1;
-        // console.log(i)
-        // var payment = payment_arr.payment[0];
-        // while( i >= 0){
-        //   var payment = payment_arr.payment[i];
-        //   if(payment.id == id){
-        //     payment.splice(i, 1)
-        //     $(this).closest('.table-row').remove();
-        //   }
-        //   i--;
-        // }
+        var i = payment_arr.payment.length - 1;
+        // Remove Payment in the table and array
+        while (i >= 0) {
+          var payment = payment_arr.payment[i];
+          if (payment.id == id) {
+            total_amount -= payment.amount;
+            $("#total_amount").val(total_amount);
+            payment_arr.payment.splice(i,1)
+            console.log(payment_arr)
+            $(this).closest('.table-row').remove();
+          }
+          i--;
+        }
+      })
+      
+
+      // ADd payment button
+      $("#add_payment_btn").on('click', function(){
+        var amount = $("#total_amount").val();
+        var paid_by = $("#paid_by").val();
+        var remarks = $("#remarks").val();
+
         
       })
 
