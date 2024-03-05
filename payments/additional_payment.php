@@ -79,6 +79,63 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
+                              $ACTIVE = "ACTIVE";
+                              $month_dues = "Monthly Dues";
+                              $membership_fee = "Membership Fee";
+                              $construction_bond = "Construction Bond";
+                              $construction_clearance = "Construction Clearance";
+                              $material_delivery = "Material Delivery";
+                              $query = "SELECT 
+                                    payments_list.transaction_number,
+                                    payments_list.id as payment_id,
+                                    payments_list.date_created as date_paid,
+                                    payments_list.collection_fee_id,
+                                    payments_list.paid,
+                                    payments_list.remarks,
+                                    payments_list.paid_by,
+                                    payments_list.date_created,
+                                    collection_fee.category,
+                                    collection_fee.description
+                                    FROM payments_list 
+                                    INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+                                    WHERE NOT collection_fee.category IN (:monthly_dues, :membership_fee, :construction_bond,:construction_clearance, :material_delivery) AND payments_list.archive = :ACTIVE
+                                    ";
+                              $data = [
+                                "monthly_dues" => $month_dues,
+                                "membership_fee" => $membership_fee,
+                                "construction_bond" => $construction_bond,
+                                "construction_clearance" => $construction_clearance,
+                                "material_delivery" => $material_delivery,
+                                "ACTIVE" => $ACTIVE
+                              ];
+                              $connection = $server->openConn();
+                              $stmt = $connection->prepare($query);
+                              $stmt->execute($data);
+                              if ($stmt->rowCount() > 0) {
+                                while ($result = $stmt->fetch()) {
+                                  $transaction_number = $result['transaction_number'];
+                                  $date_created = date("M j, Y g:iA", strtotime($result['date_created']));
+                                  $payment = $result['category'];
+                                  $amount = $result['paid'];
+                              ?>
+                                  <tr>
+                                    <td><?php echo $date_created; ?></td>
+                                    <td><?php echo $transaction_number; ?></td>
+                                    <td><?php echo $payment; ?></td>
+                                    <td><?php echo $amount; ?></td>
+                                    <td>
+                                      <div class="dropdown">
+                                        <a type="button" class="dropdown-toggle btn btn-secondary" data-bs-toggle="dropdown">Action</a>
+                                        <ul class="dropdown-menu">
+                                          
+                                          <li><a class="dropdown-item">View</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                              <?php
+                                }
+                              }
 
                               ?>
                             </tbody>
