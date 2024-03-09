@@ -87,11 +87,12 @@ if (isset($_GET['transactionNumber']) && isset($_GET['paymentId'])) {
     <div class="w-50">
       <h5 class="details-title text-secondary">Payment Details</h5>
       <p class="m-0">Transaction Number: <b id="transaction_number"><?php echo $transactionNumberId; ?></b></p>
+      <p class="m-0">Paid By: <b id="paid_by"><?php echo $paid_by; ?></b></p>
       <p class="m-0">Date Paid: <b id="date_paid"><?php echo $date_paid; ?></b></p>
-      <p class="m-0">Remarks: <b id="remarks"><?php echo $remarks; ?></b></p>
+     
     </div>
     <div class="w-50">
-      <p class="m-0">Paid By: <b id="transaction_number"><?php echo $paid_by; ?></b></p>
+    <p class="m-0">Remarks: <b id="remarks"><?php echo $remarks; ?></b></p>
 
     </div>
   </div>

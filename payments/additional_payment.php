@@ -117,6 +117,8 @@ $server->adminAuthentication();
                                   $date_created = date("M j, Y g:iA", strtotime($result['date_created']));
                                   $payment = $result['category'];
                                   $amount = $result['paid'];
+                                  $payment_id = $result['payment_id'];
+                                  $collection_fee_id = $result['collection_fee_id'];
                               ?>
                                   <tr>
                                     <td><?php echo $date_created; ?></td>
@@ -127,8 +129,8 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="dropdown-toggle btn btn-secondary" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          
-                                          <li><a class="dropdown-item">View</a></li>
+
+                                          <li><a class="dropdown-item" id="view_btn" href="#additional_payment_view" data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-collection-id="<?php echo $collection_fee_id; ?>">View</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -164,7 +166,8 @@ $server->adminAuthentication();
     </div>
   </div>
   <?php
-
+  // Additional Payment View
+  include("../payments/additional_payment_view_modal.php");
 
   ?>
 
@@ -177,6 +180,41 @@ $server->adminAuthentication();
 
         ]
       });
+
+      $("#additionalPaymentTable").on('click', '#view_btn', function() {
+        var payment_id = $(this).attr('data-id');
+        var transaction_number = $(this).attr('data-tnum');
+        var collection_fee_id = $(this).attr('data-collection-id')
+
+        $.ajax({
+          url: '../payments/additional_payment_view.php',
+          type: 'POST',
+          data: {
+            transaction_number: transaction_number,
+            collection_fee_id: collection_fee_id
+          },
+          dataType: 'JSON',
+          success: function(response) {
+            $("#payment_id").val(payment_id);
+            $("#transaction_number_id").val(transaction_number);
+            $("#collection_fee_id").val(collection_fee_id);
+            $("#transaction_number").html(response.transaction_number);
+            $("#paid_by").html(response.paid_by);
+            $("#date_paid").html(response.date_created);
+            $("#remarks").html(response.remarks);
+            $("#table_header").html(response.table_header);
+            $(".table_body").html(response.table_body);
+            $("#total_amount").val(response.total_amount);
+            $("#admin_name").html(response.admin);
+
+
+
+
+
+          }
+        })
+
+      })
 
 
 

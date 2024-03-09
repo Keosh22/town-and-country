@@ -308,7 +308,7 @@ $material_delivery = "Material Delivery";
                     setTimeout(function(){
                       receipt.print();
                       setTimeout(function(){
-                        receipt.close;
+                        receipt.close();
                         location.reload();
                       }, 500)
                     }, 500)
