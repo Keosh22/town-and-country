@@ -10,6 +10,7 @@ session_start();
 if (isset($_POST['transaction_number']) ) {
   $transaction_number = filter_input(INPUT_POST, 'transaction_number', FILTER_SANITIZE_SPECIAL_CHARS);
   $collection_fee_id = filter_input(INPUT_POST, 'collection_fee_id', FILTER_SANITIZE_SPECIAL_CHARS);
+  $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
   $ACTIVE = "ACTIVE";
   $table_body = "";
   $table_header = "";
@@ -31,11 +32,11 @@ if (isset($_POST['transaction_number']) ) {
   collection_fee.description
   FROM payments_list 
   INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-  WHERE payments_list.transaction_number = :transaction_number AND archive = :ACTIVE
+  WHERE payments_list.transaction_number = :transaction_number AND archive = :status
   ";
   $data = [
     "transaction_number" => $transaction_number,
-    "ACTIVE" => $ACTIVE
+    "status" => $status
   ];
   $connection = $server->openConn();
   $stmt = $connection->prepare($query);

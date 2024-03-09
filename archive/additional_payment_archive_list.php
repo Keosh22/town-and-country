@@ -60,7 +60,7 @@ $server->adminAuthentication();
                           <a href="../payments/additional_payment_process.php" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                         </div>
                         <div class="col d-flex justify-content-end">
-                          <a href="../archive/additional_payment_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          <a href="" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
                         </div>
                       </div>
 
@@ -79,7 +79,7 @@ $server->adminAuthentication();
                             </thead>
                             <tbody>
                               <?php
-                              $ACTIVE = "ACTIVE";
+                              $INACTIVE = "INACTIVE";
                               $month_dues = "Monthly Dues";
                               $membership_fee = "Membership Fee";
                               $construction_bond = "Construction Bond";
@@ -98,7 +98,7 @@ $server->adminAuthentication();
                                     collection_fee.description
                                     FROM payments_list 
                                     INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                                    WHERE NOT collection_fee.category IN (:monthly_dues, :membership_fee, :construction_bond,:construction_clearance, :material_delivery) AND payments_list.archive = :ACTIVE
+                                    WHERE NOT collection_fee.category IN (:monthly_dues, :membership_fee, :construction_bond,:construction_clearance, :material_delivery) AND payments_list.archive = :INACTIVE
                                     ";
                               $data = [
                                 "monthly_dues" => $month_dues,
@@ -106,7 +106,7 @@ $server->adminAuthentication();
                                 "construction_bond" => $construction_bond,
                                 "construction_clearance" => $construction_clearance,
                                 "material_delivery" => $material_delivery,
-                                "ACTIVE" => $ACTIVE
+                                "INACTIVE" => $INACTIVE
                               ];
                               $connection = $server->openConn();
                               $stmt = $connection->prepare($query);
@@ -129,8 +129,10 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="dropdown-toggle btn btn-secondary" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" id="view_btn" href="#additional_payment_view" data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-collection-id="<?php echo $collection_fee_id; ?>">View</a></li>
-                                          <li><a class="dropdown-item" id="archive_btn" href="#arhive_additionalPayment"  data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-collection-id="<?php echo $collection_fee_id; ?>">Archive</a></li>
+
+                                          <li><a class="dropdown-item" id="view_btn" href="#additional_payment_view" data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" 
+                                          data-tnum="<?php echo $transaction_number; ?>" 
+                                          data-collection-id="<?php echo $collection_fee_id; ?>">View</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -168,8 +170,6 @@ $server->adminAuthentication();
   <?php
   // Additional Payment View
   include("../payments/additional_payment_view_modal.php");
-  // ARchive 
-  include("../archive/additional_payment_archive_modal.php");
 
   ?>
 
@@ -187,8 +187,7 @@ $server->adminAuthentication();
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnum');
         var collection_fee_id = $(this).attr('data-collection-id')
-        var status = "ACTIVE";
-
+        var status = "INACTIVE";
         $.ajax({
           url: '../payments/additional_payment_view.php',
           type: 'POST',
@@ -213,34 +212,9 @@ $server->adminAuthentication();
             $("#admin_name").html(response.admin);
           }
         })
+
       })
 
-
-      // ARchive
-      $("#additionalPaymentTable").on('click', "#archive_btn", function () {
-        var payment_id = $(this).attr('data-id');
-        var transaction_number = $(this).attr('data-tnum');
-        var collection_fee_id = $(this).attr('data-collection-id')
-
-        $("#payment_id").val(payment_id);
-        $("#transaction_number").val(transaction_number);
-        $("collection_id").val(collection_fee_id);
-        swal({
-            title: "Archive Confirmation",
-            text: "Do you want to archive this payment?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-
-            } else {
-              swal("Archiving Canceled!");
-              $("#arhive_additionalPayment").modal('hide');
-            }
-          })
-      })
 
 
     });

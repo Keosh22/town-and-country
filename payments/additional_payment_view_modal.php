@@ -23,6 +23,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           <input type="hidden" name="payment_id" id="payment_id">
           <input type="hidden" name="transaction_number_id" id="transaction_number_id">
           <input type="hidden" name="collection_fee_id" id="collection_fee_id">
+          <input type="hidden" name="status" id="status">
         </div>
         <!-- RECEIPT FORMAT -->
 
@@ -97,9 +98,10 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
     const doc = new jsPDF();
 
     $("#print_receipt").on('click', function() {
+      var status = $("#status").val();
       var transactionNumber = $("#transaction_number_id").val();
       var collectionFeeId = $("#collection_fee_id").val();
-      var receipt = window.open('../payments/additional_payment_receipt.php?transactionNumber=' + transactionNumber + '&paymentId=' + collectionFeeId, '_blank', 'width=900, height=600');
+      var receipt = window.open('../payments/additional_payment_receipt.php?transactionNumber=' + transactionNumber + '&paymentId=' + collectionFeeId + '&status=' + status, '_blank', 'width=900, height=600');
       setTimeout(function() {
         receipt.print();
         setTimeout(function() {

@@ -329,7 +329,7 @@ $server->adminAuthentication();
 
 
       // Refund Construct
-      $("#refund_btn").on('click', function() {
+      $("#constrcutionPaymentTable").on('click', '#refund_btn', function() {
         var construction_payment_id = $(this).attr('data-id');
         swal({
             title: 'Refund Confirmation',

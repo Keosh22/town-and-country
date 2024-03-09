@@ -77,7 +77,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
                   <label for="total_amount" class="form-label">Total Amount:</label>
                 </div>
                 <div class="col-4">
-                  <input type="text" class="form-control" id="total_amount">
+                  <input type="number" class="form-control" id="total_amount" readonly>
                 </div>
               </div>
             </div>

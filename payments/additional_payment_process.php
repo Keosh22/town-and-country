@@ -301,10 +301,10 @@ $material_delivery = "Material Delivery";
                     payment_arr: payment_arr
                   },
                   success: function(response) {
-                
+                    var status = "ACTIVE";
                     var transactionNumber = response.transaction_number;
                     var collectionFeeId = response.collection_fee_id;
-                    var receipt = window.open('../payments/additional_payment_receipt.php?transactionNumber='+ transactionNumber +'&paymentId='+ collectionFeeId,'_blank', 'width=900, height=600');
+                    var receipt = window.open('../payments/additional_payment_receipt.php?transactionNumber='+ transactionNumber +'&paymentId='+ collectionFeeId + '&status=' + status,'_blank', 'width=900, height=600');
                     setTimeout(function(){
                       receipt.print();
                       setTimeout(function(){

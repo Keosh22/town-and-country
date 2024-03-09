@@ -239,7 +239,7 @@ $server->adminAuthentication();
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         var collection_id = $(this).attr('data-collection-id');
-        console.log(collection_id);
+      
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
         $("#collection_id").val(collection_id);

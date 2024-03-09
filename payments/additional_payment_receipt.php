@@ -17,13 +17,14 @@ if (isset($_GET['transactionNumber']) && isset($_GET['paymentId'])) {
   // $payment_id = $_GET['payment_id'];
   $transactionNumberId = $_GET['transactionNumber'];
   $paymentId = $_GET['paymentId'];
+  $status = $_GET['status'];
   $admin_name = $_SESSION['admin_name'];
 
 
   $table_result = "";
   $number = 0;
   $total_ammount = 0;
-
+  
   $ACTIVE = "ACTIVE";
   $month_dues = "Monthly Dues";
   $membership_fee = "Membership Fee";
@@ -44,11 +45,11 @@ if (isset($_GET['transactionNumber']) && isset($_GET['paymentId'])) {
    collection_fee.description
    FROM payments_list 
    INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-   WHERE payments_list.collection_fee_id = :paymentId AND payments_list.archive = :ACTIVE AND payments_list.transaction_number = :transactionNumberId
+   WHERE payments_list.collection_fee_id = :paymentId AND payments_list.archive = :status AND payments_list.transaction_number = :transactionNumberId
    ";
   $data = [
     "paymentId" => $paymentId,
-    "ACTIVE" => $ACTIVE,
+    "status" => $status,
     "transactionNumberId" => $transactionNumberId
   ];
   $connection = $server->openConn();
