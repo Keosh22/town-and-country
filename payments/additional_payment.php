@@ -206,11 +206,6 @@ $server->adminAuthentication();
             $(".table_body").html(response.table_body);
             $("#total_amount").val(response.total_amount);
             $("#admin_name").html(response.admin);
-
-
-
-
-
           }
         })
 

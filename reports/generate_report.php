@@ -11,7 +11,7 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
   $ACTIVE = "ACTIVE";
   $payment = filter_input(INPUT_POST, 'payment', FILTER_SANITIZE_SPECIAL_CHARS);
   $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_SPECIAL_CHARS);
-  $month_num = date("m",strtotime($month));
+  $month_num = date("m", strtotime($month));
   $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y-m-d H:i:sA", strtotime("now"));
   $table_body = "";
@@ -29,7 +29,7 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
 
   // Check if payment is MONTHLY DUES
   if (strtolower($payment) == strtolower("Monthly Dues") || strtolower($payment) == strtolower("Membership Fee")) {
-  
+
     // $checkCategory = "";
     // $query = "SELECT id,category FROM collection_fee WHERE category = :payment status = :ACTIVE";
     // $data = ["payment" => $payment, "ACTIVE" => $ACTIVE];
@@ -108,7 +108,7 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
     </tr>
       ';
     }
-  } 
+  }
   // Construction Payment
   elseif (strtolower($payment) == strtolower("Material Delivery") || strtolower($payment) == strtolower("Construction Bond") || strtolower($payment) == strtolower("Construction Clearance")) {
 
@@ -133,12 +133,12 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
     $stmt2 = $connection2->prepare($query2);
     $stmt2->execute($data2);
     if ($stmt2->rowCount() > 0) {
-      
-    if (isset($month)) {
-      $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
-    } else {
-      $report_date = "Annual report of " . $year;
-    }
+
+      if (isset($month)) {
+        $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
+      } else {
+        $report_date = "Annual report of " . $year;
+      }
       $current_date = date("F j, Y - g:iA", strtotime("now"));
       $admin = $_SESSION['admin_name'];
       while ($result2 = $stmt2->fetch()) {
@@ -162,7 +162,7 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
       }
 
 
-  
+
       // Construction Bond
       if (strtolower($payment) == strtolower("Construction Bond")) {
         $amount -= $refund_amount;
@@ -202,6 +202,66 @@ if (isset($_POST['payment']) && isset($_POST['year'])) {
       </tr>
         ';
       }
+    }
+  } elseif (strtolower($payment) != strtolower("Material Delivery") || strtolower($payment) != strtolower("Construction Bond") || strtolower($payment) != strtolower("Construction Clearance") || strtolower($payment) != strtolower("Monthly Dues") || strtolower($payment) != strtolower("Membership Fee")) {
+
+
+
+
+    $query3 = "SELECT
+    payments_list.id as payment_id,
+    payments_list.paid,
+    payments_list.date_created as payment_date_created,
+    payments_list.collection_fee_id,
+    collection_fee.category,
+    collection_fee.description
+    FROM payments_list
+    INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+    WHERE YEAR(payments_list.date_created) = :year AND MONTH(payments_list.date_created) = :month AND collection_fee.category = :payment  AND  payments_list.archive = :ACTIVE
+    ";
+    $data3 = [
+      "year" => $year,
+      "month" => $month_num,
+      "payment" => $payment,
+      "ACTIVE" => $ACTIVE
+    ];
+    $connection3 = $server->openConn();
+    $stmt3 = $connection3->prepare($query3);
+    $stmt3->execute($data3);
+    if ($stmt3->rowCount() > 0) {
+      $admin = $_SESSION['admin_name'];
+      if (isset($month)) {
+        $report_date = "Monthly report of " . date("F", strtotime($month)) . "-" . date("Y", strtotime($year));
+      } else {
+        $report_date = "Annual report of " . $year;
+      }
+      while ($result3 = $stmt3->fetch()) {
+        $category = $result3['category'];
+        $additional_payment_id = $result3['payment_id'];
+        $paid = $result3['paid'];
+        $amount += intval($paid);
+        $current_date = date("F j, Y - g:iA", strtotime($result3['payment_date_created']));
+      }
+      if (isset($additional_payment_id)) {
+        $isDisabled = false;
+      }
+
+      $table_body = '
+      <tr>
+        <td></td>
+        <td>' . $category . '</td>
+        <td>' . date("F", strtotime($month)) . "-" . date("Y", strtotime($year)) . '</td>
+        <td>' . $amount . '</td>
+      </tr>
+        ';
+      $table_head = '
+      <tr>
+      <th width="5%">#</th>
+      <th width="10%">Payment</th>
+      <th width="10%">Date</th>
+      <th width="10%">Total Collection</th>
+    </tr>
+      ';
     }
   }
 

@@ -298,13 +298,13 @@ $INACTIVE = "INACTIVE";
         var payment = $("#payment").val();
         var month = $("#month").val();
         var year = $("#year").val();
-        
+
         var monthly_dues = "Monthly Dues";
         var membership_fee = "Membership Fee";
         var construction_bond = "Construction Bond";
         var construction_clearance = "Construction Clearance";
         var material_delivery = "Material Delivery";
-    
+
         // payment.toLowerCase() == monthly_dues.toLowerCase() || payment.toLowerCase() == membership_fee.toLowerCase()
         if (payment.toLowerCase() == monthly_dues.toLowerCase() || payment.toLowerCase() == membership_fee.toLowerCase()) {
           var reports = window.open('../reports/print_report_doc.php?payment=' + payment + '&year=' + year + '&month=' + month, '_blank', 'width=900, height=600');
@@ -315,12 +315,20 @@ $INACTIVE = "INACTIVE";
               location.reload();
             }, 500)
           }, 500)
-        } 
-        else if (payment.toLowerCase() == construction_bond.toLowerCase() || payment.toLowerCase() == construction_clearance.toLowerCase() || payment.toLowerCase() == material_delivery.toLocaleLowerCase()) {
-          var reports = window.open('../reports/construction_report_doc.php?payment='+ payment +'&year='+ year +'&month='+ month ,'_blank', 'width=900, height=600');
-          setTimeout(function(){
+        } else if (payment.toLowerCase() == construction_bond.toLowerCase() || payment.toLowerCase() == construction_clearance.toLowerCase() || payment.toLowerCase() == material_delivery.toLocaleLowerCase()) {
+          var reports = window.open('../reports/construction_report_doc.php?payment=' + payment + '&year=' + year + '&month=' + month, '_blank', 'width=900, height=600');
+          setTimeout(function() {
             reports.print();
-            setTimeout(function(){
+            setTimeout(function() {
+              reports.close();
+              location.reload();
+            }, 500)
+          }, 500)
+        } else if (payment.toLowerCase() != construction_bond.toLowerCase() || payment.toLowerCase() != construction_clearance.toLowerCase() || payment.toLowerCase() != material_delivery.toLocaleLowerCase() || payment.toLowerCase() != monthly_dues.toLowerCase() || payment.toLowerCase() != membership_fee.toLowerCase()) {
+          var reports = window.open('../reports/additional_payment_doc.php?payment=' + payment + '&year=' + year + '&month=' + month, '_blank', 'width=900, height=600');
+          setTimeout(function() {
+            reports.print();
+            setTimeout(function() {
               reports.close();
               location.reload();
             }, 500)
