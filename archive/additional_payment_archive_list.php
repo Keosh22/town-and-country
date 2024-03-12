@@ -33,11 +33,12 @@ $server->adminAuthentication();
       <main class="content px-3 py-2">
         <!-- conten header -->
         <section class="content-header d-flex justify-content-between align-items-center mb-3">
-          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+          <a href="../payments/additional_payment.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Payments</a></li>
-            <li class="breadcrumb-item">Additional Payments</li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Payments</a></li>
+            <li class="breadcrumb-item"><a href="../payments/additional_payment.php">Additional Payments</a></li>
+            <li class="breadcrumb-item">Archive</li>
           </ol>
         </section>
 
@@ -133,6 +134,11 @@ $server->adminAuthentication();
                                           <li><a class="dropdown-item" id="view_btn" href="#additional_payment_view" data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" 
                                           data-tnum="<?php echo $transaction_number; ?>" 
                                           data-collection-id="<?php echo $collection_fee_id; ?>">View</a></li>
+                                          
+                                          <li><a class="dropdown-item" id="restore_archive_btn" href="#" data-id="<?php echo $payment_id; ?>" 
+                                          data-tnum="<?php echo $transaction_number; ?>" 
+                                          data-collection-id="<?php echo $collection_fee_id; ?>">Restore</a></li>
+                                          
                                         </ul>
                                       </div>
                                     </td>
@@ -211,9 +217,36 @@ $server->adminAuthentication();
             $("#total_amount").val(response.total_amount);
             $("#admin_name").html(response.admin);
           }
-        })
+        });
+      });
 
-      })
+      
+      $("#additionalPaymentTable").on('click', '#restore_archive_btn', function (){
+        var payment_id = $(this).attr('data-id');
+        console.log(payment_id)
+        swal({
+          title: "Restore Confirmation",
+          text: "Are you sure you want to restore this record? Click OK to proceed",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        })
+        .then((proceed) => {
+          if(proceed){
+            $.ajax({
+              url: '../archive/restore_archive_payment.php',
+              type: 'POST',
+              data: {payment_id: payment_id},
+              success: function (){
+                location.reload();
+              }
+            })
+          } else {
+            swal("Canceled!");
+          }
+        });
+      });
+      
 
 
 

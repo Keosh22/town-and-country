@@ -114,7 +114,7 @@ $server = new Server();
                         <tbody class="">
                           <!----------------------------- MonthlyDues & MEMberhsip Fee PAYMENT  --------------------------------->
                           <?php
-
+                          $ACTIVE = "ACTIVE";
                           $id = $_SESSION["user_id"];
                           $query =  "SELECT
                 payments_list.id as payment_id,
@@ -145,11 +145,11 @@ $server = new Server();
                 LEFT JOIN property_list ON payments_list.property_id = property_list.id
                 LEFT JOIN collection_list ON payments_list.collection_id = collection_list.id
                 INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                WHERE payments_list.homeowners_id = :user_id
+                WHERE payments_list.homeowners_id = :user_id AND payments_list.archive = :ACTIVE
                 ORDER BY date_created DESC;";
 
 
-                          $data = ["user_id" => $id];
+                          $data = ["user_id" => $id, "ACTIVE" => $ACTIVE];
                           $connection = $server->openConn();
                           $stmt = $connection->prepare($query);
                           $stmt->execute($data);

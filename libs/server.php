@@ -1,5 +1,6 @@
 <?php
 require_once('config.php');
+
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 
@@ -238,7 +239,7 @@ class Server
         $_SESSION['admin_id'] = $user_id;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['account_number'] = $account_number;
-        $_SESSION['admin_name'] = $firstname." ". $lastname;
+        $_SESSION['admin_name'] = $firstname . " " . $lastname;
 
 
         // pass the value to adminAuthentication()
@@ -1041,7 +1042,8 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
   }
 
   // Count Maintenance Request
-  public function countPending(){
+  public function countPending()
+  {
     $ACTIVE = "ACTIVE";
     $PEDNING = "PENDING";
 
@@ -1055,14 +1057,15 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $stmt->execute($data);
     $count = $stmt->fetchColumn();
 
-    if($stmt->rowCount() >0){
-      echo $count; 
+    if ($stmt->rowCount() > 0) {
+      echo $count;
     } else {
       echo 0;
     }
   }
 
-  public function countOngoing(){
+  public function countOngoing()
+  {
     $ACTIVE = "ACTIVE";
     $ONGOING = "ONGOING";
 
@@ -1076,16 +1079,17 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $stmt->execute($data);
     $count = $stmt->fetchColumn();
 
-    if($stmt->rowCount() >0){
-      echo $count; 
+    if ($stmt->rowCount() > 0) {
+      echo $count;
     } else {
       echo 0;
     }
-  } 
+  }
 
 
   // COUNT ANNOUNCEMENT
-  public function countAnnouncementActive(){
+  public function countAnnouncementActive()
+  {
     $ACTIVE = "ACTIVE";
     $query = "SELECT COUNT(status) FROM announcement WHERE status = :ACTIVE";
     $data = [
@@ -1095,14 +1099,15 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
     $count = $stmt->fetchColumn();
-    if($count > 0){
+    if ($count > 0) {
       echo $count;
     } else {
       echo 0;
     }
   }
 
-  public function countAnnouncementInactive(){
+  public function countAnnouncementInactive()
+  {
     $INACTIVE = "INACTIVE";
     $query = "SELECT COUNT(status) FROM announcement WHERE status = :INACTIVE";
     $data = [
@@ -1112,7 +1117,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
     $count = $stmt->fetchColumn();
-    if($count > 0){
+    if ($count > 0) {
       echo $count;
     } else {
       echo 0;
@@ -1192,7 +1197,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       $connection = $this->conn;
       $stmt = $connection->prepare($query);
       $stmt->execute($data);
-     return $count = $stmt->fetchColumn();
+      return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 17th to 19th day of the month
     elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 18, $year_email))) {
@@ -1298,11 +1303,48 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
   }
 
   // Password Reset Authentication
-  public function changePasswordAuthentication(){
-    if(empty($_SESSION['token_verify']) || time()-$_SESSION['forgot_password_timestamp'] > 600){
+  public function changePasswordAuthentication()
+  {
+    if (empty($_SESSION['token_verify']) || time() - $_SESSION['forgot_password_timestamp'] > 600) {
       echo "<script>window.location.href='../forgot_password.php'</script>";
     }
   }
+
+
+
+  // ------------------API----------------------------
+
+  public function sendSMS()
+  {
+    // $ch = curl_init();
+    // $parameters = array(
+    //   'apikey' => '927df40030457bfb97528604604600a9', //Your API KEY
+    //   'number' => '09771778411',
+    //   'message' => 'I just sent my first message with Semaphore',
+    //   'sendername' => 'SEMAPHORE'
+    // );
+    // // $parameters["phone"] = $number;
+    // // $parameters["message"] = $messages;
+    // curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');
+    // curl_setopt($ch, CURLOPT_POST, 1);
+
+    // //Send the parameters set above with the request
+    // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($parameters));
+
+    // // Receive response from server
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // $output = curl_exec($ch);
+    // curl_close($ch);
+
+    // //Show the server response
+    // echo $output;
+
+  
+  }
 }
+
+
+
+
 
 ?>

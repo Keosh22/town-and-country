@@ -200,6 +200,7 @@ $server->adminAuthentication();
                                           }
                                           ?>
                                           <li><a id="delete_payment_btn" href="#" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Delete</a></li>
+                                          <li><a id="restore_archive_btn" href="#" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Restore</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -388,7 +389,34 @@ $server->adminAuthentication();
               swal("Delete Canceled");
             }
           });
-      })
+      });
+
+      // REstore 
+      $("#constructionArchiveTable").on('click', '#restore_archive_btn', function (){
+        var payment_id = $(this).attr('data-id');
+        console.log(payment_id)
+        swal({
+          title: "Restore Confirmation",
+          text: "Are you sure you want to restore this record? Click OK to proceed",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        })
+        .then((proceed) => {
+          if(proceed){
+            $.ajax({
+              url: '../archive/restore_archive_construction.php',
+              type: 'POST',
+              data: {payment_id: payment_id},
+              success: function (){
+                location.reload();
+              }
+            })
+          } else {
+            swal("Canceled!");
+          }
+        });
+      });
 
 
       // DataTable

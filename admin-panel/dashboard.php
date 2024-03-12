@@ -18,7 +18,9 @@ $server->insertCollection();
 $server->updatePromotion();
 $server->updateAnnouncement();
 $server->updateMembershipStatus();
-
+// $number = '639771778411';
+// $messages = 'Hello world';
+// $server->sendSMS();
 
 
 // UPDATE EMAIL
@@ -61,7 +63,7 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 			<main class="content">
 				<div class="row py-2 px-2 gy-3">
 					<div class="card-group gap-2">
-
+	<button id="send_sms">send sms</button>
 						<div class="card  border-0 shadow-sm" style="background-color: #a9b2ac;">
 							<div class="card-body">
 								<div class="row">
@@ -244,6 +246,15 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 					});
 			});
 
+			$("#send_sms").on('click', function(){
+				$.ajax({
+									url: '../ajax/sample_send_sms.php',
+									type: 'POST',
+									success: function() {
+									location.reload();
+									}
+								});
+			})
 
 		});
 	</script>

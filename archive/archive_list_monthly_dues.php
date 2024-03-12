@@ -144,6 +144,7 @@ $server->adminAuthentication();
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
                                           <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection="<?php echo $collection_id; ?>" href="#" class="dropdown-item">Delete</a></li>
+                                          <li><a id="restore_archive_btn" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection="<?php echo $collection_id; ?>" href="#" class="dropdown-item">Restore</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -262,6 +263,33 @@ $server->adminAuthentication();
               swal("Delete Canceled");
             }
           });
+      });
+
+
+      $("#archiveMonthlyDuesTable").on('click', '#restore_archive_btn', function (){
+        var payment_id = $(this).attr('data-id');
+        console.log(payment_id)
+        swal({
+          title: "Restore Confirmation",
+          text: "Are you sure you want to restore this record? Click OK to proceed",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true
+        })
+        .then((proceed) => {
+          if(proceed){
+            $.ajax({
+              url: '../archive/restore_archive_payment.php',
+              type: 'POST',
+              data: {payment_id: payment_id},
+              success: function (){
+                location.reload();
+              }
+            })
+          } else {
+            swal("Canceled!");
+          }
+        });
       });
 
 
