@@ -48,7 +48,7 @@ $server = new Server();
 
                   <div class="request-transaction mb-3">
                     <?php include "../user-panel/profile_request_transaction.php" ?>
-                    <button type="button" class="btn d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
+                    <button type="button" class="btn d-flex justify-content-end" data-toggle="modal" data-target="#print_transaction">
                       Request Transaction
                     </button>
                   </div>
