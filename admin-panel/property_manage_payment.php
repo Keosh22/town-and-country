@@ -71,12 +71,12 @@ if (isset($_GET['property_id'])) {
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+        <a href="../admin-panel/property_list.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Property</a></li>
-            <li class="breadcrumb-item">Property List</li>
+            <li class="breadcrumb-item"><a href="../admin-panel/property_list.php">Property List</a></li>
             <li class="breadcrumb-item">Manage Payment</li>
           </ol>
         </section>
@@ -123,10 +123,15 @@ if (isset($_GET['property_id'])) {
                                       <label for="address" class="form-label text-success">Property:</label>
                                       <input type="text" class="form-control" id="address" name="address" value="<?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " Phase " . $phase; ?>" readonly>
                                     </div>
-                                    <div class="col-12">
-                                      <label for="fee" class="form-label text-success">Fee::</label>
+                                    <div class="col-4">
+                                      <label for="fee" class="form-label text-success">Fee:</label>
                                       <input type="text" class="form-control" id="fee" name="fee" value="" readonly>
                                     </div>
+                                    <div class="col-8">
+                                      <label for="paid_by" class="form-label text-success">Paid by:</label>
+                                      <input type="text" class="form-control" id="paid_by" name="paid_by" maxlength="25">
+                                    </div>
+
                                     <div class="col-12">
                                       <label for="remarks" class="form-label text-success">Remarks:</label>
                                       <textarea name="remarks" id="remarks" wrap="hard" rows="5" class="form-control" maxlength="25"></textarea>
@@ -370,6 +375,15 @@ if (isset($_GET['property_id'])) {
       // Update collection
       $("#add_payment_btn").on('click', function() {
         var remarks = $("#remarks").val();
+        var paid_by = $("#paid_by").val()
+        var owners_name = $("#owners_name").val()
+        if (paid_by.length > 0) {
+
+        } else {
+          paid_by = owners_name;
+        }
+
+
         swal({
             title: 'Confirmation',
             text: 'Are you sure you want to add this payment?',
@@ -389,13 +403,14 @@ if (isset($_GET['property_id'])) {
                   collection_fee_id: collection_fee_id,
                   amount: amount,
                   remarks: remarks,
-                  balance: balance
+                  balance: balance,
+                  paid_by: paid_by
                 },
                 success: function(response) {
                   // $(".content").html(response);
 
                   var transaction_number = response;
-                  
+
                   var archive_status = "ACTIVE";
                   var receipt = window.open('../admin-panel/receipt_monthly_dues.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
                   

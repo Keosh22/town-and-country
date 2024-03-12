@@ -56,10 +56,12 @@ if ($count) {
 
         <div class="card card-border">
           <div class="card-header">
-            <h2>Homeowners property list</h2>
+            
+            <h2> <a href="../admin-panel/homeowners.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold me-5'></i></a>Homeowners property list</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
+              
               <p class="card-title fs-5 text-secondary divider personal-info">Homeowners Information</p>
 
               <div class="row">

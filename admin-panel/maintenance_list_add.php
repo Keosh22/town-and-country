@@ -7,7 +7,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 session_start();
 $server = new Server;
 
-if (isset($_POST['category'])) {
+if (isset($_POST['category']) && $_POST['category'] != "") {
   $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y-m-d H:s:iA", strtotime("now"));
 
@@ -25,7 +25,7 @@ if (isset($_POST['category'])) {
     $_SESSION['text'] = "Something went wrong";
     $_SESSION['status_code'] = "error";
   }
-}
+} 
 
 
 

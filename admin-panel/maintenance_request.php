@@ -27,10 +27,11 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- content header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+        <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
 
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Services</a></li>
             <li class="breadcrumb-item">Maintenance</li>
           </ol>
@@ -56,7 +57,7 @@ $server->adminAuthentication();
                         </div>
                         <div class="col d-flex justify-content-end">
                           <div class="col-3 mx-3">
-                            <select name="filter_maintenance" id="filter_maintenance" class="form-control form-control-sm text-secondary">
+                            <select name="filter_maintenance" id="filter_maintenance" class="form-select form-select-sm text-secondary">
                               <option value="">Maintenance:</option>
                               <?php
                               $query1 = "SELECT category FROM maintenance";
@@ -77,7 +78,7 @@ $server->adminAuthentication();
                             </select>
                           </div>
                           <div class="col-3">
-                            <select name="filter_status" id="filter_status" class="form-control form-control-sm text-secondary">
+                            <select name="filter_status" id="filter_status" class="form-select form-select-sm text-secondary">
                               <option value="">Status:</option>
                               <option value="PENDING">PENDING</option>
                               <option value="ONGOING">ONGOING</option>

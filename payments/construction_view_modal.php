@@ -26,26 +26,27 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         </div>
         <!-- RECEIPT FORMAT -->
 
-        <div class="receipt-wrapper">
-          <h1 class="text-center title-receipt">Payment Receipt</h1>
-          <h5 class="text-center title-receipt">Town And Country Heights Subdivision</h5>
+        <div class="receipt-wrapper" id="construction_receipt">
+          <h2 class="text-center title-receipt"><b>Payment Receipt</b></h2>
+          <h5 class="text-center title-receipt m-0">Town And Country Heights Homeowners' ASSN. INC.</h5>
+          <p class="text-center title-receipt text-secondary mb-1">Clubhouse 1 La Salle Avenue, Town & Country Heights San Luis, Antipolo City</p>
           <div class="divider-receipt"></div>
           <div class="flex">
             <div class="w-50">
-              <h4 class="details-title">Homeowners Details</h4>
-              <p>Account Number: <b id="account_number"></b></p>
-              <p>Name: <b id="name"></b></p>
+              <h5 class="details-title text-secondary">Homeowners Details</h5>
+              <p class="m-0">Account Number: <b id="account_number"></b></p>
+              <p class="m-0">Name: <b id="name"></b></p>
 
             </div>
             <div class="w-50">
-              <h4 class="details-title">Payment Details</h4>
-              <p>Transaction Number: <b id="transaction_number"></b></p>
-              <p>Date Paid: <b id="date_paid"></b></p>
-              <p>Paid By: <b id="paid_by"></b></p>
+              <h5 class="details-title text-secondary">Payment Details</h5>
+              <p class="m-0">Transaction Number: <b id="transaction_number"></b></p>
+              <p class="m-0">Date Paid: <b id="date_paid"></b></p>
+              <p class="m-0">Paid By: <b id="paid_by"></b></p>
             </div>
           </div>
           <div class="divider-receipt"></div>
-          <h4>Payment Summary:</h4>
+          <h5 class="text-secondary">Payment Summary:</h5>
           <table class="table">
             <thead id="table_header">
 
@@ -72,7 +73,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
                   <label for="total_amount" class="form-label">Total Amount:</label>
                 </div>
                 <div class="col-4">
-                  <input type="text" class="form-control" id="total_amount">
+                  <input type="text" class="form-control" id="total_amount" readonly>
                 </div>
               </div>
             </div>
@@ -83,7 +84,8 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       </div>
       <div class="modal-footer">
         <button class="btn btn-flat btn-primary" id="print_receipt">Print</button>
-        <button class="btn btn-flat btn-danger" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-flat btn-success" id="download_receipt">Download</button>
+  
       </div>
     </div>
   </div>
@@ -91,6 +93,9 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 <script>
   $(document).ready(function() {
+
+    window.jsPDF = window.jspdf.jsPDF
+    const doc = new jsPDF();
 
     $("#construction_view").on('hidden.bs.modal', function(e) {
       $("#hidden_input").find('input[type=hidden]').val("");
@@ -136,9 +141,47 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           }, 500)
         }, 500)
       }
-
     });
 
+
+    // Download File
+    $("#download_receipt").on('click', function (){
+      var transaction_number = $("#transaction_number").html();
+
+      i = 1
+      j = 1
+      var tbodies = document.getElementsByTagName("tbody");
+      while(tbodies.length - 1 > i){
+        var parent = tbodies[i].parentNode;
+        while(tbodies[i].firstChild){
+          parent.insertBefore(tbodies[i].firstChild, tbodies[i])
+        }
+        parent.removeChild(tbodies[i]);
+        i++
+      }
+      var tbodies = document.getElementsByTagName("thead");
+      while(tbodies.length - 1 > j){
+        var parent = tbodies[j].parentNode;
+        while(tbodies[j].firstChild){
+          parent.insertBefore(tbodies[j].firstChild, tbodies[j])
+        }
+        parent.removeChild(tbodies[j])
+        j++
+      }
+
+      var receipt = document.querySelector("#construction_receipt");
+      doc.html( receipt, {
+        callback: function (){
+          doc.save(transaction_number + "-Construction-Receipt.pdf")
+          location.reload();
+        },
+        x: 10,
+        y: 10,
+        width: 170,
+        windowWidth: 650
+      })
+
+    });
 
   });
 </script>

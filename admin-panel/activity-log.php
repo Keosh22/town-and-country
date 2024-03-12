@@ -31,10 +31,11 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- content header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
 
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item">Activity Log</li>
           </ol>
         </section>
@@ -56,8 +57,25 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
-                        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addnew">Add user</button> -->
-                        <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat" id="refresh"><i class='bx bx-refresh bx-xs bx-tada-hover'></i>Refresh</a>
+                        <div class="col d-flex-justify-content-start">
+                          <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat" id="refresh"><i class='bx bx-refresh bx-xs bx-tada-hover'></i>Refresh</a>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                          <div class="col-3 mx-3">
+                            <select name="filter_action" id="filter_action" class="form-select form-select-sm text-secondary">
+                              <option value="">Action:</option>
+                              <option value="Logged in">Logged in</option>
+                              <option value="Logged out">Logged out</option>
+                              <option value="Delete">Delete</option>
+                              <option value="Registered">Registered</option>
+                              <option value="Updated">Updated</option>
+                            </select>
+                          </div>
+                          <div class="col-4">
+                            <input id="filter_date" class="form-control form-control-sm text-secondary">
+                          </div>
+                        </div>
+
                       </div>
 
                       <div class="body-box shadow-sm">
@@ -91,7 +109,7 @@ $server->adminAuthentication();
 
 
                                   <td><?php echo $account_number . ": " . $firstname; ?></td>
-                                  <td><?php echo date("m/d/y - h:i:sA", strtotime($date)); ?></td>
+                                  <td><?php echo date("M j, Y  H:i:sA", strtotime($date)); ?></td>
                                   <td><?php echo $action; ?></td>
                                   <td>
                                     <?php
@@ -189,31 +207,31 @@ $server->adminAuthentication();
           [1, 'desc']
         ]
       });
+      const TABLE = $("#activityLogTable").DataTable();
+
+      // filter table Action
+      $("#filter_action").on('change', function() {
+        TABLE.column(3).search(this.value).draw();
+      })
 
 
       $("#refresh").on('click', function() {
         location.reload(true);
       });
-      // $(".delete").on('click', function() {
-      // 	swal({
-      // 			title: "Are you sure?",
-      // 			text: "Once deleted, you will not able to recover this account!",
-      // 			icon: "warning",
-      // 			buttons: true,
-      // 			dangerMode: true
-      // 		})
-      // 		.then((willDelete) => {
 
-      // 		});
-      // });
+      // filter date
+      $("#filter_date").daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        autpApply: true,
+        locale: {
+          format: 'MMM DD, YYYY'
+        }
+      });
 
-
-      // $(".delete").on('click', function() {
-      // 	$("#deleteUser").modal("show");
-      // 	var id = $(this).attr("data-id");
-      // 	$("#delete_id").val(id);
-      // });
-
+      $("#filter_date").on('change', function() {
+        TABLE.column(1).search(this.value).draw();
+      })
 
 
     });

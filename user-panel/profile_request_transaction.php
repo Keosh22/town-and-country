@@ -161,12 +161,34 @@
     $(".closeBtn").on("click", function() {
       $('#print_transaction').modal('hide');
     });
-  });
+
+    // START DATE
+    $("#start_date").daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      autoApply: true,
+      locale: {
+        format: 'YYYY-MM-DD'
+      }
+    });
+
+    // END DATE
+    $("#end_date").daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      autoApply: true,
+      locale: {
+        format: 'YYYY-MM-DD'
+      }
+    });
+
+
+  })
 </script>
 
 
 
-<script>
+<!-- <script>
   $(function() {
 
     var datePickerInput = $("#datepicker").find("input");
@@ -196,7 +218,9 @@
       todayHighlight: true,
     }).datepicker('update', new Date());
   });
-</script>
+</script> -->
+
+
 
 <script>
 
@@ -208,3 +232,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
 </script>
+  <!-- DatePicker Plugin -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />

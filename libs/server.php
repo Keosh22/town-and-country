@@ -1040,6 +1040,86 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     }
   }
 
+  // Count Maintenance Request
+  public function countPending(){
+    $ACTIVE = "ACTIVE";
+    $PEDNING = "PENDING";
+
+    $query = "SELECT COUNT(status) FROM maintenance_request WHERE status = :PENDING AND archive = :ACTIVE";
+    $data = [
+      "PENDING" => $PEDNING,
+      "ACTIVE" => $ACTIVE
+    ];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+
+    if($stmt->rowCount() >0){
+      echo $count; 
+    } else {
+      echo 0;
+    }
+  }
+
+  public function countOngoing(){
+    $ACTIVE = "ACTIVE";
+    $ONGOING = "ONGOING";
+
+    $query = "SELECT COUNT(status) FROM maintenance_request WHERE status = :ONGOING AND archive = :ACTIVE";
+    $data = [
+      "ONGOING" => $ONGOING,
+      "ACTIVE" => $ACTIVE
+    ];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+
+    if($stmt->rowCount() >0){
+      echo $count; 
+    } else {
+      echo 0;
+    }
+  } 
+
+
+  // COUNT ANNOUNCEMENT
+  public function countAnnouncementActive(){
+    $ACTIVE = "ACTIVE";
+    $query = "SELECT COUNT(status) FROM announcement WHERE status = :ACTIVE";
+    $data = [
+      "ACTIVE" => $ACTIVE
+    ];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+    if($count > 0){
+      echo $count;
+    } else {
+      echo 0;
+    }
+  }
+
+  public function countAnnouncementInactive(){
+    $INACTIVE = "INACTIVE";
+    $query = "SELECT COUNT(status) FROM announcement WHERE status = :INACTIVE";
+    $data = [
+      "INACTIVE" => $INACTIVE
+    ];
+    $connection = $this->conn;
+    $stmt = $connection->prepare($query);
+    $stmt->execute($data);
+    $count = $stmt->fetchColumn();
+    if($count > 0){
+      echo $count;
+    } else {
+      echo 0;
+    }
+  }
+
+
 
   public function countEmailReminder()
   {
@@ -1162,10 +1242,10 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       if ($row = $stmt4->fetch()) {
 
         $result = $row['transaction_number'];
-        $get_number = str_replace("TN-", "", $result);
+        $get_number = str_replace("TN", "", $result);
         $id_increment = $get_number + 1;
         $get_string = str_pad($id_increment, 7, 0, STR_PAD_LEFT);
-        $transaction_number = "TN-" . $get_string;
+        $transaction_number = "TN" . $get_string;
 
         $query5 = "INSERT INTO transaction_number_list (transaction_number) VALUES (:transaction_number)";
         $data5 = ["transaction_number" => $transaction_number];

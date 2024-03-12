@@ -2,7 +2,7 @@
 <aside id="sidebar" class="">
   <div class="">
     <div class="sidebar-logo">
-      <a href="#"><img class="logo-img" src="../img/logo.png" alt=""></a>
+      <a href="../admin-panel/dashboard.php"><img class="logo-img" src="../img/logo.png" alt=""></a>
     </div>
     <ul class="sidebar-nav">
       <li class="sidebar-item">
@@ -82,6 +82,15 @@
             </button>
           </div>
         </li>
+        <li class="sidebar-item">
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
+              <a href="../payments/additional_payment.php" class="sidebar-link-dropdown">
+                Additional Payments
+              </a>
+            </button>
+          </div>
+        </li>
         <!-- <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
@@ -132,6 +141,7 @@
             </button>
           </div>
         </li>
+
       </ul>
 
 
@@ -227,6 +237,11 @@
               <a href="../admin-panel/maintenance_list.php" class="sidebar-link-dropdown">Maintenance List</a>
             </button>
           </div>
+          <div class="d-grid">
+            <button class="btn btn-dropdown">
+              <a href="../reports/print_reports.php" class="sidebar-link-dropdown">Print Reports</a>
+            </button>
+          </div>
         </li>
 
       </ul>
@@ -234,3 +249,30 @@
     </ul>
   </div>
 </aside>
+
+<script>
+  $(document).ready(function() {
+    // Save dropdown State
+
+    var saveState = localStorage.getItem('collapseBtn');
+    if (saveState) {
+      $("#" + saveState).collapse('show')
+    } else {
+      $("#" + saveState).collapse('hide')
+    }
+
+    $(".collapse").on('shown.bs.collapse', function() {
+      var id = $(this).attr('id')
+
+      localStorage.setItem('collapseBtn', id);
+    });
+
+    $(".btn-sidebar").on('click', function() {
+
+      localStorage.removeItem('collapseBtn')
+    })
+
+
+
+  })
+</script>

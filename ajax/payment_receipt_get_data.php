@@ -28,6 +28,7 @@ if (isset($_POST['payment_id'])) {
         payments_list.transaction_number,
         payments_list.date_created as date_paid,
         payments_list.remarks,
+        payments_list.paid_by,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -56,6 +57,7 @@ if (isset($_POST['payment_id'])) {
       $payment_id_result = $result1['payment_id'];
       $date_paid = date("F j, Y-g:iA", strtotime($result1['date_paid']));
       $transaction_number = $result1['transaction_number'];
+      $paid_by = $result1['paid_by'];
 
       $account_number = $result1['account_number'];
       $firstname = $result1['firstname'];
@@ -144,7 +146,8 @@ if (isset($_POST['payment_id'])) {
     "table_result" => $table_result,
     "total_amount" => $total_ammount,
     "remarks" => $remarks,
-    "admin_name" => $admin_name
+    "admin_name" => $admin_name,
+    "paid_by" => $paid_by
   );
 
 

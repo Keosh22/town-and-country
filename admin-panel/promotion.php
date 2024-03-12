@@ -29,9 +29,11 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Services</a></li>
             <li class="breadcrumb-item">Promotions</li>
           </ol>
@@ -52,8 +54,19 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
-                        <div class="col">
-                          <a href="#promotionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Promotions</a>
+                        <div class="col d-flex justify-content-start">
+                          <div class="col">
+                            <a href="#promotionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Promotions</a>
+                          </div>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                          <div class="col-3">
+                            <select name="filter_status" id="filter_status" class="form-select form-select-sm text-secondary">
+                              <option value="">Status:</option>
+                              <option value="ACTIVE">ACTIVE</option>
+                              <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                          </div>
                         </div>
 
                       </div>
@@ -106,12 +119,12 @@ $server->adminAuthentication();
                                   <tr>
                                     <td>
                                       <div class="profile-container"><img class="profile-image" src="../promotion_photos/<?php
-                                      if($photo == ""){
-                                        echo "default_image_promotion.jpg";
-                                      } else {
-                                        echo $photo;
-                                      }
-                                      ?>"></div>
+                                                                                                                          if ($photo == "") {
+                                                                                                                            echo "default_image_promotion.jpg";
+                                                                                                                          } else {
+                                                                                                                            echo $photo;
+                                                                                                                          }
+                                                                                                                          ?>"></div>
                                     </td>
                                     <td><?php echo $business_name ?></td>
                                     <td><?php echo nl2br($content) ?></td>
@@ -188,18 +201,20 @@ $server->adminAuthentication();
 
 
       // Change photo 
-      $("#promotionTable").on('click', '#change_photo_btn', function (){
+      $("#promotionTable").on('click', '#change_photo_btn', function() {
         var promotion_id = $(this).attr('data-id');
         $("#change_photo_id").val(promotion_id);
         getPromotion(promotion_id);
-        
-        function getPromotion(promotion_id){
+
+        function getPromotion(promotion_id) {
           $.ajax({
             url: '../ajax/promotion_get_data.php',
             type: 'POST',
-            data: {promotion_id: promotion_id},
+            data: {
+              promotion_id: promotion_id
+            },
             dataType: 'JSON',
-            success: function (response){
+            success: function(response) {
               $("#photo_name").val(response.photo);
             }
           });
@@ -209,18 +224,20 @@ $server->adminAuthentication();
       });
 
       // Update Promotion 
-      $("#promotionTable").on('click', "#update_promotion_btn", function(){
+      $("#promotionTable").on('click', "#update_promotion_btn", function() {
         var promotion_id = $(this).attr('data-id');
         $("#promotion_id").val(promotion_id);
         getPromotion(promotion_id);
 
-        function getPromotion(promotion_id){
+        function getPromotion(promotion_id) {
           $.ajax({
             url: '../ajax/promotion_get_data.php',
             type: 'POST',
-            data: {promotion_id: promotion_id},
+            data: {
+              promotion_id: promotion_id
+            },
             dataType: 'JSON',
-            success: function (response){
+            success: function(response) {
               $("#update_business_name").val(response.business_name);
               $("#update_promotion_due").val(response.date_expired);
               $("#promotion_status").val(response.status);
@@ -234,38 +251,45 @@ $server->adminAuthentication();
       // DataTable  
       $("#promotionTable").DataTable({
         order: [
-
+          [3, 'desc']
         ]
 
+      })
+      const TABLE = $("#promotionTable").DataTable();
+
+      $("#filter_status").on('change', function() {
+        TABLE.columns(3).search(this.value).draw();
       })
 
 
       // Delete promotion
-      $("#promotionTable").on('click', '#delete_promotion_btn', function (){
+      $("#promotionTable").on('click', '#delete_promotion_btn', function() {
         var promotion_id = $(this).attr('data-id');
-    
+
         swal({
-          title: "Delete Confirmation",
-          text: "Once Deleted, you will not able to recover this record",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if(willDelete){
-            $.ajax({
+            title: "Delete Confirmation",
+            text: "Once Deleted, you will not able to recover this record",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
                 url: '../ajax/promotion_delete.php',
                 type: 'POST',
-                data: {promotion_id: promotion_id},
-                success: function (response){
+                data: {
+                  promotion_id: promotion_id
+                },
+                success: function(response) {
                   location.reload(true);
-                  
+
                 }
-            })
-          } else {
-            swal("Delete canceled!");
-          }
-        });
+              })
+            } else {
+              swal("Delete canceled!");
+            }
+          });
       });
 
 

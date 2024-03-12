@@ -31,13 +31,12 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
               <label for="fee" class="form-label">Fee:</label>
               <div class="input-group flex-nowrap">
                 <span class="input-group-text">₱</span>
-                <input type="text" class="form-control" name="fee" id="fee" required>
+                <input type="number" class="form-control" name="fee" id="fee" required>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger btn-flat" type="button" data-bs-dismiss="modal">Close</button>
           <button class="btn btn-primary btn-flat" name="add_collection_btn" id="add_collection_btn">Add</button>
         </div>
       </form>
@@ -47,7 +46,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 <script>
   $(document).ready(function() {
     $("#collectionCreate").on('hidden.bs.modal', function(e) {
-      $("#create_collections_form").find('input[type=text]').val("");
+      $("#create_collections_form").find('input[type=text], input[type=number]').val("");
     });
   });
 </script>

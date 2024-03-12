@@ -104,6 +104,9 @@ body{
   height: 110px;
 }
 
+.bx-arrow-back:hover{
+  color: #064420 !important;
+}
 
 
 
@@ -132,6 +135,8 @@ body{
   display: block;
   padding: 6px 12px;
 }
+
+
 
 /* Button left Icon */
 .bxs-dashboard,
@@ -220,7 +225,7 @@ body{
 .sidebar-link-dropdown{
   margin-left: 30px;
   text-decoration: none;
-  color: #FDFAF6;
+  color: #DAD992;
 }
 .rotate-chevron-up{
   transform: rotate(180deg);
@@ -261,7 +266,10 @@ h2{
 }
 .bx-plus,
 .bx-refresh,
-.bx-archive
+.bx-archive,
+.bx-printer,
+.bx-filter-alt,
+.bxs-download
 {
   vertical-align: middle;
   margin-right: 3px;

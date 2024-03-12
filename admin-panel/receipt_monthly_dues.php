@@ -32,6 +32,7 @@ if (isset($_GET['transactionNumber'])) {
         payments_list.transaction_number as payment_list_tnumber,
         payments_list.date_created as date_paid,
         payments_list.remarks,
+        payments_list.paid_by,
         homeowners_users.firstname,
         homeowners_users.middle_initial,
         homeowners_users.lastname,
@@ -60,6 +61,7 @@ if (isset($_GET['transactionNumber'])) {
       $payment_id_result = $result1['payment_id'];
       $date_paid = date("F j, Y-g:iA", strtotime($result1['date_paid']));
       $transaction_number = $result1['payment_list_tnumber'];
+      $paid_by = $result1['paid_by'];
 
       $account_number = $result1['account_number'];
       $firstname = $result1['firstname'];
@@ -86,25 +88,27 @@ if (isset($_GET['transactionNumber'])) {
 ?>
 <div class="receipt-wrapper">
 
-  <h1 class="text-center title-receipt">Payment Receipt</h1>
-  <h5 class="text-center title-receipt">Town And Country Heights Subdivision</h5>
+  <h2 class="text-center title-receipt"><b>Payment Receipt</b></h2>
+  <h5 class="text-center title-receipt m-0">Town And Country Heights Homeowners' ASSN. INC.</h5>
+  <p class="text-center title-receipt text-secondary mb-1">Clubhouse 1 La Salle Avenue, Town & Country Heights San Luis, Antipolo City</p>
   <div class="divider-receipt"></div>
   <div class="flex">
     <div class="w-50">
-      <h4 class="details-title">Homeowners Details</h4>
-      <p>Account Number: <b id="account_number"><?php echo $account_number; ?></b></p>
-      <p>Name: <b id="name"><?php echo $name; ?></b></p>
-      <p>Current Address: <b id="current_address"><?php echo $address; ?></b></p>
+      <h5 class="details-title text-secondary">Homeowners Details</h5>
+      <p class="m-0">Account Number: <b id="account_number"><?php echo $account_number; ?></b></p>
+      <p class="m-0">Name: <b id="name"><?php echo $name; ?></b></p>
+      <p class="m-0">Current Address: <b id="current_address"><?php echo $address; ?></b></p>
     </div>
     <div class="w-50">
-      <h4 class="details-title">Payment Details</h4>
-      <p>Transaction Number: <b id="transaction_number"><?php echo $transaction_number; ?></b></p>
-      <p>Date Paid: <b id="date_paid"><?php echo $date_paid; ?></b></p>
-      <p>Remarks: <b id="remarks"><?php echo $remarks; ?></b></p>
+      <h5 class="details-title text-secondary">Payment Details</h5>
+      <p class="m-0">Transaction Number: <b id="transaction_number"><?php echo $transaction_number; ?></b></p>
+      <p class="m-0">Date Paid: <b id="date_paid"><?php echo $date_paid; ?></b></p>
+      <p class="m-0">Paid by: <b id="paid_by"><?php echo $paid_by; ?></b></p>
+      <p class="m-0">Remarks: <b id="remarks"><?php echo $remarks; ?></b></p>
     </div>
   </div>
   <div class="divider-receipt"></div>
-  <h4>Payment Summary:</h4>
+  <h5 class="text-secondary">Payment Summary:</h5>
   <table class="table">
     <thead>
       <tr>

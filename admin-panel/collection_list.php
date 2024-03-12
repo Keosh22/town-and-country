@@ -245,10 +245,10 @@ if (isset($_GET['property_id'])) {
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/property_list.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Collections</a></li>
             <li class="breadcrumb-item">Collections List</li>
           </ol>
@@ -270,7 +270,7 @@ if (isset($_GET['property_id'])) {
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col">
-                          <a href="#collectionCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New Collection</a>
+
                         </div>
 
                       </div>
@@ -363,14 +363,14 @@ if (isset($_GET['property_id'])) {
                                             ?>
                                             <tr class="table-danger">
                                             <?php
-                                          } elseif ($status_collection == "PAID"){
+                                          } elseif ($status_collection == "PAID") {
                                             ?>
                                             <tr class="table-success">
-                                          <?php
+                                            <?php
                                           } else {
                                             ?>
                                             <tr class="table-secondary">
-                                          <?php
+                                            <?php
                                           }
                                             ?>
 
@@ -382,7 +382,15 @@ if (isset($_GET['property_id'])) {
                                               <div class="dropdown">
                                                 <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                                 <ul class="dropdown-menu">
-                                                  <li><a class="dropdown-item">Sample</a></li>
+                                                  <?php
+                                                  if ($status_collection == "DUE" || $status_collection == "AVAILABLE") {
+                                                  ?>
+                                                    <li><a href="../admin-panel/property_manage_payment.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">Manage Payment</a></li>
+                                                  <?php
+                                                  } else {
+
+                                                  }
+                                                  ?>
                                                 </ul>
                                               </div>
                                             </td>
@@ -424,22 +432,26 @@ if (isset($_GET['property_id'])) {
     $(document).ready(function() {
 
 
-      
+
       $("#collection_list_Table").DataTable({
         "pageLength": 12,
         order: [
           [1, 'asc'],
           [2, 'desc']
-       
+
         ],
-        'columnDefs' : [
-        //hide the first column
-        { 'visible': false, 'targets': [1] }
-    ]
+        'columnDefs': [
+          //hide the first column
+          {
+            'visible': false,
+            'targets': [1]
+          }
+        ]
       });
 
     });
   </script>
+
   <!-- FOOTER -->
   <?php
   include("../includes/footer.php");

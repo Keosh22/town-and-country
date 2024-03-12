@@ -95,7 +95,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   $table = '
   <tr>
     <td>' . $number . '</td>
-    <td>' . $category . '-' . $description . '</td>
+    <td>' . $category . ' ' . $description . '</td>
     <td>' . $amount . '</td>
     <td>' . $address . '</td>
   </tr>

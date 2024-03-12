@@ -60,11 +60,11 @@ $server = new Server;
                 </div> -->
             <div class="col-2">
               <label for="blk" class="form-label">Blk#</label>
-              <input type="text" class="form-control" id="blk" name="blk" required>
+              <input type="number" class="form-control" id="blk" name="blk" required>
             </div>
             <div class="col-2">
               <label for="lot" class="form-label">Lot#</label>
-              <input type="text" class="form-control" id="lot" name="lot" required>
+              <input type="number" class="form-control" id="lot" name="lot" required>
             </div>
             <div class="col-4">
               <label for="phase" class="form-label">Phase#</label>
@@ -101,7 +101,7 @@ $server = new Server;
     $("#addProperty").on('hidden.bs.modal', function(e){
       $("#street").empty().append('<option selected>- Select -</option>');
       $(".default_select").prop('selected', true);
-      $("#register_property_form").find('input[type=text]').val("");
+      $("#register_property_form").find('input[type=text], input[type=number]').val("");
     });
 
 

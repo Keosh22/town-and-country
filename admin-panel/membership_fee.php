@@ -87,12 +87,12 @@ if (isset($_GET['homeowners_id'])) {
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/homeowners.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Homeowners</a></li>
-            <li class="breadcrumb-item">Homeowners List List</li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/homeowners.php">Homeowners</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/homeowners.php">Homeowners List</a></li>
             <li class="breadcrumb-item">Manage Payment</li>
           </ol>
         </section>
@@ -194,7 +194,7 @@ if (isset($_GET['homeowners_id'])) {
                                             } elseif ($status == "Non-member") {
                                             ?>
 
-                                              <a data-status="<?php echo  $status; ?>"  id="renew_btn" name="renew_btn" class="btn btn-success btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
+                                              <a data-status="<?php echo  $status; ?>" id="renew_btn" name="renew_btn" class="btn btn-success btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                                             <?php
                                             } elseif ($status == "EXPIRED") {
                                             ?>
@@ -247,7 +247,7 @@ if (isset($_GET['homeowners_id'])) {
         var homeowners_id = $("#homeowners_id").val();
         var collection_fee_id = $("#collection_fee_id").val();
         var membership_fee = $("#membership_fee").val();
-       
+
         var status = $(this).attr('data-status');
 
         swal({
@@ -273,9 +273,9 @@ if (isset($_GET['homeowners_id'])) {
                   console.log(transaction_number);
                   var archive_status = "ACTIVE";
                   var receipt = window.open('../payments/membership_fee_receipt.php?transactionNumber=' + transaction_number + '&archive_status=' + archive_status, '_blank', 'width=900,height=600');
-                  setTimeout(function () {
+                  setTimeout(function() {
                     receipt.print();
-                    setTimeout(function (){
+                    setTimeout(function() {
                       receipt.close();
                       location.reload(true);
                     }, 500);

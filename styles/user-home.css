@@ -1,6 +1,7 @@
 
 
 
+
     body{
         min-height: 100vh;
 
@@ -115,11 +116,27 @@
 
 
 
+    /* PROMOTION TOAST */
+    
+  
+
     /* ANNOUNCMENT */
 
 
 
     /* RESPONSIVE */
+    @media (max-width: 420px) {
+        .toast{
+         max-width: 200px ;
+         max-height: 400px;
+        }
+        .promotion_toast_body{
+            font-size: .875rem;
+        }
+        
+    }
+
+
     @media (max-width: 576px){
         .user button{
             font-size: 0.8em;

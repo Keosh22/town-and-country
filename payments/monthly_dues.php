@@ -32,10 +32,10 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
             <li class="breadcrumb-item">Monthly Dues</li>
           </ol>
@@ -190,7 +190,12 @@ $server->adminAuthentication();
 
   <script>
     $(document).ready(function() {
-
+      // DataTable
+      $("#monthlyDuesTable").DataTable({
+        order: [
+          [1, 'desc']
+        ]
+      });
 
       // View payment
       $("#monthlyDuesTable").on('click', '#view_payment', function() {
@@ -221,6 +226,7 @@ $server->adminAuthentication();
               $("#total_amount").val(response.total_amount);
               $("#remarks").html(response.remarks);
               $("#admin_name").html(response.admin_name);
+              $("#paid_by").html(response.paid_by);
             }
           });
         }
@@ -233,7 +239,7 @@ $server->adminAuthentication();
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         var collection_id = $(this).attr('data-collection-id');
-        console.log(collection_id);
+      
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
         $("#collection_id").val(collection_id);
@@ -256,23 +262,15 @@ $server->adminAuthentication();
       });
 
 
-      // Print payment
-      $("#monthlyDuesTable").on('click', '#print_payment', function() {
-
-      });
 
 
-      // DataTable
-      $("#monthlyDuesTable").DataTable({
-        order: [
-          [1, 'desc']
-        ]
-      });
+
+
 
       // var table = $("#monthlyDuesTable").DataTable();
       // var value = 300;
       // table.column( 4 ).search( value ).draw();
-     
+
 
     });
   </script>

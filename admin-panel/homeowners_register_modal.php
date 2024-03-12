@@ -95,7 +95,7 @@ require_once("../libs/server.php");
             </div>
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
-              <input type="number" class="form-control" id="phone_number" name="phone_number" required>
+              <input type="number" class="form-control" id="phone_number" name="phone_number" maxlength="11" required>
               <div id="phoneNumberHelpBlock"></div>
             </div>
 
@@ -183,7 +183,7 @@ require_once("../libs/server.php");
 
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+              
               <button type="submit" class="btn btn-primary btn-flat" name="register" class="register" id="register">Register</button>
             </div>
           </div>
@@ -404,7 +404,11 @@ require_once("../libs/server.php");
       });
     }
 
-
+    $("#phone_number").on('keydown', function (){
+        if ($(this).val().length > 10) {
+          $(this).val($(this).val().slice(0, 10));
+        }
+    })
     // Email validation
     // $("#email").on('keyup', function() {
     //   var email = $("#email").val();

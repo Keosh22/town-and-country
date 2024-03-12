@@ -46,7 +46,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-flat pull left" data-bs-dismiss="modal">Close</button>
+              
               <button type="submit" class="btn btn-primary btn-flat" name="update_announcement" class="update_announcement" id="create_announcement">Update</button>
             </div>
           </div>

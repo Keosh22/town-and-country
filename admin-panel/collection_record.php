@@ -2,6 +2,7 @@
 require_once("../libs/server.php");
 require_once("../includes/header.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
+$current_year = date("Y", strtotime("now"));
 ?>
 
 <?php
@@ -178,10 +179,10 @@ $server->adminAuthentication();
 
       <main class="content px-3 py-2">
         <!-- conten header -->
-        <section class="content-header d-flex justify-content-end align-items-center mb-3">
-
+        <section class="content-header d-flex justify-content-between align-items-center mb-3">
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Collections</a></li>
             <li class="breadcrumb-item">Collections List</li>
           </ol>
@@ -203,21 +204,24 @@ $server->adminAuthentication();
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
                         <div class="col d-flex justify-content-end">
-                        <div class="col d-flex justify-content-start">
-                        
-                        </div>
-                        <div class="col d-flex justify-content-end">
-                          <div class="col-3 mx-3">
-                            <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
-                              <option value="">Filter:</option>
-                              <option value="AVAILABLE">AVAILABLE</option>
-                              <option value="PAID">PAID</option>
-                              <option value="DUE">DUE</option>
-                            </select>
+                          <div class="col d-flex justify-content-start">
+
                           </div>
-                          <a href="../archive/collection_record_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
-                        </div>
-                          
+                          <div class="col d-flex justify-content-end">
+                            <div class="col-3 mx-1">
+                              <select name="filter_table" id="filter_table" class="form-control form-control-sm text-secondary">
+                                <option value="">Status:</option>
+                                <option value="AVAILABLE">AVAILABLE</option>
+                                <option value="PAID">PAID</option>
+                                <option value="DUE">DUE</option>
+                              </select>
+                            </div>
+                            <div class="col-3 mx-2">
+                              <input type="number" class="form-control form-control-sm text-secondary" id="filter_year" name="filter_year" value="<?php echo $current_year; ?>">
+                            </div>
+                            <a href="../archive/collection_record_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          </div>
+
                         </div>
                       </div>
 
@@ -403,14 +407,29 @@ $server->adminAuthentication();
         ]
       });
 
+
+      $("#filter_year").yearpicker({
+
+
+      });
+
       // Filter Table
       var filter_table = $("#collectionRecord").DataTable();
-      $("#filter_table").on('change', function (){
+      // Filter Status
+      $("#filter_table").on('change', function() {
         filter_table.columns(4).search(this.value).draw();
-      })
+      });
+      // Filter Year
+      $("#filter_year").bind('change mouseleave', function() {
+
+        filter_table.columns(6).search(this.value).draw()
+      });
+
+
 
     });
   </script>
+  <script src="../scripts/yearpicker.js"></script>
   <!-- FOOTER -->
   <?php
   include("../includes/footer.php");
