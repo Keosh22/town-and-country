@@ -5,12 +5,33 @@
   font-family: Poppins, sans-serif;
 }
 body{
-  margin-top: 70px;
+
   background-image: url("../img/town_and_country_heights.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  margin: auto;
+  overflow: hidden;
 }
+
+.row-register{
+  height: 100vh;
+
+  margin: auto;
+}
+.login-card{
+  padding: 1rem;
+}
+.tch-text{
+  margin-bottom: 3rem;
+}
+
+.login-button{
+  margin-top: 2rem;
+
+}
+
+
 
 .input:focus{
   outline: red;
@@ -28,10 +49,7 @@ form .form-control:focus{
 .link:hover{
   color: #e78fb3;
 }
-.row-register{
-  min-height: 85vh;
-  
-}
+
 
 
 
@@ -56,10 +74,6 @@ form .form-control:focus{
   width: 45px;
   object-fit: contain;
 }
-.wrapper-container{
-  min-height: 100vh;
-  background: rgba(39, 39, 39, 0.4);
-}
 
 .bx-arrow-back:hover{
   color: #DAD992 !important;
@@ -70,4 +84,6 @@ form .form-control:focus{
   .nav-link p{
     font-size: 12px;
   }
+
+  
 }

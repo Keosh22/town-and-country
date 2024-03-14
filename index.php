@@ -129,9 +129,9 @@ if (isset($_POST['login'])) {
 
 
   <div class="row row-register justify-content-center align-items-center overflow-hidden">
-    <div class="col-lg-5 col-md-6 col-sm-7 col-8 bg-white shadow-lg rounded">
+    <div class="col-lg-5 col-md-6 col-sm-7 col-8 bg-white shadow-lg rounded login-card">
       <h2 class="text-center mt-3">Log In</h2>
-      <p class="text-center text-muted">Town and Country Heights</p>
+      <p class="text-center text-muted tch-text">Town and Country Heights</p>
 
       <!-- Login Form -->
       <form action="index.php" method="POST">
@@ -143,8 +143,8 @@ if (isset($_POST['login'])) {
           <span class="input-group-text"><i class="bx bx-lock-alt"></i></span>
           <input type="password" class="form-control input" placeholder="Password" name="password" id="password">
         </div>
-        <div class="d-grid col-6 mx-auto">
-          <input type="submit" class="btn btn-success" value="Sign in" name="login">
+        <div class="d-grid col-6 mx-auto login-button">
+          <input type="submit" class="btn btn-success" value="Log in" name="login">
         </div>
         <div class="row my-3">
           <div class="col-6">
