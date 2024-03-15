@@ -58,7 +58,7 @@ $current_date = date('d');
         <div class="col-md-6">
             <?php while ($row = mysqli_fetch_array($result['result'])) {
                 $date_created = date('d', strtotime($row['date_created']));
-                $days_ago = $date_created - $current_date;
+                $days_ago = $current_date - $date_created;
             ?>
                 <div class="card mb-4 shadow-lg">
                     <div class="announcement-header card-header text-center"><b>Posted: </b><?= date('M d, Y', strtotime($row['date_created'])) ?></div>

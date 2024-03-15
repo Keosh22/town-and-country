@@ -65,6 +65,7 @@ $server->adminAuthentication();
                               <option value="">Status:</option>
                               <option value="ACTIVE">ACTIVE</option>
                               <option value="INACTIVE">INACTIVE</option>
+                              <option value="PENDING">PENDING</option>
                             </select>
                           </div>
                         </div>
@@ -128,16 +129,20 @@ $server->adminAuthentication();
                                     </td>
                                     <td><?php echo $business_name ?></td>
                                     <td><?php echo nl2br($content) ?></td>
-                                    <td><?php echo date("F j, Y g:i a", strtotime($date_expired)) ?></td>
+                                    <td><?php echo date("F j, Y ", strtotime($date_expired)) ?></td>
                                     <td>
                                       <?php
                                       if ($status == "ACTIVE") {
                                       ?>
                                         <span class="badge rounded-pill text-bg-success"><?php echo $status ?></span>
                                       <?php
-                                      } else {
+                                      } elseif ($status == "INACTIVE") {
                                       ?>
                                         <span class="badge rounded-pill text-bg-danger"><?php echo $status ?></span>
+                                      <?php
+                                      } elseif ($status == "PENDING") {
+                                      ?>
+                                        <span class="badge rounded-pill text-bg-warning"><?php echo $status ?></span>
                                       <?php
                                       }
                                       ?>
@@ -251,14 +256,15 @@ $server->adminAuthentication();
       // DataTable  
       $("#promotionTable").DataTable({
         order: [
-          [3, 'desc']
+
+          [4, 'desc']
         ]
 
       })
       const TABLE = $("#promotionTable").DataTable();
 
       $("#filter_status").on('change', function() {
-        TABLE.columns(3).search(this.value).draw();
+        TABLE.columns(4).search(this.value).draw();
       })
 
 

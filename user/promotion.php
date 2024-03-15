@@ -33,9 +33,14 @@ $current_date = date('d');
     </div>
 
     <!-- Second Column -->
-    <div class="row d-flex mt-2 mb-5 justify-content-center">
+    <div class="row d-flex  justify-content-center">
       <div class="col col-xl-12 option-title">
         <h1>Promotions</h1>
+      </div>
+    </div>
+    <div class="row d-flex mt-2 mb-5 justify-content-center">
+      <div class="col">
+        <a href="#promotionRequest" data-bs-toggle="modal" class="btn btn-sm btn-warning">Request Promotion</a>
       </div>
     </div>
 
@@ -61,28 +66,28 @@ $current_date = date('d');
                                           }
                                           ?>" alt="..." class="card-img-top">
             <div class="row m-2">
-            <h5 class="card-title"><?php echo $business_name; ?></h5>
-            <p class="card-text"><?php echo $content; ?></p>
-            <p class="card-text"><small class="text-body-secondary">
-                <?php
-                if ($current_date == $date_created) {
-                ?>
-                  posted today
-                <?php
-                } elseif ($days_ago == 1) {
-                  echo $days_ago;
-                ?>
-                  day ago
-                <?php
-                } else {
-                  echo $days_ago
-                ?>
-                  days ago
-                <?php
-                }
-                ?>
-              </small>
-            </p>
+              <h5 class="card-title"><?php echo $business_name; ?></h5>
+              <p class="card-text"><?php echo $content; ?></p>
+              <p class="card-text"><small class="text-body-secondary">
+                  <?php
+                  if ($current_date == $date_created) {
+                  ?>
+                    posted today
+                  <?php
+                  } elseif ($days_ago == 1) {
+                    echo $days_ago;
+                  ?>
+                    day ago
+                  <?php
+                  } else {
+                    echo $days_ago
+                  ?>
+                    days ago
+                  <?php
+                  }
+                  ?>
+                </small>
+              </p>
             </div>
           </div>
       <?php
@@ -93,3 +98,12 @@ $current_date = date('d');
 
   </div>
 </main>
+
+<?php
+include("../user/request_promotion_modal.php");
+?>
+
+<!-- FOOTER -->
+<?php
+  include("../includes/footer.php");
+  ?>
