@@ -161,7 +161,7 @@ class Server
     // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+   $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 

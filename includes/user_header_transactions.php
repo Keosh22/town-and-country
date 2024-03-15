@@ -8,6 +8,11 @@
   <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
   <!-- Jquery -->
 
+  <!-- JSPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Example using CDN -->
+
+
 
 
 
@@ -21,7 +26,8 @@
 
   <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
 
-
+  <!-- ICON  -->
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
 
   <!-- <link href=”https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” /> -->

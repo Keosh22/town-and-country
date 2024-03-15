@@ -45,13 +45,12 @@ $server = new Server();
                 <!-- 	HEADER TABLE -->
                 <div class="header-box container-fluid d-flex align-items-center mb-2">
                   <!-- PLACE BUTTON HERE -->
-                  <div class="col-sm-12 d-flex justify-content-start">
-                    <div class="request-transaction ">
-                      <?php include "../user-panel/profile_request_transaction.php" ?>
-                      <button type="button" class="btn btn-sm d-flex justify-content-end" data-toggle="modal" data-target="#request_transaction">
-                        Request
-                      </button>
-                    </div>
+
+                  <div class="request-transaction mb-3">
+                    <?php include "../user-panel/profile_request_transaction.php" ?>
+                    <button type="button" class="btn d-flex justify-content-end" data-toggle="modal" data-target="#print_transaction">
+                      Request Transaction
+                    </button>
                   </div>
 
                 </div>
