@@ -37,13 +37,13 @@
             </button>
           </div>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <div class="d-grid">
             <button class="btn btn-dropdown">
               <a href="#" class="sidebar-link-dropdown">Schedule Meeting</a>
             </button>
           </div>
-        </li>
+        </li> -->
       </ul>
 
       <!-------- Payments Dropdown -------->

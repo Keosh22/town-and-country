@@ -24,7 +24,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="about" class="form-label">About:</label>
-              <input type="text" name="about" id="about" class="form-control">
+              <input type="text" name="about" id="about" class="form-control" maxlength="100">
             </div>
             <div class="col-md-6">
               <label for="announcement_date" class="form-label">When:</label>
@@ -32,15 +32,8 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             </div>
             <div class="col">
               <label for="content" class="form-label">Content:</label>
-              <textarea name="content" id="content" rows="10"  wrap="hard"  class="form-control"></textarea>
+              <textarea name="content" id="content" rows="10"  wrap="hard"  class="form-control" maxlength="350"></textarea>
             </div>
-
-
-
-
-
-
-
 
             <div class="modal-footer">
               
@@ -59,9 +52,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
   $(document).ready(function() {
     $("#announcementCreate").on('hidden.bs.modal', function(e){
       var default_date = $("#announcement_date").val("<?php echo $default_date; ?>");
-
       $("#create_announcement_form").find('input[type=text]').val("");
-
     });
     
 
@@ -74,5 +65,8 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
       format: 'YYYY/MM/DD hh:mm A'
     }
     });
+
+  
+
   });
 </script>

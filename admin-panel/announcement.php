@@ -60,7 +60,9 @@ $server->adminAuthentication();
                         <div class="col d-flex justify-content-start">
                           <div class="col">
                             <a href="#announcementCreate" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Announcement</a>
+                            <a href="#scheduleMeetingModal" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat mx-2"><i class="bx bx-plus bx-xs bx-tada-hover"></i>Schedule Meeting</a>
                           </div>
+
                         </div>
                         <div class="col d-flex justify-content-end">
                           <div class="col-3">
@@ -191,8 +193,9 @@ $server->adminAuthentication();
   // Create announcement Modal
   include("../admin-panel/announcement_create_modal.php");
   // Update announcement Modal
-  include("../admin-panel/announcement_update_modal.php")
-
+  include("../admin-panel/announcement_update_modal.php");
+  // Schedule Meeting
+  include("../admin-panel/schedule_meeting_modal.php");
 
   ?>
 

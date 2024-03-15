@@ -16,31 +16,32 @@ require "../libs/server.php";
 
 <!-- PROMOTION PUSH NOTIFICATION TOAST -->
 <div class=" d-flex justify-content-end">
-  <div class="toast  text-bg-success position-fixed" role="alert" data-bs-delay="5000">
-    <div class="toast-header">
-      <strong class="me-auto">Promotions</strong>
-      <button class="btn btn-close" data-bs-dismiss="toast"></button>
-    </div>
-    <div class="toast-body">
-      <div class="promotion_container flex-wrap">
-        <?php
-        $server = new Server();
-        $status = "ACTIVE";
-        $query = "SELECT * FROM promotion WHERE status = :status ORDER BY RAND() LIMIT 1";
-        $data = ["status" => $status];
-        $connection = $server->openConn();
-        $stmt = $connection->prepare($query);
-        $stmt->execute($data);
-        $count = $stmt->rowCount();
-        $current_date = date('d');
-        if ($count > 0) {
-          while ($result = $stmt->fetch()) {
-            $photo = $result['photo'];
-            $business_name = $result['business_name'];
-            $content = $result['content'];
-            $date_created = date("d", strtotime($result['date_created']));
-            $days_ago = $current_date - $date_created;
-        ?>
+
+  <?php
+  $server = new Server();
+  $status = "ACTIVE";
+  $query = "SELECT * FROM promotion WHERE status = :status ORDER BY RAND() LIMIT 1";
+  $data = ["status" => $status];
+  $connection = $server->openConn();
+  $stmt = $connection->prepare($query);
+  $stmt->execute($data);
+  $count = $stmt->rowCount();
+  $current_date = date('d');
+  if ($count > 0) {
+    while ($result = $stmt->fetch()) {
+      $photo = $result['photo'];
+      $business_name = $result['business_name'];
+      $content = $result['content'];
+      $date_created = date("d", strtotime($result['date_created']));
+      $days_ago = $current_date - $date_created;
+  ?>
+      <div class="toast  text-bg-success position-fixed" role="alert" data-bs-delay="5000">
+        <div class="toast-header">
+          <strong class="me-auto">Promotions</strong>
+          <button class="btn btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+          <div class="promotion_container flex-wrap">
             <div class="promotion-toast-size">
               <img src="../promotion_photos/<?php
                                             if ($photo == "") {
@@ -50,21 +51,16 @@ require "../libs/server.php";
                                             }
                                             ?>" alt="..." class="card-img-top promotion_toast_img">
             </div>
-
             <h6 class="my-1 promotion_toast_body"><?php echo $business_name; ?></h6>
             <a href="../user/promotion.php" class="btn btn-sm btn-warning">View</a>
-
-
-
         <?php
-          }
-        } else {
-          
-        }
+      }
+    } else {
+    }
         ?>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 </div>
 
 <main>
