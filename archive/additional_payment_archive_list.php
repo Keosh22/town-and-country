@@ -223,7 +223,7 @@ $server->adminAuthentication();
       
       $("#additionalPaymentTable").on('click', '#restore_archive_btn', function (){
         var payment_id = $(this).attr('data-id');
-        console.log(payment_id)
+        var transaction_number = $(this).attr('data-tnum');
         swal({
           title: "Restore Confirmation",
           text: "Are you sure you want to restore this record? Click OK to proceed",
@@ -236,7 +236,7 @@ $server->adminAuthentication();
             $.ajax({
               url: '../archive/restore_archive_payment.php',
               type: 'POST',
-              data: {payment_id: payment_id},
+              data: {payment_id: payment_id, transaction_number: transaction_number},
               success: function (){
                 location.reload();
               }

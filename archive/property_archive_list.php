@@ -71,7 +71,7 @@ $server->adminAuthentication();
                           <table id="archivePropertyList" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                                <th width="10%">#</th>
+                                <!-- <th width="10%">#</th> -->
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
@@ -112,7 +112,7 @@ $server->adminAuthentication();
                                   $property_phase = $result['property_phase'];
                               ?>
                                   <tr>
-                                    <td><?php echo $property_id; ?></td>
+                 
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
                                     <td><?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?></td>
                                     <td><?php echo $property_phase;  ?></td>
@@ -120,7 +120,7 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                        <li><a id="delete_archive" data-property="<?php echo $property_id; ?>" href="#" class="dropdown-item">Delete</a></li>
+                                        <!-- <li><a id="delete_archive" data-property="<?php echo $property_id; ?>" href="#" class="dropdown-item">Delete</a></li> -->
                                         </ul>
                                       </div>
                                     </td>
@@ -133,7 +133,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th width="10%">#</th>
+                
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>

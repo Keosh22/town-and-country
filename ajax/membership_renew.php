@@ -48,11 +48,13 @@ if (isset($_POST['homeowners_id']) && isset($_POST['collection_fee_id']) && isse
     $stmt2 = $connection2->prepare($query2);
     $stmt2->execute($data2);
     if($stmt2->rowCount() < 0){
-      $_SESSION['status'] = "Payment Success";
-      $_SESSION['text'] = "";
-      $_SESSION['status_code'] = "success";
-      
+    
     }
+    $_SESSION['status'] = "Payment Successss";
+    $_SESSION['text'] = "";
+    $_SESSION['status_code'] = "success";
+    $action = "Payment: Transaction No# " . $transaction_number . " Membership Fee";
+    $server->insertActivityLog($action);
   }
   echo $transaction_number;
 }

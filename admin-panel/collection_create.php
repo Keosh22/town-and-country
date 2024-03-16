@@ -39,6 +39,7 @@ if (isset($_POST['add_collection_btn'])) {
       $_SESSION['status'] = "Collection has been successfuly added!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
+      
     } else {
       $_SESSION['status'] = "Creating Collection Failed!";
       $_SESSION['text'] = "";

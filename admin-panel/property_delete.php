@@ -12,6 +12,7 @@ if (isset($_POST['delete_property_btn'])) {
   $user_id = $_SESSION['admin_id'];
   $property_id = filter_input(INPUT_POST, 'delete_property_id', FILTER_SANITIZE_SPECIAL_CHARS);
   $password = filter_input(INPUT_POST, 'delete_property_password', FILTER_SANITIZE_SPECIAL_CHARS);
+  $account_number = filter_input(INPUT_POST, 'account_number', FILTER_SANITIZE_SPECIAL_CHARS);
   $INACTIVE = "INACTIVE";
 
   if (!empty($password)) {
@@ -60,6 +61,8 @@ if (isset($_POST['delete_property_btn'])) {
         $_SESSION['status'] = "Property Delete Success";
         $_SESSION['text'] = "";
         $_SESSION['status_code'] = "success";
+        $action = "Archive property of Account No. " . $account_number;
+        $server->insertActivityLog($action);
       } else {
         $_SESSION['status'] = "Property Deletion Failed!";
         $_SESSION['text'] = "You input a wrong password";

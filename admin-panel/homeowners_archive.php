@@ -9,6 +9,7 @@ $server = new Server;
 
 if (isset($_POST['homeowners_id'])) {
   $homewners_id = filter_input(INPUT_POST, 'homeowners_id', FILTER_SANITIZE_SPECIAL_CHARS);
+  $account_number = filter_input(INPUT_POST, 'account_number', FILTER_SANITIZE_SPECIAL_CHARS);
   $INACTIVE = "INACTIVE";
   $ACTIVE = "ACTIVE";
   $MEMBERSHIP_FEE = 4;
@@ -57,8 +58,11 @@ if (isset($_POST['homeowners_id'])) {
     $stmt3 = $connection3->prepare($query3);
     $stmt3->execute($data3);
     if ($stmt3->rowCount() > 0) {
+
+      $action = "Archive the Account of Acc No#: " . $account_number ;
+      $server->insertActivityLog($action);
     }
-    $_SESSION['status'] = "Account remove successfuly!";
+    $_SESSION['status'] = "Account archive successfuly!";
     $_SESSION['text'] = "";
     $_SESSION['status_code'] = "success";
   }

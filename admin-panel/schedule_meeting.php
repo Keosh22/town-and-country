@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['status'] = "Success";
       $_SESSION['text'] = "Meeting succesfully created!";
       $_SESSION['status_code'] = "success";
+      $action = "Meeting: for ". $about . " posted";
+      $server->insertActivityLog($action);
     }
 
 

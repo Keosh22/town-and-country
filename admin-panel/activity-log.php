@@ -69,6 +69,15 @@ $server->adminAuthentication();
                               <option value="Delete">Delete</option>
                               <option value="Registered">Registered</option>
                               <option value="Updated">Updated</option>
+                              <option value="Payment">Payment</option>
+                              <option value="Archive">Archive</option>
+                              <option value="Maintenance">Maintenance</option>
+                              <option value="Promotion">Promotion</option>
+                              <option value="Meeting">Meeting</option>
+                              <option value="Announcement">Announcement</option>
+
+
+
                             </select>
                           </div>
                           <div class="col-4">
@@ -137,8 +146,35 @@ $server->adminAuthentication();
                                     ?>
                                       <span class="badge rounded-pill text-bg-info">Transfer</span>
                                     <?php
+                                    } elseif (str_contains($action, "Archive")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-danger">Archive</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Payment")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-success">Payment</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Restore")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-warning">Restore</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Maintenance")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-secondary">Maintenance</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Promotion")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-secondary">Promotion</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Announcement")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-secondary">Announcement</span>
+                                    <?php
+                                    } elseif (str_contains($action, "Meeting")) {
+                                    ?>
+                                      <span class="badge rounded-pill text-bg-secondary">Meeting</span>
+                                    <?php
                                     }
-
                                     ?>
                                   </td>
                                 </tr>

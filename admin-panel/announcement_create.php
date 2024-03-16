@@ -32,6 +32,8 @@ if(isset($_POST['create_announcement'])){
       $_SESSION['status'] = "Announcement Created Successfuly";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
+      $action = "Announcement: for ". $about . " posted";
+      $server->insertActivityLog($action);
     } else {
       $_SESSION['status'] = "Creating Announcement Failed!";
       $_SESSION['text'] = "";

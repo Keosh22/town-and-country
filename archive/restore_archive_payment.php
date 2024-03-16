@@ -12,6 +12,7 @@ $server = new Server;
     $_SESSION['text'] = "";
     $_SESSION['status_code'] = "error";
       $payment_id = filter_input(INPUT_POST, 'payment_id', FILTER_SANITIZE_SPECIAL_CHARS);
+      $transaction_number = filter_input(INPUT_POST, 'transaction_number', FILTER_SANITIZE_SPECIAL_CHARS);
       $ACITVE = "ACTIVE";
       $INACTIVE = "INACTIVE";
 
@@ -30,6 +31,8 @@ $server = new Server;
           $_SESSION['status'] = "Success!";
           $_SESSION['text'] = "This record has been successfuly restored";
           $_SESSION['status_code'] = "success";
+          $action = "Restore the Transaction No#: " . $transaction_number . "";
+          $server->insertActivityLog($action);
         } else {
           $_SESSION['status'] = "Failed!";
           $_SESSION['text'] = "";

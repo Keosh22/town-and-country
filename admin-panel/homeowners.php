@@ -159,7 +159,7 @@ $server->adminAuthentication();
 																					<!-- <li><a href="#homeowners_view_modal" class="dropdown-item" data-bs-toggle="modal" id="homeowners_view_btn" data-homeowners-id="<?php echo $homeowners_id; ?>" data-acc-num="<?php echo $account_number; ?>" data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-email="<?php echo $email ?>" data-phone-num="<?php echo $phone_number ?>" data-address="<?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?>" data-status="<?php echo $status ?>">View</a></li> -->
 																					<li><a href="./property.php?id=<?php echo $homeowners_id; ?>" class="dropdown-item add-property" id="">Property</a></li>
 																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
-																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#delete_homeowners" data-bs-toggle="modal" class="dropdown-item" id="delete_btn">Delete</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" data-acc="<?php echo $account_number; ?>" href="#delete_homeowners" data-bs-toggle="modal" class="dropdown-item" id="delete_btn">Archive</a></li>
 																				<?php
 																				}
 																				?>
@@ -280,7 +280,9 @@ $server->adminAuthentication();
 			// Delete homeowners
 			$("#homeownersTable").on('click', '#delete_btn', function() {
 				var homeowners_id = $(this).attr('data-id');
+				var account_number = $(this).attr('data-acc');
 				$("#homeowners_id_delete").val(homeowners_id);
+				$("#account_number").val(account_number);
 				swal({
 						title: "Warning!",
 						text: "All the records of this account will be removed. Do you want to continue?",

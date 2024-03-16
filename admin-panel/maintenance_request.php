@@ -168,9 +168,9 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item btn" id="ongoing_btn" data-id="<?php echo $maintenance_request_id; ?>">Approve</a></li>
-                                          <li><a class="dropdown-item btn" id="finish_btn" data-id="<?php echo $maintenance_request_id; ?>">Finished</a></li>
-                                          <li><a class="dropdown-item btn" id="pending_btn" data-id="<?php echo $maintenance_request_id; ?>">Pending</a></li>
+                                          <li><a data-address="<?php echo $address; ?>" class="dropdown-item btn" id="ongoing_btn" data-id="<?php echo $maintenance_request_id; ?>">Approve</a></li>
+                                          <li><a data-address="<?php echo $address; ?>" class="dropdown-item btn" id="finish_btn" data-id="<?php echo $maintenance_request_id; ?>">Finished</a></li>
+                                          <li><a data-address="<?php echo $address; ?>" class="dropdown-item btn" id="pending_btn" data-id="<?php echo $maintenance_request_id; ?>">Pending</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -227,7 +227,7 @@ $server->adminAuthentication();
       // Ongoing Button
       $("#maintenanceRequestTable").on('click', '#ongoing_btn', function() {
         var maintenance_request_id = $(this).attr('data-id');
-
+        var address = $(this).attr('data-address');
         swal({
             title: 'Confirmation',
             text: 'Are you sure you want to update the status of this request?',
@@ -241,7 +241,7 @@ $server->adminAuthentication();
                 url: '../admin-panel/maintenance_request_ongoing.php',
                 type: 'POST',
                 data: {
-                  maintenance_request_id: maintenance_request_id
+                  maintenance_request_id: maintenance_request_id, address: address
                 },
                 success: function(response) {
                   location.reload();
@@ -257,7 +257,7 @@ $server->adminAuthentication();
       // Fiinish Button
       $("#maintenanceRequestTable").on('click', '#finish_btn', function() {
         var maintenance_request_id = $(this).attr('data-id');
-
+        var address = $(this).attr('data-address');
         swal({
             title: 'Confirmation',
             text: 'Are you sure you want to update the status of this request?',
@@ -271,7 +271,7 @@ $server->adminAuthentication();
                 url: '../admin-panel/maintenance_request_finish.php',
                 type: 'POST',
                 data: {
-                  maintenance_request_id: maintenance_request_id
+                  maintenance_request_id: maintenance_request_id, address: address
                 },
                 success: function(response) {
                   location.reload();
@@ -287,7 +287,7 @@ $server->adminAuthentication();
       // Pending Button
       $("#maintenanceRequestTable").on('click', '#pending_btn', function() {
         var maintenance_request_id = $(this).attr('data-id');
-
+        var address = $(this).attr('data-address');
         swal({
             title: 'Confirmation',
             text: 'Are you sure you want to update the status of this request?',
@@ -301,7 +301,7 @@ $server->adminAuthentication();
                 url: '../admin-panel/maintenance_request_pending.php',
                 type: 'POST',
                 data: {
-                  maintenance_request_id: maintenance_request_id
+                  maintenance_request_id: maintenance_request_id, address: address
                 },
                 success: function(response) {
                   location.reload();

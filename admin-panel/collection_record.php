@@ -352,7 +352,7 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a href="#" class="dropdown-item">Edit</a></li>
+                                      
                                           <li><a href="../admin-panel/property_manage_payment.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">Manage Payment</a></li>
                                         </ul>
                                       </div>

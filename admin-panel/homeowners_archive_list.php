@@ -132,16 +132,8 @@ $server->adminAuthentication();
                                     <div class="dropdown">
                                       <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                       <ul class="dropdown-menu">
-                                      <li><a href="#homeowners_view_modal" class="dropdown-item" data-bs-toggle="modal" id="homeowners_view_btn"
-                                      data-homeowners-id="<?php echo $homeowners_id; ?>"
-                                      data-acc-num="<?php echo $account_number; ?>"
-                                      data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>"
-                                      data-email="<?php echo $email ?>"
-                                      data-phone-num="<?php echo $phone_number ?>"
-                                      data-address="<?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street . " St. " . $phase; ?>"
-                                      data-status="<?php echo $status ?>"
-                                      >View</a></li>
-                                      <li><a href="#" class="dropdown-item" id="delete_permanent_btn" data-homeowners-id="<?php echo $homeowners_id; ?>">Delete</a></li>
+                       
+                                      <!-- <li><a href="#" class="dropdown-item" id="delete_permanent_btn" data-homeowners-id="<?php echo $homeowners_id; ?>">Delete</a></li> -->
                                       </ul>
                                     </div>
                                   </td>

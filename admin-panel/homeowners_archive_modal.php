@@ -8,6 +8,7 @@
       <div class="modal-body mx-3">
         <form action="" method="POST">
           <input type="hidden" name="homeowners_id_delete" id="homeowners_id_delete">
+          <input type="hidden" name="account_number" id="account_number">
           <p>Please Enter your password to remove this account.</p>
           <input type="password" class="form-control" name="archive_monthlyDues_password" id="archive_monthlyDues_password" placeholder="Password" required>
           <div class="modal-footer">
@@ -27,12 +28,14 @@
 
     $("#archive_homeowners").on('click', function() {
      var homeowners_id = $("#homeowners_id_delete").val();
+     var account_number = $("#account_number").val();
       console.log(homeowners_id);
       $.ajax({
         url: '../admin-panel/homeowners_archive.php',
         type: 'POST',
         data: {
-          homeowners_id: homeowners_id
+          homeowners_id: homeowners_id,
+          account_number: account_number
         },
         success: function(response) {
           location.reload(true);

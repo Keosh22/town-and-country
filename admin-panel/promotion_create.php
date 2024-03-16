@@ -43,6 +43,8 @@ if(isset($_POST["create_promotion"])){
       $_SESSION['status'] = "Promotion created successfully";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
+      $action = "Promotion: for ". $business_name . " posted";
+      $server->insertActivityLog($action);
     } else {
       $_SESSION['status'] = "Creating promotion failed!";
       $_SESSION['text'] = "";

@@ -48,6 +48,8 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
       $_SESSION['status'] = "Payment Success!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
+      $action = "Payment: Transaction No# " . $new_transaction_number . " Construction clearance payment";
+      $server->insertActivityLog($action);
     } else {
       $_SESSION['status'] = "Payment Failed!";
       $_SESSION['text'] = "";

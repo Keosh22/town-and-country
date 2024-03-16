@@ -114,7 +114,7 @@ if (isset($_GET['homeowners_id'])) {
                       <form method="POST">
                         <div class="header-box container-fluid d-flex align-items-center ">
                           <div class="col">
-                            <a id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</a>
+                            <!-- <a id="add_payment_btn" name="add_payment_btn" class="btn btn-primary btn-sm btn-flat mx-2"><i class='bx bx-plus bx-xs bx-tada-hover'></i>Add Payment</a> -->
 
                           </div>
 

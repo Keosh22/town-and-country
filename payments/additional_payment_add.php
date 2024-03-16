@@ -46,6 +46,8 @@ if (isset($_POST['payment_arr']) && isset($_POST['amount']) && isset($_POST['amo
         $_SESSION['status'] = "Payment Success";
         $_SESSION['text'] = "";
         $_SESSION['status_code'] = "success";
+        $action = "Payment: Transaction No# " . $transction_number . " Additional payment";
+        $server->insertActivityLog($action);
 
         $response = [
           "collection_fee_id" => $payment_id,

@@ -117,6 +117,8 @@ echo $transaction_number;
   $_SESSION['status'] = "Payment Success";
   $_SESSION['text'] = "";
   $_SESSION['status_code'] = "success";
+  $action = "Payment: Transaction No# " . $transaction_number . " Monthly Dues";
+  $server->insertActivityLog($action);
 } else {
   $_SESSION['status'] = "Error";
   $_SESSION['text'] = "";

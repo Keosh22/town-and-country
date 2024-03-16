@@ -8,6 +8,7 @@
       <div class="modal-body mx-3">
         <form action="property_delete.php" method="POST">
           <input type="hidden" name="delete_property_id" id="delete_property_id">
+          <input type="hidden" name="account_number" id="account_number">
           <p>Please Enter your password to delete this account.</p>
           <input type="password" class="form-control" name="delete_property_password" id="delete_property_password" placeholder="Password" required>
           <div class="modal-footer">

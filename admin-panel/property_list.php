@@ -94,6 +94,7 @@ $server->adminAuthentication();
                               property_list.street as property_street, 
                               homeowners_users.firstname, 
                               homeowners_users.lastname, 
+                              homeowners_users.account_number,
                               homeowners_users.middle_initial FROM property_list INNER JOIN homeowners_users WHERE property_list.homeowners_id = homeowners_users.id AND property_list.archive = :ACTIVE";
                               $data = ["ACTIVE" => $ACTIVE];
 
@@ -107,6 +108,7 @@ $server->adminAuthentication();
 
                                 while ($result = $stmt->fetch()) {
                                   $property_id = $result['id'];
+                                  $account_number = $result['account_number'];
                                   $firstname = $result['firstname'];
                                   $lastname = $result['lastname'];
                                   $middle_initial = $result['middle_initial'];
@@ -131,7 +133,7 @@ $server->adminAuthentication();
                                           <!-- <li><a data-name="<?php echo $firstname . " " . $middle_initial . " " . $lastname; ?>" data-address="<?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?>" data-id="<?php echo $property_id; ?>" href="#propertyTransfer" class="dropdown-item" data-bs-toggle="modal" id="transfer_btn">Transfer</a></li> -->
                                           <li>
                                             <form action="" method="POST">
-                                              <a data-id="<?php echo $property_id; ?>" href="#deleteProperty" data-bs-toggle="modal" type="button" id="delete_property" class="dropdown-item">Delete</a>
+                                              <a data-id="<?php echo $property_id; ?>" data-acc="<?php echo $account_number; ?>" href="#deleteProperty" data-bs-toggle="modal" type="button" id="delete_property" class="dropdown-item">Archive</a>
                                             </form>
                                           </li>
                                         </ul>
@@ -213,7 +215,9 @@ $server->adminAuthentication();
       // Delete Button
       $("#propertyListTable").on('click', '#delete_property', function() {
         var property_id = $(this).attr('data-id');
+        var account_number = $(this).attr('data-acc');
         $("#delete_property_id").val(property_id);
+        $("#account_number").val(account_number);
         swal({
             title: "Warning",
             text: "All the records of this property will be removed. Do you want to continue?",
