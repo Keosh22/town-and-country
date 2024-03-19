@@ -272,6 +272,7 @@ $server->adminAuthentication();
 							$("#phase_option_update").html(response.phase);
 							$("#street_option_update").html(response.street);
 							$("#status_update").val(response.status);
+							$("#position").val(response.position);
 						}
 					});
 				}

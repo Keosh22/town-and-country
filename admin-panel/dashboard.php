@@ -18,9 +18,9 @@ $server->insertCollection();
 $server->updatePromotion();
 $server->updateAnnouncement();
 $server->updateMembershipStatus();
-// $number = '639771778411';
-// $messages = 'Hello world';
-// $server->sendSMS();
+
+
+
 
 
 // UPDATE EMAIL

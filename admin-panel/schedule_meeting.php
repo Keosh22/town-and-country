@@ -11,6 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $meeting_date = date("Y-m-d H:i:sA", strtotime($_POST['meeting_date']));
   $meeting_content = $_POST['meeting_content'];
   $date_created = date("Y-m-d H:i:sA", strtotime("now"));
+  $ACTIVE = "ACTIVE";
+  $PRESIDENT = "President";
+  $VICE_PRESIDENT = "Vice-President";
+  $number = "";
 
   if (strlen($about) > 0 && strlen($meeting_content) > 0) {
     $query = "INSERT INTO announcement (about, content, date, date_created) VALUES (:about, :content, :date, :date_created)";
@@ -23,16 +27,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $connection = $server->openConn();
     $stmt = $connection->prepare($query);
     $stmt->execute($data);
-    if($stmt->rowCount() > 0){
-      $_SESSION['status'] = "Success";
-      $_SESSION['text'] = "Meeting succesfully created!";
-      $_SESSION['status_code'] = "success";
-      $action = "Meeting: for ". $about . " posted";
+    if ($stmt->rowCount() > 0) {
+
+      $action = "Meeting: for " . $about . " posted";
       $server->insertActivityLog($action);
+      // Send SMS announcement to the officers
+      $query1 = "SELECT phone_number FROM homeowners_users WHERE position IN (:PRESIDENT, :VICE_PRESIDENT) AND archive = :ACTIVE";
+      $data1 = [
+        "PRESIDENT" => $PRESIDENT,
+        "VICE_PRESIDENT" => $VICE_PRESIDENT,
+        "ACTIVE" => $ACTIVE
+      ];
+      $connection1 = $server->openConn();
+      $stmt1 = $connection1->prepare($query1);
+      $stmt1->execute($data1);
+      if ($stmt1->rowCount() > 0) {
+        while ($result1 = $stmt1->fetch()) {
+          $phone_number = $result1['phone_number'];
+          $number .= "," . $phone_number;
+        }
+        $_SESSION['status'] = "Success";
+        $_SESSION['text'] = "Meeting succesfully created!";
+        $_SESSION['status_code'] = "success";
+
+        $number_str = ltrim($number, ",");
+        $new_date = date("M j, Y g:iA", strtotime($_POST['meeting_date']));
+        $message = "" . $about . "
+        HOA officers, don't miss our ". $new_date ." meet at the TCH clubhouse  to plan community improvements and streamline operations.";
+        $server->sendSMS($number_str, $message);
+      }
     }
-
-
-
   } else {
     $_SESSION['status'] = "Warning";
     $_SESSION['text'] = "Please fill al lthe required fields";

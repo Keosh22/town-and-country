@@ -161,7 +161,7 @@ class Server
     // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-   $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 
@@ -1310,36 +1310,41 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     }
   }
 
+  public function changePasswordAuthenticationAdmin()
+  {
+    if (empty($_SESSION['token_verify']) || time() - $_SESSION['forgot_password_timestamp'] > 600) {
+      echo "<script>window.location.href='../admin/forgot_password.php'</script>";
+    }
+  }
+
 
 
   // ------------------API----------------------------
 
-  public function sendSMS()
+  public function sendSMS($number, $message)
   {
-    // $ch = curl_init();
-    // $parameters = array(
-    //   'apikey' => '927df40030457bfb97528604604600a9', //Your API KEY
-    //   'number' => '09771778411',
-    //   'message' => 'I just sent my first message with Semaphore',
-    //   'sendername' => 'SEMAPHORE'
-    // );
-    // // $parameters["phone"] = $number;
-    // // $parameters["message"] = $messages;
-    // curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');
-    // curl_setopt($ch, CURLOPT_POST, 1);
+    $ch = curl_init();
+    $parameters = array(
+      'apikey' => '7fe25acb46fa337a9452afbff1c4db7e',
+      'number' => '',
+      'message' => '',
+      'sendername' => 'SEMAPHORE'
+    );
 
-    // //Send the parameters set above with the request
-    // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($parameters));
+    $parameters['number'] = $number;
+    $parameters['message'] = $message;
 
-    // // Receive response from server
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    // $output = curl_exec($ch);
-    // curl_close($ch);
 
-    // //Show the server response
-    // echo $output;
+    curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');
+    curl_setopt($ch, CURLOPT_POST, 1);
 
-  
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($parameters));
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($ch);
+    echo $output;
+
+
   }
 }
 

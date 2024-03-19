@@ -91,7 +91,7 @@ if (isset($_POST['login_submit'])) {
 
                         <!-- FORGOT PASSWORD -->
                         <div class="row forgot-password">
-                            <a href="#!">Forgot password?</a>
+                            <a href="../admin/forgot_password.php">Forgot password?</a>
                         </div>
                     </form>
                 </div>

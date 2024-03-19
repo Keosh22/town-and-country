@@ -24,7 +24,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="about" class="form-label">About:</label>
-              <input type="text" name="about_meeting" id="about_meeting" class="form-control" maxlength="100" required>
+              <input type="text" name="about_meeting" id="about_meeting" class="form-control" maxlength="20" placeholder="Maximum 11 characters" required>
             </div>
             <div class="col-md-6">
               <label for="meeting_date" class="form-label">When:</label>
@@ -94,8 +94,9 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
                   meeting_date: meeting_date,
                   meeting_content: meeting_content
                 },
-                success: function() {
+                success: function(response) {
                   location.reload();
+
                 }
               })
             } else {
