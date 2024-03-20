@@ -39,7 +39,7 @@ $INACTIVE = "INACTIVE";
           </ol>
         </section>
 
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Print Reports</h2>
           </div>

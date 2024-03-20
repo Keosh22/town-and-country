@@ -37,7 +37,7 @@ $server->adminAuthentication();
           </ol>
         </section>
 
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Maintenance List</h2>
           </div>

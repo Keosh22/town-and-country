@@ -38,8 +38,9 @@ if (isset($_GET['update_password'])) {
         $_SESSION['text'] = 'Your password has been changed successfuly';
         $_SESSION['status_code'] = 'success';
         header("location: ../admin/index.php");
-        session_unset();
-        session_destroy();
+        unset($_SESSION['token_verify']);
+        unset($_SESSION['forgot_password_timestamp']);
+
       } else {
         $_SESSION['status'] = "Error!";
         $_SESSION['text'] = "Something went wrong";

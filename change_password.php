@@ -41,13 +41,15 @@ if (isset($_GET['update_password'])) {
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
       if ($stmt1->rowCount() > 0) {
+       
         $_SESSION['status'] = "Success!";
         $_SESSION['text'] = "Your password has been changed successfuly";
         $_SESSION['status_code'] = "success";
-       
+        
         header("location: index.php");
-        session_unset();
-        session_destroy();
+        unset($_SESSION['token_verify']);
+        unset($_SESSION['forgot_password_timestamp']);
+     
       } else {
         $_SESSION['status'] = "Error!";
         $_SESSION['text'] = "Something went wrong";

@@ -28,7 +28,7 @@ $server->adminAuthentication();
 			<main class="content px-3 py-2">
 				<!-- content header -->
 				<section class="content-header d-flex justify-content-between align-items-center mb-3">
-        <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+					<a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
 
 					<ol class="breadcrumb mb-0">
 						<li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
@@ -37,7 +37,7 @@ $server->adminAuthentication();
 					</ol>
 				</section>
 
-				<div class="card">
+				<div class="card card-border">
 					<div class="card-header">
 						<h2>Street List</h2>
 					</div>
@@ -183,7 +183,7 @@ $server->adminAuthentication();
 
 				$("#updateStreet").modal("show");
 				var id = $(this).attr("data-id");
-			
+
 
 
 				getRow(id);

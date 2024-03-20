@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar shadow-sm">
   <div class="container-fluid">
     <button id="sidebar-toggler-btn" type="button">
       <i id="chevron-right" class="bx bx-chevrons-right fs-3"></i>

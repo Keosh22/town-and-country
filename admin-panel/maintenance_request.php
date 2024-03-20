@@ -28,7 +28,7 @@ $server->adminAuthentication();
       <main class="content px-3 py-2">
         <!-- content header -->
         <section class="content-header d-flex justify-content-between align-items-center mb-3">
-        <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
 
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
@@ -37,7 +37,7 @@ $server->adminAuthentication();
           </ol>
         </section>
 
-        <div class="card">
+        <div class="card card-border">
           <div class="card-header">
             <h2>Maintenance Request</h2>
           </div>
@@ -218,8 +218,8 @@ $server->adminAuthentication();
     $(document).ready(function() {
       // DataTable
       $("#maintenanceRequestTable").DataTable({
-        order : [
-          [0,'desc']
+        order: [
+          [0, 'desc']
         ]
       });
       const TABLE = $("#maintenanceRequestTable").DataTable();
@@ -241,7 +241,8 @@ $server->adminAuthentication();
                 url: '../admin-panel/maintenance_request_ongoing.php',
                 type: 'POST',
                 data: {
-                  maintenance_request_id: maintenance_request_id, address: address
+                  maintenance_request_id: maintenance_request_id,
+                  address: address
                 },
                 success: function(response) {
                   location.reload();
@@ -271,7 +272,8 @@ $server->adminAuthentication();
                 url: '../admin-panel/maintenance_request_finish.php',
                 type: 'POST',
                 data: {
-                  maintenance_request_id: maintenance_request_id, address: address
+                  maintenance_request_id: maintenance_request_id,
+                  address: address
                 },
                 success: function(response) {
                   location.reload();
@@ -301,7 +303,8 @@ $server->adminAuthentication();
                 url: '../admin-panel/maintenance_request_pending.php',
                 type: 'POST',
                 data: {
-                  maintenance_request_id: maintenance_request_id, address: address
+                  maintenance_request_id: maintenance_request_id,
+                  address: address
                 },
                 success: function(response) {
                   location.reload();
