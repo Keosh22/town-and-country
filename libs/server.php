@@ -24,12 +24,12 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER; 
-  private $pass = LESPASS;
-  private $port = PORT;
+  // private $user = LESUSER; 
+  // private $pass = LESPASS;
+  // private $port = PORT;
 
-  // private $user = USER;
-  // private $pass = PASS;
+  private $user = USER;
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
 
@@ -71,10 +71,10 @@ class Server
 
     try {
       // Lesther 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
@@ -1342,6 +1342,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $output = curl_exec($ch);
+    curl_close($ch);
     echo $output;
 
 
