@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    height: 100vh; 
+    font-family: "Poppins", sans-serif;
+    padding: 1rem;
+}
+
+body{
+    background-image: url("../img/town_and_country_heights.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: auto;
+    overflow: hidden;
+display: grid;
+place-items: center;
+}
+
+.login-card{
+    background-color: white;
+    width: 600px;
+    height: 500px;
+    position:relative;
+    z-index: 3;
+    border-radius: 20px;
+    padding: 30px 30px 44px;
+    text-align: center;
+
+}
+
+header{
+    margin-bottom: 1rem;
+}
+
+header > h2{
+    text-align: center;
+    font-size: 48px;
+    color: #064420;
+}
+
+header  > h3{
+    font-weight: normal;
+    font-size: 18px;
+    color: gray;
+    margin-bottom: 1rem;
+    
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    gap: 1rem;
+    
+}
+
+.input{
+  
+    display: flex;
+    height: 50px;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    
+}
+
+.input > input{
+   padding-left: 1rem;
+   font-family: "Poppins", sans-serif;
+   font-size: 16px;
+   margin: auto;
+   border-left: 0.5px solid rgba(70, 70, 70, 0.554);
+   border-top: 1px solid rgba(70, 70, 70, 0.554);
+   border-bottom: 1px solid rgba(70, 70, 70, 0.554);
+   border-right: 1px solid rgba(70, 70, 70, 0.554);
+}
+
+.input > span{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    /* background-color: rgba(70, 70, 70, 0.554); */
+    text-align: center;
+    width: 50px;
+    margin: auto;
+    font-size: 1.5em;
+    color: #064420;
+    border-left: 1px solid rgba(70, 70, 70, 0.554);
+    border-top: 1px solid rgba(70, 70, 70, 0.554);
+    border-bottom: 1px solid rgba(70, 70, 70, 0.554);
+}
+
+.login-btn input{
+    background-color: #064420; 
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    width: 15rem;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.footer{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin: auto;
+}
+
+.seperator{
+    background-color: black;
+    opacity: 0.7;
+    height: 20px;
+    width: 1px;
+    margin: auto;
+
+ 
+}
+@media (min-width: 576px) and (max-width:768px){
+    body{
+        display: grid;
+        place-items: center;
+      }
+      .login-card{
+        width: 90%;
+      }
+
+      .footer{
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .seperator{
+        display: none;
+      }
+}
+
+@media (max-width: 576px){
+    body{
+        display: grid;
+        place-items: center;
+      }
+      .login-card{
+        width: 90%;
+      }
+
+      .footer{
+        flex-direction: column;
+        justify-content: center;
+      }
+      .seperator{
+        display: none;
+      }
+}
+@media (width < 420px) {
+  body{
+    display: grid;
+    place-items: center;
+
+  }
+
+  .login-card > header > h2{
+    font-size: 36px;
+  }
+  .login-card > header > h3{
+    font-size: 12px;
+  }
+
+  .login-card{
+    margin-top: -10rem;
+    padding: 20px;
+    height: 400px;
+  }
+
+  
+
+  .login-card{
+    width: 96%;
+  }
+
+  .input{
+    padding-left: 0rem;
+  padding-right: 0rem;
+  height: 40px;
+  }
+
+  .login-btn >input{
+    height: 40px;
+    font-size: 14px;
+  }
+  .footer{
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .footer{
+    font-size: 14px;
+  }
+
+  .seperator{
+    display: none;
+  }
+}

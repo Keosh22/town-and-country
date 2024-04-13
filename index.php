@@ -1,22 +1,10 @@
-<!-- HEADER -->
-<?php
-// require_once("./includes/user-header.php"); 
-?>
-<!-- SERVER -->
 <?php require_once("./libs/server.php"); ?>
-
-<?php
-$userserver = new Server; // Open/Close connection
-session_start();
-$userserver->userSessionLogin();
-?>
-
-
 <?php
 // Set HTTP request to POST method if login btn is clicked
+session_start();
+
 if (isset($_POST['login'])) {
-
-
+  $userserver = new Server;
   $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
   $login_Pass = $_POST["password"];
   $ACTIVE = "ACTIVE";
@@ -44,21 +32,19 @@ if (isset($_POST['login'])) {
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Data Table script -->
-  <!-- <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> -->
-  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <link rel="stylesheet" href="/styles/userLogin.css">
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-
 
 
   <!-- Poppins FONT -->
@@ -69,166 +55,76 @@ if (isset($_POST['login'])) {
   <!-- Box Icon -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-  <!-- DataTables CSS -->
-  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" /> -->
-
-
-
-
-
-  <!------------- CSS Styles  ------------------->
-
-  <!-- USER PAGE CSS -->
-  <link rel="stylesheet" href="./styles/user-panel.css">
-
-
-  <!-- Bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-  <!-- 
-<div class="wrapper-container">
+  <div class="login-card">
+    <header>
+      <h2>LOGIN</h2>
+      <h3>Town and Country Heights</h3>
+    </header>
 
+    <form action="index.php" method="POST" class="login-form">
+      <div class="input">
+        <span class=""><i class="bx bx-user"></i></span>
+        <input type="text" class=" input" placeholder="Username" name="username">
+      </div>
 
+      <div class="input">
+        <span class=""><i class="bx bx-lock-alt"></i></span>
+        <input type="password" class=" input" placeholder="Password" name="password" id="password">
+      </div>
 
-<nav class="navbar navbar-expand-md fixed-top  color">
-  <div class="container-fluid ">
-    <a href="#" class="navbar-brand"><img class="navbar-logo" src="./img/logo.png"></a> 
--->
+      <div class="login-btn">
+        <input type="submit" class="btn btn-success" value="Log in" name="login">
+      </div>
 
-  <!-- Hamburger menu Button -->
-  <!--
-     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle"><i class="bx bx-menu bx-sm" style="color:#fffffe;"></i></button>
-     -->
-
-  <!-- Navbar collapse -->
-  <!--    
-  <div class="collapse navbar-collapse ms-5" id="toggle">
-    <ul class="navbar-nav align-items-center">
-      <li class="navbar-item">
-        <a href="#" class="nav-link fs-5 mx-2">Home</a>
-      </li>
-      <li class="navbar-item">
-        <a href="#" class="nav-link fs-5 mx-2">About</a>
-      </li>
-      <li class="navbar-item">
-        <a href="#" class="nav-link fs-5 mx-2k">Contacts</a>
-      </li>
-      <li class="navbar-item">
-        <a href="#" class="nav-link fs-5 mx-2">Services</a>
-      </li>
-    </ul>
-  </div>
-
-  </div>
- </nav>
- -->
-
-
-
-  <div class="row row-register justify-content-center align-items-center overflow-hidden">
-    <div class="col-lg-5 col-md-6 col-sm-7 col-8 bg-white shadow-lg rounded login-card">
-      <h2 class="text-center mt-3">Log In</h2>
-      <p class="text-center text-muted tch-text">Town and Country Heights</p>
-
-      <!-- Login Form -->
-      <form action="index.php" method="POST">
-        <div class="input-group mb-2">
-          <span class="input-group-text"><i class="bx bx-user"></i></span>
-          <input type="text" class="form-control input" placeholder="Username" name="username">
+      <div class="footer">
+        <div class="show-pass">
+          <input type="checkbox" id="show_password" class="form-check-input">
+          <label for="show_password" class="text-secondary">Show password</label>
         </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text"><i class="bx bx-lock-alt"></i></span>
-          <input type="password" class="form-control input" placeholder="Password" name="password" id="password">
+        <div class="seperator"></div>
+        <div class="forgot-pass">
+          <a href="forgot_password.php" class="link-underline link-underline-opacity-0 text-muted link-primary">Forgot Password?</a>
         </div>
-        <div class="d-grid col-6 mx-auto login-button">
-          <input type="submit" class="btn btn-success" value="Log in" name="login">
-        </div>
-        <div class="row my-3">
-          <div class="col-6">
-            <input type="checkbox" id="show_password" class="form-check-input">
-            <label for="show_password" class="text-secondary">Show password</label>
-          </div>
-          <div class="col-6 text-end">
-            <a href="forgot_password.php" class="link-underline link-underline-opacity-0 text-muted link-primary">Forgot Password?</a>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  </div>
+      </div>
 
 
 
-  <!-- Bootstrap Script -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  <!-- Script -->
-  <!-- <script src="./scripts/script.js"></script> -->
-
-  <!-- Sweet Alert Script -->
-  <script src="./libraries/sweetalert.js"></script>
-
-  <!-- DataTables CDN -->
-  <!-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
+    </form>
 
 
-
-  <script>
-    $(document).ready(function() {
-
-      $("#show_password").on('change', function() {
-
-        if (this.checked) {
-          $("#password").attr('type', 'text');
-        } else {
-          $("#password").attr('type', 'password');
-        }
-
-      });
-
-
-
-
-
-
-    });
-  </script>
-
-
-
-
-
-
-  <?php
-  // ----------------- Pop up Alert ---------------- 
-  if (isset($_SESSION['status']) && $_SESSION['status'] != "") {
-  ?>
-    <script>
-      swal({
-          title: " <?php echo $_SESSION['status'] ?>",
-          text: "<?php echo $_SESSION['text'] ?>",
-          icon: "<?php echo $_SESSION['status_code'] ?>",
-          buttons: "Okay",
-        })
-        .then((buttons) => {
-          if (buttons) {
-            <?php
-            unset($_SESSION['status']);
-            unset($_SESSION['text']);
-            unset($_SESSION['status_code']);
-            // session_unset();
-            // session_destroy();
-            ?>
-          }
-        });
-    </script>
-  <?php
-  }
-  ?>
 
 </body>
 
 </html>
+
+<!-- Sweet Alert Script -->
+<script src="./libraries/sweetalert.js"></script>
+
+<!-- DataTables CDN -->
+<!-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
+
+
+
+<script>
+  $(document).ready(function() {
+
+    $("#show_password").on('change', function() {
+
+      if (this.checked) {
+        $("#password").attr('type', 'text');
+      } else {
+        $("#password").attr('type', 'password');
+      }
+
+    });
+
+
+
+
+
+
+  });
+</script>
