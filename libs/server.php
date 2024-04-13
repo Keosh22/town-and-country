@@ -24,7 +24,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER; 
+  private $user = LESUSER;
   private $pass = LESPASS;
   private $port = PORT;
 
@@ -158,10 +158,10 @@ class Server
   public function pagination($numberofPage)
   {
     // Lesther
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 
@@ -1343,8 +1343,6 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $output = curl_exec($ch);
     echo $output;
-
-
   }
 }
 

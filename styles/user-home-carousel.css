@@ -24,7 +24,7 @@
 
     display: flex;
     background-color: white;
-    width: 90%;
+
     overflow: hidden;
     margin: auto;
     transition: transform 0.6s ease;
@@ -45,7 +45,10 @@
     border-top-right-radius: 20px !important;
     color: #064420;
     margin-top: 0;
-    height: 106px;
+
+    overflow: auto;
+    text-overflow: ellipsis;
+    height: fit-content;
     
 
 }
@@ -95,7 +98,7 @@
   .card-body p{
     color: black;    
     margin-top: 1rem;
-
+    text-indent: 1rem;
 }
 
 .scrollable-content {
@@ -182,13 +185,15 @@
     font-size: 2em;
 }
 
-.arrow i:hover{
+.arrow i {
     cursor: pointer;
+    transition: transform 0.5s, color 0.5s;
+    touch-action: manipulation; /* improves touch behavior on mobile devices */
+}
+
+.arrow i:hover,
+.arrow i:active {
     color: #DAD992 !important;
     transform: scale(1.5) !important;
-    transition: transform 0.5s;
-    cursor: pointer;
- 
-} 
-
+}
 

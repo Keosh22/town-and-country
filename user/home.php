@@ -101,7 +101,7 @@ require "../libs/server.php";
 
 
         <div class="card-body">
-          <p class="scrollable-content">&nbsp &nbsp &nbsp &nbsp <span id="span_content"></span></p>
+          <p class="scrollable-content"><span id="span_content"></span></p>
 
         </div>
 
