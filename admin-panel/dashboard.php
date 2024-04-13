@@ -136,7 +136,7 @@ if ($current_day >= date("j", mktime(0, 0, 0, $current_month_num, 3, $current_ye
 								<h6 class="card-subtitle text-info"><b>Ongoing</b></h6>
 								<div class="col d-flex justify-content-between">
 									<p class="card-text fs-3"><?php $server->countPending(); ?></p>
-									<i class="bx bxs-cog bx-tada-hover fs-1 text-info"></i>
+									<i class="bx bx-cog bx-tada-hover fs-1 text-info"></i>
 								</div>
 
 							</div>
