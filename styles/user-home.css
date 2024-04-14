@@ -2,122 +2,323 @@
 
 
 
-    body{
-        min-height: 100vh;
+body{
+    min-height: 100vh;
 
-        /* overflow: hidden; */
-        width: 100%;
-        background-image: url("../img/town_and_country_heights.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+    /* overflow: hidden; */
+    width: 100%;
+    background-image: url("../img/town_and_country_heights.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+
+nav{
+    font-family: 'Poppins', sans-serif;
+    width: inherit;
+    background-color: #064420;
+    color: white;
+    height: 60px;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    
+}
+
+.nav-container{
+    width: 90%;
+}
+
+.user{
+
+    color: white;
+    margin-bottom: 0 !important;
+}
+
+.user p, .logo h3{
+    font-size: 1.4em;
+    margin-bottom: 0;
+}
+.user button{
+    font-size: 1.5em;
+ 
+}
+
+.logo img{
+    height: 40px;
+}
+
+main{  
+    min-height: 60vh;
+    width: 95%;
+    padding: 1rem;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+    border-radius: 30px;
+    background-color: rgba(6, 68, 32, 0.8);
+    color: white;
+    font-family: 'Poppins', sans-serif;   
+}
+
+.col-title h1{
+    font-size: 2em;
+}
+.options{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+
+  
+}
+
+.row .transaction-icon{
+    height: 60px;
+}
+
+.feature-container{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.features{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.5s ease;
+}
+.features i {
+    color: white;
+    transition: font-size 0.5s ease; 
+}
+.features:hover  {
+    cursor: pointer;
+    transform: scale(1.2); /* Increase the size on hover */
+}
+.row.options:hover .features:not(:hover) {
+    transform: scale(1);
+}
+
+
+
+/* PROMOTION TOAST */
+
+
+
+/* ANNOUNCMENT */
+
+
+
+/* RESPONSIVE */
+@media (max-width: 420px) {
+    .toast{
+     max-width: 200px ;
+     max-height: 400px;
     }
-    body::-webkit-scrollbar{
-        display: none;
+    .promotion_toast_body{
+        font-size: .875rem;
     }
 
-    nav{
-        font-family: 'Poppins', sans-serif;
-        width: inherit;
-        background-color: #064420;
-        color: white;
-        height: 60px;
-        position: sticky;
-        display: flex;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 100;
+    .whole-carousel{
+        gap: 1rem;
+    }
+
+    .about{
+        height: auto;
+        padding-right: 0.2rem;
+    }
+    
+    .carousel-a{
+        height: 300px;
         
     }
 
-    .nav-container{
-        width: 90%;
+    .card-body p{
+        text-indent: 0.2 rem !important;
+        margin-top: 0.5rem !important;
+        padding: 5px !important;
     }
 
-    .user{
+    .card-title{
+        font-size: 0.8em !important;
+    }
 
-        color: white;
-        margin-bottom: 0 !important;
+    .arrow i{
+        font-size: 1.2em !important;
+        
+    }
+
+    
+}
+
+
+@media (max-width: 576px){
+    .user button{
+        font-size: 0.8em;
+    }
+    .logo h3{
+        font-size: 0.8em;
+    }
+    body{
+        overflow: auto;
+    }
+    .main-logo img{
+        height: 150px;
+    
+    }
+    .features i{
+        font-size: 3em;
+    }
+    .features p{
+        font-size: 1em;
+    }
+
+    .col-title h2{
+        font-size: 1.2em;
+    }
+    .col-title p{
+        font-size: .8em;
+    }
+    .features i {
+        color: black;
+        opacity: 100%;
+        transition: font-size 0.5s ease; 
+    }
+    .features:hover, .features:hover i{
+        color: #DAD992 !important;
+    }
+    .carousel-container{
+        width: 80%;
+    }
+
+    .carousel-container .scrollable-content{
+        font-size: 12px;
+    }
+
+
+
+    #about{
+        font-size: 16px;
+    }
+    #date{
+        font-size: 12px;
+    }
+
+    .footer{
+        font-size: 12px;
+    }
+
+}
+
+@media (min-width: 576px) and (max-width:768px){
+    .user button{
+        font-size: 1.1em;
+    }
+
+    .logo h3{
+        font-size: 1em;
+    }
+    body{
+        overflow: auto;
+    }
+    nav{
+        height: 60px;
+    }
+    .features i{
+        font-size:2.5em;
+    }
+    .main-logo img{
+        height: 175px;
+    
+    }
+    .features p{
+        font-size: 1.2em;
     }
     
-    .user p, .logo h3{
-        font-size: 1.4em;
-        margin-bottom: 0;
+    .col-title h1{
+        font-size: 1.1em;
     }
-    .user button{
-        font-size: 1.5em;
-     
+    .col-title p{
+        font-size: 1em;
     }
 
-    .logo img{
-        height: 40px;
+
+    .features i {
+        color: black;
+        opacity: 100%;
+        transition: font-size 0.5s ease;
+    }
+    
+    .features:hover, .features:hover i{
+        color: #DAD992 !important;
     }
 
-    main{  
-        min-height: 60vh;
-        width: 95%;
-        padding: 1rem;
-        margin-top: 30px;
-        margin-right: auto;
-        margin-left: auto;
-        margin-bottom: auto;
-        border-radius: 30px;
-        background-color: rgba(6, 68, 32, 0.8);
-        color: white;
-        font-family: 'Poppins', sans-serif;   
+    .carousel-container{
+        width: 80%;
+        
     }
-   
+}
+
+@media (min-width: 768px) and (max-width:1200px){
+    nav{
+        height: 65px;
+    }
+    .features i{
+        font-size: 2.8em;
+    }
+    .features p{
+        font-size: 1.2em;
+    }
     .col-title h1{
         font-size: 2em;
     }
-    .options{
-        width: 90%;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-    
-      
-    }
-
-    .row .transaction-icon{
-        height: 60px;
-    }
-
-    .feature-container{
-        height: 100px;
-        width: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .features{
-        height: 100px;
-        width: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        transition: transform 0.5s ease;
+    .col-title p{
+        font-size: 1.2em;
     }
     .features i {
-        color: white;
-        transition: font-size 0.5s ease; 
+        color: black;
+        opacity: 100%;
+        transition: font-size 0.3s ease; 
     }
-    .features:hover  {
-        cursor: pointer;
-        transform: scale(1.2); /* Increase the size on hover */
+    .features:hover, .features:hover i{
+        color: #DAD992 !important;
     }
-    .row.options:hover .features:not(:hover) {
-        transform: scale(1);
+    .carousel-container{
+        width: 80%;
+        
     }
+}
 
-
-
-    /* PROMOTION TOAST */
+@media (width > 1200px){
     
+    .logo img{
+        height: 50px;
+    }
+    nav{
+        height: 70px;
+    }
+    .features i{
+        font-size: 2.7em;
+    }
+    .main-logo img{
+        height: 200px;
+    
+<<<<<<< HEAD
   
 
     /* ANNOUNCMENT */
@@ -154,181 +355,29 @@
         }
 
         
+=======
+>>>>>>> lesther
     }
 
-
-    @media (max-width: 576px){
-        .user button{
-            font-size: 0.8em;
-        }
-        .logo h3{
-            font-size: 0.8em;
-        }
-        body{
-            overflow: auto;
-        }
-        .main-logo img{
-            height: 150px;
-        
-        }
-        .features i{
-            font-size: 3em;
-        }
-        .features p{
-            font-size: 1em;
-        }
-
-        .col-title h2{
-            font-size: 1.2em;
-        }
-        .col-title p{
-            font-size: .8em;
-        }
-        .features i {
-            color: black;
-            opacity: 100%;
-            transition: font-size 0.5s ease; 
-        }
-        .features:hover, .features:hover i{
-            color: #DAD992 !important;
-        }
-        .carousel-container{
-            width: 80%;
-        }
-
-        .carousel-container .scrollable-content{
-            font-size: 12px;
-        }
-   
-  
-
-        #about{
-            font-size: 16px;
-        }
-        #date{
-            font-size: 12px;
-        }
-
-        .footer{
-            font-size: 12px;
-        }
-
+    .features p{
+        font-size: 1.7em;
     }
 
-    @media (min-width: 576px) and (max-width:768px){
-        .user button{
-            font-size: 1.1em;
-        }
-
-        .logo h3{
-            font-size: 1em;
-        }
-        body{
-            overflow: auto;
-        }
-        nav{
-            height: 60px;
-        }
-        .features i{
-            font-size:2.5em;
-        }
-        .main-logo img{
-            height: 175px;
-        
-        }
-        .features p{
-            font-size: 1.2em;
-        }
-        
-        .col-title h1{
-            font-size: 1.1em;
-        }
-        .col-title p{
-            font-size: 1em;
-        }
-
-
-        .features i {
-            color: black;
-            opacity: 100%;
-            transition: font-size 0.5s ease;
-        }
-        
-        .features:hover, .features:hover i{
-            color: #DAD992 !important;
-        }
-
-        .carousel-container{
-            width: 80%;
-            
-        }
+    
+    .col-title h1{
+        font-size: 3.5em;
     }
 
-    @media (min-width: 768px) and (max-width:1200px){
-        nav{
-            height: 65px;
-        }
-        .features i{
-            font-size: 2.8em;
-        }
-        .features p{
-            font-size: 1.2em;
-        }
-        .col-title h1{
-            font-size: 2em;
-        }
-        .col-title p{
-            font-size: 1.2em;
-        }
-        .features i {
-            color: black;
-            opacity: 100%;
-            transition: font-size 0.3s ease; 
-        }
-        .features:hover, .features:hover i{
-            color: #DAD992 !important;
-        }
-        .carousel-container{
-            width: 80%;
-            
-        }
+    .col-title p{
+        font-size: 1.5em;
+    }
+    .features i {
+        color: black;
+        opacity: 100%;
+        transition: font-size 0.3s ease; 
     }
 
-    @media (width > 1200px){
-        
-        .logo img{
-            height: 50px;
-        }
-        nav{
-            height: 70px;
-        }
-        .features i{
-            font-size: 2.7em;
-        }
-        .main-logo img{
-            height: 200px;
-        
-        }
-
-        .features p{
-            font-size: 1.7em;
-        }
-
-        
-        .col-title h1{
-            font-size: 3.5em;
-        }
-
-        .col-title p{
-            font-size: 1.5em;
-        }
-        .features i {
-            color: black;
-            opacity: 100%;
-            transition: font-size 0.3s ease; 
-        }
-
-        .features:hover, .features:hover i{
-            color: #DAD992 !important;
-        }
- }
+    .features:hover, .features:hover i{
+        color: #DAD992 !important;
+    }
+}

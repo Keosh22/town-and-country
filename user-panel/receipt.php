@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once("../libs/server.php");
-require_once("../includes/header.php");
+
+
+//require_once("../includes/header.php");
+require_once("../styles/style_receipt.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 
@@ -13,7 +16,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 $server = new Server;
 $startDate = isset($_GET['start_date']) ? urldecode($_GET['start_date']) : '';
-$endDate = isset($_GET['end_date']) ? urldecode($_GET['end_date']): '';
+$endDate = isset($_GET['end_date']) ? urldecode($_GET['end_date']) : '';
 $id = $_SESSION["user_id"];
 
 $tableRows = "";
@@ -27,6 +30,7 @@ payments_list.collection_id,
 payments_list.collection_fee_id,
 payments_list.date_created,
 payments_list.paid,
+payments_list.paid_by as paid_by_pl,
 homeowners_users.id,
 homeowners_users.account_number AS account_number,
 homeowners_users.id,
@@ -70,9 +74,9 @@ ORDER BY date_created DESC;";
 
 
 $data = [
-  "user_id" => $id,
-  "start_date" => $startDate,
-  "end_date" => $endDate
+    "user_id" => $id,
+    "start_date" => $startDate,
+    "end_date" => $endDate
 ];
 
 $connection = $server->openConn();
@@ -80,60 +84,94 @@ $connection = $server->openConn();
 $stmt = $connection->prepare($query);
 $stmt->execute($data);
 
-if($stmt->rowCount()>0){
-  while($result = $stmt->fetch()){
-    //user data
-    $account_number = $result["account_number"];
-    $name = $result["lastname"] . ", " . $result["firstname"] . " " . $result["middle_initial"] . ".";
-    
-    $address = $result["blk"] . " " . $result["lot"] . " " . $result["street"] . " " . $result["phase"];
+if ($stmt->rowCount() > 0) {
+    while ($result = $stmt->fetch()) {
+        //user data
+        $account_number = $result["account_number"];
+        $name = $result["lastname"] . ", " . $result["firstname"] . " " . $result["middle_initial"] . ".";
+
+        $address = $result["blk"] . " " . $result["lot"] . " " . $result["street"] . " " . $result["phase"];
 
 
-    // table data
-    $category = $result["category"];
-    $date_created = $result["date_created"];
-    $status = $result["status"];
-    $month = $result["month"];
-    $year = $result["year"];
-    $monthyear = "{$month}, {$year}";
-    
+        // table data
+        $category = $result["category"];
+        $date_created = $result["date_created"];
+        $status = $result["status"];
+        $month = $result["month"];
+        $year = $result["year"];
+        $paidby = $result["paid_by_pl"];
+        $monthyear = "{$month}, {$year}";
 
-    $tableRows .= "<td>$date_created</td>";
-    $tableRows .= "<td>{$result['transaction_number']}</td>";
-    $tableRows .= "<td>$category</td>";
-    $tableRows .= "<td>$monthyear</td>";
-    $tableRows .= "</tr>";
-}
+
+
+        $tableRows .= "<td>$date_created</td>";
+        $tableRows .= "<td>{$result['transaction_number']}</td>";
+        $tableRows .= "<td>$category</td>";
+        $tableRows .= "<td>$monthyear</td>";
+        $tableRows .= "<td>$paidby</td>";
+        $tableRows .= "</tr>";
+    }
 } else {
-$tableRows = "<tr><td colspan='4'>No results</td></tr>";
+    $tableRows = "<tr><td colspan='4'>No results</td></tr>";
 }
 ?>
 
 <div class="receipt-wrapper">
-<h1 class="text-center title-receipt">Payment Receipt</h1>
-<h5 class="text-center title-receipt">Town And Country Heights Subdivision</h5>
-<div class="divider-receipt"></div>
-<div class="flex">
-    <div class="w-50">
+    <div class="title-header">
+
+
+        <div class="title">
+            <h1 class="title-receipt" id="payment-receipt">Payment Receipt</h1>
+            <h5 class="title-receipt" id="payment-receipt-subtext">Town And Country Heights Subdivision</h5>
+        </div>
+        <img src="../img/logo.png" alt="">
+
+    </div>
+
+
+
+    <div class="homeowner_details">
+
         <h4 class="details-title">Homeowners Details</h4>
         <p>Account Number: <b id="account_number"><?php echo $account_number; ?></b></p>
-        <p>Name: <b id="name"><?php echo $name;?></b></p>
+        <p>Name: <b id="name"><?php echo $name; ?></b></p>
         <p>Current Address: <b id="current_address"><?php echo $address; ?></b></p>
+
     </div>
+    <div class="divider-receipt"></div>
+
+    <div class="payment-summary">
+        <div class="print_options">
+            <h4>Payment Summary:</h4>
+            <button id="printButton" onclick="printAndHide()">Print</button>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" width="20%">DATE AND TIME</th>
+                    <th scope="col" width="20%">TRANSACTION NUMBER</th>
+                    <th scope="col" width="20%">CATEGORY</th>
+                    <th scope="col" width="20%">MONTH AND YEAR</th>
+                    <th scope="col" width="20%">PAID BY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php echo $tableRows; ?>
+            </tbody>
+        </table>
+    </div>
+
 </div>
-<div class="divider-receipt"></div>
-<h4>Payment Summary:</h4>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col" width="30%">DATE AND TIME</th>
-            <th scope="col" width="20%">TRANSACTION NUMBER</th>
-            <th scope="col" width="25%">CATEGORY</th>
-            <th scope="col" width="25%">MONTH AND YEAR</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php echo $tableRows; ?>
-    </tbody>
-</table>
-</div>
+
+<script>
+    function printAndHide() {
+        // Trigger printing
+        window.print();
+
+        // Hide the button
+        document.getElementById("printButton").style.display = "none";
+
+
+    }
+</script>
