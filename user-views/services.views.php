@@ -10,7 +10,7 @@
         </div>
 
         <!-- Second Column -->
-        <div class="row d-flex flex-column mt-2 mb-5 ">
+        <div class="row d-flex flex-column mt-2  header-services ">
             <div class="col option-title">
                 <h1>Our Services</h1>
             </div>
@@ -40,14 +40,14 @@
 
             <div class="row">
 
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4 card-container">
                     <div class="card text-dark card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?tech,street');">
                         <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street" alt="Creative Manner Design Lorem Ipsum Sit Amet Consectetur dipisi?">
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
 
                                 <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Tree Pruning</a></h4>
-                                <p>Tree pruning is an essential part of maintaining the health and beauty of your trees, it is also a safety precaution to minimize the liability from falling branches.</p>
+                                <!-- <p>Tree pruning is an essential part of maintaining the health and beauty of your trees, it is also a safety precaution to minimize the liability from falling branches.</p> -->
                                 <a class="btn btn-flat btn-success" id="tree_pruning" href="#requestModal" data-bs-toggle="modal">Request</a>
                             </div>
 
@@ -64,16 +64,16 @@
 
 
 
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4 card-container">
                     <div class="card text-dark card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?tree,nature');">
                         <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tree,nature" alt="Creative Manner Design Lorem Ipsum Sit Amet Consectetur dipisi?">
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
 
                                 <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Street Sweeping</a></h4>
-                                <p>
+                                <!-- <p>
                                     Street sweeping is an essential maintenance procedure that helps our communities. Through thorough removal of dirt, debris, and trash from road surfaces, street sweeping keeps our roadways safe and clear for all users.
-                                </p>
+                                </p> -->
                                 <a class="btn btn-flat btn-success" id="street_sweeping" href="#requestModal" data-bs-toggle="modal">Request</a>
                             </div>
                             <div class="card-footer">
@@ -85,16 +85,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4 card-container">
                     <div class="card text-dark card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?computer,design');">
                         <img class="card-img d-none" src="https://source.unsplash.com/600x900/?computer,design" alt="Creative Manner Design Lorem Ipsum Sit Amet Consectetur dipisi?">
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
 
                                 <h4 class="card-title mt-0 "><a class="text-dark" herf="https://creativemanner.com">Grass Cutting</a></h4>
-                                <p>
+                                <!-- <p>
                                     Transform your outdoor space into a verdant paradise with our expert grass cutting services. Our team of skilled professionals is dedicated to creating and maintaining impeccably manicured lawns that reflect the beauty of nature.
-                                </p>
+                                </p> -->
                                 <a class="btn btn-flat btn-success" id="grass_cutting" href="#requestModal" data-bs-toggle="modal">Request</a>
                             </div>
                             <div class="card-footer">
