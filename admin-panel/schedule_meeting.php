@@ -5,9 +5,10 @@ require_once("../libs/server.php");
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 session_start();
 $server = new Server;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $about = filter_input(INPUT_POST, 'about', FILTER_SANITIZE_SPECIAL_CHARS);
+if (isset($_POST['create_meeting'])) {
+
+  $about = filter_input(INPUT_POST, 'about_meeting', FILTER_SANITIZE_SPECIAL_CHARS);
   $meeting_date = date("Y-m-d H:i:sA", strtotime($_POST['meeting_date']));
   $meeting_content = $_POST['meeting_content'];
   $date_created = date("Y-m-d H:i:sA", strtotime("now"));
@@ -16,7 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $VICE_PRESIDENT = "Vice-President";
   $number = "";
 
-  if (strlen($about) > 0 && strlen($meeting_content) > 0) {
+  if (empty($about) && empty($meeting_content)) {
+    $_SESSION['status'] = "Warning";
+    $_SESSION['text'] = "Please fill al lthe required fields";
+    $_SESSION['status_code'] = "warning";
+  } else {
+
     $query = "INSERT INTO announcement (about, content, date, date_created) VALUES (:about, :content, :date, :date_created)";
     $data = [
       "about" => $about,
@@ -46,22 +52,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $phone_number = $result1['phone_number'];
           $number .= "," . $phone_number;
         }
-        $_SESSION['status'] = "Success";
-        $_SESSION['text'] = "Meeting succesfully created!";
-        $_SESSION['status_code'] = "success";
+       
 
         $number_str = ltrim($number, ",");
         $new_date = date("M j, Y g:iA", strtotime($_POST['meeting_date']));
         $message = "" . $about . "
-        HOA officers, don't miss our ". $new_date ." meet at the TCH clubhouse  to plan community improvements and streamline operations.";
+        HOA officers, don't miss our " . $new_date . " meet at the TCH clubhouse  to plan community improvements and streamline operations.";
         $server->sendSMS($number_str, $message);
+        $_SESSION['status'] = "Success";
+        $_SESSION['text'] = "Meeting succesfully created!";
+        $_SESSION['status_code'] = "success";
+
       }
     }
-  } else {
-    $_SESSION['status'] = "Warning";
-    $_SESSION['text'] = "Please fill al lthe required fields";
-    $_SESSION['status_code'] = "warning";
   }
+  header("location: ../admin-panel/announcement.php");
 }
-
 ?>

@@ -134,6 +134,26 @@
             font-size: .875rem;
         }
         
+        .carousel-a{
+            height: 300px;
+            
+        }
+
+        .card-body p{
+            text-indent: 0.2 rem !important;
+            margin-top: 0.5rem !important;
+            padding: 5px !important;
+        }
+
+        .card-title{
+            font-size: 0.8em !important;
+        }
+
+        .arrow i{
+            font-size: 1.2em !important;
+        }
+
+        
     }
 
 

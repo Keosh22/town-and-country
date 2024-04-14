@@ -20,7 +20,8 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       </div>
 
       <div class="modal-body mx-3">
-        <form id="schedule_meeting_form">
+        
+        <form id="schedule_meeting_form" action="schedule_meeting.php" method="POST"  >
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="about" class="form-label">About:</label>
@@ -38,7 +39,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
             <div class="modal-footer">
 
-              <a type="submit" class="btn btn-primary btn-flat" name="create_meeting" class="create_meeting" id="create_meeting">Register</a>
+              <button type="submit" class="btn btn-primary btn-flat" name="create_meeting" class="create_meeting" id="create_meeting">Register</button>
             </div>
           </div>
         </form>
@@ -71,43 +72,40 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
     });
 
 
-    $("#create_meeting").on('click', function() {
-      var about = $("#about_meeting").val();
-      var meeting_date = $("#meeting_date").val();
-      var meeting_content = $("#meeting_content").val();
+    // $("#create_meeting").on('click', function() {
+    //   var about = $("#about_meeting").val();
+    //   var meeting_date = $("#meeting_date").val();
+    //   var meeting_content = $("#meeting_content").val();
 
-      if (about.length > 0 && meeting_content.length > 0) {
-        swal({
-            title: 'Confirmation',
-            text: 'Are you sure you want to schedule a meeting?',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true
-          })
-          .then((proceed) => {
-            if (proceed) {
-              $.ajax({
-                url: '../admin-panel/schedule_meeting.php',
-                type: 'POST',
-                data: {
-                  about: about,
-                  meeting_date: meeting_date,
-                  meeting_content: meeting_content
-                },
-                success: function(response) {
-                  location.reload();
+    //   if (about.length > 0 && meeting_content.length > 0) {
+    //     swal({
+    //         title: 'Confirmation',
+    //         text: 'Are you sure you want to schedule a meeting?',
+    //         icon: 'warning',
+    //         buttons: true,
+    //         dangerMode: true
+    //       })
+    //       .then((proceed) => {
+    //         if (proceed) {
+    //           $.ajax({
+    //             url: '../admin-panel/schedule_meeting.php',
+    //             type: 'POST',
+    //             data: {
+    //               about: about,
+    //               meeting_date: meeting_date,
+    //               meeting_content: meeting_content
+    //             },
+    //             success: function(response) {
+    //               location.reload();
 
-                }
-              })
-            } else {
-              swal("Canceled");
-            }
-          })
-      }
-
-
-
-    });
+    //             }
+    //           })
+    //         } else {
+    //           swal("Canceled");
+    //         }
+    //       })
+    //   }
+    // });
 
   });
 </script>

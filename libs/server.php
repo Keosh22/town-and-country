@@ -1342,6 +1342,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $output = curl_exec($ch);
+    curl_close($ch);
     echo $output;
 
 
