@@ -9,14 +9,13 @@ require_once "../user-panel/user-nav.php";
 
 $server = new Server();
 ?>
-
 <main>
 
   <div class="backbtn-title d-flex flex-column">
 
     <!-- First Column -->
     <div class="col-12 back-button">
-      <a href="home.php" class="d-flex justify-content-start">
+      <a href="/home" class="d-flex justify-content-start">
         <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
       </a>
     </div>
@@ -116,36 +115,36 @@ $server = new Server();
                           $ACTIVE = "ACTIVE";
                           $user_id = $_SESSION["user_id"];
                           $query =  "SELECT
-                payments_list.id as payment_id,
-                payments_list.transaction_number as payment_transaction_number,
-                payments_list.homeowners_id,
-                payments_list.property_id,
-                payments_list.collection_id,
-                payments_list.collection_fee_id,
-                payments_list.date_created as date_created,
-                payments_list.paid,
-                payments_list.paid_by as paid_by_pl,
-                homeowners_users.id,
-                homeowners_users.account_number,
-                property_list.id,
-                collection_list.id,
-                collection_list.property_id,
-                collection_list.collection_fee_id,
-                collection_list.month,
-                collection_list.year,
-                collection_list.balance,
-                collection_list.status,
-                collection_fee.id,
-                collection_fee.category,
-                collection_fee.fee,
-                collection_fee.collection_fee_number
-                FROM payments_list
-                INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
-                LEFT JOIN property_list ON payments_list.property_id = property_list.id
-                LEFT JOIN collection_list ON payments_list.collection_id = collection_list.id
-                INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
-                WHERE payments_list.homeowners_id = :user_id AND payments_list.archive = :ACTIVE
-                ORDER BY date_created DESC;";
+              payments_list.id as payment_id,
+              payments_list.transaction_number as payment_transaction_number,
+              payments_list.homeowners_id,
+              payments_list.property_id,
+              payments_list.collection_id,
+              payments_list.collection_fee_id,
+              payments_list.date_created as date_created,
+              payments_list.paid,
+              payments_list.paid_by as paid_by_pl,
+              homeowners_users.id,
+              homeowners_users.account_number,
+              property_list.id,
+              collection_list.id,
+              collection_list.property_id,
+              collection_list.collection_fee_id,
+              collection_list.month,
+              collection_list.year,
+              collection_list.balance,
+              collection_list.status,
+              collection_fee.id,
+              collection_fee.category,
+              collection_fee.fee,
+              collection_fee.collection_fee_number
+              FROM payments_list
+              INNER JOIN homeowners_users ON payments_list.homeowners_id = homeowners_users.id
+              LEFT JOIN property_list ON payments_list.property_id = property_list.id
+              LEFT JOIN collection_list ON payments_list.collection_id = collection_list.id
+              INNER JOIN collection_fee ON payments_list.collection_fee_id = collection_fee.id
+              WHERE payments_list.homeowners_id = :user_id AND payments_list.archive = :ACTIVE
+              ORDER BY date_created DESC;";
 
 
                           $data = ["user_id" => $user_id, "ACTIVE" => $ACTIVE];
@@ -213,27 +212,27 @@ $server = new Server();
                           <?php
                           $ACTIVE = "ACTIVE";
                           $query1 = "SELECT 
-                              property_list.id as property_id,
-                              property_list.blk as property_blk,
-                              property_list.lot as property_lot,
-                              property_list.phase as property_phase,
-                              property_list.street as property_street,
-                              collection_fee.id as collection_id,
-                              collection_fee.collection_fee_number,
-                              collection_fee.category,
-                              collection_fee.description,
-                              construction_payment.id as construction_payment_id,
-                              construction_payment.paid as amount,
-                              construction_payment.date_created as payment_date,
-                              construction_payment.delivery_date,
-                              construction_payment.paid_by as paid_by_cp,
-                              construction_payment.transaction_number as construction_tn_number,
-                              construction_payment.refund
-                              FROM construction_payment 
-                              INNER JOIN property_list ON construction_payment.property_id = property_list.id
-                              INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
-                              WHERE construction_payment.archive = :ACTIVE AND property_list.homeowners_id = :user_id
-                              ";
+                            property_list.id as property_id,
+                            property_list.blk as property_blk,
+                            property_list.lot as property_lot,
+                            property_list.phase as property_phase,
+                            property_list.street as property_street,
+                            collection_fee.id as collection_id,
+                            collection_fee.collection_fee_number,
+                            collection_fee.category,
+                            collection_fee.description,
+                            construction_payment.id as construction_payment_id,
+                            construction_payment.paid as amount,
+                            construction_payment.date_created as payment_date,
+                            construction_payment.delivery_date,
+                            construction_payment.paid_by as paid_by_cp,
+                            construction_payment.transaction_number as construction_tn_number,
+                            construction_payment.refund
+                            FROM construction_payment 
+                            INNER JOIN property_list ON construction_payment.property_id = property_list.id
+                            INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id 
+                            WHERE construction_payment.archive = :ACTIVE AND property_list.homeowners_id = :user_id
+                            ";
                           $data1 = ["ACTIVE" => $ACTIVE, "user_id" => $user_id];
                           $connection1 = $server->openConn();
                           $stmt1 = $connection1->prepare($query1);
@@ -298,15 +297,15 @@ $server = new Server();
 
                         </tbody>
                         <!-- <tfoot>
-                        <tr>
-                          <th scope="col" width="20%">TRANSACTION NUMBER</th>
-                          <th scope="col" width="10%">USER ID</th>
-                          <th scope="col" width="20%">CATEGORY</th>
-                          <th scope="col" width="20%">MONTH AND YEAR</th>
-                          <th scope="col" width="10">STATUS</th>
-                          <th scope="col" width="20%">DATE</th>
-                        </tr>
-                      </tfoot> -->
+                      <tr>
+                        <th scope="col" width="20%">TRANSACTION NUMBER</th>
+                        <th scope="col" width="10%">USER ID</th>
+                        <th scope="col" width="20%">CATEGORY</th>
+                        <th scope="col" width="20%">MONTH AND YEAR</th>
+                        <th scope="col" width="10">STATUS</th>
+                        <th scope="col" width="20%">DATE</th>
+                      </tr>
+                    </tfoot> -->
                       </table>
                     </div>
 

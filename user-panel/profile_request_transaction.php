@@ -52,8 +52,8 @@
       <div class="modal-footer">
 
         <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary" value="Print" id="print"></button>
-   
+        <input type="submit" class="btn btn-primary" value="Open" id="print"></button>
+
 
 
 
@@ -67,74 +67,74 @@
 
 
 <script>
-
   $(document).ready(function() {
 
-  //date var 
-  var highest_date;
-  var lowest_date;
+    //date var 
+    var highest_date;
+    var lowest_date;
 
-  var startDate;
-  var endDate;
+    var startDate;
+    var endDate;
 
-  $.ajax({
+    $.ajax({
 
-    url: '../user-panel/profile_validate_date.php',
-    type: "GET",
-    dataType: "json",
-    success: function(data) {
+      url: '../user-panel/profile_validate_date.php',
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
 
-      highest_date = data.max_year_month;
-      lowest_date = data.min_year_month;
-    },
+        highest_date = data.max_year_month;
+        lowest_date = data.min_year_month;
+      },
 
-    error: function(error) {
-      console.log("Error fetching data: " + JSON.stringify(error));
-    }
-  });
-
-  $(function() {
-    $("#print").on("click", function() {
-      $(".message_result").empty();
-
-      startDate = $("#start_date").val();
-      endDate = $("#end_date").val();
-
-      if (
-        ((startDate >= lowest_date && startDate <= highest_date) &&
-          (endDate <= highest_date && endDate >= lowest_date))) {
-        $(".message_result").append("<h1>Proceed</h1>");
-        var url = '../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate;
-
-
-        var print_transaction = window.open('../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate,"_blank",'width=900,height=600');
-
-        // newWindow.onload = function() {
-        //   newWindow.print();
- 
-        // };
-        
-        print_transaction.print();
-        setTimeout(function(){
-          print_transaction.close();
-          location.reload(true);
-        }, 500)
-          
-        
-
-      } else {
-        $(".message_result").append("<h1>There is no transaction on this date</h1>");
-
-      };
+      error: function(error) {
+        console.log("Error fetching data: " + JSON.stringify(error));
+      }
     });
 
-   
+    $(function() {
+      $("#print").on("click", function() {
+        $(".message_result").empty();
 
+        startDate = $("#start_date").val();
+        endDate = $("#end_date").val();
+
+        if (
+          ((startDate >= lowest_date && startDate <= highest_date) &&
+            (endDate <= highest_date && endDate >= lowest_date))) {
+          $(".message_result").append("<h1>Proceed</h1>");
+          var url = '../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate;
+
+
+          var print_transaction = window.open('../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate, "_blank", 'width=device-width,height=device-height');
+
+
+          // newWindow.onload = function() {
+          //   newWindow.print();
+
+          // };
+
+          /*   print_transaction.print(); // Print the transaction
+
+          // Wait for a short delay before closing the print window and reloading the page
+          setTimeout(function() {
+            print_transaction.close(); // Close the print window
+            location.reload(true); // Reload the page
+          }, 1000); // Adjust the delay time as needed (in milliseconds)
+
+
+ */
+
+        } else {
+          $(".message_result").append("<h1>There is no transaction on this date</h1>");
+
+        };
+      });
+
+
+
+    });
   });
-});
-   
-
-
 </script>
 
 
@@ -232,7 +232,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
 </script>
-  <!-- DatePicker Plugin -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<!-- DatePicker Plugin -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
