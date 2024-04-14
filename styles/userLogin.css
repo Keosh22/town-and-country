@@ -115,6 +115,39 @@ header  > h3{
     margin-top: 1rem;
 }
 
+.login-btn > input:hover {
+  background-color: #037730; /* Darker green on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+  cursor: pointer;
+}
+
+.forgot-pass > a{
+  color: #007BFF; /* Link color */
+  text-decoration: none; /* Remove default underline */
+  transition: color 0.3s ease, text-decoration-color 0.3s ease; /* Smooth transitions */
+  border-bottom: 2px solid transparent; /* Add transparent underline */
+}
+
+.forgot-pass > a{
+  color: #0056b3; /* Darker blue on hover */
+  text-decoration-color: #0056b3; /* Match underline color with hover color */
+}
+
+.forgot-pass > a:focus, 
+.forgot-pass > a:active {
+    outline: none; 
+    color: #004899;
+    text-decoration-color: #004899;
+}
+
+.forgot-pass > a {
+    opacity: 0.7;
+}
+
+.forgot-pass > a:hover {
+    opacity: 1; 
+}
+
 .footer{
     margin-top: 2rem;
     display: flex;

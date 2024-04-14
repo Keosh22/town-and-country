@@ -1,10 +1,19 @@
-<?php require_once("./libs/server.php"); ?>
+<!-- HEADER -->
 <?php
-// Set HTTP request to POST method if login btn is clicked
+// require_once("./includes/user-header.php"); 
+?>
+<!-- SERVER -->
+<?php require_once("./libs/server.php"); ?>
+
+<?php
+$userserver = new Server; // Open/Close connection
 session_start();
+$userserver->userSessionLogin();
+?>
+<?php
 
 if (isset($_POST['login'])) {
-  $userserver = new Server;
+
   $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
   $login_Pass = $_POST["password"];
   $ACTIVE = "ACTIVE";
@@ -94,37 +103,64 @@ if (isset($_POST['login'])) {
 
     </form>
 
+    <!-- Sweet Alert Script -->
+    <script src="./libraries/sweetalert.js"></script>
+
+    <!-- DataTables CDN -->
+    <!-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
+
+
+
+    <script>
+      $(document).ready(function() {
+
+        $("#show_password").on('change', function() {
+
+          if (this.checked) {
+            $("#password").attr('type', 'text');
+          } else {
+            $("#password").attr('type', 'password');
+          }
+
+        });
+
+
+
+
+
+
+      });
+    </script>
+
+
+    <?php
+    // ----------------- Pop up Alert ---------------- 
+    if (isset($_SESSION['status']) && $_SESSION['status'] != "") {
+    ?>
+      <script>
+        swal({
+            title: " <?php echo $_SESSION['status'] ?>",
+            text: "<?php echo $_SESSION['text'] ?>",
+            icon: "<?php echo $_SESSION['status_code'] ?>",
+            buttons: "Okay",
+          })
+          .then((buttons) => {
+            if (buttons) {
+              <?php
+              unset($_SESSION['status']);
+              unset($_SESSION['text']);
+              unset($_SESSION['status_code']);
+              // session_unset();
+              // session_destroy();
+              ?>
+            }
+          });
+      </script>
+    <?php
+    }
+    ?>
 
 
 </body>
 
 </html>
-
-<!-- Sweet Alert Script -->
-<script src="./libraries/sweetalert.js"></script>
-
-<!-- DataTables CDN -->
-<!-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
-
-
-
-<script>
-  $(document).ready(function() {
-
-    $("#show_password").on('change', function() {
-
-      if (this.checked) {
-        $("#password").attr('type', 'text');
-      } else {
-        $("#password").attr('type', 'password');
-      }
-
-    });
-
-
-
-
-
-
-  });
-</script>
