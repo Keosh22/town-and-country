@@ -78,7 +78,7 @@ if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
     <form action="index.php" method="POST" class="login-form">
       <div class="input">
         <span class=""><i class="bx bx-user"></i></span>
-        <input type="text" class=" input" placeholder="Username" name="username">
+        <input type="text" class="input" placeholder="Username" name="username">
       </div>
 
       <div class="input">
