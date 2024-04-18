@@ -10,7 +10,7 @@ require_once basePath("styles/403_style.php");
 
     <div class="header">
         <div class="img">
-            <img src="/img/logo.png" alt="">
+            <img src="../img/logo.png" alt="">
         </div>
     </div>
 
