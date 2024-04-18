@@ -52,7 +52,7 @@
       <div class="modal-footer">
 
         <button type="button" class="btn btn-secondary closeBtn" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary" value="Open" id="print"></button>
+        <input type="submit" class="btn btn-primary" value="Open" id="open"></button>
 
 
 
@@ -65,7 +65,7 @@
 
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   $(document).ready(function() {
 
@@ -76,6 +76,9 @@
     var startDate;
     var endDate;
 
+    var dates_avail = [];
+
+
     $.ajax({
 
       url: '../user-panel/profile_validate_date.php',
@@ -83,8 +86,13 @@
       dataType: "json",
       success: function(data) {
 
-        highest_date = data.max_year_month;
-        lowest_date = data.min_year_month;
+        highest_date = data.date_range.max_year_month;
+        lowest_date = data.date_range.min_year_month;
+
+        data.all_dates.forEach(function(dateItem) {
+          dates_avail.push(dateItem.dates);
+
+        });
       },
 
       error: function(error) {
@@ -93,7 +101,7 @@
     });
 
     $(function() {
-      $("#print").on("click", function() {
+      $("#open").on("click", function() {
         $(".message_result").empty();
 
         startDate = $("#start_date").val();
@@ -101,65 +109,88 @@
 
         if (
           ((startDate >= lowest_date && startDate <= highest_date) &&
-            (endDate <= highest_date && endDate >= lowest_date))) {
-          $(".message_result").append("<h1>Proceed</h1>");
+            (endDate <= highest_date && endDate >= lowest_date)) &&
+          (dates_avail.includes(startDate) && dates_avail.includes(endDate))
+        ) {
+
           var url = '../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate;
 
-
+          console.log(startDate);
+          console.log("Highest date: " + highest_date)
+          console.log("Lowest date: " + lowest_date)
+          console.log(endDate);
+          console.log(dates_avail);
           var print_transaction = window.open('../user-panel/receipt.php?start_date=' + startDate + '&end_date=' + endDate, "_blank", 'width=device-width,height=device-height');
 
 
           // newWindow.onload = function() {
           //   newWindow.print();
-
           // };
-
           /*   print_transaction.print(); // Print the transaction
-
           // Wait for a short delay before closing the print window and reloading the page
           setTimeout(function() {
             print_transaction.close(); // Close the print window
             location.reload(true); // Reload the page
           }, 1000); // Adjust the delay time as needed (in milliseconds)
+          */
 
 
- */
+          resetDateValues()
 
         } else {
-          $(".message_result").append("<h1>There is no transaction on this date</h1>");
+
+          Swal.fire({
+
+            title: "Oops...",
+            text: "There is no transaction within this range!",
+
+          });
+
+
+
+          resetDateValues()
+
+
+
+
+
 
         };
       });
 
 
 
+
+
     });
-  });
-</script>
 
-
-<script type="text/javascript">
-  $(document).ready(function() {
     function closeModal() {
       $("#myModal").css("display", "none");
+
+
     }
 
     // Open the modal when the page loads
-    $(document).ready(function() {
-      $("#myModal").css("display", "block");
 
-      // Close the modal when clicking outside of it
-      $(document).on("click", function(event) {
-        if ($(event.target).closest("#myModal").length === 0) {
-          closeModal();
-        }
-      });
+    //$("#myModal").css("display", "block");
+
+
+    // Close the modal when clicking outside of it
+    $(document).on("click", function(event) {
+      if ($(event.target).closest("#myModal").length === 0) {
+        closeModal();
+
+
+      };
     });
+
 
 
     // Attach click event handler to close button with the class 'closeBtn'
     $(".closeBtn").on("click", function() {
       $('#print_transaction').modal('hide');
+
+      resetDateValues();
     });
 
     // START DATE
@@ -181,6 +212,28 @@
         format: 'YYYY-MM-DD'
       }
     });
+
+    function resetDateValues() {
+      var currentDate = new Date();
+      var formattedDate = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' + ('0' + currentDate.getDate()).slice(-2);
+
+      startDate = formattedDate;
+      endDate = formattedDate;
+
+      // Update input values
+      $("#start_date").val(startDate);
+      $("#end_date").val(endDate);
+
+      // Update date ranges for daterangepicker
+      $("#start_date").data('daterangepicker').setStartDate(startDate);
+      $("#start_date").data('daterangepicker').setEndDate(startDate);
+      $("#end_date").data('daterangepicker').setStartDate(endDate);
+      $("#end_date").data('daterangepicker').setEndDate(endDate);
+    }
+
+
+
+
 
 
   })
@@ -222,9 +275,7 @@
 
 
 
-<script>
 
-</script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>

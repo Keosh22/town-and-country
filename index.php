@@ -2,12 +2,12 @@
 require_once("./libs/server.php");
 $userserver = new Server; // Open/Close connection
 session_start();
-$userserver->userSessionLogin();
+
 ?>
 <?php
 
 if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
-  require_once "./user-error-Code/403.php";
+  require_once "user-error-Code/403.php";
   return;
 } else {
 
@@ -26,6 +26,7 @@ if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
       // $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
       $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
       $data = ["username" =>  $login_Username, "ACTIVE" => $ACTIVE];
+      $userserver->userSessionLogin();
       $path = "user/home.php";
       $pass = $login_Pass;
       $userserver->userLogin($query, $data, $pass, $path);

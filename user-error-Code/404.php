@@ -1,6 +1,7 @@
 <?php
-
-require_once "./styles/404_style.php";
+$base = __DIR__ . '/../';
+require $base . "function.php";
+require_once basePath("styles/404_style.php");
 ?>
 
 <body>
