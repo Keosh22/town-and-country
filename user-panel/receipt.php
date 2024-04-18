@@ -3,8 +3,9 @@ session_start();
 require_once("../libs/server.php");
 
 
+
 //require_once("../includes/header.php");
-require_once("../styles/style_receipt.php");
+require_once "../styles/style_receipt.php";
 DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
 
@@ -29,7 +30,7 @@ payments_list.property_id,
 payments_list.collection_id,
 payments_list.collection_fee_id,
 payments_list.date_created,
-payments_list.paid,
+payments_list.paid as amount,
 payments_list.paid_by as paid_by_pl,
 homeowners_users.id,
 homeowners_users.account_number AS account_number,
@@ -100,6 +101,7 @@ if ($stmt->rowCount() > 0) {
         $month = $result["month"];
         $year = $result["year"];
         $paidby = $result["paid_by_pl"];
+        $amount = $result["amount"];
         $monthyear = "{$month}, {$year}";
 
 
@@ -108,6 +110,7 @@ if ($stmt->rowCount() > 0) {
         $tableRows .= "<td>{$result['transaction_number']}</td>";
         $tableRows .= "<td>$category</td>";
         $tableRows .= "<td>$monthyear</td>";
+        $tableRows .= "<td>$amount</td>";
         $tableRows .= "<td>$paidby</td>";
         $tableRows .= "</tr>";
     }
@@ -153,6 +156,7 @@ if ($stmt->rowCount() > 0) {
                     <th scope="col" width="20%">TRANSACTION NUMBER</th>
                     <th scope="col" width="20%">CATEGORY</th>
                     <th scope="col" width="20%">MONTH AND YEAR</th>
+                    <th scope="col" width="20%">AMOUNT</th>
                     <th scope="col" width="20%">PAID BY</th>
                 </tr>
             </thead>
@@ -170,8 +174,7 @@ if ($stmt->rowCount() > 0) {
         window.print();
 
         // Hide the button
-        document.getElementById("printButton").style.display = "none";
-
+        document.getElementById("printButton").style.visibility = "none";
 
     }
 </script>

@@ -1,39 +1,42 @@
-<!-- HEADER -->
 <?php
-// require_once("./includes/user-header.php"); 
-?>
-<!-- SERVER -->
-<?php require_once("./libs/server.php"); ?>
-
-<?php
+require_once("./libs/server.php");
 $userserver = new Server; // Open/Close connection
 session_start();
-$userserver->userSessionLogin();
+
 ?>
 <?php
 
-if (isset($_POST['login'])) {
+if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
+  require_once "user-error-Code/403.php";
+  return;
+} else {
 
-  $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-  $login_Pass = $_POST["password"];
-  $ACTIVE = "ACTIVE";
+  if (isset($_POST['login'])) {
 
-  if (empty($login_Username) || empty($login_Pass)) {
+    $login_Username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+    $login_Pass = $_POST["password"];
+    $ACTIVE = "ACTIVE";
 
-    $_SESSION['status'] = "Login Failed!";
-    $_SESSION['text'] = "Please fill all the fields!";
-    $_SESSION['status_code'] = "warning";
-  } else {
-    // $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
-    $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
-    $data = ["username" =>  $login_Username, "ACTIVE" => $ACTIVE];
-    $path = "user/home.php";
-    $pass = $login_Pass;
-    $userserver->userLogin($query, $data, $pass, $path);
+    if (empty($login_Username) || empty($login_Pass)) {
 
-    // $userserver->getAnnouncement();
+      $_SESSION['status'] = "Login Failed!";
+      $_SESSION['text'] = "Please fill all the fields!";
+      $_SESSION['status_code'] = "warning";
+    } else {
+      // $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
+      $query = "SELECT * FROM homeowners_users WHERE username = :username AND archive = :ACTIVE";
+      $data = ["username" =>  $login_Username, "ACTIVE" => $ACTIVE];
+      $userserver->userSessionLogin();
+      $path = "user/home.php";
+      $pass = $login_Pass;
+      $userserver->userLogin($query, $data, $pass, $path);
+
+      // $userserver->getAnnouncement();
+    }
   }
 }
+
+
 
 
 // get announcment
@@ -76,7 +79,7 @@ if (isset($_POST['login'])) {
     <form action="index.php" method="POST" class="login-form">
       <div class="input">
         <span class=""><i class="bx bx-user"></i></span>
-        <input type="text" class=" input" placeholder="Username" name="username">
+        <input type="text" class="input" placeholder="Username" name="username">
       </div>
 
       <div class="input">

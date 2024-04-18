@@ -8,6 +8,7 @@ require_once "../user-panel/user-nav.php";
 
 
 $server = new Server();
+$server->userAuthentication("../user-error-Code/403.php");
 ?>
 <main>
 
@@ -15,7 +16,7 @@ $server = new Server();
 
     <!-- First Column -->
     <div class="col-12 back-button">
-      <a href="/home" class="d-flex justify-content-start">
+      <a href="../user/home.php" class="d-flex justify-content-start">
         <i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
       </a>
     </div>

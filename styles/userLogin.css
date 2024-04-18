@@ -86,6 +86,11 @@ header  > h3{
    border-right: 1px solid rgba(70, 70, 70, 0.554);
 }
 
+.input > input:focus{
+  border: 2px solid #064420;
+  outline: none; 
+  box-shadow: 0 0 5px rgba(3, 119, 48, 0.5);
+}
 .input > span{
 
     display: flex;
@@ -120,6 +125,7 @@ header  > h3{
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
   cursor: pointer;
 }
+
 
 .forgot-pass > a{
   color: #007BFF; /* Link color */
@@ -250,4 +256,6 @@ header  > h3{
   .seperator{
     display: none;
   }
+
+
 }

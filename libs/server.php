@@ -116,6 +116,7 @@ class Server
         $_SESSION["user_id"] = $user_id;
         $_SESSION["user_firstname"] = $firstname;
         $_SESSION["user_lastname"] = $lastname;
+
         header("location:" . $path . "");
       } else {
         // Password is incorrect
@@ -130,6 +131,8 @@ class Server
       $_SESSION['status_code'] = "error";
     }
   }
+
+
 
 
   // get announcement
@@ -231,7 +234,7 @@ class Server
         $account_number = $result['account_number'];
         $type = $result['type'];
       }
-      if (password_verify($pass, $password)) {
+      if ($pass === $password) {
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;
@@ -1295,10 +1298,10 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     }
   }
 
-  public function userAuthentication()
+  public function userAuthentication($path)
   {
     if (empty($_SESSION['user_id'])) {
-      echo "<script>window.location.href='../index.php'</script>";
+      echo "<script>window.location.href='" . $path . "'</script>";
     }
   }
 

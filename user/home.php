@@ -1,10 +1,13 @@
 <?php
-session_start(); ?>
-<?php
+session_start();
+
+
 
 require "../includes/user-header.php";
 require "../user-panel/user-nav.php";
 require "../libs/server.php";
+
+
 // $homeServer = new Server();
 
 // $homeServer->userAuthentication();
@@ -19,6 +22,7 @@ require "../libs/server.php";
 
   <?php
   $server = new Server();
+  $server->userAuthentication("../user-error-Code/403.php");
   $status = "ACTIVE";
   $query = "SELECT * FROM promotion WHERE status = :status ORDER BY RAND() LIMIT 1";
   $data = ["status" => $status];
