@@ -24,12 +24,12 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 class Server
 {
   // pati to pa change, iba kasi configuration ng database natin
-  private $user = LESUSER;
-  private $pass = LESPASS;
-  private $port = PORT;
+  // private $user = LESUSER;
+  // private $pass = LESPASS;
+  // private $port = PORT;
 
-  // private $user = USER;
-  // private $pass = PASS;
+  private $user = USER;
+  private $pass = PASS;
   private $host = HOST;
   private $dbname = DBNAME;
 
@@ -71,10 +71,10 @@ class Server
 
     try {
       // Lesther 
-      $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      // $this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-      // $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
@@ -161,10 +161,10 @@ class Server
   public function pagination($numberofPage)
   {
     // Lesther
-    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 

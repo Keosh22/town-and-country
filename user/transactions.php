@@ -434,7 +434,7 @@ include("../user/construction_view.php");
       var construction_payment_id = $(this).attr('data-id');
       var collection_fee_number = $(this).attr('data-collection-fee');
       $("#collection_fee_number_cc").val(collection_fee_number);
-
+     
       $.ajax({
         url: '../ajax/material_delivery_receipt_view.php',
         type: 'POST',
@@ -454,7 +454,8 @@ include("../user/construction_view.php");
           $("#total_amount_cc").val(response.total_amount);
           $("#property_id_receipt_cc").val(response.property_id);
           $("#transaction_number_cc").val(response.transaction_number);
-          $("#admin_name_cc").html(response.admin_name);
+          // $("#admin_name_cc").html(response.admin_name);
+          $("#admin_name_cc").empty().append(response.admin_name);
 
         }
       })
@@ -467,6 +468,7 @@ include("../user/construction_view.php");
       var construction_payment_id = $(this).attr('data-id');
       var collection_fee_number = $(this).attr('data-collection-fee');
       $("#collection_fee_number_cc").val(collection_fee_number);
+
       $.ajax({
         url: '../ajax/construction_bond_receipt_view.php',
         type: 'POST',

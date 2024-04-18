@@ -1,3 +1,4 @@
+
 <main>
     <!-- First Column -->
     <div class="backbtn-title d-flex flex-column ">
@@ -163,6 +164,3 @@ include("../user-views/request_modal.php");
 
 ?>
 
-<?php
-require_once("../includes/footer.php");
-?>

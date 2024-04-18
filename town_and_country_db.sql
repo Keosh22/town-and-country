@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 09:05 PM
+-- Generation Time: Apr 18, 2024 at 09:24 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -83,7 +83,42 @@ INSERT INTO `activity_log` (`id`, `account_number`, `firstname`, `action`, `date
 (41, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 03:27:30'),
 (42, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-03-20 03:27:32'),
 (43, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 03:56:32'),
-(44, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-03-20 03:56:35');
+(44, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-03-20 03:56:35'),
+(45, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 04:07:29'),
+(46, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 21:27:06'),
+(47, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-03-20 22:51:58'),
+(48, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 22:55:57'),
+(49, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-03-20 22:56:01'),
+(50, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 23:04:45'),
+(51, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 23:06:55'),
+(52, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 23:11:16'),
+(53, 'ADM004', 'KEN JOSHUA', 'Payment: Transaction No# TN0000073 Material delivery payment', '2024-03-20 23:11:43'),
+(54, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-03-20 23:13:27'),
+(55, 'ADM004', 'KEN JOSHUA', 'Payment: Transaction No# TN0000074 Construction bond payment', '2024-03-20 23:13:47'),
+(56, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-12 19:47:24'),
+(57, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-04-12 19:47:37'),
+(58, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-12 19:47:52'),
+(59, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-04-12 19:50:46'),
+(60, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-12 19:50:50'),
+(61, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-04-12 19:50:53'),
+(62, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-12 20:25:47'),
+(63, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-12 20:51:17'),
+(64, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-04-13 00:08:10'),
+(65, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-13 00:51:46'),
+(66, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-13 01:04:23'),
+(67, 'ADM004', 'KEN JOSHUA', 'Logged out', '2024-04-13 01:17:36'),
+(68, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-13 01:17:40'),
+(69, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-13 01:35:56'),
+(70, 'ADM004', 'KEN JOSHUA', 'Meeting: for qweqwe posted', '2024-04-13 01:36:09'),
+(71, 'ADM004', 'KEN JOSHUA', 'Meeting: for mjh posted', '2024-04-13 01:41:12'),
+(72, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-13 21:15:13'),
+(73, 'ADM004', 'KEN JOSHUA', 'Meeting: for 1 posted', '2024-04-13 21:19:54'),
+(74, 'ADM004', 'KEN JOSHUA', 'Meeting: for 11 posted', '2024-04-13 21:33:26'),
+(75, 'ADM004', 'KEN JOSHUA', 'Meeting: for a posted', '2024-04-13 22:34:13'),
+(76, 'ADM004', 'KEN JOSHUA', 'Meeting: for General Meeting posted', '2024-04-13 22:38:26'),
+(77, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-18 14:18:24'),
+(78, 'ADM004', 'KEN JOSHUA', 'Logged in the system', '2024-04-18 14:24:36'),
+(79, 'ADM004', 'KEN JOSHUA', 'Payment: Transaction No# TN0000075 Material delivery payment', '2024-04-18 14:25:07');
 
 -- --------------------------------------------------------
 
@@ -110,7 +145,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `account_number`, `username`, `password`, `firstname`, `lastname`, `email`, `phone_number`, `photo`, `type`, `token`) VALUES
-(33, 'ADM004', 'admin', '$2y$10$UAjqpEoHnGTdDc.RntOGxuQ5yKE0gj23MVmsrtgixeW3zwqenwBsS', 'KEN JOSHUA', 'BUENAVIDES', 'KENJOSHUABUENAVIDES@GMAIL.COM', '09771778411', 'IMG_20231004_205532_(2_x_2_inch).jpg', 'ADMIN', '47565d2d5dab87d690068772d96bce4c'),
+(33, 'ADM004', 'admin', '$2y$10$g7c9xfM5/HIAzbRwOaXWIewMjYxEW5kEJdxjg3VnsspG1dpKdJb6i', 'KEN JOSHUA', 'BUENAVIDES', 'KENJOSHUABUENAVIDES@GMAIL.COM', '09771778411', 'IMG_20231004_205532_(2_x_2_inch).jpg', 'ADMIN', 'b7de61fdda3660711535a16152be5fab'),
 (48, 'ADM008', 'Super_admin', '$2y$10$XIWISYaxs2YEx7hxQGcUSOKdc9tp9h4siyN81Q9PCOmjr9NVxYvDC', 'TCH', 'TCH', 'tch@gmail.com', '09123456789', 'TCH logo.png', 'SUPER_ADMIN\r\n', ''),
 (49, 'ADM009', 'Kirby', '$2y$10$6R.ANIwWSihSd4RrdxW6LuC2Ji0z7I9qjB5JWcYzB4iRtg69WZvo6', 'Kirby', 'Rivera', 'asasd', '09771778411', '387467491_1032635598167678_2495845338663066655_n (1).jpg', 'ADMIN', ''),
 (50, 'ADM010', 'Lesther', '$2y$10$of676iHgQNdbjxYq6DmtJu6.LQXj.RObPRoKp2bsa/WSMy7D2jjYS', 'Lesther', 'Martinez', 'Lesthermartinez@gmail.com', '09771778411', '387519748_192870633834999_3008499567823451055_n.jpg', 'ADMIN', '');
@@ -135,13 +170,10 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`id`, `about`, `content`, `date`, `date_created`, `status`) VALUES
-(81, 'Capstone Defense BSIT 3', 'asdasd', '2024-01-07 09:57:00', '2024-01-07 21:57:14', 'INACTIVE'),
-(82, 'Valentines Day', 'Valentines Day Event', '2024-03-16 10:33:00', '2024-01-13 00:52:41', 'INACTIVE'),
-(83, 'Valentines Day King and Queen', 'Valentines Day King and Queen', '2024-02-23 12:29:00', '2024-02-15 19:49:30', 'INACTIVE'),
-(84, 'General Meeting', 'Hellooo\nGoodmorning', '2024-03-16 00:09:00', '2024-03-16 00:09:16', 'INACTIVE'),
-(93, 'General Meeting', 'Meeting at Clubhouse', '2024-03-21 01:55:00', '2024-03-20 01:56:04', 'ACTIVE'),
-(94, 'General Meeting', 'HOA officers, don\'t miss our Jan 20, 2024 7:00 PM meet at the TCH clubhouse  to plan community improvements and streamline operations.aaaaa', '2024-03-23 15:00:00', '2024-03-20 02:07:28', 'ACTIVE'),
-(95, 'Officers Meeting', 'Hello', '2024-03-22 15:00:00', '2024-03-20 02:09:48', 'ACTIVE');
+(94, 'General Meeting', 'HOA officers, don\'t miss our Jan 20, 2024 7:00 PM meet at the TCH clubhouse  to plan community improvements and streamline operations.aaaaa', '2024-03-23 15:00:00', '2024-03-20 02:07:28', 'INACTIVE'),
+(99, '11', '1', '2024-04-13 21:33:00', '2024-04-13 21:33:26', 'INACTIVE'),
+(100, 'a', 'aaa', '2024-04-13 22:33:00', '2024-04-13 22:34:13', 'INACTIVE'),
+(101, 'General Meeting', 'u', '2024-04-14 07:00:00', '2024-04-13 22:38:26', 'INACTIVE');
 
 -- --------------------------------------------------------
 
@@ -254,7 +286,7 @@ INSERT INTO `collection_list` (`id`, `property_id`, `owners_id`, `collection_fee
 (661, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'January', '01', '2024', 'NOT SENT', 'ACTIVE'),
 (662, 83, 10, 18, '2024-02-04 19:05:02', '300', '0000-00-00 00:00:00', 'DUE', 'February', '02', '2024', 'SENT', 'ACTIVE'),
 (663, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'DUE', 'March', '03', '2024', 'NOT SENT', 'ACTIVE'),
-(664, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2024', 'NOT SENT', 'ACTIVE'),
+(664, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'DUE', 'April', '04', '2024', 'NOT SENT', 'ACTIVE'),
 (665, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'May', '05', '2024', 'NOT SENT', 'ACTIVE'),
 (666, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'June', '06', '2024', 'NOT SENT', 'ACTIVE'),
 (667, 83, 10, 18, '2024-02-04 19:05:02', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'July', '07', '2024', 'NOT SENT', 'ACTIVE'),
@@ -266,7 +298,7 @@ INSERT INTO `collection_list` (`id`, `property_id`, `owners_id`, `collection_fee
 (673, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'January', '01', '2024', 'NOT SENT', 'ACTIVE'),
 (674, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'DUE', 'February', '02', '2024', 'NOT SENT', 'ACTIVE'),
 (675, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'DUE', 'March', '03', '2024', 'NOT SENT', 'ACTIVE'),
-(676, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2024', 'NOT SENT', 'ACTIVE'),
+(676, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'DUE', 'April', '04', '2024', 'NOT SENT', 'ACTIVE'),
 (677, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'May', '05', '2024', 'NOT SENT', 'ACTIVE'),
 (678, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'June', '06', '2024', 'NOT SENT', 'ACTIVE'),
 (679, 84, 11, 18, '2024-02-04 23:55:05', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'July', '07', '2024', 'NOT SENT', 'ACTIVE'),
@@ -290,7 +322,7 @@ INSERT INTO `collection_list` (`id`, `property_id`, `owners_id`, `collection_fee
 (697, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'January', '01', '2024', 'NOT SENT', 'ACTIVE'),
 (698, 86, 13, 18, '2024-02-04 23:56:03', '300', '0000-00-00 00:00:00', 'DUE', 'February', '02', '2024', 'SENT', 'ACTIVE'),
 (699, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'DUE', 'March', '03', '2024', 'NOT SENT', 'ACTIVE'),
-(700, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'April', '04', '2024', 'NOT SENT', 'ACTIVE'),
+(700, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'DUE', 'April', '04', '2024', 'NOT SENT', 'ACTIVE'),
 (701, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'May', '05', '2024', 'NOT SENT', 'ACTIVE'),
 (702, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'June', '06', '2024', 'NOT SENT', 'ACTIVE'),
 (703, 86, 13, 18, '2024-02-04 23:56:03', '250', '0000-00-00 00:00:00', 'AVAILABLE', 'July', '07', '2024', 'NOT SENT', 'ACTIVE'),
@@ -421,7 +453,10 @@ INSERT INTO `construction_payment` (`id`, `transaction_number`, `property_id`, `
 (29, 'TN-0000033', 82, 12, 300, '2024-02-27 23:56:19', '2024-02-27 00:00:00', 'Ken Joshua R. Buenavides', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
 (30, 'TN-0000035', 83, 5, 12000, '2024-02-29 05:32:40', '0000-00-00 00:00:00', 'Ken', '', 'KEN JOSHUA BUENAVIDES', 'INACTIVE'),
 (31, 'TN0000064', 83, 5, 600, '2024-03-09 22:26:50', '0000-00-00 00:00:00', 'Ken', 'REFUNDED', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
-(32, 'TN0000072', 82, 12, 300, '2024-03-16 23:59:36', '2024-03-16 00:00:00', 'Ken Joshua R. Buenavides', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE');
+(32, 'TN0000072', 82, 12, 300, '2024-03-16 23:59:36', '2024-03-16 00:00:00', 'Ken Joshua R. Buenavides', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(33, 'TN0000073', 88, 14, 2000, '2024-03-20 23:43:11', '2024-03-30 00:00:00', 'Chelsea W. Modesto', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(34, 'TN0000074', 88, 5, 800, '2024-03-20 23:47:13', '0000-00-00 00:00:00', 'Ken', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE'),
+(35, 'TN0000075', 85, 12, 300, '2024-04-18 14:07:25', '2024-04-18 00:00:00', 'Charline M. Apiado', '', 'KEN JOSHUA BUENAVIDES', 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -456,7 +491,7 @@ CREATE TABLE `homeowners_users` (
 
 INSERT INTO `homeowners_users` (`id`, `account_number`, `username`, `password`, `firstname`, `lastname`, `middle_initial`, `email`, `phone_number`, `blk`, `lot`, `street`, `phase`, `status`, `position`, `date_created`, `archive`, `token`) VALUES
 (1, 'TCH0001', 'TCH0001', '', 'DO NOT DELETE THIS', 'DO NOT DELETE THIS', '', 'DO NOT DELETE THIS', 'DO NOT DELETE THIS', '', '', '', '', '', '', '2024-02-03 11:09:25', 'ACTIVE', ''),
-(9, 'TCH0002', 'TCH0002', '$2y$10$UQWxLoyHn66jJoDInUzjE.IjEWEi9hDs4p7xdzSrDms4qibAe2EcC', 'Ken Joshua', 'Buenavides', 'R.', 'kenjoshuabuenavides@gmail.com', '09771778411', '16', '28', 'Jackfruit', 'Phase 1', 'EXPIRED', 'President', '2024-02-23 16:24:08', 'ACTIVE', '5a88453f424fc4dca577eb66c638c25c'),
+(9, 'TCH0002', 'TCH0002', '$2y$10$DQ1ZL8TpMkyInPDHaQp6UuteCwyS.zsvyLvpnKZkl/hR.TVKu89nW', 'Ken Joshua', 'Buenavides', 'R.', 'kenjoshuabuenavides@gmail.com', '09771778411', '16', '28', 'Jackfruit', 'Phase 1', 'EXPIRED', 'President', '2024-02-23 16:24:08', 'ACTIVE', '999bab9bdd9acb79511a5b03096cd025'),
 (10, 'TCH0003', 'TCH0003', '$2y$10$zL0EmsKaNyLsaBdCgjIeOO8Jj.gb.IDrYhplISvGWSnSDgQKBqCM2', 'Kirby', 'Rivera', 'R.', 'kirby@gmail.com11', '09918186627', '16', '28', 'Jackfruit', 'Phase 1', 'EXPIRED', 'Vice-President', '2024-03-16 22:18:45', 'ACTIVE', ''),
 (11, 'TCH0004', 'TCH0004', '$2y$10$4LdB62ilxSSco0h0HLK9C.IltSZy1L84SGnz/MNIgXlR4Vq32eDFm', 'Lesther', 'Martinez', 'C.', 'lesther@gmail.com', '09876543211', '6', '23', 'Narra', 'Phase 2', 'Member', '', '2024-02-12 22:05:13', 'ACTIVE', ''),
 (12, 'TCH0005', 'TCH0005', '$2y$10$PLdM9llAhV7lzIScVKP6geGTwKKeiOOv4jr5pPQoFcwtXZfQzXWgW', 'Charline', 'Apiado', 'M.', 'charline@gmail.com', '09812341231', '9', '2', 'Pearl', 'Phase 3', 'Member', '', '2024-02-04 23:55:28', 'ACTIVE', ''),
@@ -604,11 +639,12 @@ CREATE TABLE `promotion` (
 INSERT INTO `promotion` (`id`, `photo`, `business_name`, `content`, `status`, `date_created`, `date_expired`) VALUES
 (14, '1000_F_251682139_JSihMaG8QmLh7JcSAPZ6mzh6PZjfqjf0.jpg', 'Thrift Collections', 'Year End Sale!!!', 'INACTIVE', '2024-02-27 01:42:16', '2024-02-27 12:00:00'),
 (17, '407771942_120202532022330760_6460213004535456788_n.jpg', 'Vans', 'Vans Checkered SALE \r\n60% OFF\r\nBUY NOW!', 'INACTIVE', '2024-03-15 22:51:57', '2024-03-16 12:00:00'),
-(18, 'desktop-wallpaper-backgrounds-for-jujutsu-kaisen-anime-on-windows-pc-jujutsu-kaisen-laptop.jpg', 'Sample', 'Sample', 'INACTIVE', '2024-02-27 02:10:43', '2024-02-27 02:09:00'),
-(20, 'gojo_by_jetstreamstiker_dfzicij.png', 'blabla', 'avava', 'ACTIVE', '2024-03-16 01:16:45', '2024-03-22 12:00:00'),
+(18, 'desktop-wallpaper-backgrounds-for-jujutsu-kaisen-anime-on-windows-pc-jujutsu-kaisen-laptop.jpg', 'Sample', 'Sample', 'INACTIVE', '2024-04-13 00:53:43', '2024-04-16 12:00:00'),
+(20, 'gojo_by_jetstreamstiker_dfzicij.png', 'blabla', 'avava', 'INACTIVE', '2024-03-16 01:16:45', '2024-03-22 12:00:00'),
 (21, 'gojo_by_jetstreamstiker_dfzicij.png', 'blabla', ',', 'INACTIVE', '2024-03-16 00:00:00', '2024-03-16 00:00:00'),
 (22, 'HD-wallpaper-call-of-duty-warzone-2021-pc-game-poster.jpg', 'blabla', 'i', 'INACTIVE', '2024-03-16 00:00:00', '2024-03-16 00:00:00'),
-(23, 'desktop-wallpaper-backgrounds-for-jujutsu-kaisen-anime-on-windows-pc-jujutsu-kaisen-laptop.jpg', 'blablaa', 'a', 'INACTIVE', '2024-03-17 00:49:27', '2024-03-17 12:49:00');
+(23, 'desktop-wallpaper-backgrounds-for-jujutsu-kaisen-anime-on-windows-pc-jujutsu-kaisen-laptop.jpg', 'blablaa', 'a', 'INACTIVE', '2024-03-17 00:49:27', '2024-03-17 12:49:00'),
+(24, 'desktop-wallpaper-backgrounds-for-jujutsu-kaisen-anime-on-windows-pc-jujutsu-kaisen-laptop.jpg', 'blabla', 'z', 'INACTIVE', '2024-04-13 00:53:30', '2024-04-13 12:00:00');
 
 -- --------------------------------------------------------
 
@@ -721,7 +757,10 @@ INSERT INTO `transaction_number_list` (`id`, `transaction_number`, `archive`) VA
 (73, 'TN0000069', 'ACTIVE'),
 (74, 'TN0000070', 'ACTIVE'),
 (75, 'TN0000071', 'ACTIVE'),
-(76, 'TN0000072', 'ACTIVE');
+(76, 'TN0000072', 'ACTIVE'),
+(77, 'TN0000073', 'ACTIVE'),
+(78, 'TN0000074', 'ACTIVE'),
+(79, 'TN0000075', 'ACTIVE');
 
 --
 -- Indexes for dumped tables
@@ -826,7 +865,7 @@ ALTER TABLE `transaction_number_list`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -838,7 +877,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `archive_property_list`
@@ -862,7 +901,7 @@ ALTER TABLE `collection_list`
 -- AUTO_INCREMENT for table `construction_payment`
 --
 ALTER TABLE `construction_payment`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `homeowners_users`
@@ -892,7 +931,7 @@ ALTER TABLE `payments_list`
 -- AUTO_INCREMENT for table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `property_list`
@@ -910,7 +949,7 @@ ALTER TABLE `street_list`
 -- AUTO_INCREMENT for table `transaction_number_list`
 --
 ALTER TABLE `transaction_number_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- Constraints for dumped tables
