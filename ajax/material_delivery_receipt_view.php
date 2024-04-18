@@ -62,7 +62,7 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   collection_fee.description
   FROM construction_payment 
   INNER JOIN collection_fee ON construction_payment.collection_fee_id = collection_fee.id
-  WHERE construction_payment.id =  :construction_payment_id ";
+  WHERE construction_payment.id =  :construction_payment_id";
   $data2 = ["construction_payment_id" => $construction_payment_id];
   $connection2 = $server->openConn();
   $stmt2 = $connection2->prepare($query2);
@@ -91,7 +91,6 @@ if (isset($_POST['property_id']) && isset($_POST['construction_payment_id'])) {
   <th scope="col" width="15%">Delivery Address</th>
   <th scope="col" width="5%">Delivery Date</th>
 </tr>
-
   ';
 
 
