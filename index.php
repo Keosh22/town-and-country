@@ -6,7 +6,10 @@ session_start();
 ?>
 <?php
 
-if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
+if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/" && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/index.php"   ) {
+
+  // LESTHER
+  // if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
   require_once "user-error-Code/403.php";
   return;
 } else {

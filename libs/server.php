@@ -234,7 +234,7 @@ class Server
         $account_number = $result['account_number'];
         $type = $result['type'];
       }
-      if ($pass === $password) {
+      if (password_verify($pass,$password)) {
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;

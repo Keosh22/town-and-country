@@ -85,6 +85,10 @@ if (isset($_POST['login_submit'])) {
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="show_password" class="form-check-input">
+                            <label for="show_password" class="text-secondary">Show password</label>
+                        </div>
 
                         <!-- SUBMIT BUTTON -->
                         <input type="submit" class="login-btn btn btn-primary" name="login_submit" value="Log In"></input>
@@ -99,9 +103,23 @@ if (isset($_POST['login_submit'])) {
         </div>
     </div>
     <script>
+     $(document).ready(function(){
         $(window).on('load', function() {
             $(".spinner_wrapper").fadeOut("slow");
+            
         });
+
+        // Show password
+        $("#show_password").on('change', function(){
+
+            if(this.checked){
+                $("#exampleInputPassword1").attr('type', 'text')
+            } else {
+                $("#exampleInputPassword1").attr('type', 'password')
+            }
+        });
+
+     });
     </script>
     <!-- FOOTER -->
     <?php
