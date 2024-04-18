@@ -9,6 +9,7 @@ require "../includes/user-header.php";
 require "../user-panel/user-nav.php";
 date_default_timezone_set('Asia/Manila');
 $server = new Server();
+$server->userAuthentication("../user-error-Code/403.php");
 $status = "ACTIVE";
 $query = "SELECT * FROM promotion WHERE status = :status";
 $data = ["status" => $status];
@@ -105,5 +106,5 @@ include("../user/request_promotion_modal.php");
 
 <!-- FOOTER -->
 <?php
-  include("../includes/footer.php");
-  ?>
+include("../includes/footer.php");
+?>
