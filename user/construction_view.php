@@ -11,7 +11,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 
 <!-- Modal Promotion -->
-<div id="construction_view" class="modal fade">
+<div id="construction_view" class="modal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
