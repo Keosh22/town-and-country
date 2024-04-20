@@ -8,6 +8,11 @@ session_start();
 
 if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/" && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/index.php"   ) {
 
+  // HOSTING
+  // if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://tchtest01.infinityfreeapp.com/" && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://tchtest01.infinityfreeapp.com/index.php"   ) {
+
+
+
   // LESTHER
   // if (parse_url($_SERVER["REQUEST_URI"])["path"] !== "/index.php") {
   require_once "user-error-Code/403.php";

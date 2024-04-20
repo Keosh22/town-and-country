@@ -12,7 +12,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 <!-- Modal Promotion -->
 <div id="construction_view" class="modal fade">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title"><b>View Payment</b></h4>
@@ -73,7 +73,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
                   <label for="total_amount" class="form-label">Total Amount:</label>
                 </div>
                 <div class="col-4">
-                  <input type="text" class="form-control" id="total_amount_cc">
+                  <input type="text" class="form-control" id="total_amount_cc" readonly>
                 </div>
               </div>
             </div>

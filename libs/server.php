@@ -1140,8 +1140,8 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $not_sent = "NOT SENT";
     $default = 0;
 
-    // Count collection during 1st to 2nd day of the month
-    if ($day_email <= date("j", mktime(0, 0, 0, $current_month_num, 2, $year_email))) {
+    // Count collection during 1st to 3nd day of the month
+    if ($day_email <= date("j", mktime(0, 0, 0, $current_month_num, 3, $year_email))) {
       // Phase 1
       $phase_1 = "Phase 1";
       $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
@@ -1151,8 +1151,8 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       $stmt->execute($data);
       return $count = $stmt->fetchColumn();
     }
-    // Count collection during 8th to 9th day of the month
-    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 8, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 9, $year_email))) {
+    // Count collection during 8th to 10th day of the month
+    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 8, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email))) {
       // Phase 2
       $phase_2 = "Phase 2";
       $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
@@ -1163,8 +1163,8 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
 
       return $count = $stmt->fetchColumn();
     }
-    // Count collection during 15th to 16th day of the month
-    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 15, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 16, $year_email))) {
+    // Count collection during 15th to 17th day of the month
+    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 15, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email))) {
       // Phase 3
       $phase_3 = "Phase 3";
       $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :available AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";

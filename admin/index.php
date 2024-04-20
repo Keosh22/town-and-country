@@ -46,11 +46,11 @@ if (isset($_POST['login_submit'])) {
 
 
 <body>
-    <div class="spinner_wrapper">
+    <!-- <div class="spinner_wrapper">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-    </div>
+    </div> -->
     <!-- MAIN  -->
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
 
@@ -104,10 +104,10 @@ if (isset($_POST['login_submit'])) {
     </div>
     <script>
      $(document).ready(function(){
-        $(window).on('load', function() {
-            $(".spinner_wrapper").fadeOut("slow");
+        // $(window).on('load', function() {
+        //     $(".spinner_wrapper").fadeOut("slow");
             
-        });
+        // });
 
         // Show password
         $("#show_password").on('change', function(){

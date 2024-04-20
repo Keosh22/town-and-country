@@ -12,7 +12,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
 <!-- Modal Promotion -->
 <div id="membership_fee_view" class="modal fade">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title"><b>View Payment</b></h4>
