@@ -71,7 +71,6 @@ $(document).ready(function () {
       $(".card-title").text("No announcement for today!");
 
       $("#back").hide();
-
       $("#next").hide();
     }
   }
