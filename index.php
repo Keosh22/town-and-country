@@ -6,7 +6,7 @@ session_start();
 ?>
 <?php
 
-if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/" && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/index.php"   ) {
+if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/" && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/town-and-country/index.php"  && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://localhost/index.php") {
 
   // HOSTING
   // if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://tchtest01.infinityfreeapp.com/" && "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://tchtest01.infinityfreeapp.com/index.php"   ) {
