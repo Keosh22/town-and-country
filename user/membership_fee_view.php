@@ -98,7 +98,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 <script>
   $(document).ready(function() {
     window.jsPDF = window.jspdf.jsPDF;
-    const doc = new jsPDF();
+    var doc = new jsPDF();
 
 
 
@@ -121,13 +121,13 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       // Remove tbody and thead {jsPDF BUG}
       i = 2;
       j = 2;
-      var tbodies = document.getElementsByTagName("tbody");
+      var tbodies = document.getElementsByTagName('tbody');
       while (tbodies.length - 1 > i) {
         var parent = tbodies[i].parentNode;
         while (tbodies[i].firstChild) {
           parent.insertBefore(tbodies[i].firstChild, tbodies[i]);
         }
-        tbodies[i].removeChild(tbodies[i]);
+        parent.removeChild(tbodies[i]);
         i++
       }
       var tbodies = document.getElementsByTagName("thead");
@@ -139,8 +139,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         parent.removeChild(tbodies[j]);
         j++
       }
-
-      downloadReceipt()
+      downloadReceipt();
 
       function downloadReceipt() {
         var receipt = document.querySelector("#membership_fee_receipt_mf")

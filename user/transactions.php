@@ -59,20 +59,23 @@ $server->userAuthentication("../user-error-Code/403.php");
                     <select name="filter_payment" id="filter_payment" class="form-select form-select-sm text-secondary mx-2">
                       <option value="">Payment:</option>
                       <?php
-                      // $C002 = "C002";
-                      // $C003 = "C003";
-                      // $C004 = "C004";
-                      // $C005 = "C005";
-                      // $C006 = "C006";
+                      $C001 = "C001";
+                      $C002 = "C002";
+                      $C003 = "C003";
+                      $C004 = "C004";
+                      $C005 = "C005";
+                      $C006 = "C006";
+                      $C007 = "C007";
                       $isCategory = "";
-                      $query2 = "SELECT category FROM collection_fee ";
-                      // $data2 = ["C002" => $C002, "C003" => $C003, "C004" => $C004, "C005" => $C005, "C006" => $C006];
+                      $query2 = "SELECT category FROM collection_fee WHERE collection_fee_number IN (:C001, :C002, :C003, :C004, :C005, :C006, :C007 )";
+                      $data2 = ["C001" => $C001, "C002" => $C002, "C003" => $C003, "C004" => $C004, "C005" => $C005, "C006" => $C006, "C007" => $C007];
                       $connection2 = $server->openConn();
                       $stmt2 = $connection2->prepare($query2);
-                      $stmt2->execute();
+                      $stmt2->execute($data2);
                       if ($stmt2->rowCount() > 0) {
                         while ($result2 = $stmt2->fetch()) {
                           $category = $result2['category'];
+
                           if ($category == $isCategory) {
                           } else {
 
@@ -346,7 +349,7 @@ include("../user/construction_view.php");
     // DataTable
     $("#transactionTable").DataTable({
       order: [
-      
+
         [6, 'desc']
       ]
     });
@@ -354,7 +357,7 @@ include("../user/construction_view.php");
     TABLE.columns(6).visible(false);
 
     $("#filter_payment").on('change', function() {
-      TABLE.columns(1).search(this.value).draw();
+      TABLE.columns(2).search(this.value).draw();
     })
 
 
@@ -438,7 +441,7 @@ include("../user/construction_view.php");
       var construction_payment_id = $(this).attr('data-id');
       var collection_fee_number = $(this).attr('data-collection-fee');
       $("#collection_fee_number_cc").val(collection_fee_number);
-     
+
       $.ajax({
         url: '../ajax/material_delivery_receipt_view.php',
         type: 'POST',
