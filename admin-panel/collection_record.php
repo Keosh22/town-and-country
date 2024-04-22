@@ -402,6 +402,7 @@ $server->adminAuthentication();
 
       // DataTable
       $("#collectionRecord").DataTable({
+        "pageLength": 12,
         order: [
           [1, 'desc']
         ]

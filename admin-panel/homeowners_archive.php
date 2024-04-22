@@ -25,8 +25,8 @@ if (isset($_POST['homeowners_id'])) {
   $stmt = $connection->prepare($query);
   $stmt->execute($data);
   if ($stmt->rowCount() > 0) {
-    $_SESSION['status'] = "Failed!";
-    $_SESSION['text'] = "Sorry, you can't delete this account";
+    $_SESSION['status'] = "Deletion Failed!";
+    $_SESSION['text'] = "Account has property active. You can't delete this account.";
     $_SESSION['status_code'] = "error";
   } else {
 

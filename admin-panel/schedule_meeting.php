@@ -57,7 +57,7 @@ if (isset($_POST['create_meeting'])) {
         $number_str = ltrim($number, ",");
         $new_date = date("M j, Y g:iA", strtotime($_POST['meeting_date']));
         $message = "" . $about . "
-        HOA officers, don't miss our " . $new_date . " meet at the TCH clubhouse  to plan community improvements and streamline operations.";
+        HOA officers, don't miss our " . $new_date . " meet at the TCH clubhouse  to plan community improvements and streamline operations. For more go to http://tchtest01.infinityfreeapp.com/user/announcement.php";
         $server->sendSMS($number_str, $message);
         $_SESSION['status'] = "Success";
         $_SESSION['text'] = "Meeting succesfully created!";
