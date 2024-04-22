@@ -89,7 +89,7 @@ require_once("../libs/server.php");
 
             <div class="col-md-6">
               <label for="email" class="form-label ">Email</label>
-              <input type="text" class="form-control " id="email" name="email" required>
+              <input type="email" class="form-control " id="email" name="email" required>
 
               <div id="emailHelpBlock"></div>
             </div>
@@ -199,7 +199,7 @@ require_once("../libs/server.php");
   $(document).ready(function() {
     // Clear input when close
     $("#addHomeowners").on('hidden.bs.modal', function(e) {
-      $("#form-input").find("input[type=text], input[type=password], input[type=number], select[class=form-select]").val("");
+      $("#form-input").find("input[type=text], input[type=password], input[type=number], input[type=email], select[class=form-select]").val("");
       $("#street").empty().append('<option selected>- Select -</option>');
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
@@ -249,6 +249,18 @@ require_once("../libs/server.php");
         }
       });
     });
+
+    // // Email Validation
+    // function valEmail(email){
+    //   var regex = '/\S+@\S+\.\S+/';
+    //   return regex.test(email);
+    // }
+    // $("#email").on('keyup', function(){
+    //   var email = $("#email").val();
+    //   if(!valEmail(email)){
+    //     $("#emailHelpBlock").empty().append('<div class="text-danger" id="emailHelpBlock">Email Invalid</div>');
+    //   }
+    // });
 
 
     // Phone Number validation

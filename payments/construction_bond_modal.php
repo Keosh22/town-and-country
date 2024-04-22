@@ -177,11 +177,12 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       var collection_fee_id = $("#collection_fee_id_cb").val();
       var paid_by = $("#paid_by_cb").val();
       var amount_deposit = $("#amount_deposit_cb").val();
-
+      var homeowners_name = $("#homeowners_name_cb").val();
+     
       if (paid_by.length > 0){
 
       } else {
-        $paid_by = $("#homeowners_name_cb").val();
+        paid_by = homeowners_name
       }
       
       swal({

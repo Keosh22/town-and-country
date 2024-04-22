@@ -129,14 +129,14 @@
             <div class="col col-md-4">
 
               <label for="current_password" class="form-label">Current Password</label>
-              <input type="password" class="form-control current_password_input" name="current_password" id="current_password" required>
+              <input type="password" class="form-control current_password_input" name="current_password" id="current_password" required disabled>
               <!-- show icon -->
               <span class="toggle-current-password"><i toggle="#current_password" class='bx bx-show bx-show-changepass current-password-icon'></i></span>
               <div id="changePasswordHelpBlock"></div>
             </div>
             <div class="col col-md-4 col-12">
               <label for="new_password" class="form-label">New Password</label>
-              <input type="password" class="form-control" name="new_password" id="new_password" required>
+              <input type="password" class="form-control" name="new_password" id="new_password" required disabled>
               <!-- show icon -->
               <span class="toggle-password"><i toggle="#new_password" class='bx bx-show bx-show-changepass password-icon'></i></span>
               <div id="newPasswordHelpBlock"></div>
@@ -157,6 +157,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-end mt-2">
+            <a class="btn btn-secondary mx-2" id="change_password_btn">Change</a>
             <input type="submit" class="btn btn-primary" id="change_password" name="change_password" value="Update" disabled>
           </div>
 
@@ -186,11 +187,46 @@
     //   $("#update_info").css("background-color", "green");
     // })
 
-    $("#edit_btn").on('click', function(e) {
 
+    // Change Password Btn
+    $("#change_password_btn").on('click', function(e){
+      swal({
+        title: 'Change Password Confirmation',
+        text: 'Are you sure want to ' + action + '',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+      })
+      .then((proceed) => {
+        if(proceed){
+
+          $("#current_password, #new_password").prop('disabled', function(i, val){
+            if(val){
+              $("#change_password_btn").html('Cancel');
+              action = "cancel";
+            } else {
+              $("#change_password_btn").html('Change');
+              action = "proceed";
+             location.reload();
+            }
+            return !val;
+          });
+          $("#change_password_btn").toggleClass('btn-danger');
+
+        } else {
+          swal('Change Password Cancel');
+        }
+      })
+    });
+
+
+    // Edit Information
+    var action = "proceed"
+    $("#edit_btn").on('click', function(e) {
+      
       swal({
           title: 'Update Confirmation',
-          text: 'Are you want to update your information? Click OK to proceed.',
+          text: 'Are you sure want to ' + action +'?',
           icon: 'warning',
           buttons: true,
           dangerMode: true
@@ -201,8 +237,10 @@
             $("#firstname, #middle_initial, #lastname, #email, #phone_number, #update_info").prop("disabled", function(i, val) {
               if(val){
                 $("#edit_btn").html('Cancel');
+                action = "cancel";
               } else {
                 $("#edit_btn").html('Edit');
+                action = "proceed";
               }
               return !val;
             });

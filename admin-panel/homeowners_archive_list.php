@@ -67,7 +67,7 @@ $server->adminAuthentication();
                                 <th width="10%">Email</th>
                                 <th width="10%">Phone</th>
                                 <th width="10%">Status</th>
-                                <th scope="col" width="5%">Action</th>
+                                <!-- <th scope="col" width="5%">Action</th> -->
                               </tr>
                             </thead>
                             <tbody>
@@ -128,15 +128,15 @@ $server->adminAuthentication();
 
                                     ?>
                                   </td>
-                                  <td>
+                                  <!-- <td>
                                     <div class="dropdown">
                                       <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
-                                      <ul class="dropdown-menu">
+                                      <ul class="dropdown-menu"> -->
                        
                                       <!-- <li><a href="#" class="dropdown-item" id="delete_permanent_btn" data-homeowners-id="<?php echo $homeowners_id; ?>">Delete</a></li> -->
-                                      </ul>
+                                      <!-- </ul>
                                     </div>
-                                  </td>
+                                  </td> -->
 
                                 </tr>
                               <?php
@@ -152,7 +152,7 @@ $server->adminAuthentication();
                                 <th width="10%">Email</th>
                                 <th width="10%">Phone</th>
                                 <th width="10%">Status</th>
-                                <th scope="col" width="5%">Action</th>
+                                <!-- <th scope="col" width="5%">Action</th> -->
                               </tr>
                             </tfoot>
                           </table>

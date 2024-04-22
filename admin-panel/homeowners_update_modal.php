@@ -42,7 +42,7 @@ require_once("../libs/server.php");
 
             <div class="col-md-6">
               <label for="email" class="form-label ">Email</label>
-              <input type="text" class="form-control" id="email_update" name="email_update" required>
+              <input type="email" class="form-control" id="email_update" name="email_update" required>
             </div>
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
@@ -130,16 +130,16 @@ require_once("../libs/server.php");
 <script>
   $(document).ready(function() {
     // Clear input when close
-    $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', true);
+    $("#update_homeowners").find("input[type=text], input[type=password], input[type=email], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', true);
    
     $("#updateHomeowners").on('hidden.bs.modal', function(e) {
-      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number] ").val("");
+      $("#update_homeowners").find("input[type=text], input[type=password], input[type=email], input[type=hidden], input[type=number] ").val("");
       $("#street_update").empty().append('<option id="street_option_update" selected>- Select -</option>');
 
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
       $("#edit_btn").removeClass().addClass("btn btn-secondary btn-flat")
-      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', true);
+      $("#update_homeowners").find("input[type=text], input[type=password], input[type=email], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', true);
 
       // $("#phone_number_update").prop('disabled', false);
       $("#phone_number_update").removeClass("input-success");
@@ -221,7 +221,7 @@ require_once("../libs/server.php");
     }
 
     $("#edit_btn").on('click', function() {
-      $("#update_homeowners").find("input[type=text], input[type=password], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', function(i, val) {
+      $("#update_homeowners").find("input[type=text], input[type=password], input[type=email], input[type=hidden], input[type=number], .form-select, #update_btn ").prop('disabled', function(i, val) {
         $("#edit_btn").toggleClass("btn-warning")
         return !val;
       })

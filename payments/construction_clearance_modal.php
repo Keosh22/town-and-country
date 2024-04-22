@@ -143,13 +143,14 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       var property_id = $("#property_id_cc").val();
       var collection_fee_id = $("#collection_fee_id_cc").val();
       var paid_by = $("#paid_by_cc").val();
-
+      var homeowners_name = $("#homeowners_name_cc").val();
+     
       var amount = $("#amount_cc").val();
 
       if (paid_by.length > 0) {
-
+        
       } else {
-        paid_by = $("#homeowners_name_cc").val();
+        paid_by = homeowners_name;
       }
       swal({
           title: 'Payment Confirmation',

@@ -33,7 +33,7 @@ $server->adminAuthentication();
       <main class="content px-3 py-2">
         <!-- conten header -->
         <section class="content-header d-flex justify-content-between align-items-center mb-3">
-        <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
@@ -120,6 +120,8 @@ $server->adminAuthentication();
                                 <th width="15%">Payment</th>
                                 <th width="1%">Ammount</th>
                                 <th scope="col" width="3%">Action</th>
+                                <th></th>
+
                               </tr>
                             </thead>
                             <tbody>
@@ -210,6 +212,7 @@ $server->adminAuthentication();
                                         </ul>
                                       </div>
                                     </td>
+                                    <td><?php echo date("n-j-Y H:i:s", strtotime($result1['payment_date'])); ?></td>
                                   </tr>
                               <?php
                                 }
@@ -225,6 +228,7 @@ $server->adminAuthentication();
                                 <th width="15%">Payment</th>
                                 <th width="1%">Ammount</th>
                                 <th scope="col" width="3%">Action</th>
+                                <th></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -429,11 +433,12 @@ $server->adminAuthentication();
       // DataTable
       $("#constrcutionPaymentTable").DataTable({
         order: [
-          [1, 'desc']
+          [7, 'desc']
         ]
       });
 
       const table = $("#constrcutionPaymentTable").DataTable();
+      table.columns(7).visible(false);
       $("#filter_table").on('change', function() {
         table.columns(4).search(this.value).draw();
       });

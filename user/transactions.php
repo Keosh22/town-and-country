@@ -105,7 +105,7 @@ $server->userAuthentication("../user-error-Code/403.php");
                             <th scope="col" width="10%">Amount</th>
                             <th scope="col" width="15%">DATE</th>
                             <th scope="col" width="15%">Paid by</th>
-
+                            <th></th>
 
 
                           </tr>
@@ -164,7 +164,7 @@ $server->userAuthentication("../user-error-Code/403.php");
 
                               // collection fee id
                               $collection_fee_id = $result["category"];
-                              $date_created = date("M j, Y H:iA", strtotime($result["date_created"]));
+                              $date_created = date("M j, Y g:iA", strtotime($result["date_created"]));
                               $collection_fee_number = $result['collection_fee_number'];
 
                               $status = $result["status"];
@@ -200,6 +200,7 @@ $server->userAuthentication("../user-error-Code/403.php");
                                 <td><span class="badge rounded-pill text-bg-success"><?= $paid ?></span></td>
                                 <td><?= $date_created ?></td>
                                 <td><?= $paid_by_pl ?></td>
+                                <td><?= date("n-j-Y H:i:s", strtotime($result['date_created'])) ?></td>
                               </tr>
                           <?php
                             }
@@ -240,7 +241,7 @@ $server->userAuthentication("../user-error-Code/403.php");
                           $stmt1->execute($data1);
                           if ($stmt1->rowCount() > 0) {
                             while ($result1 = $stmt1->fetch()) {
-                              $payment_date = date("M j, Y H:iA", strtotime($result1['payment_date']));
+                              $payment_date = date("M j, Y g:iA", strtotime($result1['payment_date']));
                               $property_id = $result1['property_id'];
                               $blk = $result1['property_blk'];
                               $lot = $result1['property_lot'];
@@ -289,6 +290,7 @@ $server->userAuthentication("../user-error-Code/403.php");
                                 <td><span class="badge rounded-pill text-bg-success"><?= $amount ?></span></td>
                                 <td><?= $payment_date ?></td>
                                 <td><?= $paid_by_cp ?></td>
+                                <td><?= date("n-j-Y H:i:s", strtotime($result1['payment_date'])) ?></td>
                               </tr>
                           <?php
                             }
@@ -344,10 +346,12 @@ include("../user/construction_view.php");
     // DataTable
     $("#transactionTable").DataTable({
       order: [
-        [4, 'desc']
+      
+        [6, 'desc']
       ]
     });
     const TABLE = $("#transactionTable").DataTable();
+    TABLE.columns(6).visible(false);
 
     $("#filter_payment").on('change', function() {
       TABLE.columns(1).search(this.value).draw();

@@ -149,9 +149,8 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
       var transaction_number = $("#transaction_number").html();
 
       i = 1
-      j = 1
       var tbodies = document.getElementsByTagName("tbody");
-      while(tbodies.length - 1 > i){
+      while(tbodies.length - 1 == i){
         var parent = tbodies[i].parentNode;
         while(tbodies[i].firstChild){
           parent.insertBefore(tbodies[i].firstChild, tbodies[i])
@@ -159,8 +158,10 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         parent.removeChild(tbodies[i]);
         i++
       }
+
+      j = 1
       var tbodies = document.getElementsByTagName("thead");
-      while(tbodies.length - 1 > j){
+      while(tbodies.length - 1 == j){
         var parent = tbodies[j].parentNode;
         while(tbodies[j].firstChild){
           parent.insertBefore(tbodies[j].firstChild, tbodies[j])

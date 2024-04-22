@@ -119,7 +119,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
     $("#download_receipt").on('click', function() {
       var transaction_number = $("#transaction_number").html();
-      console.log(transaction_number)
+
       i = 1
       var tbodies = document.getElementsByTagName("tbody");
       while (tbodies.length - 1 == i) {
