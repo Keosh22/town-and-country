@@ -272,6 +272,13 @@ main{
         width: 80%;
         
     }
+    .about > h3{
+        font-size: 20px;
+    }
+
+    .announcement-title > h4{
+        font-size: 20px;
+    }
 }
 
 @media (min-width: 768px) and (max-width:1200px){
@@ -302,6 +309,14 @@ main{
         width: 80%;
         
     }
+
+    .about > h3{
+        font-size: 20px;
+    }
+
+    .announcement-title > h4{
+        font-size: 20px;
+    }
 }
 
 @media (width > 1200px){
@@ -318,45 +333,6 @@ main{
     .main-logo img{
         height: 200px;
     
-<<<<<<< HEAD
-  
-
-    /* ANNOUNCMENT */
-
-
-
-    /* RESPONSIVE */
-    @media (max-width: 420px) {
-        .toast{
-         max-width: 200px ;
-         max-height: 400px;
-        }
-        .promotion_toast_body{
-            font-size: .875rem;
-        }
-        
-        .carousel-a{
-            height: 300px;
-            
-        }
-
-        .card-body p{
-            text-indent: 0.2 rem !important;
-            margin-top: 0.5rem !important;
-            padding: 5px !important;
-        }
-
-        .card-title{
-            font-size: 0.8em !important;
-        }
-
-        .arrow i{
-            font-size: 1.2em !important;
-        }
-
-        
-=======
->>>>>>> lesther
     }
 
     .features p{
