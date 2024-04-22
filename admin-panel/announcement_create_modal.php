@@ -32,7 +32,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             </div>
             <div class="col">
               <label for="content" class="form-label">Content:</label>
-              <textarea name="content" id="content" rows="10"  wrap="hard"  class="form-control" maxlength="200"></textarea>
+              <textarea name="content" id="content" rows="10"  wrap="hard"  class="form-control" maxlength="300"></textarea>
             </div>
 
             <div class="modal-footer">

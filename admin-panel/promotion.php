@@ -64,7 +64,7 @@ $server->adminAuthentication();
                             <select name="filter_status" id="filter_status" class="form-select form-select-sm text-secondary">
                               <option value="">Status:</option>
                               <option value="ACTIVE">ACTIVE</option>
-                              <option value="INACTIVE">INACTIVE</option>
+                              <option value="EXPIRED">EXPIRED</option>
                               <option value="PENDING">PENDING</option>
                             </select>
                           </div>
@@ -138,7 +138,7 @@ $server->adminAuthentication();
                                       <?php
                                       } elseif ($status == "INACTIVE") {
                                       ?>
-                                        <span class="badge rounded-pill text-bg-danger"><?php echo $status ?></span>
+                                        <span class="badge rounded-pill text-bg-danger">EXPIRED</span>
                                       <?php
                                       } elseif ($status == "PENDING") {
                                       ?>

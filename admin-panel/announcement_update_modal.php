@@ -33,7 +33,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             </div>
             <div class="col">
               <label for="content_update" class="form-label">Content:</label>
-              <textarea name="content_update" id="content_update" rows="10" class="form-control" maxlength="200" required></textarea>
+              <textarea name="content_update" id="content_update" rows="10" class="form-control" maxlength="300" required></textarea>
             </div>
             <div class="col-12">
               <label for="status_update" class="form-label">Status:</label>
