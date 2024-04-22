@@ -58,7 +58,7 @@ if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://lo
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>TCH | LOGIN</title>
   <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 

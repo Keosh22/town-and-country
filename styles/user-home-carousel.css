@@ -20,7 +20,7 @@
 
 .carousel-container{
     width: 100%; /* Adjust the width as needed */
-    max-width: 700px; /* Set a maximum width if required */
+    max-width: 650px; /* Set a maximum width if required */
 
     display: flex;
     background-color: white;
@@ -29,8 +29,8 @@
     margin: auto;
     transition: transform 0.6s ease;
     border-radius: 20px;
-    height: 100%;
-    max-height: 400px;
+    
+    max-height: 350px;
 
 }
 
