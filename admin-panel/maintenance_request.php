@@ -219,7 +219,7 @@ $server->adminAuthentication();
       // DataTable
       $("#maintenanceRequestTable").DataTable({
         order: [
-          [0, 'desc']
+          [0, 'asc']
         ]
       });
       const TABLE = $("#maintenanceRequestTable").DataTable();

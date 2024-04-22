@@ -188,18 +188,37 @@
 
     $("#edit_btn").on('click', function(e) {
 
+      swal({
+          title: 'Update Confirmation',
+          text: 'Are you want to update your information? Click OK to proceed.',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
+        })
+        .then((proceed) => {
+          if (proceed) {
 
-      $("#firstname, #middle_initial, #lastname, #email, #phone_number, #update_info").prop("disabled", function(i, val) {
-        $("#edit_btn").toggleClass('btn-warning')
+            $("#firstname, #middle_initial, #lastname, #email, #phone_number, #update_info").prop("disabled", function(i, val) {
+              if(val){
+                $("#edit_btn").html('Cancel');
+              } else {
+                $("#edit_btn").html('Edit');
+              }
+              return !val;
+            });
+            $("#edit_btn").toggleClass('btn-danger');
+          
+            $("#phone_number").on('keydown', function(e) {
+              if ($(this).val().length > 10) {
+                $(this).val($(this).val().slice(0, 10));
+              }
+            });
+            
+          } else {
+            swal("Update Canceled");
+          }
+        })
 
-        return !val;
-      });
-
-      $("#phone_number").on('keydown', function(e) {
-        if ($(this).val().length > 10) {
-          $(this).val($(this).val().slice(0, 10));
-        }
-      })
 
 
 
