@@ -96,6 +96,7 @@ $server->adminAuthentication();
                           <table id="maintenanceRequestTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
+                                <th></th>
                                 <th width="10%">Date created</th>
                                 <th width="10%">Maintenance</th>
                                 <th width="20%">Address</th>
@@ -140,6 +141,7 @@ $server->adminAuthentication();
 
                               ?>
                                   <tr>
+                                    <td><?php echo date("n-j-Y H:i", strtotime($date_requested)); ?></td>
                                     <td><?php echo date("M j, Y, H:sA", strtotime($date_requested)); ?></td>
                                     <td><?php echo $maintenance; ?></td>
                                     <td><?php echo $address; ?></td>
@@ -147,7 +149,7 @@ $server->adminAuthentication();
                                       <?php
                                       if ($status == "PENDING") {
                                       ?>
-                                        <span class="badge rounded-pill text-bg-danger">Pending</span>
+                                        <span class="badge rounded-pill text-bg-warning">Pending</span>
                                       <?php
                                       } elseif ($status == "FINISHED") {
                                       ?>
@@ -183,6 +185,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
+                                <th></th>
                                 <th width="10%">Date created</th>
                                 <th width="10%">Maintenance</th>
                                 <th width="20%">Address</th>
@@ -219,11 +222,14 @@ $server->adminAuthentication();
       // DataTable
       $("#maintenanceRequestTable").DataTable({
         order: [
-          [0, 'asc']
+          [4, 'desc'],
+          [0, 'desc']
+        
+
         ]
       });
       const TABLE = $("#maintenanceRequestTable").DataTable();
-
+      TABLE.columns(0).visible(false);
       // Ongoing Button
       $("#maintenanceRequestTable").on('click', '#ongoing_btn', function() {
         var maintenance_request_id = $(this).attr('data-id');
@@ -322,12 +328,12 @@ $server->adminAuthentication();
 
       // Fitler maintenance
       $("#filter_maintenance").on('change', function() {
-        TABLE.columns(1).search(this.value).draw();
+        TABLE.columns(2).search(this.value).draw();
       });
 
       // Filter Status
       $("#filter_status").on('change', function() {
-        TABLE.columns(3).search(this.value).draw();
+        TABLE.columns(4).search(this.value).draw();
       });
 
 

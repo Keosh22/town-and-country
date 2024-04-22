@@ -93,6 +93,7 @@ $server->adminAuthentication();
                           <table id="activityLogTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
+                                <th></th>
                                 <th width="15%">User Account#</th>
                                 <th width="15%">Date & Time</th>
                                 <th width="40%">Action</th>
@@ -116,9 +117,9 @@ $server->adminAuthentication();
                               ?>
                                 <tr>
 
-
+                                  <td><?php echo date("n-j-Y  H:i", strtotime($date)); ?></td>
                                   <td><?php echo $account_number . ": " . $firstname; ?></td>
-                                  <td><?php echo date("M j, Y  H:i:sA", strtotime($date)); ?></td>
+                                  <td><?php echo date("M j, Y  g:i:sA", strtotime($date)); ?></td>
                                   <td><?php echo $action; ?></td>
                                   <td>
                                     <?php
@@ -185,7 +186,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
-
+                                <th></th>
                                 <th width="15%">User Account#</th>
                                 <th width="15%">Date & Time</th>
                                 <th width="40%">Action</th>
@@ -240,14 +241,15 @@ $server->adminAuthentication();
 
       $("#activityLogTable").DataTable({
         order: [
-          [1, 'desc']
+          [0, 'desc']
         ]
       });
       const TABLE = $("#activityLogTable").DataTable();
-
+      TABLE.columns(0).visible(false);
+      
       // filter table Action
       $("#filter_action").on('change', function() {
-        TABLE.column(3).search(this.value).draw();
+        TABLE.column(4).search(this.value).draw();
       })
 
 
@@ -266,7 +268,7 @@ $server->adminAuthentication();
       });
 
       $("#filter_date").on('change', function() {
-        TABLE.column(1).search(this.value).draw();
+        TABLE.column(2).search(this.value).draw();
       })
 
 
