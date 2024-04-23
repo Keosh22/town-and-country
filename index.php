@@ -87,12 +87,12 @@ if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://lo
     <form action="index.php" method="POST" class="login-form">
       <div class="input">
         <span class=""><i class="bx bx-user"></i></span>
-        <input type="text" class="input" placeholder="Username" name="username">
+        <input type="text" class="input" placeholder="Username" name="username" maxlength="64">
       </div>
 
       <div class="input">
         <span class=""><i class="bx bx-lock-alt"></i></span>
-        <input type="password" class=" input" placeholder="Password" name="password" id="password">
+        <input type="password" class=" input" placeholder="Password" name="password" id="password" maxlength="64" >
       </div>
 
       <div class="login-btn">

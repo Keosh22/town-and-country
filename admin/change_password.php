@@ -72,14 +72,14 @@ $server->changePasswordAuthenticationAdmin();
             </div>
             <div class="col-12">
               <div class="form-floating">
-                <input class="form-control " type="password" id="new_password" name="new_password" placeholder="New Password" required>
+                <input class="form-control " type="password" id="new_password" name="new_password" placeholder="New Password" maxlength="64" required>
                 <label for="new_password">New Password</label>
                 <div id="passwordHelpBlock"></div>
               </div>
             </div>
             <div class="col-12">
               <div class="form-floating">
-                <input class="form-control " type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                <input class="form-control " type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" maxlength="64" required>
                 <label for="confirm_password">Confirm Password</label>
                 <div id="confirmpasswordHelpBlock"></div>
               </div>

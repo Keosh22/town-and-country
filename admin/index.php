@@ -79,11 +79,11 @@ if (isset($_POST['login_submit'])) {
                 <div class="input-group d-flex justify-content-center text-center">
                     <form action="index.php" method="post">
                         <div class="form-group">
-                            <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+                            <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="64" placeholder="Username">
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" maxlength="64">
                         </div>
                         <div class="form-group">
                             <input type="checkbox" id="show_password" class="form-check-input">

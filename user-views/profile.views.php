@@ -129,21 +129,21 @@
             <div class="col col-md-4">
 
               <label for="current_password" class="form-label">Current Password</label>
-              <input type="password" class="form-control current_password_input" name="current_password" id="current_password" required disabled>
+              <input type="password" class="form-control current_password_input" name="current_password" id="current_password" maxlength="64" required disabled>
               <!-- show icon -->
               <span class="toggle-current-password"><i toggle="#current_password" class='bx bx-show bx-show-changepass current-password-icon'></i></span>
               <div id="changePasswordHelpBlock"></div>
             </div>
             <div class="col col-md-4 col-12">
               <label for="new_password" class="form-label">New Password</label>
-              <input type="password" class="form-control" name="new_password" id="new_password" required disabled>
+              <input type="password" class="form-control" name="new_password" id="new_password" maxlength="64" required disabled>
               <!-- show icon -->
               <span class="toggle-password"><i toggle="#new_password" class='bx bx-show bx-show-changepass password-icon'></i></span>
               <div id="newPasswordHelpBlock"></div>
             </div>
             <div class="col col-md-4 col-12">
               <label for="confirm_password" class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+              <input type="password" class="form-control" name="confirm_password" id="confirm_password" maxlength="64" required>
 
               <!-- show icon -->
               <span class="toggle-confirm-password"><i toggle="#confirm_password" class='bx bx-show bx-show-changepass confirm-password-icon'></i></span>
