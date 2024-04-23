@@ -74,7 +74,7 @@ class Server
       //$this->conn = new PDO("mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       // Ken
-     $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
+      $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
       //$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->pass, $this->option);
 
@@ -95,7 +95,7 @@ class Server
     }
   }
 
-  public function userLogin($query, $data, $pass, $path)
+  public function userLogin($query, $data, $login_Username, $pass, $path)
   {
     $connection = $this->conn;
     $stmt = $connection->prepare($query);
@@ -110,24 +110,31 @@ class Server
         $lastname = $result["lastname"];
       }
 
-      if (password_verify($pass, $password)) {
-        // Password is correct
-        $_SESSION["username"] = $username;
-        $_SESSION["user_id"] = $user_id;
-        $_SESSION["user_firstname"] = $firstname;
-        $_SESSION["user_lastname"] = $lastname;
-
-        header("location:" . $path . "");
+      // Username Validation
+      if ($login_Username === $username) {
+        // Password Validation
+        if (password_verify($pass, $password)) {
+          // Password is correct
+          $_SESSION["username"] = $username;
+          $_SESSION["user_id"] = $user_id;
+          $_SESSION["user_firstname"] = $firstname;
+          $_SESSION["user_lastname"] = $lastname;
+          header("location:" . $path . "");
+        } else {
+          // Password is incorrect
+          $_SESSION['status'] = "Login Failed!";
+          $_SESSION['text'] = "Wrong Password.";
+          $_SESSION['status_code'] = "error";
+        }
       } else {
-        // Password is incorrect
         $_SESSION['status'] = "Login Failed!";
-        $_SESSION['text'] = "Wrong Password";
+        $_SESSION['text'] = "Username doesn't exist.";
         $_SESSION['status_code'] = "error";
       }
     } else {
       // Username doesn't exist
       $_SESSION['status'] = "Login Failed!";
-      $_SESSION['text'] = "Username doesn't exist.";
+      $_SESSION['text'] = "Username and Password is incorrect.";
       $_SESSION['status_code'] = "error";
     }
   }
@@ -161,10 +168,10 @@ class Server
   public function pagination($numberofPage)
   {
     // Lesther
-   // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
+    // $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
     // //Ken
-     $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+    $connection = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
 
 
 
@@ -234,7 +241,7 @@ class Server
         $account_number = $result['account_number'];
         $type = $result['type'];
       }
-      if (password_verify($pass,$password)) {
+      if (password_verify($pass, $password)) {
 
         // $_SESSION['username'] = $username;
         // $_SESSION['password'] = $password;

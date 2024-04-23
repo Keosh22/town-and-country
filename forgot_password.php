@@ -198,7 +198,7 @@ if (isset($_POST['send_link'])) {
       <form action="" method="POST">
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="bx bx-user"></i></span>
-          <input type="text" class="form-control input" placeholder="Email Address" id="email_address" name="email_address" required>
+          <input type="email" class="form-control input" placeholder="Email Address" id="email_address" name="email_address" required>
         </div>
         <div class="d-grid col-6 mx-auto">
           <input type="submit" class="btn btn-success" value="Send" name="send_link" id="send_link">

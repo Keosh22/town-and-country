@@ -37,7 +37,7 @@ if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://lo
       $userserver->userSessionLogin();
       $path = "user/home.php";
       $pass = $login_Pass;
-      $userserver->userLogin($query, $data, $pass, $path);
+      $userserver->userLogin($query, $data, $login_Username, $pass, $path);
 
       // $userserver->getAnnouncement();
     }
@@ -92,7 +92,7 @@ if ("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] !== "http://lo
 
       <div class="input">
         <span class=""><i class="bx bx-lock-alt"></i></span>
-        <input type="password" class=" input" placeholder="Password" name="password" id="password" maxlength="64" >
+        <input type="password" class=" input" placeholder="Password" name="password" id="password" maxlength="64">
       </div>
 
       <div class="login-btn">
