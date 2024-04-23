@@ -56,12 +56,12 @@ if ($count) {
 
         <div class="card card-border">
           <div class="card-header">
-            
+
             <h2> <a href="../admin-panel/homeowners.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold me-5'></i></a>Homeowners property list</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
-              
+
               <p class="card-title fs-5 text-secondary divider personal-info">Homeowners Information</p>
 
               <div class="row">
@@ -94,7 +94,7 @@ if ($count) {
                           <table id="propertyTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
-                             
+
                                 <th width="20%">Address</th>
                                 <th width="20%">Phase</th>
                                 <th width="20%">Tenant</th>
@@ -125,24 +125,25 @@ if ($count) {
                                     <td><?php echo "Blk-" . $blk . " Lot-" . $lot . " " . $street ?></td>
                                     <td><?php echo $phase ?></td>
                                     <td><?php
-                                      $query2 = "SELECT * FROM homeowners_users WHERE id = :id";
-                                      $data2 = ["id" => $tenant_id];
-                                      $stmt2 = $connection->prepare($query2);
-                                      $stmt2->execute($data2);
-                                      $count2 = $stmt2->rowCount();
-                                      $result2 = $stmt2->fetch();
-                                      if($tenant_id != null){
-                                        echo $result2['firstname']." ".$result2['middle_initial']. " " . $result2['lastname'] ;
-                                      } else {
-                                        echo "N/A";
-                                      }
-                                    ?></td>
+                                        $query2 = "SELECT * FROM homeowners_users WHERE id = :id";
+                                        $data2 = ["id" => $tenant_id];
+                                        $stmt2 = $connection->prepare($query2);
+                                        $stmt2->execute($data2);
+                                        $count2 = $stmt2->rowCount();
+                                        $result2 = $stmt2->fetch();
+                                        if ($tenant_id != null) {
+                                          echo $result2['firstname'] . " " . $result2['middle_initial'] . " " . $result2['lastname'];
+                                        } else {
+                                          echo "N/A";
+                                        }
+                                        ?></td>
                                     <td>
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a data-id="<?php echo $property_id ?>" data-name="" href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
                                           <li><a data-id="<?php echo $property_id ?>" data-bs-toggle="modal" href="#addTenant" class="dropdown-item" id="add_tenant">Add Tenant</a></li>
+                                          <li><a data-id="<?php echo $property_id ?>" data-tenant="<?php echo $tenant_id; ?>" class="dropdown-item" id="remove_TenantBtn" data-bs-toggle="modal" href="#removeTenant">Remove Tenant</a></li>
                                           <li><a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a></li>
                                         </ul>
                                       </div>
@@ -204,6 +205,8 @@ if ($count) {
   include("../admin-panel/property_update_modal.php");
   // Add tenant Modal
   include("../admin-panel/property_addtenant_modal.php");
+  // REmove tenant
+  include("../admin-panel/property_remove_tenant_modal.php");
   ?>
 
   <!-- Delete Modal -->
@@ -259,26 +262,52 @@ if ($count) {
       });
 
       //Add tenant
-      $("#propertyTable").on('click', '#add_tenant', function () {
+      $("#propertyTable").on('click', '#add_tenant', function() {
         swal({
-						title: "Confirmation",
-						text: "Are you sure you want to add tenant on this property?",
-						icon: "warning",
-						buttons: true,
-						dangerMode: true
-					})
-					.then((willDelete) => {
+            title: "Confirmation",
+            text: "Are you sure you want to add tenant on this property?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+          })
+          .then((willDelete) => {
 
-					});
+          });
 
-          
-          var property_id = $(this).attr("data-id");
-          // var firstname = $(this).attr("data-name");
-          // var address = $(this).attr("data-address");
-          $("#property_id_tenant").val(property_id);
-          // $("#property_currentOwner _tenant").val(firstname);
-          // $("#property_address _tenant").val(address);
+
+        var property_id = $(this).attr("data-id");
+        // var firstname = $(this).attr("data-name");
+        // var address = $(this).attr("data-address");
+        $("#property_id_tenant").val(property_id);
+        // $("#property_currentOwner _tenant").val(firstname);
+        // $("#property_address _tenant").val(address);
       });
+
+
+      // Remove TEnant
+      $("#remove_TenantBtn").on('click', function() {
+        var tenant_id = $(this).attr('data-tenant');
+        $("#tenant_id").val(tenant_id);
+        swal({
+            title: "Confirmation",
+            text: "Are you sure you want to remove tenant on this property?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if(proceed){
+
+            } else {
+              swal("Remove Tenant Canceled!");
+              $("#removeTenant").modal('hide');
+            }
+          });
+      });
+
+
+
+
 
       // $("#addTenant").on('click', '#add_tenant', function (){
       //   var property_id = $(this).attr("data-id");

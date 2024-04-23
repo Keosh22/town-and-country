@@ -118,7 +118,24 @@ $server->userAuthentication("../user-error-Code/403.php");
                           <?php
                           $ACTIVE = "ACTIVE";
                           $user_id = $_SESSION["user_id"];
-                          $query =  "SELECT
+
+                          if ($_SESSION["user_status"] == "Tenant") {
+                            $query3 = "SELECT homeowners_id FROM property_list WHERE tenant = :user_id";
+                            $data3 = ["user_id" => $user_id];
+                            $connection3 = $server->openConn();
+                            $stmt3 = $connection3->prepare($query3);
+                            $stmt3->execute($data3);
+                            if ($stmt3->rowCount() > 0) {
+                              if ($result3 = $stmt3->fetch()) {
+                                $new_tenant_id = $result3['homeowners_id'];
+                                $user_id = $new_tenant_id;
+                              }
+                            }
+                          }
+
+
+
+                          $query =  "SELECT 
               payments_list.id as payment_id,
               payments_list.transaction_number as payment_transaction_number,
               payments_list.homeowners_id,

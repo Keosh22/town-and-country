@@ -178,7 +178,7 @@ $server->adminAuthentication();
   </div>
   <?php
   // View modal
-  include("../admin-panel/homeowners_view.modal.php");
+  // include("../admin-panel/homeowners_view.modal.php");
 
   ?>
 

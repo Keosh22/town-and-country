@@ -44,12 +44,12 @@ if (isset($_POST['add_tenant'])) {
       } else {
         $_SESSION['status'] = "Add tenant Failed!";
         $_SESSION['text'] = "";
-        $_SESSION['status_code'] = "danger";
+        $_SESSION['status_code'] = "error";
       }
     } else {
       $_SESSION['status'] = "Wrong Password!";
       $_SESSION['text'] = "";
-      $_SESSION['status_code'] = "danger";
+      $_SESSION['status_code'] = "error";
     }
   }
   header("location: ../admin-panel/homeowners.php");

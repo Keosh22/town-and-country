@@ -50,7 +50,9 @@ if (isset($_POST['homeowners_id'])) {
         $stmt2->execute($data2);
       }
     }
-
+    $_SESSION['status'] = "Account archive successfuly!";
+    $_SESSION['text'] = "";
+    $_SESSION['status_code'] = "success";
     // Archive homeowners account
     $query3 = "UPDATE homeowners_users SET archive = :INACTIVE WHERE id = :homeowners_id";
     $data3 = ["INACTIVE" => $INACTIVE, "homeowners_id" => $homewners_id];
@@ -58,13 +60,11 @@ if (isset($_POST['homeowners_id'])) {
     $stmt3 = $connection3->prepare($query3);
     $stmt3->execute($data3);
     if ($stmt3->rowCount() > 0) {
-
+     
       $action = "Archive the Account of Acc No#: " . $account_number ;
       $server->insertActivityLog($action);
     }
-    $_SESSION['status'] = "Account archive successfuly!";
-    $_SESSION['text'] = "";
-    $_SESSION['status_code'] = "success";
+  
   }
 }
 

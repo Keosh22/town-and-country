@@ -105,6 +105,9 @@ require_once("../libs/server.php");
                 <option value=""></option>
                 <option value="Member">Member</option>
                 <option value="Non-member">Non-member</option>
+                <option value="Tenant">Tenant</option>
+
+
                 <!-- <option value="Tenant">Tenant</option> -->
               </select>
             </div>

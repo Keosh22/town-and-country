@@ -105,6 +105,7 @@ class Server
       while ($result = $stmt->fetch()) {
         $password = $result['password']; // Change 'pwd' to 'password' if needed
         $user_id = $result["id"];
+        $status = $result['status'];
         $username = $result["username"];
         $firstname = $result["firstname"];
         $lastname = $result["lastname"];
@@ -117,6 +118,7 @@ class Server
           // Password is correct
           $_SESSION["username"] = $username;
           $_SESSION["user_id"] = $user_id;
+          $_SESSION['user_status'] = $status;
           $_SESSION["user_firstname"] = $firstname;
           $_SESSION["user_lastname"] = $lastname;
           header("location:" . $path . "");

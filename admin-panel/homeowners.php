@@ -150,8 +150,9 @@ $server->adminAuthentication();
 																				<?php
 																				if ($status == 'Tenant') {
 																				?>
-																					<li><a href="#" class="dropdown-item" id="view">View</a></li>
+																		
 																					<li><a data-id="<?php echo $homeowners_id; ?>" href="#updateHomeowners" data-bs-toggle="modal" class="dropdown-item" id="update_homeowners_button">Update</a></li>
+																					<li><a data-id="<?php echo $homeowners_id; ?>" data-acc="<?php echo $account_number; ?>" href="#delete_homeowners" data-bs-toggle="modal" class="dropdown-item" id="delete_btn">Archive</a></li>
 																				<?php
 																				} else {
 																				?>

@@ -6,8 +6,9 @@ require_once("../libs/server.php");
 $server = new Server;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $account_number = $_POST['account_number'];
-  $query = "SELECT * FROM homeowners_users WHERE account_number = :account_number";
-  $data = ["account_number" => $account_number];
+  $tenant = "Tenant";
+  $query = "SELECT * FROM homeowners_users WHERE account_number = :account_number AND status = :tenant";
+  $data = ["account_number" => $account_number, "tenant" => $tenant];
   $connection = $server->openConn();
   $stmt = $connection->prepare($query);
   $stmt->execute($data);
