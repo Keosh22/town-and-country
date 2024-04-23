@@ -21,7 +21,7 @@ require_once("../libs/server.php");
           <p class="fs-5 text-secondary divider personal-info mb-0">Tenant Acc#:</p>
           <div class="col">
             <label for="newOwner_accountNo_tenant" class="form-label">Account#:</label>
-            <input type="text" class="form-control" name="newOwner_accountNo_tenant" id="newOwner_accountNo_tenant" placeholder="Search: Account#">
+            <input type="text" class="form-control" name="newOwner_accountNo_tenant" id="newOwner_accountNo_tenant" placeholder="Search: Account#" required>
           </div>
 
           <div id="currentOwner_tenant">
@@ -29,8 +29,7 @@ require_once("../libs/server.php");
 
 
           <div class="modal-footer">
-            <button class="btn btn-danger btn-flat" type="button" data-bs-dismiss="modal">Close</button>
-            <button class="btn btn-primary btn-flat" type="submit" name="add_tenant" id="add_tenant">Add</button>
+            <button class="btn btn-primary btn-flat" type="submit" name="add_tenant" id="add_tenant" >Add</button>
           </div>
         </form>
       </div>
@@ -41,10 +40,13 @@ require_once("../libs/server.php");
 
 <script>
   $(document).ready(function() {
+    
 
+  
     $("#addTenant").on('hidden.bs.modal', function(e) {
       $("#addTenant_form").find('input[type=text], input[type=hidden], input[type=password]').val("");
       $("#currentOwner").empty();
+      // $("#add_tenant").prop('disabled', true);
     });
 
     // SEARCH HOMEOWNERS USER

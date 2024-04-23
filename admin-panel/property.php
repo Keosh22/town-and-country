@@ -142,7 +142,7 @@ if ($count) {
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a data-id="<?php echo $property_id ?>" data-name="" href="#updateProperty" data-bs-toggle="modal" class="dropdown-item" id="update_property">Update</a></li>
-                                          <li><a data-id="<?php echo $property_id ?>" data-bs-toggle="modal" href="#addTenant" class="dropdown-item" id="add_tenant">Add Tenant</a></li>
+                                          <li><a data-id="<?php echo $property_id ?>" data-bs-toggle="modal" href="#addTenant" class="dropdown-item" id="add_tenant_button">Add Tenant</a></li>
                                           <li><a data-id="<?php echo $property_id ?>" data-tenant="<?php echo $tenant_id; ?>" class="dropdown-item" id="remove_TenantBtn" data-bs-toggle="modal" href="#removeTenant">Remove Tenant</a></li>
                                           <li><a href="../admin-panel/collection_list.php?property_id=<?php echo $property_id; ?>" class="dropdown-item">View Collection</a></li>
                                         </ul>
@@ -262,16 +262,20 @@ if ($count) {
       });
 
       //Add tenant
-      $("#propertyTable").on('click', '#add_tenant', function() {
+      $("#propertyTable").on('click', '#add_tenant_button', function() {
         swal({
             title: "Confirmation",
             text: "Are you sure you want to add tenant on this property?",
             icon: "warning",
-            buttons: true,
-            dangerMode: true
+            buttons: true
           })
-          .then((willDelete) => {
+          .then((proceed) => {
+            if(proceed){
 
+            } else {
+              swal("Add Tenant Canceled!");
+              $("#addTenant").modal('hide');
+            }
           });
 
 
@@ -282,7 +286,7 @@ if ($count) {
         // $("#property_currentOwner _tenant").val(firstname);
         // $("#property_address _tenant").val(address);
       });
-
+   
 
       // Remove TEnant
       $("#remove_TenantBtn").on('click', function() {
@@ -292,8 +296,7 @@ if ($count) {
             title: "Confirmation",
             text: "Are you sure you want to remove tenant on this property?",
             icon: "warning",
-            buttons: true,
-            dangerMode: true
+            buttons: true
           })
           .then((proceed) => {
             if(proceed){
