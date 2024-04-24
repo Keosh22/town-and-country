@@ -75,7 +75,7 @@ $server->adminAuthentication();
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
-                                <th scope="col" width="5%">Action</th>
+                                <!-- <th scope="col" width="5%">Action</th> -->
                               </tr>
                             </thead>
                             <tbody>
@@ -116,14 +116,14 @@ $server->adminAuthentication();
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname;  ?></td>
                                     <td><?php echo "BLK-" . $property_blk . " LOT-" . $property_lot . " " . $property_street ?></td>
                                     <td><?php echo $property_phase;  ?></td>
-                                    <td>
+                                    <!-- <td>
                                       <div class="dropdown">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu"> -->
                                         <!-- <li><a id="delete_archive" data-property="<?php echo $property_id; ?>" href="#" class="dropdown-item">Delete</a></li> -->
-                                        </ul>
+                                        <!-- </ul>
                                       </div>
-                                    </td>
+                                    </td> -->
                                   </tr>
                               <?php
                                 }
@@ -137,7 +137,7 @@ $server->adminAuthentication();
                                 <th width="20%">Owner's Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">Phase</th>
-                                <th scope="col" width="5%">Action</th>
+                                <!-- <th scope="col" width="5%">Action</th> -->
                               </tr>
                             </tfoot>
                           </table>

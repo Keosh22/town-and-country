@@ -69,7 +69,7 @@ $server = new Server;
             <div class="col-4">
               <label for="phase" class="form-label">Phase#</label>
               <select name="phase" id="phase" class="form-select" required>
-                <option class="default_select" selected>- Select -</option>
+                <option class="default_select" selected></option>
                 <option value="Phase 1">Phase 1</option>
                 <option value="Phase 2">Phase 2</option>
                 <option value="Phase 3">Phase 3</option>
@@ -78,7 +78,7 @@ $server = new Server;
             <div class="col-4">
               <label for="street" class="form-label">Street</label>
               <select name="street" id="street" class="form-select" required>
-                <option selected>- Select -</option>
+                <option selected></option>
               
               </select>
             </div>
@@ -99,7 +99,7 @@ $server = new Server;
   $(document).ready(function() {
 
     $("#addProperty").on('hidden.bs.modal', function(e){
-      $("#street").empty().append('<option selected>- Select -</option>');
+      $("#street").empty().append('<option selected></option>');
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text], input[type=number]').val("");
     });
@@ -126,17 +126,17 @@ $server = new Server;
     $("#phase").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street").empty().append('<option selected>- Select -</option>');
+        $("#street").empty().append('<option selected></option>');
         getStreet(phase);
       
       } else if (phase == "Phase 2") {
-        $("#street").empty().append('<option selected>- Select -</option>');
+        $("#street").empty().append('<option selected></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street").empty().append('<option selected>- Select -</option>');
+        $("#street").empty().append('<option selected></option>');
         getStreet(phase);
       } else {
-        $("#street").empty().append('<option selected>- Select -</option>');
+        $("#street").empty().append('<option selected></option>');
       }
     });
 
@@ -149,6 +149,8 @@ $server = new Server;
       var lot = $("#lot").val();
       var phase = $("#phase").val();
       var street = $("#street").val();
+
+     
 
       $.ajax({
         url: '../ajax/property_register_ajax.php',
