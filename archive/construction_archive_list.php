@@ -113,8 +113,9 @@ $server->adminAuthentication();
                                 <th width="10%">Property</th>
                                 <th width="10%">Paid By</th>
                                 <th width="15%">Payment</th>
-                                <th width="1%">Ammount</th>
+                                <th width="1%">Amount</th>
                                 <th scope="col" width="3%">Action</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -148,7 +149,7 @@ $server->adminAuthentication();
                               $stmt1->execute($data1);
                               if ($stmt1->rowCount() > 0) {
                                 while ($result1 = $stmt1->fetch()) {
-                                  $payment_date = date("M j, Y g:iA", strtotime($result1['payment_date']));
+                                  $payment_date = date("M j, Y", strtotime($result1['payment_date']));
                                   $property_id = $result1['property_id'];
                                   $blk = $result1['property_blk'];
                                   $lot = $result1['property_lot'];
@@ -199,11 +200,12 @@ $server->adminAuthentication();
                                           <?php
                                           }
                                           ?>
-                                          <li><a id="delete_payment_btn" href="#" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Delete</a></li>
+                                          <!-- <li><a id="delete_payment_btn" href="#" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Delete</a></li> -->
                                           <li><a id="restore_archive_btn" href="#" class="dropdown-item" data-property="<?php echo $property_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-id="<?php echo $construction_payment_id; ?>" data-collection-fee="<?php echo $collection_fee_number; ?>">Restore</a></li>
                                         </ul>
                                       </div>
                                     </td>
+                                    <td><?php echo date("n-j-Y H:i",strtotime($date_paid)); ?></td>
                                   </tr>
                               <?php
                                 }
@@ -217,8 +219,9 @@ $server->adminAuthentication();
                                 <th width="10%">Property</th>
                                 <th width="10%">Paid By</th>
                                 <th width="15%">Payment</th>
-                                <th width="1%">Ammount</th>
+                                <th width="1%">Amount</th>
                                 <th scope="col" width="3%">Action</th>
+                                <th></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -423,7 +426,8 @@ $server->adminAuthentication();
       // DataTable
       $("#constructionArchiveTable").DataTable({
         order: [
-          [1, 'desc']
+          [7, 'desc'],
+          [0, 'desc']
         ]
       });
 
@@ -432,6 +436,7 @@ $server->adminAuthentication();
         table.search(this.value).draw();
       });
 
+      table.columns(7).visible(false);
     });
   </script>
   <!-- FOOTER -->

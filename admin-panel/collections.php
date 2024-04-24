@@ -76,6 +76,7 @@ $server->adminAuthentication();
                                 <th width="10%">Date Created</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -92,7 +93,7 @@ $server->adminAuthentication();
                                   $category = $result['category'];
                                   $description = $result['description'];
                                   $fee = $result['fee'];
-                                  $date_created = $result['date_created'];
+                                  $date_created = date("M d, Y", strtotime($result['date_created']));
                                   $status = $result['status'];
                               ?>
                                   <tr>
@@ -124,6 +125,8 @@ $server->adminAuthentication();
                                         </ul>
                                       </div>
                                     </td>
+                                    <td><?php echo date("n-j-Y H:i", strtotime($date_created)); ?></td>
+
                                   </tr>
                               <?php
                                 }
@@ -145,6 +148,7 @@ $server->adminAuthentication();
                                 <th width="10%">Date Created</th>
                                 <th width="5%">Status</th>
                                 <th scope="col" width="5%">Action</th>
+                                <th></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -178,60 +182,65 @@ $server->adminAuthentication();
       // DataTable
       $("#collectionsTable").DataTable({
         order: [
-          [0, 'asc']
+          [0, 'desc'],
+          [7, 'desc']
         ]
       });
-    });
+
+      const TABLE = $("#collectionsTable").DataTable();
+      TABLE.columns(7).visible(false);
 
 
-    // Update Collection 
-    $("#collectionsTable").on('click', "#update_collection", function() {
-      var collection_id = $(this).attr('data-id');
-      $("#update_collection_id").val(collection_id);
-      getCollection(collection_id);
 
-      function getCollection(collection_id) {
-        $.ajax({
-          url: "../ajax/collection_get_data.php",
-          type: 'POST',
-          data: {
-            collection_id: collection_id
-          },
-          dataType: 'JSON',
-          success: function(response) {
-            $("#update_category").val(response.category);
-            $("#update_description").val(response.description);
-            $("#update_fee").val(response.fee);
-          }
-        });
-      }
-    });
+      // Update Collection 
+      $("#collectionsTable").on('click', "#update_collection", function() {
+        var collection_id = $(this).attr('data-id');
+        $("#update_collection_id").val(collection_id);
+        getCollection(collection_id);
 
-    // Delete Collection
-    $("#collectionsTable").on('click', "#delete_collection", function() {
-      var collection_id = $(this).attr('data-id');
-      swal({
-          title: "Delete Confirmation",
-          text: "Once deleted, you will not able to recover this record",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            $.ajax({
-              url: "../ajax/collection_delete.php",
-              type: "POST",
-              data: {
-                collection_id: collection_id
-              },
-              success: function(response) {}
-            });
-            location.reload(true);
-          } else {
-            swal("Delete canceled!")
-          }
-        })
+        function getCollection(collection_id) {
+          $.ajax({
+            url: "../ajax/collection_get_data.php",
+            type: 'POST',
+            data: {
+              collection_id: collection_id
+            },
+            dataType: 'JSON',
+            success: function(response) {
+              $("#update_category").val(response.category);
+              $("#update_description").val(response.description);
+              $("#update_fee").val(response.fee);
+            }
+          });
+        }
+      });
+
+      // Delete Collection
+      $("#collectionsTable").on('click', "#delete_collection", function() {
+        var collection_id = $(this).attr('data-id');
+        swal({
+            title: "Delete Confirmation",
+            text: "Once deleted, you will not able to recover this record",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: "../ajax/collection_delete.php",
+                type: "POST",
+                data: {
+                  collection_id: collection_id
+                },
+                success: function(response) {}
+              });
+              location.reload(true);
+            } else {
+              swal("Delete canceled!")
+            }
+          })
+      });
     });
   </script>
   <!-- FOOTER -->

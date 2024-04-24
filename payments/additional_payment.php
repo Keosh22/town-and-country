@@ -73,8 +73,9 @@ $server->adminAuthentication();
                                 <th width="10%">Date</th>
                                 <th width="10%">Transaction No.</th>
                                 <th width="15%">Payment</th>
-                                <th width="5%">Paid Ammount</th>
+                                <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -114,7 +115,7 @@ $server->adminAuthentication();
                               if ($stmt->rowCount() > 0) {
                                 while ($result = $stmt->fetch()) {
                                   $transaction_number = $result['transaction_number'];
-                                  $date_created = date("M j, Y g:iA", strtotime($result['date_created']));
+                                  $date_created = date("M j, Y", strtotime($result['date_created']));
                                   $payment = $result['category'];
                                   $amount = $result['paid'];
                                   $payment_id = $result['payment_id'];
@@ -134,6 +135,7 @@ $server->adminAuthentication();
                                         </ul>
                                       </div>
                                     </td>
+                                    <td><?php echo date("n-j-Y H:i",strtotime($date_created)); ?></td>
                                   </tr>
                               <?php
                                 }
@@ -146,8 +148,9 @@ $server->adminAuthentication();
                                 <th width="10%">Date</th>
                                 <th width="10%">Transaction No.</th>
                                 <th width="15%">Payment</th>
-                                <th width="5%">Paid Ammount</th>
+                                <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
+                                <th></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -179,9 +182,13 @@ $server->adminAuthentication();
       // DataTable
       $("#additionalPaymentTable").DataTable({
         order: [
+          [5, 'desc'],
           [1, 'desc']
+
         ]
       });
+      const TABLE = $("#additionalPaymentTable").DataTable();
+      TABLE.columns(5).visible(false);
 
       $("#additionalPaymentTable").on('click', '#view_btn', function() {
         var payment_id = $(this).attr('data-id');

@@ -74,8 +74,9 @@ $server->adminAuthentication();
                                 <th width="10%">Transaction No.</th>
                                 <th width="10%">Name</th>
                                 <th width="20%">Details</th>
-                                <th width="5%">Paid Ammount</th>
+                                <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -130,7 +131,7 @@ $server->adminAuthentication();
                                   $paid_amount = $result['paid'];
                               ?>
                                   <tr>
-                                    <td><?php echo date("F j, Y g:iA", strtotime($date_paid)); ?></td>
+                                    <td><?php echo date("F j, Y ", strtotime($date_paid)); ?></td>
                                     <td><?php echo $transaction_number; ?></td>
                                     <td><?php echo $firstname . " " . $middle_initial . " " . $lastname; ?></td>
                                     <td><?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " St. " . $phase; ?></td>
@@ -144,6 +145,7 @@ $server->adminAuthentication();
                                         </ul>
                                       </div>
                                     </td>
+                                    <td><?php echo date("n-j-Y H:i",strtotime($date_paid)); ?></td>
                                   </tr>
                               <?php
                                 }
@@ -156,8 +158,9 @@ $server->adminAuthentication();
                                 <th width="10%">Transaction No.</th>
                                 <th width="10%">Name</th>
                                 <th width="20%">Details</th>
-                                <th width="5%">Paid Ammount</th>
+                                <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
+                                <th></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -233,7 +236,7 @@ $server->adminAuthentication();
         var remarks = $(this).attr('data-remarks');
         var archive_status = "INACTIVE";
 
-        console.log(remarks);
+       
 
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
@@ -266,9 +269,14 @@ $server->adminAuthentication();
       // DataTable
       $("#membershipFeeTable").DataTable({
         order: [
+          [6, 'desc'],
           [1, 'desc']
+
         ]
       });
+
+      const TABLE = $("#membershipFeeTable").DataTable();
+      TABLE.columns(6).visible(false);
 
 
     });

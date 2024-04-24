@@ -59,9 +59,9 @@ $server->adminAuthentication();
                     <div class="box">
                       <!-- 	HEADER TABLE -->
                       <div class="header-box container-fluid d-flex align-items-center">
-                        <div class="col d-flex justify-content-end">
+                        <!-- <div class="col d-flex justify-content-end">
                           <a href="#" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
-                        </div>
+                        </div> -->
                       </div>
 
                       <div class="body-box shadow-sm">
@@ -77,7 +77,7 @@ $server->adminAuthentication();
                                 <th width="10%">Status</th>
                                 <th width="5%">Fee</th>
                                 <th width="5%">Month/Year</th>
-                                <th scope="col" width="5%">Action</th>
+                                <!-- <th scope="col" width="5%">Action</th> -->
                               </tr>
                             </thead>
                             <tbody>
@@ -183,14 +183,14 @@ $server->adminAuthentication();
                                     </td>
                                     <td><span class="badge rounded-pill text-bg-secondary"><?php echo $balance; ?></span></td>
                                     <td><?php echo $month . "-" . $year; ?></td>
-                                    <td>
+                                    <!-- <td>
                                       <div class="dropdown">
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a href="#" class="dropdown-item">Edit</a></li>
                                         </ul>
                                       </div>
-                                    </td>
+                                    </td> -->
                                     </tr>
                                 <?php
                                 }
@@ -206,7 +206,7 @@ $server->adminAuthentication();
                                 <th width="10%">Status</th>
                                 <th width="5%">Fee</th>
                                 <th width="5%">Month/Year</th>
-                                <th scope="col" width="5%">Action</th>
+                                <!-- <th scope="col" width="5%">Action</th> -->
                               </tr>
                             </tfoot>
                           </table>
