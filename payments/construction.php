@@ -118,7 +118,7 @@ $server->adminAuthentication();
                                 <th width="10%">Property</th>
                                 <th width="10%">Paid By</th>
                                 <th width="15%">Payment</th>
-                                <th width="1%">Ammount</th>
+                                <th width="1%">Amount</th>
                                 <th scope="col" width="3%">Action</th>
                                 <th></th>
 
@@ -155,7 +155,7 @@ $server->adminAuthentication();
                               $stmt1->execute($data1);
                               if ($stmt1->rowCount() > 0) {
                                 while ($result1 = $stmt1->fetch()) {
-                                  $payment_date = date("M j, Y g:iA", strtotime($result1['payment_date']));
+                                  $payment_date = date("M j, Y ", strtotime($result1['payment_date']));
                                   $property_id = $result1['property_id'];
                                   $blk = $result1['property_blk'];
                                   $lot = $result1['property_lot'];
@@ -212,7 +212,7 @@ $server->adminAuthentication();
                                         </ul>
                                       </div>
                                     </td>
-                                    <td><?php echo date("n-j-Y H:i:s", strtotime($result1['payment_date'])); ?></td>
+                                    <td><?php echo date("n-j-Y", strtotime($result1['payment_date'])); ?></td>
                                   </tr>
                               <?php
                                 }
@@ -226,7 +226,7 @@ $server->adminAuthentication();
                                 <th width="10%">Property</th>
                                 <th width="10%">Paid By</th>
                                 <th width="15%">Payment</th>
-                                <th width="1%">Ammount</th>
+                                <th width="1%">Amount</th>
                                 <th scope="col" width="3%">Action</th>
                                 <th></th>
                               </tr>
@@ -433,7 +433,8 @@ $server->adminAuthentication();
       // DataTable
       $("#constrcutionPaymentTable").DataTable({
         order: [
-          [7, 'desc']
+          [7, 'desc'],
+          [0, 'desc']
         ]
       });
 
