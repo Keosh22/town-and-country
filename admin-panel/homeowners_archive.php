@@ -50,7 +50,7 @@ if (isset($_POST['homeowners_id'])) {
         $stmt2->execute($data2);
       }
     }
-    $_SESSION['status'] = "Account archive successfuly!";
+    $_SESSION['status'] = "Account archive successfully!";
     $_SESSION['text'] = "";
     $_SESSION['status_code'] = "success";
     // Archive homeowners account

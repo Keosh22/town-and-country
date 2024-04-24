@@ -36,7 +36,7 @@ if (isset($_POST['add_collection_btn'])) {
     $stmt->execute($data);
     $count = $stmt->rowCount();
     if ($count > 0) {
-      $_SESSION['status'] = "Collection has been successfuly added!";
+      $_SESSION['status'] = "Collection has been successfully added!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
       

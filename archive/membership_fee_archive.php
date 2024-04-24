@@ -56,7 +56,7 @@ if (isset($_POST['payment_id']) && isset($_POST['transaction_number'])) {
       $stmt3->execute($data3);
       if($stmt3->rowCount() > 0){
         $_SESSION['status'] = "Success";
-        $_SESSION['text'] = "The log has been archived successfuly";
+        $_SESSION['text'] = "The log has been archived successfully";
         $_SESSION['status_code'] = "success";
         $action = "Archive the Transaction No#: " . $transaction_number . " Membership Fee" ;
         $server->insertActivityLog($action);

@@ -29,7 +29,7 @@ if(isset($_POST['create_announcement'])){
     $stmt->execute($data);
     $count = $stmt->rowCount();
     if($count > 0){
-      $_SESSION['status'] = "Announcement Created Successfuly";
+      $_SESSION['status'] = "Announcement Created Successfully";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
       $action = "Announcement: for ". $about . " posted";

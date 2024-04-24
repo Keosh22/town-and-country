@@ -29,7 +29,7 @@ $server = new Server;
         $stmt->execute($data);
         if($stmt->rowCount() > 0){
           $_SESSION['status'] = "Success!";
-          $_SESSION['text'] = "This record has been successfuly restored";
+          $_SESSION['text'] = "This record has been successfully restored";
           $_SESSION['status_code'] = "success";
           $action = "Restore the Transaction No#: " . $transaction_number . "";
           $server->insertActivityLog($action);

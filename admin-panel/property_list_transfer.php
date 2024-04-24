@@ -38,7 +38,7 @@ if (isset($_POST['transfer'])) {
       $count = $stmt->rowCount();
       if ($count > 0) {
         $_SESSION['status'] = "Transfer Success!";
-        $_SESSION['text'] = "You successfuly transfer the ownersip of this property.";
+        $_SESSION['text'] = "You successfully transfer the ownersip of this property.";
         $_SESSION['status_code'] = "success";
         $action = "Transfer property: " . $property_address . " FROM:  " . $property_currentOwner . " TO: " . $newOwner_name . "";
         $server->insertActivityLog($action);

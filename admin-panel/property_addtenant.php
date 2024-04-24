@@ -37,7 +37,7 @@ if (isset($_POST['add_tenant'])) {
       $count = $stmt->rowCount();
       if ($count > 0) {
         $_SESSION['status'] = "Add tenant Success!";
-        $_SESSION['text'] = "You successfuly add tenant to this property.";
+        $_SESSION['text'] = "You successfully add tenant to this property.";
         $_SESSION['status_code'] = "success";
         $action = "Add tenant to property: " . $property_address . " Tenant Acc#: " .  $tenant_name . "";
         $server->insertActivityLog($action);

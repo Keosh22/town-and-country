@@ -23,7 +23,7 @@ if (isset($_POST['category_update']) && isset($_POST['category_id'])) {
     $stmt2->execute($data2);
     if ($stmt2->rowCount() > 0) {
       $_SESSION['status'] = "Update Failed!";
-      $_SESSION['text'] = "Nothing has changed. Please input different maintenance category.";
+      $_SESSION['text'] = "Already exist. Please input different maintenance category.";
       $_SESSION['status_code'] = "warning";
     } else {
       $query1 = "UPDATE maintenance SET category = :category WHERE id = :id";
@@ -32,7 +32,7 @@ if (isset($_POST['category_update']) && isset($_POST['category_id'])) {
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
       if ($stmt1->rowCount() > 0) {
-        $_SESSION['status'] = "Maintenance service updated succesfuly";
+        $_SESSION['status'] = "Maintenance service updated succesfully";
         $_SESSION['text'] = "";
         $_SESSION['status_code'] = "success";
       } else {

@@ -35,7 +35,7 @@ if (isset($_POST['category'])) {
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
       if ($stmt1->rowCount() > 0) {
-        $_SESSION['status'] = "Maintenance service created succesfuly";
+        $_SESSION['status'] = "Maintenance service created succesfully";
         $_SESSION['text'] = "";
         $_SESSION['status_code'] = "success";
       } else {

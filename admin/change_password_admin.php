@@ -35,7 +35,7 @@ if (isset($_GET['update_password'])) {
       $stmt1->execute($data1);
       if ($stmt1->rowCount() > 0) {
         $_SESSION['status'] = 'Success!';
-        $_SESSION['text'] = 'Your password has been changed successfuly';
+        $_SESSION['text'] = 'Your password has been changed successfully';
         $_SESSION['status_code'] = 'success';
         header("location: ../admin/index.php");
         unset($_SESSION['token_verify']);

@@ -35,7 +35,7 @@ if(isset($_POST['update_promotion'])){
     $stmt->execute($data);
     $count = $stmt->rowCount();
     if($count > 0){
-      $_SESSION['status'] = "Promotion updated successfuly!";
+      $_SESSION['status'] = "Promotion updated successfully!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "success";
     } else {

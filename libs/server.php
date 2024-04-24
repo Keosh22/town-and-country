@@ -444,7 +444,7 @@ class Server
 
     if ($stmt->rowCount() > 0) {
       $_SESSION['status'] = "Success!";
-      $_SESSION['text'] = "Phase successfuly added.";
+      $_SESSION['text'] = "Phase successfully added.";
       $_SESSION['status_code'] = "success";
     } else {
     }
