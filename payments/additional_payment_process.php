@@ -281,8 +281,8 @@ $material_delivery = "Material Delivery";
         var remarks = $("#remarks").val();
 
         swal({
-            title: 'Refund Confirmation',
-            text: 'Are you sure you want to refund this payment?',
+            title: 'Payment Confirmation',
+            text: 'Are you sure you want to add this payment?',
             icon: 'warning',
             buttons: true,
             dangerMode: true
@@ -314,6 +314,8 @@ $material_delivery = "Material Delivery";
                     }, 500)
                   }
                 });
+              } else {
+                swal("Payment Failed", "Please fill al the required fields", "error");
               }
             } else {
               swal("Canceled");

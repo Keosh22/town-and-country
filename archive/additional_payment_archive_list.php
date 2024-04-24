@@ -46,7 +46,7 @@ $server->adminAuthentication();
         <!-- Card Start here -->
         <div class="card card-border">
           <div class="card-header">
-            <h2>Additional Payments List</h2>
+            <h2>Additional Payments (Archive List)</h2>
           </div>
           <div class="card-body">
             <div class="container-fluid">
@@ -60,9 +60,7 @@ $server->adminAuthentication();
                         <div class="col d-flex justify-content-start">
                           <a href="../payments/additional_payment_process.php" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                         </div>
-                        <div class="col d-flex justify-content-end">
-                          <a href="" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
-                        </div>
+                       
                       </div>
 
                       <div class="body-box shadow-sm">

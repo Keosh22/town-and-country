@@ -143,7 +143,7 @@ $server->adminAuthentication();
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" href="#monthly_dues_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection="<?php echo $collection_id; ?>" href="#" class="dropdown-item">Delete</a></li>
+                                          <!-- <li><a id="delete_archive_md" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection="<?php echo $collection_id; ?>" href="#" class="dropdown-item">Delete</a></li> -->
                                           <li><a id="restore_archive_btn" data-tnumber='<?php echo $transaction_number; ?>' data-id="<?php echo $payment_id; ?>" data-collection="<?php echo $collection_id; ?>" href="#" class="dropdown-item">Restore</a></li>
                                         </ul>
                                       </div>
