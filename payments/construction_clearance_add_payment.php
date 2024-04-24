@@ -14,24 +14,33 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
   $date_created = date("Y-m-d H:s:iA", strtotime("now"));
   $amount = filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_SPECIAL_CHARS);
   $admin_name = $_SESSION['admin_name'];
+  $isSuccess = 0;
+  $transaction_number = "";
+  $response = [];
 
-  // Transaction Number Generator
-  // $query1 = "SELECT transaction_number FROM construction_payment ORDER BY transaction_number DESC LIMIT 1";
-  // $connection1 = $server->openConn();
-  // $stmt1 = $connection1->prepare($query1);
-  // $stmt1->execute();
-  // if ($stmt1->rowCount() > 0) {
-  //   if ($result1 = $stmt1->fetch()) {
-  //     $transaction_number = $result1['transaction_number'];
-  //     $get_number = str_replace("C", "", $transaction_number);
-  //     $increment_number = $get_number + 1;
-  //     $get_string = str_pad($increment_number, 8, 0, STR_PAD_LEFT);
-  //     $new_transaction_number = "C" . $get_string;
-  //   }
 
-  $new_transaction_number = $server->transactionNumberGenerator();
+  if (empty($property_id) || empty($collection_fee_id) || empty($amount)) {
+    $_SESSION['status'] = "Payment Failed!";
+    $_SESSION['text'] = "Please fill all the required fields";
+    $_SESSION['status_code'] = "error";
+  } else {
+    // Transaction Number Generator
+    // $query1 = "SELECT transaction_number FROM construction_payment ORDER BY transaction_number DESC LIMIT 1";
+    // $connection1 = $server->openConn();
+    // $stmt1 = $connection1->prepare($query1);
+    // $stmt1->execute();
+    // if ($stmt1->rowCount() > 0) {
+    //   if ($result1 = $stmt1->fetch()) {
+    //     $transaction_number = $result1['transaction_number'];
+    //     $get_number = str_replace("C", "", $transaction_number);
+    //     $increment_number = $get_number + 1;
+    //     $get_string = str_pad($increment_number, 8, 0, STR_PAD_LEFT);
+    //     $new_transaction_number = "C" . $get_string;
+    //   }
 
-    $query2 ="INSERT INTO construction_payment (transaction_number, property_id, collection_fee_id, paid, date_created, paid_by, admin)  VALUES (:transaction_number, :property_id, :collection_fee_id, :paid, :date_created, :paid_by, :admin)";
+    $new_transaction_number = $server->transactionNumberGenerator();
+
+    $query2 = "INSERT INTO construction_payment (transaction_number, property_id, collection_fee_id, paid, date_created, paid_by, admin)  VALUES (:transaction_number, :property_id, :collection_fee_id, :paid, :date_created, :paid_by, :admin)";
     $data2 = [
       "transaction_number" => $new_transaction_number,
       "property_id" => $property_id,
@@ -50,13 +59,18 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
       $_SESSION['status_code'] = "success";
       $action = "Payment: Transaction No# " . $new_transaction_number . " Construction clearance payment";
       $server->insertActivityLog($action);
+      $isSuccess = 1;
+      $transaction_number = $new_transaction_number;
+      $response = [
+        "isSuccess" => $isSuccess,
+        "transaction_number" => $new_transaction_number
+      ];
     } else {
       $_SESSION['status'] = "Payment Failed!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "error";
     }
-
-    echo $new_transaction_number;
-  
+  }
+  echo json_encode($response);
 }
 ?>

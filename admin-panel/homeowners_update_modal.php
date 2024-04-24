@@ -52,7 +52,7 @@ require_once("../libs/server.php");
             <div class="col-6">
               <label for="position">Position:</label>
               <select name="position" id="position" class="form-select">
-                <option class="default_select" value="">- Select -</option>
+                <option class="default_select" value=""></option>
                 <option value="President">President</option>
                 <option value="Vice-President">Vice-President</option>
                 <option value="President">Secretary</option>
@@ -93,7 +93,7 @@ require_once("../libs/server.php");
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
                       <select name="phase_update" id="phase_update" class="form-select" required>
-                        <option class="default_select" id="phase_option_update" selected>- Select -</option>
+                        <option class="default_select" id="phase_option_update" selected></option>
                         <option value="Phase 1">Phase 1</option>
                         <option value="Phase 2">Phase 2</option>
                         <option value="Phase 3">Phase 3</option>
@@ -102,7 +102,7 @@ require_once("../libs/server.php");
                     <div class="col-4">
                       <label for="street" class="form-label ">Street</label>
                       <select name="street_update" id="street_update" class="form-select" required>
-                        <option class="default_select" id="street_option_update">- Select -</option>
+                        <option class="default_select" id="street_option_update"></option>
                         <!-- <option></option>
                         <option>Jackfruit</option>
                         <option>Golden Shower</option> -->
@@ -134,7 +134,7 @@ require_once("../libs/server.php");
    
     $("#updateHomeowners").on('hidden.bs.modal', function(e) {
       $("#update_homeowners").find("input[type=text], input[type=password], input[type=email], input[type=hidden], input[type=number] ").val("");
-      $("#street_update").empty().append('<option id="street_option_update" selected>- Select -</option>');
+      $("#street_update").empty().append('<option id="street_option_update" selected></option>');
 
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
@@ -186,17 +186,17 @@ require_once("../libs/server.php");
     $("#phase_update").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street_update").empty().append('<option>- Select -</option>');
+        $("#street_update").empty().append('<option></option>');
         getStreet(phase);
 
       } else if (phase == "Phase 2") {
-        $("#street_update").empty().append('<option>- Select -</option>');
+        $("#street_update").empty().append('<option></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street_update").empty().append('<option>- Select -</option>');
+        $("#street_update").empty().append('<option></option>');
         getStreet(phase);
       } else {
-        $("#street_update").empty().append('<option>- Select -</option>');
+        $("#street_update").empty().append('<option></option>');
       }
     });
 

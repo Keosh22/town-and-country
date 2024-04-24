@@ -131,7 +131,7 @@ require_once("../libs/server.php");
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
                       <select name="phase" id="phase" class="form-select" required>
-                        <option class="default_select" selected>- Select -</option>
+                        <option class="default_select" selected></option>
                         <option value="Phase 1">Phase 1</option>
                         <option value="Phase 2">Phase 2</option>
                         <option value="Phase 3">Phase 3</option>
@@ -140,7 +140,7 @@ require_once("../libs/server.php");
                     <div class="col-4">
                       <label for="street" class="form-label ">Street</label>
                       <select name="street" id="street" class="form-select" required>
-                        <option class="default_select">- Select -</option>
+                        <option class="default_select"></option>
                         <!-- <option></option>
                         <option>Jackfruit</option>
                         <option>Golden Shower</option> -->
@@ -203,7 +203,7 @@ require_once("../libs/server.php");
     // Clear input when close
     $("#addHomeowners").on('hidden.bs.modal', function(e) {
       $("#form-input").find("input[type=text], input[type=password], input[type=number], input[type=email], select[class=form-select]").val("");
-      $("#street").empty().append('<option selected>- Select -</option>');
+      $("#street").empty().append('<option selected></option>');
       $(".default_select").prop('selected', true);
       $("#register_property_form").find('input[type=text]').val("");
 
@@ -386,17 +386,17 @@ require_once("../libs/server.php");
     $("#phase").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street").empty().append('<option>- Select -</option>');
+        $("#street").empty().append('<option></option>');
         getStreet(phase);
 
       } else if (phase == "Phase 2") {
-        $("#street").empty().append('<option>- Select -</option>');
+        $("#street").empty().append('<option></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street").empty().append('<option>- Select -</option>');
+        $("#street").empty().append('<option></option>');
         getStreet(phase);
       } else {
-        $("#street").empty().append('<option>- Select -</option>');
+        $("#street").empty().append('<option></option>');
       }
     });
 

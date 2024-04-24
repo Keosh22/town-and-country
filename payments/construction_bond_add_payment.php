@@ -14,8 +14,16 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
   $amount_deposit = filter_input(INPUT_POST, 'amount_deposit', FILTER_SANITIZE_SPECIAL_CHARS);
   $date_created = date("Y-m-d H:s:iA", strtotime("now"));
   $admin_name = $_SESSION['admin_name'];
+  $isSuccess = 0;
+  $transaction_number = "";
+  $response = [];
 
-  // $query1 = "SELECT transaction_number FROM construction_payment ORDER BY transaction_number DESC LIMIT 1";
+  if(empty($property_id) || empty($collection_fee_id) || empty($amount_deposit)){
+    $_SESSION['status'] = "Payment Failed!";
+    $_SESSION['text'] = "Please fill all the required fields";
+    $_SESSION['status_code'] = "error";
+  } else {
+ // $query1 = "SELECT transaction_number FROM construction_payment ORDER BY transaction_number DESC LIMIT 1";
   // $connection1 = $server->openConn();
   // $stmt1 = $connection1->prepare($query1);
   // $stmt1->execute();
@@ -50,13 +58,20 @@ if (isset($_POST['property_id']) && isset($_POST['collection_fee_id']) && isset(
       $_SESSION['status_code'] = "success";
       $action = "Payment: Transaction No# " . $new_transaction_number . " Construction bond payment";
       $server->insertActivityLog($action);
+      $isSuccess = 1;
+      $transaction_number = $new_transaction_number;
+      $response = [
+        "isSuccess" => $isSuccess,
+        "transaction_number" => $new_transaction_number
+      ];
     } else {
       $_SESSION['status'] = "Payment Failed!";
       $_SESSION['text'] = "";
       $_SESSION['status_code'] = "error";
     }
-  
-  echo $new_transaction_number;
+  }
+
+  echo json_encode($response);
 }
 
 ?>

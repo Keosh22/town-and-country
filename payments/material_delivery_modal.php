@@ -31,7 +31,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
             <div class="col-3">
               <div class="form-floating">
                 <select class="form-select" name="phase_md" id="phase_md" required>
-                  <option value="" class="default_select">- Select -</option>
+                  <option value="" class="default_select"></option>
                   <option value="Phase 1">Phase 1</option>
                   <option value="Phase 2">Phase 2</option>
                   <option value="Phase 3">Phase 3</option>
@@ -42,7 +42,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
             <div class="col-3">
               <div class="form-floating">
                 <select name="street_md" id="street_md" class="form-select" required>
-                  <option value="" class="default_select">- Select -</option>
+                  <option value="" class="default_select"></option>
                 </select>
                 <label for="street_md">Street</label>
               </div>
@@ -56,13 +56,13 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
             <div class="col-12">
               <div class="form-floating">
                 <input type="text" class="form-control" id="paid_by_md" placeholder="Paid by">
-                <label for="paid_by_md">Paid By</label>
+                <label for="paid_by_md" class="text-secondary">Paid By: (Optional)</label>
               </div>
             </div>
             <div class="col-4">
               <div class="form-floating">
                 <select name="wheelers" id="wheelers" class="form-select" required>
-                  <option value="" class="default_select">- Select -</option>
+                  <option value="" class="default_select"></option>
                   <option value="C004">6 Wheelers</option>
                   <option value="C005">10 Wheelers</option>
                   <option value="C006">12+ Wheelers</option>
@@ -86,7 +86,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
         </div>
 
         <div class="modal-footer">
-       
+
           <button class="btn btn-flat btn-success" id="submit_payment_md">Submit</button>
         </div>
       </div>
@@ -123,16 +123,16 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
     $("#phase_md").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street_md").empty().append('<option value="">- Select -</option>');
+        $("#street_md").empty().append('<option value=""></option>');
         getStreet(phase);
       } else if (phase == "Phase 2") {
-        $("#street_md").empty().append('<option value="">- Select -</option>');
+        $("#street_md").empty().append('<option value=""></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street_md").empty().append('<option value="">- Select -</option>');
+        $("#street_md").empty().append('<option value=""></option>');
         getStreet(phase);
       } else {
-        $("#street_md").empty().append('<option value="">- Select -</option>');
+        $("#street_md").empty().append('<option value=""></option>');
       }
     });
 
@@ -216,16 +216,29 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
                 delivery_date: delivery_date,
                 paid_by: paid_by
               },
+              dataType: 'JSON',
               success: function(response) {
-                var  transaction_number_md = response;
-                var material_delivery_receipt = window.open('../payments/material_delivery_receipt.php?transaction_number_md=' + transaction_number_md + '&property_id_receipt='+ property_id,'_blank', 'width=900, height=600');
-                setTimeout(function () {
-                  material_delivery_receipt.print();
-                  setTimeout(function () {
-                    material_delivery_receipt.close();
-                    location.reload(true);
-                  }, 500);
-                }, 500)
+                if (response.isSuccess) {
+                  if (response.isSuccess) {
+                    var transaction_number_md = response.transaction_number;
+                    var material_delivery_receipt = window.open('../payments/material_delivery_receipt.php?transaction_number_md=' + transaction_number_md + '&property_id_receipt=' + property_id, '_blank', 'width=900, height=600');
+                    setTimeout(function() {
+                      material_delivery_receipt.print();
+                      setTimeout(function() {
+                        material_delivery_receipt.close();
+                        location.reload();
+                      }, 500);
+                    }, 500)
+                  } else {
+                    location.reload();
+                  }
+                } else {
+                  location.reload();
+                }
+
+
+
+
               }
             });
 

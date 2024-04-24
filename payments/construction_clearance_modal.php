@@ -30,7 +30,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <div class="col-3">
             <div class="form-floating">
               <select name="phase_cc" id="phase_cc" class="form-control" required>
-                <option value="" class="default_select">- Select -</option>
+                <option value="" class="default_select"></option>
                 <option value="Phase 1">Phase 1</option>
                 <option value="Phase 2">Phase 2</option>
                 <option value="Phase 3">Phase 3</option>
@@ -41,7 +41,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <div class="col-3">
             <div class="form-floating">
               <select name="street_cc" id="street_cc" class="form-control" required>
-                <option value="" class="default_select">- Select -</option>
+                <option value="" class="default_select"></option>
               </select>
               <label for="street_cc">Street</label>
             </div>
@@ -55,7 +55,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <div class="col-12">
             <div class="form-floating">
               <input type="text" class="form-control" id="paid_by_cc">
-              <label for="paid_by_cc">Paid By</label>
+              <label for="paid_by_cc" class="text-secondary">Paid By: (Optional)</label>
             </div>
           </div>
           <div class="col-6">
@@ -67,7 +67,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
         </div>
       </div>
       <div class="modal-footer">
-        
+
         <button class="btn btn-flat btn-success" id="add_construction_clearance">Submit</button>
       </div>
     </div>
@@ -99,16 +99,16 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
     $("#phase_cc").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street_cc").empty().append('<option value="">- Select -</option>');
+        $("#street_cc").empty().append('<option value=""></option>');
         getStreet(phase);
       } else if (phase == "Phase 2") {
-        $("#street_cc").empty().append('<option value="">- Select -</option>');
+        $("#street_cc").empty().append('<option value=""></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street_cc").empty().append('<option value="">- Select -</option>');
+        $("#street_cc").empty().append('<option value=""></option>');
         getStreet(phase);
       } else {
-        $("#street_cc").empty().append('<option value="">- Select -</option>');
+        $("#street_cc").empty().append('<option value=""></option>');
       }
     });
 
@@ -144,11 +144,11 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       var collection_fee_id = $("#collection_fee_id_cc").val();
       var paid_by = $("#paid_by_cc").val();
       var homeowners_name = $("#homeowners_name_cc").val();
-     
+
       var amount = $("#amount_cc").val();
 
       if (paid_by.length > 0) {
-        
+
       } else {
         paid_by = homeowners_name;
       }
@@ -170,18 +170,23 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
                 paid_by: paid_by,
                 amount: amount
               },
+              dataType: 'JSON',
               success: function(response) {
-
-                var transaction_number = response
-                var property_id_ = $("#property_id_cc").val();
-                var receipt = window.open('../payments/construction_clearance_receipt.php?transaction_number_md=' + transaction_number + '&property_id_receipt=' + property_id_, '_blank', 'width=900,height=600');
-                setTimeout(function() {
-                  receipt.print();
+                if (response.isSuccess) {
+                  var transaction_number = response.transaction_number
+                  var property_id_ = $("#property_id_cc").val();
+                  var receipt = window.open('../payments/construction_clearance_receipt.php?transaction_number_md=' + transaction_number + '&property_id_receipt=' + property_id_, '_blank', 'width=900,height=600');
                   setTimeout(function() {
-                    receipt.close();
-                    location.reload();
+                    receipt.print();
+                    setTimeout(function() {
+                      receipt.close();
+                      location.reload();
+                    }, 500)
                   }, 500)
-                }, 500)
+                } else {
+                  location.reload();
+                }
+
               }
             })
           } else {

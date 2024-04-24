@@ -30,7 +30,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <div class="col-3">
             <div class="form-floating">
               <select name="phase_cb" id="phase_cb" class="form-control" required>
-                <option value="" class="default_select">- Select -</option>
+                <option value="" class="default_select"></option>
                 <option value="Phase 1">Phase 1</option>
                 <option value="Phase 2">Phase 2</option>
                 <option value="Phase 3">Phase 3</option>
@@ -41,7 +41,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <div class="col-3">
             <div class="form-floating">
               <select name="street_cb" id="street_cb" class="form-control" required>
-                <option value="" class="default_select">- Select -</option>
+                <option value="" class="default_select"></option>
               </select>
               <label for="street_cb">Street</label>
             </div>
@@ -55,7 +55,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <div class="col-12">
             <div class="form-floating">
               <input type="text" class="form-control" id="paid_by_cb">
-              <label for="paid_by_cb">Paid By</label>
+              <label for="paid_by_cb" class="text-secondary">Paid By: (Optional)</label>
             </div>
           </div>
           <div class="col-6">
@@ -76,7 +76,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
         </div>
       </div>
       <div class="modal-footer">
-     
+
         <button class="btn btn-flat btn-success" id="add_construction_bond">Submit</button>
       </div>
     </div>
@@ -108,16 +108,16 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
     $("#phase_cb").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street_cb").empty().append('<option value="">- Select -</option>');
+        $("#street_cb").empty().append('<option value=""></option>');
         getStreet(phase);
       } else if (phase == "Phase 2") {
-        $("#street_cb").empty().append('<option value="">- Select -</option>');
+        $("#street_cb").empty().append('<option value=""></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street_cb").empty().append('<option value="">- Select -</option>');
+        $("#street_cb").empty().append('<option value=""></option>');
         getStreet(phase);
       } else {
-        $("#street_cb").empty().append('<option value="">- Select -</option>');
+        $("#street_cb").empty().append('<option value=""></option>');
       }
     });
 
@@ -178,13 +178,13 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
       var paid_by = $("#paid_by_cb").val();
       var amount_deposit = $("#amount_deposit_cb").val();
       var homeowners_name = $("#homeowners_name_cb").val();
-     
-      if (paid_by.length > 0){
+
+      if (paid_by.length > 0) {
 
       } else {
         paid_by = homeowners_name
       }
-      
+
       swal({
           title: 'Payment Confirmation',
           text: 'Are you sure you want to add this payment?',
@@ -203,16 +203,21 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
                 paid_by: paid_by,
                 amount_deposit: amount_deposit
               },
-              success: function (response){
-                var transaction_number = response;
-                var print_receipt_cb = window.open('../payments/construction_bond_receipt.php?transaction_number_md=' + transaction_number + '&property_id_receipt=' + property_id, '_blank', 'width=900,height=600');
-                setTimeout(function (){
-                  print_receipt_cb.print();
-                  setTimeout(function (){
-                    print_receipt_cb.close();
-                    location.reload(true);
+              dataType: 'JSON',
+              success: function(response) {
+                if (response.isSuccess) {
+                  var transaction_number = response.transaction_number;
+                  var print_receipt_cb = window.open('../payments/construction_bond_receipt.php?transaction_number_md=' + transaction_number + '&property_id_receipt=' + property_id, '_blank', 'width=900,height=600');
+                  setTimeout(function() {
+                    print_receipt_cb.print();
+                    setTimeout(function() {
+                      print_receipt_cb.close();
+                      location.reload(true);
+                    }, 500)
                   }, 500)
-                }, 500)
+                } else {
+                  location.reload();
+                }
               }
             })
           } else {
