@@ -20,7 +20,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             <input type="hidden" class="form-control" name="photo_name" id="photo_name">
             <div class="col-12">
               <label for="change_photo">Choose Photo:</label>
-              <input type="file" class="form-control" name="change_photo" id="change_photo">
+              <input type="file" class="form-control" name="change_photo" id="change_photo" accept="image/jpeg, image/png" required>
             </div>
           </div>
         </div>

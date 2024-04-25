@@ -97,11 +97,11 @@ if ($rowCount > 0) {
                 <div class="row gap-3">
                   <div class="col">
                     <label for="firstname" class="form-label">Firstname</label>
-                    <input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo $firstname; ?>" required>
+                    <input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo $firstname; ?>" maxlength="25" required disabled>
                   </div>
                   <div class="col">
                     <label for="lastname" class="form-label">Lastname</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" value="<?php echo $lastname; ?>" required>
+                    <input type="text" class="form-control" name="lastname" id="lastname" value="<?php echo $lastname; ?>" maxlength="25" required disabled>
                   </div>
                 </div>
                 <div class="row gap-3">
@@ -111,16 +111,17 @@ if ($rowCount > 0) {
                   </div>
                   <div class="col">
                     <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" value="<?php echo $email; ?>" required>
+                    <input type="email" class="form-control" name="email" id="email" value="<?php echo $email; ?>" maxlength="50" required disabled>
                   </div>
                   <div class="col">
                     <label for="phone_number" class="form-label">Phone #</label>
-                    <input type="text" class="form-control" name="phone_number" id="phone_number" value="<?php echo $phone; ?>" required>
+                    <input type="number" class="form-control" name="phone_number" id="phone_number" value="<?php echo $phone; ?>" maxlength="11" disabled required>
                     <div id='phoneNumberHelpBlock'></div>
                   </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <input type="submit" class="btn btn-primary" name="update_info" id="update_info" value="Update">
+                  <button class="btn btn-secondary mx-2" type="button" id="edit_profile_btn">Edit</button>
+                  <input type="submit" class="btn btn-primary" name="update_info" id="update_info" value="Update" disabled>
                 </div>
               </form>
 
@@ -130,14 +131,14 @@ if ($rowCount > 0) {
                 <div class="row gap-3">
                   <div class="col-lg-5">
                     <label for="current_password" class="form-label">Current Password</label>
-                    <input type="password" class="form-control current_password_input" name="current_password" id="current_password" required>
+                    <input type="password" class="form-control current_password_input" name="current_password" id="current_password" required disabled>
                     <!-- show icon -->
                     <span class="toggle-current-password"><i toggle="#current_password" class='bx bx-show bx-show-changepass current-password-icon'></i></span>
                     <div id="changePasswordHelpBlock"></div>
                   </div>
                   <div class="col">
                     <label for="new_password" class="form-label">New Password</label>
-                    <input type="password" class="form-control" name="new_password" id="new_password" required>
+                    <input type="password" class="form-control" name="new_password" id="new_password" required disabled>
                     <!-- show icon -->
                     <span class="toggle-password"><i toggle="#new_password" class='bx bx-show bx-show-changepass password-icon'></i></span>
                     <div id="newPasswordHelpBlock"></div>
@@ -157,6 +158,7 @@ if ($rowCount > 0) {
                   </div>
                 </div>
                 <div class="d-flex justify-content-end mt-2">
+                  <button id="edit_password_btn" class="btn btn-secondary mx-2" type="button">Edit</button>
                   <input type="submit" class="btn btn-primary" id="change_password" name="change_password" value="Update" disabled>
                 </div>
 
@@ -185,7 +187,7 @@ if ($rowCount > 0) {
 
   <script>
     $(document).ready(function() {
-      
+
 
 
 
@@ -204,7 +206,7 @@ if ($rowCount > 0) {
           }
         });
       });
-      
+
 
       // ajax for Change profile picture
       // $("#change_photo").on('click', function() {
@@ -223,6 +225,74 @@ if ($rowCount > 0) {
       //     }
       //   });
       // });
+
+
+      // Edit password button
+      var action_password = "Are you sure you want to update your password? Click OK to proceed."
+      $("#edit_password_btn").on('click', function() {
+        swal({
+            title: 'Change Password Confirmation',
+            text: action_password,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if (proceed) {
+              $("#new_password, #current_password, #change_password").prop('disabled', function(i, val) {
+                if (val) {
+                  $("#edit_password_btn").html("Cancel");
+                  action_password = "Are you sure you want to cancel?"
+                } else {
+                  $("#edit_password_btn").html("Edit");
+                  action_password = "Are you sure you want to update your password? Click OK to proceed."
+
+                  location.reload();
+                }
+                return !val;
+              });
+              $("#edit_password_btn").toggleClass("btn-danger");
+            } else {
+              location.reload();
+            }
+          });
+
+
+
+
+      });
+
+
+      // Edit profile button
+      var action = "Are you sure you want to update your profile information? Click OK to proceed.";
+      $("#edit_profile_btn").on('click', function() {
+        swal({
+            title: 'Update Confirmation',
+            text: action,
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+          })
+          .then((proceed) => {
+            if (proceed) {
+              $("#firstname, #lastname, #email, #phone_number, #update_info").prop('disabled', function(i, val) {
+                if (val) {
+                  $("#edit_profile_btn").html("Cancel");
+                  action = "Are you sure you want to cancel?";
+                } else {
+                  $("#edit_profile_btn").html("Edit");
+                  action = "Are you sure you want to update your profile information? Click OK to proceed.";
+                  location.reload();
+                }
+                return !val;
+              });
+              $("#edit_profile_btn").toggleClass("btn-danger");
+            } else {
+              location.reload();
+            }
+          })
+      });
+
 
       // Phone Number validation
       $("#phone_number").on('keyup', function() {
