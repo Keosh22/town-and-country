@@ -62,101 +62,113 @@ if (isset($_POST['update_btn'])) {
       $stmt4 = $connection4->prepare($query4);
       $stmt4->execute($data4);
       if ($stmt4->rowCount() > 0) {
-        $_SESSION['status'] = "Failed!";
-        $_SESSION['text'] = "Email already exist!";
-        $_SESSION['status_code'] = "error";
-        header("location: ../admin-panel/homeowners.php");
-      } else {
+        $query5 = "SELECT email FROM homeowners_users WHERE id = :homeowners_id";
+        $data5 = [
+          "homeowners_id" => $homeowners_id
+        ];
+        $connection5 = $server->openConn();
+        $stmt5 = $connection5->prepare($query5);
+        $stmt5->execute($data5);
+        if($stmt5->rowCount() > 0){
+          if($result5 = $stmt5->fetch()){
+            $email = $result5['email'];
+          }
+        }
+        // $_SESSION['status'] = "Failed!";
+        // $_SESSION['text'] = "Email already exist!";
+        // $_SESSION['status_code'] = "error";
+        // header("location: ../admin-panel/homeowners.php");
+      }
 
-        $query = "SELECT * FROM homeowners_users WHERE id = :homeowners_id";
-        $data = ["homeowners_id" => $homeowners_id];
+      $query = "SELECT * FROM homeowners_users WHERE id = :homeowners_id";
+      $data = ["homeowners_id" => $homeowners_id];
+      $connection = $server->openConn();
+      $stmt = $connection->prepare($query);
+      $stmt->execute($data);
+      $count = $stmt->rowCount();
+
+      if ($count > 0) {
+        while ($result = $stmt->fetch()) {
+          $account_number = $result['account_number'];
+          $firstname_fetch = $result['firstname'];
+          $lastname_fetch  = $result['lastname'];
+          $middle_initial_fetch  = $result['middle_initial'];
+          $email_fetch  = $result['email'];
+          $phone_number_fetch  = $result['phone_number'];
+          // $status_fetch  = $result['status'];
+          $blk_fetch  = $result['blk'];
+          $lot_fetch  = $result['lot'];
+          $phase_fetch  = $result['phase'];
+          $street_fetch  = $result['street'];
+          $position_fetch = $result['position'];
+        }
+
+        $query = "UPDATE homeowners_users SET firstname = :firstname, lastname = :lastname, middle_initial = :middle_initial, email = :email, phone_number = :phone_number, blk = :blk, lot = :lot, phase = :phase, street = :street, position = :position WHERE id = :homeowners_id";
+        $data = [
+          "firstname" => $firstname,
+          "lastname" => $lastname,
+          "middle_initial" => $middle_initial,
+          "email" => $email,
+          "phone_number" => $phone_number,
+          "blk" => $blk,
+          "lot" => $lot,
+          "phase" => $phase,
+          "street" => $street,
+          "position" => $position,
+          "homeowners_id" => $homeowners_id
+        ];
         $connection = $server->openConn();
         $stmt = $connection->prepare($query);
         $stmt->execute($data);
         $count = $stmt->rowCount();
-
-        if ($count > 0) {
-          while ($result = $stmt->fetch()) {
-            $account_number = $result['account_number'];
-            $firstname_fetch = $result['firstname'];
-            $lastname_fetch  = $result['lastname'];
-            $middle_initial_fetch  = $result['middle_initial'];
-            $email_fetch  = $result['email'];
-            $phone_number_fetch  = $result['phone_number'];
-            // $status_fetch  = $result['status'];
-            $blk_fetch  = $result['blk'];
-            $lot_fetch  = $result['lot'];
-            $phase_fetch  = $result['phase'];
-            $street_fetch  = $result['street'];
-            $position_fetch = $result['position'];
+        $changed = "The following information has been updated: ";
+        // Get the value that has been changed
+        if ($firstname_fetch == $firstname && $lastname_fetch == $lastname && $middle_initial_fetch == $middle_initial && $email_fetch == $email && $phone_number_fetch == $phone_number && $blk_fetch == $blk && $lot_fetch == $lot && $phase_fetch == $phase && $street_fetch == $street && $position == $position_fetch) {
+          $_SESSION['status'] = "No information has been changed!";
+          $_SESSION['text'] = "";
+          $_SESSION['status_code'] = "info";
+        } else {
+          // validate what information has been changed
+          if ($firstname_fetch != $firstname) {
+            $changed .= " FIRSTNAME,";
+          }
+          if ($lastname_fetch != $lastname) {
+            $changed .= " LASTNAME,";
+          }
+          if ($middle_initial_fetch != $middle_initial) {
+            $changed .= " MIDDLE INITIAL,";
+          }
+          if ($email_fetch != $email) {
+            $changed .= " EMAIL,";
+          }
+          if ($phone_number_fetch != $phone_number) {
+            $changed .= " PHONE NUMBER,";
           }
 
-          $query = "UPDATE homeowners_users SET firstname = :firstname, lastname = :lastname, middle_initial = :middle_initial, email = :email, phone_number = :phone_number, blk = :blk, lot = :lot, phase = :phase, street = :street, position = :position WHERE id = :homeowners_id";
-          $data = [
-            "firstname" => $firstname,
-            "lastname" => $lastname,
-            "middle_initial" => $middle_initial,
-            "email" => $email,
-            "phone_number" => $phone_number,
-            "blk" => $blk,
-            "lot" => $lot,
-            "phase" => $phase,
-            "street" => $street,
-            "position" => $position,
-            "homeowners_id" => $homeowners_id
-          ];
-          $connection = $server->openConn();
-          $stmt = $connection->prepare($query);
-          $stmt->execute($data);
-          $count = $stmt->rowCount();
-          $changed = "The following information has been updated: ";
-          // Get the value that has been changed
-          if ($firstname_fetch == $firstname && $lastname_fetch == $lastname && $middle_initial_fetch == $middle_initial && $email_fetch == $email && $phone_number_fetch == $phone_number && $blk_fetch == $blk && $lot_fetch == $lot && $phase_fetch == $phase && $street_fetch == $street && $position == $position_fetch) {
-            $_SESSION['status'] = "No information has been changed!";
-            $_SESSION['text'] = "";
-            $_SESSION['status_code'] = "info";
-          } else {
-            // validate what information has been changed
-            if ($firstname_fetch != $firstname) {
-              $changed .= " FIRSTNAME,";
-            }
-            if ($lastname_fetch != $lastname) {
-              $changed .= " LASTNAME,";
-            }
-            if ($middle_initial_fetch != $middle_initial) {
-              $changed .= " MIDDLE INITIAL,";
-            }
-            if ($email_fetch != $email) {
-              $changed .= " EMAIL,";
-            }
-            if ($phone_number_fetch != $phone_number) {
-              $changed .= " PHONE NUMBER,";
-            }
-
-            if ($blk_fetch != $blk) {
-              $changed .= " BLK,";
-            }
-            if ($lot_fetch != $lot) {
-              $changed .= " LOT,";
-            }
-            if ($phase_fetch != $phase) {
-              $changed .= " PHASE,";
-            }
-            if ($street_fetch != $street) {
-              $changed .= " STREET,";
-            }
-            if ($position_fetch != $position) {
-              $changed .= " POSITION,";
-            }
-            $_SESSION['status'] = "Success!";
-            $_SESSION['text'] = $changed;
-            $_SESSION['status_code'] = "success";
-            // Activity log
-            $action = "Update homeowners information of " . $account_number . ": " . $firstname . " = " . $changed . "";
-            $server->insertActivityLog($action);
+          if ($blk_fetch != $blk) {
+            $changed .= " BLK,";
           }
+          if ($lot_fetch != $lot) {
+            $changed .= " LOT,";
+          }
+          if ($phase_fetch != $phase) {
+            $changed .= " PHASE,";
+          }
+          if ($street_fetch != $street) {
+            $changed .= " STREET,";
+          }
+          if ($position_fetch != $position) {
+            $changed .= " POSITION,";
+          }
+          $_SESSION['status'] = "Success!";
+          $_SESSION['text'] = $changed;
+          $_SESSION['status_code'] = "success";
+          // Activity log
+          $action = "Update homeowners information of " . $account_number . ": " . $firstname . " = " . $changed . "";
+          $server->insertActivityLog($action);
         }
       }
+      // }
     }
   } else {
     $_SESSION['status'] = "Failed!";

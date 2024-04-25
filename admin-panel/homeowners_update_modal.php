@@ -55,8 +55,8 @@ require_once("../libs/server.php");
                 <option class="default_select" value=""></option>
                 <option value="President">President</option>
                 <option value="Vice-President">Vice-President</option>
-                <option value="President">Secretary</option>
-                <option value="President">Treasurer</option>
+                <option value="Secretary">Secretary</option>
+                <!-- <option value="BOD">BOD</option> -->
               </select>
             </div>
             <div class="col-6">

@@ -138,14 +138,14 @@ require_once("../libs/server.php");
             <label for="email" class="col-sm-3 control-label">Email</label>
 
             <div class="">
-              <input type="text" class="form-control" id="email" name="email" required>
+              <input type="email" class="form-control" id="email" name="email" required>
             </div>
           </div>
           <div class="form-group">
             <label for="phone_number" class=" control-label">Phone number</label>
 
             <div class="">
-              <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+              <input type="number" class="form-control" id="phone_number" name="phone_number" maxlength="11" required>
             </div>
           </div>
 

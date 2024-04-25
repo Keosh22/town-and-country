@@ -12,7 +12,7 @@
           <p>Please Enter your password to archive this payment.</p>
           <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
           <div class="modal-footer">
-            <button class="btn btn-danger btn-flat" type="button" data-bs-dismiss="modal">Cancel</button>
+           
             <button class="btn btn-primary btn-flat" type="submit" name="archive_construction_btn" id="archive_construction_btn">Submit</button>
           </div>
         </form>
@@ -37,7 +37,7 @@
           password: password
         },
         success: function(response) {
-          location.reload(true);
+         
         }
       })
     })

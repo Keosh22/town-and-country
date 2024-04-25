@@ -22,28 +22,41 @@ if (isset($_POST["update_info"])) {
       $stmt1 = $connection1->prepare($query1);
       $stmt1->execute($data1);
       if ($stmt1->rowCount() > 0) {
-        $_SESSION['status'] = "Your Profile is Updated";
-        $_SESSION['text'] = "Your profile has been updated. If you want to update you email address, please try other email address account.";
-        $_SESSION['status_code'] = "info";
-        header("location: ../user/profile.php");
-      } else {
-        $query = "UPDATE homeowners_users SET firstname = :firstname, lastname = :lastname, middle_initial = :middle_initial, email = :email, phone_number = :phone_number  WHERE id = :id";
-        $data = [
-          "firstname" => $firstname,
-          "lastname" => $lastname,
-          "middle_initial" => $middle_initial,
-          "email" => $email,
-          "phone_number" => $phone,
-          "id" => $id
+        $query5 = "SELECT email FROM homeowners_users WHERE id = :user_id";
+        $data5 = [
+          "user_id" => $id
         ];
-        $path = "../user/profile.php";
+        $connection5 = $server->openConn();
+        $stmt5 = $connection5->prepare($query5);
+        $stmt5->execute($data5);
+        if ($stmt5->rowCount() > 0) {
+          if ($result5 = $stmt5->fetch()) {
+            $email = $result5['email'];
+          }
+        }
+        // $_SESSION['status'] = "Your Profile is Updated";
+        // $_SESSION['text'] = "Your profile has been updated. If you want to update you email address, please try other email address account.";
+        // $_SESSION['status_code'] = "info";
+        // header("location: ../user/profile.php");
 
-        $_SESSION['status'] = "Update Success!";
-        $_SESSION['text'] = "Your account has been updated successfully.";
-        $_SESSION['status_code'] = "success";
-
-        $server->update($query, $data, $path);
       }
+      $query = "UPDATE homeowners_users SET firstname = :firstname, lastname = :lastname, middle_initial = :middle_initial, email = :email, phone_number = :phone_number  WHERE id = :id";
+      $data = [
+        "firstname" => $firstname,
+        "lastname" => $lastname,
+        "middle_initial" => $middle_initial,
+        "email" => $email,
+        "phone_number" => $phone,
+        "id" => $id
+      ];
+      $path = "../user/profile.php";
+
+      $_SESSION['status'] = "Update Success!";
+      $_SESSION['text'] = "Your account has been updated successfully.";
+      $_SESSION['status_code'] = "success";
+
+      $server->update($query, $data, $path);
+      // }
     } else {
       $_SESSION['status'] = "Update Failed!";
       $_SESSION['text'] = "Please fill all the required fields.";

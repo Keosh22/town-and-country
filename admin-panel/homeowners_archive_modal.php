@@ -12,8 +12,7 @@
           <p>Please Enter your password to remove this account.</p>
           <input type="password" class="form-control" name="archive_monthlyDues_password" id="archive_monthlyDues_password" placeholder="Password" required>
           <div class="modal-footer">
-            <button class="btn btn-danger btn-flat" type="button" data-bs-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary btn-flat" type="submit" name="archive_homeowners" id="archive_homeowners">Submit</button>
+          <button class="btn btn-primary btn-flat" type="submit" name="archive_homeowners" id="archive_homeowners">Submit</button>
           </div>
         </form>
       </div>
@@ -27,18 +26,20 @@
 
 
     $("#archive_homeowners").on('click', function() {
-     var homeowners_id = $("#homeowners_id_delete").val();
-     var account_number = $("#account_number").val();
-      console.log(homeowners_id);
+      var password = $("#archive_monthlyDues_password").val();
+      var homeowners_id = $("#homeowners_id_delete").val();
+      var account_number = $("#account_number").val();
+      
       $.ajax({
         url: '../admin-panel/homeowners_archive.php',
         type: 'POST',
         data: {
           homeowners_id: homeowners_id,
-          account_number: account_number
+          account_number: account_number,
+          password: password
         },
         success: function(response) {
-          location.reload(true);
+          // location.reload();
         }
       });
     });
