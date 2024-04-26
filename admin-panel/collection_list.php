@@ -436,8 +436,9 @@ if (isset($_GET['property_id'])) {
       $("#collection_list_Table").DataTable({
         "pageLength": 12,
         order: [
-          [1, 'asc'],
-          [2, 'desc']
+          
+          [2, 'desc'],
+          [1, 'asc']
 
         ],
         'columnDefs': [
