@@ -93,6 +93,10 @@ $server->adminAuthentication();
                                           data-id="<?php echo $id; ?>"
                                           data-category="<?php echo $category; ?>"
                                           >Update</a></li>
+                                            <li><a href="#" data-bs-toggle="modal" class="dropdown-item" id="delete_btn" 
+                                          data-id="<?php echo $id; ?>"
+                                          data-category="<?php echo $category; ?>"
+                                          >Delete</a></li>
                                         </ul>
                                       </div>
                                     </td>
@@ -147,7 +151,34 @@ $server->adminAuthentication();
         $("#category_update").val(category);
       })
 
-    
+        $("#maintenanceTable").on('click', "#delete_btn", function(){
+        var category_id = $(this).attr('data-id');
+        var category = $(this).attr('data-category');
+
+        swal({
+            title: 'Delete Confirmation',
+            text: 'Are you sure want to delete this maintenance?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+        })
+        .then((proceed) => {
+            if(proceed){
+                $.ajax({
+                    url: '../ajax/maintenance_delete.php',
+                    type: 'POST',
+                    data: {
+                        category_id: category_id,
+                        },
+                        success: function(response){
+                            location.reload();
+                        }
+                })
+            } else {
+                swal('Delete Cancel.')
+            }
+        })
+        });
 
 
 
