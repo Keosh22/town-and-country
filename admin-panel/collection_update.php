@@ -11,6 +11,8 @@ if (isset($_POST['update_collection_btn'])) {
   $category = filter_input(INPUT_POST, 'update_category', FILTER_SANITIZE_SPECIAL_CHARS);
   $description = filter_input(INPUT_POST, 'update_description', FILTER_SANITIZE_SPECIAL_CHARS);
   $fee = filter_input(INPUT_POST, 'update_fee', FILTER_SANITIZE_SPECIAL_CHARS);
+  $current_category = "";
+  $current_fee = "";
   $ACTIVE = "ACTIVE";
   $AVAILABLE = "AVAILABLE";
 
@@ -19,16 +21,22 @@ if (isset($_POST['update_collection_btn'])) {
     $_SESSION['text'] = "Invalid input";
     $_SESSION['status_code'] = "error";
   } else {
-    $query3 = "SELECT category FROM collection_fee WHERE category = :category";
+
+    $query3 = "SELECT category, fee FROM collection_fee WHERE category = :category";
     $data3 = ["category" => $category];
     $connection3 = $server->openConn();
     $stmt3 = $connection3->prepare($query3);
     $stmt3->execute($data3);
     if ($stmt3->rowCount() > 0) {
-      $_SESSION['status'] = "Update Failed!";
-      $_SESSION['text'] = "Already exist. Please input different category.";
-      $_SESSION['status_code'] = "error";
-    } else {
+      if ($result3 = $stmt3->fetch()) {
+        $current_category = $result3['category'];
+        $current_fee = $result3['fee'];
+        $category = $current_category;
+      }
+    }
+
+    if ($current_category != $category || $current_fee != $fee) {
+      // else {
       $query = "UPDATE collection_fee SET category = :category, description = :description, fee = :fee WHERE id = :collection_id";
       $data = [
         "category" => $category,
@@ -61,7 +69,16 @@ if (isset($_POST['update_collection_btn'])) {
         $_SESSION['text'] = "collection Succesfuly updated";
         $_SESSION['status_code'] = "success";
       }
+    } else {
+      $_SESSION['status'] = "Update Failed!";
+      $_SESSION['text'] = "No information has been changed.";
+      $_SESSION['status_code'] = "info";
     }
+
+
+
+
+    // }
   }
 }
 header("location: ../admin-panel/collections.php");
