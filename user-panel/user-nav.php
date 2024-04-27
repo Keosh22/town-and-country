@@ -9,7 +9,7 @@
         </div>
 
         <div class="nav-item dropdown col-4 d-flex user align-items-center justify-content-end ">
-          <button class=" user-text nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" style="color:#DAD992">User:<?= $_SESSION["username"] ?></button>
+          <button class=" user-text nav-link dropdown-toggle text-weight-bold" role="button" data-bs-toggle="dropdown" style="color:#DAD992"><?= $_SESSION["username"] ?></button>
           <ul class="dropdown-menu">
             <li><a href="../user/profile.php" class="dropdown-item">Profile</a></li>
             <hr class="dropdown-divider">
