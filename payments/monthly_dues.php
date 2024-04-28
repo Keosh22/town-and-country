@@ -60,7 +60,13 @@ $server->adminAuthentication();
                           <!-- <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a> -->
                         </div>
                         <div class="col d-flex justify-content-end">
-                          <a href="../archive/archive_list_monthly_dues.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          <!-- <button class="btn btn-success btn-sm btn-flat mx-2" id="archive">Archive</button>
+                          <button class="btn btn-secondary btn-sm btn-flat mx-2" id="toggle_archive">Select Archive</button> -->
+
+
+
+                          <a href="../archive/archive_list_monthly_dues.php" class="btn btn-warning btn-sm btn-flat mx-2"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+
                         </div>
                       </div>
 
@@ -70,6 +76,7 @@ $server->adminAuthentication();
                           <table id="monthlyDuesTable" class="table table-striped" style="width:100%">
                             <thead>
                               <tr>
+
                                 <th width="10%">Date</th>
                                 <th width="10%">Transaction No.</th>
                                 <th width="10%">Name</th>
@@ -77,6 +84,7 @@ $server->adminAuthentication();
                                 <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
                                 <th></th>
+                                <!-- <th width="5%"></th> -->
                               </tr>
                             </thead>
                             <tbody>
@@ -149,7 +157,8 @@ $server->adminAuthentication();
                                         </ul>
                                       </div>
                                     </td>
-                                    <td><?php echo date("n-j-Y H:i",strtotime($date_paid)); ?></td>
+                                    <td><?php echo date("n-j-Y H:i", strtotime($date_paid)); ?></td>
+                                    <!-- <td><input type="checkbox" class="form-check-input archive_checkbox" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>"></td> -->
                                   </tr>
                               <?php
                                 }
@@ -158,6 +167,7 @@ $server->adminAuthentication();
                             </tbody>
                             <tfoot>
                               <tr>
+
                                 <th width="10%">Date</th>
                                 <th width="10%">Transaction No.</th>
                                 <th width="10%">Name</th>
@@ -165,6 +175,7 @@ $server->adminAuthentication();
                                 <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
                                 <th></th>
+                                <!-- <th width="5%"></th> -->
                               </tr>
                             </tfoot>
                           </table>
@@ -194,7 +205,6 @@ $server->adminAuthentication();
   <script>
     $(document).ready(function() {
       // DataTable
-    
       $("#monthlyDuesTable").DataTable({
         order: [
           [6, 'desc'],
@@ -202,7 +212,63 @@ $server->adminAuthentication();
         ]
       });
       const TABLE = $("#monthlyDuesTable").DataTable();
-      TABLE.columns(6).visible(false)
+      TABLE.columns(6).visible(false);
+      // TABLE.columns(7).visible(false);
+
+
+
+
+
+      // $("#archive").prop('hidden', true);
+      // var payment_id_arr = [];
+      // // // SElect archive toggle
+      // $("#toggle_archive").on('click', function() {
+      //   $("#cancel_archive, #archive").prop('hidden', function(i, val) {
+      //     if (val) {
+      //       TABLE.columns(7).visible(true);
+      //       $("#toggle_archive").html("Cancel Archive");
+      //     } else {
+      //       TABLE.columns(7).visible(false);
+      //       $("#toggle_archive").html("Select Archive");
+
+      //       location.reload();
+      //     }
+      //     $("#toggle_archive").toggleClass("btn-danger");
+      //     return !val;
+      //   });
+      // });
+
+      // // Archive Checkbox
+      // $("#monthlyDuesTable").on('change', '.archive_checkbox', function() {
+      //   var payment_id = $(this).attr("data-id");
+      //   if (this.checked) {
+      //     payment_id_arr.push(payment_id);
+      //   } else {
+      //     for (var i = 0; i <= payment_id_arr.length - 1; i++) {
+      //       if (payment_id === payment_id_arr[i]) {
+      //         payment_id_arr.splice(i, 1);
+      //       }
+      //     }
+      //   }
+      // });
+
+      // // ARchive
+      // $("#archive").on('click', function() {
+      //   if (payment_id_arr.length != 0) {
+      //   } else {
+      //     swal("No item has been selected", "", "error");
+      //   }
+
+      // });
+
+
+
+
+
+
+
+
+
       // View payment
       $("#monthlyDuesTable").on('click', '#view_payment', function() {
         const archive_status = "ACTIVE";
@@ -245,7 +311,7 @@ $server->adminAuthentication();
         var payment_id = $(this).attr('data-id');
         var transaction_number = $(this).attr('data-tnumber');
         var collection_id = $(this).attr('data-collection-id');
-      
+
         $("#payment_id").val(payment_id);
         $("#transaction_number").val(transaction_number);
         $("#collection_id").val(collection_id);

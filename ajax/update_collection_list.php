@@ -120,7 +120,7 @@ echo $transaction_number;
   $action = "Payment: Transaction No# " . $transaction_number . " Monthly Dues";
   $server->insertActivityLog($action);
 } else {
-  $_SESSION['status'] = "Error";
+  $_SESSION['status'] = "Something went wrong";
   $_SESSION['text'] = "";
   $_SESSION['status_code'] = "error";
 }
