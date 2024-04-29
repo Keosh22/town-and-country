@@ -25,7 +25,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="about_update" class="form-label">About:</label>
-              <input type="text" name="about_update" id="about_update" class="form-control" maxlength="35" required>
+              <input type="text" name="about_update" id="about_update" class="form-control" placeholder="max: 35 characters" maxlength="35" required>
             </div>
             <div class="col-md-6">
               <label for="announcement_date_update" class="form-label">When:</label>
@@ -33,7 +33,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             </div>
             <div class="col">
               <label for="content_update" class="form-label">Content:</label>
-              <textarea name="content_update" id="content_update" rows="10" class="form-control" maxlength="300" required></textarea>
+              <textarea name="content_update" id="content_update" rows="10" class="form-control" placeholder="max: 300 characters" maxlength="300" required></textarea>
             </div>
             <div class="col-12">
               <label for="status_update" class="form-label">Status:</label>

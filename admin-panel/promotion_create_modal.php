@@ -31,7 +31,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
               <input value="<?php echo $default_date; ?>" name="promotion_due" id="promotion_due" class="form-control" required>
             </div>
             <div class="col-md-6">
-              <label for="promotion_photo" class="form-label">Photo:<span class="text-secondary">jpeg/format (max: 25MB)</span></label>
+              <label for="promotion_photo" class="form-label">Photo:<span class="text-secondary">jpeg/png format (max: 25MB)</span></label>
               <input type="file" id="promotion_photo" name="promotion_photo" class="form-control" accept="image/jpeg, image/png" required>
             </div>
             <div class="col-md-6">
