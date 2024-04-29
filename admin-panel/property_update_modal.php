@@ -35,16 +35,16 @@ $server = new Server;
                 </div> -->
             <div class="col-2">
               <label for="blk" class="form-label">Blk#</label>
-              <input type="number" class="form-control" id="blk_property" name="blk_property" required>
+              <input type="number" class="form-control" id="blk_property" name="blk_property" min="0" required>
             </div>
             <div class="col-2">
               <label for="lot" class="form-label">Lot#</label>
-              <input type="number" class="form-control" id="lot_property" name="lot_property" required>
+              <input type="number" class="form-control" id="lot_property" name="lot_property" min="0" required>
             </div>
             <div class="col-4">
               <label for="phase" class="form-label">Phase#</label>
               <select name="phase_property" id="phase_property" class="form-select" required>
-                <option class="default_select" id="default_phase_property" selected>- Select -</option>
+                <option class="default_select" id="default_phase_property" selected></option>
                 <option value="Phase 1">Phase 1</option>
                 <option value="Phase 2">Phase 2</option>
                 <option value="Phase 3">Phase 3</option>
@@ -53,7 +53,7 @@ $server = new Server;
             <div class="col-4">
               <label for="street" class="form-label">Street</label>
               <select name="street_property" id="street_property" class="form-select" required>
-                <option id="default_street_property" selected>- Select -</option>
+                <option id="default_street_property" selected></option>
 
               </select>
             </div>
@@ -65,7 +65,7 @@ $server = new Server;
 
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal">Close</button>
+            
             <button type="submit" class="btn btn-primary btn-flat" name="update_property_modal" class="update_property_modal" id="update_property_modal">Update</button>
           </div>
         </form>
@@ -80,7 +80,7 @@ $server = new Server;
   $(document).ready(function() {
 
     $("#updateProperty").on('hidden.bs.modal', function(e) {
-      $("#street_property").empty().append('<option id="default_street_property" selected>- Select -</option>');
+      $("#street_property").empty().append('<option id="default_street_property" selected></option>');
       $(".default_select").prop('selected', true);
       $("#update_property_form").find('input[type=text], input[type=number]').val("");
     });
@@ -107,21 +107,25 @@ $server = new Server;
     $("#phase_property").on('change', function() {
       var phase = $(this).val();
       if (phase == "Phase 1") {
-        $("#street_property").empty().append('<option selected>- Select -</option>');
+        $("#street_property").empty().append('<option selected></option>');
         getStreet(phase);
 
       } else if (phase == "Phase 2") {
-        $("#street_property").empty().append('<option selected>- Select -</option>');
+        $("#street_property").empty().append('<option selected></option>');
         getStreet(phase);
       } else if (phase == "Phase 3") {
-        $("#street_property").empty().append('<option selected>- Select -</option>');
+        $("#street_property").empty().append('<option selected></option>');
         getStreet(phase);
       } else {
-        $("#street_property").empty().append('<option selected>- Select -</option>');
+        $("#street_property").empty().append('<option selected></option>');
       }
     });
 
-
+    $("#blk_property, #lot_property").on('keydown', function(){
+      if($(this).val().length > 2){
+        $(this).val($(this).val().slice(0,2));
+      }
+    });
 
     // $("#update_property_modal").on('click', function() {
     //   // var homeowners_id = $("#homeowners_id");

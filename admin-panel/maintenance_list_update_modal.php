@@ -10,7 +10,7 @@
           <input type="hidden" id="category_id">
           <div class="col-12">
             <label for="category_update" class="form-label">Category:</label>
-            <input class="form-control" type="text" id="category_update" name="category_update" required>
+            <input class="form-control" type="text" id="category_update" name="category_update" maxlength="35" required>
           </div>
         </div>
       </div>

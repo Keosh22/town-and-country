@@ -9,7 +9,7 @@
         <div id="form_input" class="row g-3">
           <div class="col-12">
             <label for="category" class="form-label">Category:</label>
-            <input class="form-control" type="text" id="category" name="category" required>
+            <input class="form-control" type="text" id="category" name="category" maxlength="35" required>
           </div>
         </div>
       </div>

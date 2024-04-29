@@ -42,7 +42,7 @@ require_once("../libs/server.php");
             </div>
             <div class="col-12">
               <label for="street" class="form-label">Street name:</label>
-              <input type="text" id="street" name="street" class="form-control" required>
+              <input type="text" id="street" name="street" class="form-control" maxlength="35" required>
             </div>
           </div>
 
@@ -51,7 +51,7 @@ require_once("../libs/server.php");
 
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal">Close</button>
+        
             <button type="submit" class="btn btn-primary btn-flat" name="add" class="add" id="add">Add</button>
           </div>
         </form>

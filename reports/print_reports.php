@@ -1,6 +1,7 @@
 <?php
 require_once("../libs/server.php");
 require_once("../includes/header.php");
+date_default_timezone_set('Asia/Manila');
 ?>
 
 <?php
@@ -9,6 +10,7 @@ $server = new Server;
 $server->adminAuthentication();
 $ACTIVE = "ACTIVE";
 $INACTIVE = "INACTIVE";
+// $current_year = date("Y", strtotime("now"));
 ?>
 
 <body>
@@ -211,8 +213,10 @@ $INACTIVE = "INACTIVE";
 
       // Year Picker
       $("#year").yearpicker({
-
+      
       });
+
+     
 
       // Refresh
       $("#refresh").on('click', function() {

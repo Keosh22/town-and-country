@@ -88,7 +88,7 @@ if (isset($_POST['update'])) {
               </div>
             <div class="col-12">
               <label for="street" class="form-label">Street name:</label>
-              <input type="text" id="street_update" name="street_update" class="form-control" required>
+              <input type="text" id="street_update" name="street_update" class="form-control" maxlength="35" required>
             </div>
           </div>
 
@@ -97,7 +97,7 @@ if (isset($_POST['update'])) {
 
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-flat pull-left" data-bs-dismiss="modal">Close</button>
+           
             <button type="submit" class="btn btn-primary btn-flat" name="update" class="update" id="update">Update</button>
           </div>
         </form>

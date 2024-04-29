@@ -120,7 +120,7 @@ $server->adminAuthentication();
                                       <div class="dropdown">
                                         <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
-                                          <li><a data-id="<?php echo $collection_id ?>" href="#collectionUpdate" data-bs-toggle="modal" class="dropdown-item" id="update_collection">Edit</a></li>
+                                          <li><a data-id="<?php echo $collection_id ?>" href="#collectionUpdate" data-bs-toggle="modal" class="dropdown-item" id="update_collection">Update</a></li>
                                           <li><a data-id="<?php echo $collection_id ?>" href="#" class="dropdown-item" id="delete_collection">Delete</a></li>
                                         </ul>
                                       </div>

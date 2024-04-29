@@ -121,7 +121,7 @@ if (isset($_GET['property_id'])) {
                                     </div>
                                     <div class="col-12">
                                       <label for="address" class="form-label text-success">Property:</label>
-                                      <input type="text" class="form-control" id="address" name="address" value="<?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " Phase " . $phase; ?>" readonly>
+                                      <input type="text" class="form-control" id="address" name="address" value="<?php echo "BLK-" . $blk . " LOT-" . $lot . " " . $street . " " . $phase; ?>" readonly>
                                     </div>
                                     <div class="col-4">
                                       <label for="fee" class="form-label text-success">Fee:</label>

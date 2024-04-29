@@ -91,7 +91,7 @@ $server->adminAuthentication();
 																			<div class="dropdown">
 																				<a class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Action</a>
 																				<ul class="dropdown-menu">
-																					<li><a data-id="<?php echo $id; ?>" href="#updateStreet" data-bs-toggle="modal" class="dropdown-item edit">Edit</a></li>
+																					<li><a data-id="<?php echo $id; ?>" href="#updateStreet" data-bs-toggle="modal" class="dropdown-item edit">Update</a></li>
 																				</ul>
 																			</div>
 																		</td>
