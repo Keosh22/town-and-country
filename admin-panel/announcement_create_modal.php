@@ -37,7 +37,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
 
             <div class="modal-footer">
               
-              <button type="submit" class="btn btn-primary btn-flat" name="create_announcement" class="create_announcement" id="create_announcement">Register</button>
+              <button type="submit" class="btn btn-primary btn-flat" name="create_announcement" class="create_announcement" id="create_announcement">Submit</button>
             </div>
           </div>
         </form>

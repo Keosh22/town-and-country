@@ -39,7 +39,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
             <div class="modal-footer">
 
-              <button type="submit" class="btn btn-primary btn-flat" name="create_meeting" class="create_meeting" id="create_meeting">Register</button>
+              <button type="submit" class="btn btn-primary btn-flat" name="create_meeting" class="create_meeting" id="create_meeting">Submit</button>
             </div>
           </div>
         </form>

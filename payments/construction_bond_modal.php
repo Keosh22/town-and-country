@@ -17,13 +17,13 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           <input type="hidden" class="form-control" id="collection_fee_id_cb">
           <div class="col-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="blk_cb" placeholder="BLK" required>
+              <input type="number" class="form-control" id="blk_cb" placeholder="BLK" min="0" required>
               <label for="blk_cb">BLK</label>
             </div>
           </div>
           <div class="col-3">
             <div class="form-floating">
-              <input type="text" class="form-control" id="lot_cb" placeholder="Lot" required>
+              <input type="number" class="form-control" id="lot_cb" placeholder="Lot" min="0" required>
               <label for="lot_cb">Lot</label>
             </div>
           </div>
@@ -54,7 +54,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
           </div>
           <div class="col-12">
             <div class="form-floating">
-              <input type="text" class="form-control" id="paid_by_cb">
+              <input type="text" class="form-control" id="paid_by_cb" maxlength="35">
               <label for="paid_by_cb" class="text-secondary">Paid By: (Optional)</label>
             </div>
           </div>
@@ -87,6 +87,12 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
     $("#constructionBondModal").on('hidden.bs.modal', function(e) {
       $("#form_construction_bond").find('input[type=text], input[type=hidden], input[type=number]').val("");
       $(".default_select").prop("selected", true);
+    });
+
+    $("#blk_cb, #lot_cb").on('keydown', function(){
+      if($(this).val().length > 2){
+        $(this).val($(this).val().slice(0,2))
+      }
     });
 
     // Get current street list

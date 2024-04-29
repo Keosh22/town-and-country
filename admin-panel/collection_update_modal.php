@@ -31,7 +31,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
               <label for="update_fee" class="form-label">Fee:</label>
               <div class="input-group">
                 <span class="input-group-text">₱</span>
-                <input type="number" class="form-control" name="update_fee" id="update_fee" required>
+                <input type="number" class="form-control" name="update_fee" id="update_fee" min="0" required>
               </div>
             </div>
           </div>

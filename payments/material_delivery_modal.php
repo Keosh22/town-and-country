@@ -18,13 +18,13 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
 
             <div class="col-3">
               <div class="form-floating">
-                <input type="text" id="blk_md" name="blk_md" class="form-control" placeholder="Blk" required>
+                <input type="number" id="blk_md" name="blk_md" class="form-control" placeholder="Blk" min="0" required>
                 <label for="blk_md">Blk</label>
               </div>
             </div>
             <div class="col-3">
               <div class="form-floating">
-                <input type="text" id="lot_md" name="lot_md" class="form-control" placeholder="Lot" required>
+                <input type="number" id="lot_md" name="lot_md" class="form-control" placeholder="Lot" min="0" required>
                 <label for="lot_md">Lot</label>
               </div>
             </div>
@@ -55,7 +55,7 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
             </div>
             <div class="col-12">
               <div class="form-floating">
-                <input type="text" class="form-control" id="paid_by_md" placeholder="Paid by">
+                <input type="text" class="form-control" id="paid_by_md" maxlength="35" placeholder="Paid by">
                 <label for="paid_by_md" class="text-secondary">Paid By: (Optional)</label>
               </div>
             </div>
@@ -103,6 +103,12 @@ $date_created = date("Y-m-d H:s:iA", strtotime("now"));
 
     });
 
+
+    $("#blk_md, #lot_md").on('keydown', function(){
+      if($(this).val().length > 2){
+        $(this).val($(this).val().slice(0,2))
+      }
+    });
 
     // Get current street list
     function getStreet(phase) {
