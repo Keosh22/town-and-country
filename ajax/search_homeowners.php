@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $fullname = $firstname . " " . $middle_initial . " " . $lastname;
     $response = '<div class="col">
-  <label for="newOwner_name" class="form-label">New Owner:</label>
+  <label for="newOwner_name" class="form-label">Tenant:</label>
   <input type="text" class="form-control" name="newOwner_name" id="newOwner_name" value="' . $fullname . '" readonly>
   <input type="hidden" name="transfer_id" id="transfer_id" value="' . $id . '">
   <input type="hidden" name="tenant_id" id="tenant_id" value="' . $id . '">

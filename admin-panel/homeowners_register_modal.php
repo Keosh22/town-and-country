@@ -75,27 +75,27 @@ require_once("../libs/server.php");
 
             <div class="col-md-5">
               <label for="firstname" class="form-label ">Firstname</label>
-              <input type="text" class="form-control" id="firstname" name="firstname" required>
+              <input type="text" class="form-control" id="firstname" name="firstname" maxlength="30" required>
             </div>
             <div class="col-md-5">
               <label for="lastname" class="form-label ">Lastname</label>
-              <input type="text" class="form-control" id="lastname" name="lastname" required>
+              <input type="text" class="form-control" id="lastname" name="lastname" maxlength="30" required>
             </div>
             <div class="col-md-2">
               <label for="middle_initial" class="form-label ">M.I.</label>
-              <input type="text" class="form-control" id="middle_initial" name="middle_initial" required>
+              <input type="text" class="form-control" id="middle_initial" name="middle_initial" maxlength="4" required>
             </div>
 
 
             <div class="col-md-6">
               <label for="email" class="form-label ">Email</label>
-              <input type="email" class="form-control " id="email" name="email" required>
+              <input type="email" class="form-control " id="email" name="email" maxlength="30" required>
 
               <div id="emailHelpBlock"></div>
             </div>
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
-              <input type="number" class="form-control" id="phone_number" name="phone_number" maxlength="11" required>
+              <input type="number" class="form-control" id="phone_number" name="phone_number" min="0" maxlength="11" required>
               <div id="phoneNumberHelpBlock"></div>
             </div>
 
@@ -122,11 +122,11 @@ require_once("../libs/server.php");
                   <div class="row">
                     <div class="col-2">
                       <label for="blk" class="form-label ">Blk#</label>
-                      <input type="number" class="form-control " id="blk" name="blk" required>
+                      <input type="number" class="form-control " id="blk" name="blk" min="0" required>
                     </div>
                     <div class="col-2">
                       <label for="lot" class="form-label ">Lot#</label>
-                      <input type="number" class="form-control" id="lot" name="lot" required>
+                      <input type="number" class="form-control" id="lot" name="lot" min="0" required>
                     </div>
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
@@ -424,6 +424,12 @@ require_once("../libs/server.php");
           $(this).val($(this).val().slice(0, 10));
         }
     })
+    $("#blk, #lot").on('keydown', function (){
+        if ($(this).val().length > 2) {
+          $(this).val($(this).val().slice(0, 2));
+        }
+    })
+    
     // Email validation
     // $("#email").on('keyup', function() {
     //   var email = $("#email").val();

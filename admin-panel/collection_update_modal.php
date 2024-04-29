@@ -21,11 +21,11 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
             <input type="hidden" name="update_collection_id" id="update_collection_id" required>
             <div class="col-12">
               <label for="update_category" class="form-label">Category:</label>
-              <input type="text" class="form-control" name="update_category" id="update_category" required>
+              <input type="text" class="form-control" name="update_category" id="update_category" maxlength="35" required>
             </div>
             <div class="col-12">
               <label for="update_description" class="form-label">Description:</label>
-              <input type="text" class="form-control" name="update_description" id="update_description">
+              <input type="text" class="form-control" name="update_description" id="update_description"  maxlength="35">
             </div>
             <div class="col-12">
               <label for="update_fee" class="form-label">Fee:</label>
@@ -62,6 +62,12 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
         return !val;
       });
     })
+
+    $("#update_fee").on('keydown', function (){
+        if ($(this).val().length > 5) {
+          $(this).val($(this).val().slice(0, 5));
+        }
+    });
 
   });
 </script>

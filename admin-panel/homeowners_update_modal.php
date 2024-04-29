@@ -28,25 +28,25 @@ require_once("../libs/server.php");
 
             <div class="col-md-5">
               <label for="firstname" class="form-label ">Firstname</label>
-              <input type="text" class="form-control" id="firstname_update" name="firstname_update" required>
+              <input type="text" class="form-control" id="firstname_update" name="firstname_update" maxlength="30" required>
             </div>
             <div class="col-md-5">
               <label for="lastname" class="form-label ">Lastname</label>
-              <input type="text" class="form-control" id="lastname_update" name="lastname_update" required>
+              <input type="text" class="form-control" id="lastname_update" name="lastname_update" maxlength="30" required>
             </div>
             <div class="col-md-2">
               <label for="middle_initial" class="form-label ">M.I.</label>
-              <input type="text" class="form-control" id="middle_initial_update" name="middle_initial_update" required>
+              <input type="text" class="form-control" id="middle_initial_update" name="middle_initial_update" maxlength="4" required>
             </div>
 
 
             <div class="col-md-6">
               <label for="email" class="form-label ">Email</label>
-              <input type="email" class="form-control" id="email_update" name="email_update" required>
+              <input type="email" class="form-control" id="email_update" name="email_update" maxlength="30" required>
             </div>
             <div class="col-md-6">
               <label for="phone_number" class="form-label ">Phone Number</label>
-              <input type="number" class="form-control" id="phone_number_update" name="phone_number_update" maxlength="11" required>
+              <input type="number" class="form-control" id="phone_number_update" name="phone_number_update" min="0" maxlength="11" required>
               <div id='phoneNumberUpdateHelpBlock'></div>
             </div>
             <div class="col-6">
@@ -56,7 +56,8 @@ require_once("../libs/server.php");
                 <option value="President">President</option>
                 <option value="Vice-President">Vice-President</option>
                 <option value="Secretary">Secretary</option>
-                <!-- <option value="BOD">BOD</option> -->
+                <option value="Secretary">Treasurer</option>
+                <option value="B.O.D">B.O.D</option>
               </select>
             </div>
             <div class="col-6">
@@ -84,11 +85,11 @@ require_once("../libs/server.php");
                   <div class="row">
                     <div class="col-2">
                       <label for="blk" class="form-label ">Blk#</label>
-                      <input type="number" class="form-control " id="blk_update" name="blk_update" required>
+                      <input type="number" class="form-control " id="blk_update" name="blk_update" min="0" required>
                     </div>
                     <div class="col-2">
                       <label for="lot" class="form-label ">Lot#</label>
-                      <input type="number" class="form-control" id="lot_update" name="lot_update" required>
+                      <input type="number" class="form-control" id="lot_update" name="lot_update" min="0" required>
                     </div>
                     <div class="col-4">
                       <label for="phase" class="form-label ">Phase#</label>
@@ -225,7 +226,23 @@ require_once("../libs/server.php");
         $("#edit_btn").toggleClass("btn-warning")
         return !val;
       })
-    })
+    });
+
+    $("#blk_update").on('keydown', function (){
+      if($(this).val().length > 2){
+        $(this).val($(this).val().slice(0,2))
+      }
+    });
+    $("#lot_update").on('keydown', function (){
+      if($(this).val().length > 2){
+        $(this).val($(this).val().slice(0,2))
+      }
+    });
+    $("#phone_number_update").on('keydown', function(){
+      if($(this).val().length > 10){
+        $(this).val($(this).val().slice(0,10))
+      }
+    });
 
   });
 </script>

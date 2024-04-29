@@ -129,7 +129,7 @@ if (isset($_GET['property_id'])) {
                                     </div>
                                     <div class="col-8">
                                       <label for="paid_by" class="form-label text-success">Paid by:</label>
-                                      <input type="text" class="form-control" id="paid_by" name="paid_by" maxlength="25">
+                                      <input type="text" class="form-control" id="paid_by" name="paid_by" maxlength="20">
                                     </div>
 
                                     <div class="col-12">

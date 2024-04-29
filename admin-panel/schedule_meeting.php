@@ -15,6 +15,10 @@ if (isset($_POST['create_meeting'])) {
   $ACTIVE = "ACTIVE";
   $PRESIDENT = "President";
   $VICE_PRESIDENT = "Vice-President";
+  $SECRETARY = "Secretary";
+  $TREASURER = "Treasurer";
+  $BOD = "B.O.D";
+
   $number = "";
 
   if (empty($about) && empty($meeting_content)) {
@@ -38,10 +42,13 @@ if (isset($_POST['create_meeting'])) {
       $action = "Meeting: for " . $about . " posted";
       $server->insertActivityLog($action);
       // Send SMS announcement to the officers
-      $query1 = "SELECT phone_number FROM homeowners_users WHERE position IN (:PRESIDENT, :VICE_PRESIDENT) AND archive = :ACTIVE";
+      $query1 = "SELECT phone_number FROM homeowners_users WHERE position IN (:PRESIDENT, :VICE_PRESIDENT, :SECRETARY, :TREASURER, :BOD) AND archive = :ACTIVE";
       $data1 = [
         "PRESIDENT" => $PRESIDENT,
         "VICE_PRESIDENT" => $VICE_PRESIDENT,
+        "SECRETARY" => $SECRETARY,
+        "TREASURER" => $TREASURER,
+        "BOD" => $BOD,
         "ACTIVE" => $ACTIVE
       ];
       $connection1 = $server->openConn();

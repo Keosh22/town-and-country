@@ -60,11 +60,11 @@ $server = new Server;
                 </div> -->
             <div class="col-2">
               <label for="blk" class="form-label">Blk#</label>
-              <input type="number" class="form-control" id="blk" name="blk" required>
+              <input type="number" class="form-control" id="blk" name="blk" min="0" required>
             </div>
             <div class="col-2">
               <label for="lot" class="form-label">Lot#</label>
-              <input type="number" class="form-control" id="lot" name="lot" required>
+              <input type="number" class="form-control" id="lot" name="lot" min="0" required>
             </div>
             <div class="col-4">
               <label for="phase" class="form-label">Phase#</label>
@@ -168,6 +168,19 @@ $server = new Server;
         }
       });
       
-    })
+    });
+
+    $("#blk").on('keydown', function (){
+        if ($(this).val().length > 2) {
+          $(this).val($(this).val().slice(0, 2));
+        }
+    });
+
+    $("#lot").on('keydown', function(){
+      if($(this).val().length > 2){
+        $(this).val($(this).val().slice(0, 2))
+      }
+    });
+
   });
 </script>
