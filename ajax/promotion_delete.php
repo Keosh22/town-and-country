@@ -4,6 +4,7 @@ require_once("../libs/server.php");
 
 <?php
 $server = new Server;
+session_start();
 if(isset($_POST['promotion_id'])){
 
   $promotion_id = $_POST['promotion_id'];
