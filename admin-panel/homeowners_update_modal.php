@@ -36,7 +36,7 @@ require_once("../libs/server.php");
             </div>
             <div class="col-md-2">
               <label for="middle_initial" class="form-label ">M.I.</label>
-              <input type="text" class="form-control" id="middle_initial_update" name="middle_initial_update" maxlength="4" required>
+              <input type="text" class="form-control" id="middle_initial_update" name="middle_initial_update" maxlength="4" placeholder="Optional">
             </div>
 
 

@@ -22,7 +22,7 @@ if (isset($_POST['update_btn'])) {
 
 
   if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    if (empty($firstname) && empty($lastname)  && empty($middle_initial)  && empty($email)  && empty($phone_number)  && empty($blk)  && empty($lot)  && empty($phase)  && empty($street) && empty($position)) {
+    if (empty($firstname) && empty($lastname)   && empty($email)  && empty($phone_number)  && empty($blk)  && empty($lot)  && empty($phase)  && empty($street) && empty($position)) {
     } else {
 
       // // Check if there is current property registered

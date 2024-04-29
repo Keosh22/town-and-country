@@ -41,7 +41,7 @@ if (isset($_POST['register'])) {
   if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     // --------------------------IF TENANT------------------
     if ($status == "Tenant") {
-      if (empty($firstname) && empty($lastname) && empty($middle_initial) && empty($email) && empty($phone_number) && empty($username) && empty($password) && empty($confirm_password)) {
+      if (empty($firstname) && empty($lastname) && empty($email) && empty($phone_number) && empty($username) && empty($password) && empty($confirm_password)) {
       } else {
 
         
