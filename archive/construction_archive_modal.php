@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body mx-3">
         <form action="">
-          <input type="hidden" name="construction_payment_id" id="construction_payment_id">
+          <input type="hidden" name="construction_payment_id" id="construction_payment_id" readonly>
           <input type="hidden" name="transaction_number_archive" id="transaction_number_archive">
           <p>Please Enter your password to archive this payment.</p>
           <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
@@ -25,17 +25,18 @@
 
     $("#archive_construction_btn").on('click', function() {
       var construction_payment_id = $("#construction_payment_id").val();
-      var transaction_number_archive = $("#transaction_number_archive").val();
+
       var password = $("#password").val();
+      var id_arr = construction_payment_id.split(" ");
 
       $.ajax({
-        url: '../archive/construction_archive.php',
+        url: '../archive/select_archive_construction.php',
         type: 'POST',
         data: {
-          construction_payment_id: construction_payment_id,
-          transaction_number_archive: transaction_number_archive,
+          id_arr: id_arr,
           password: password
         },
+        dataType: 'JSON',
         success: function(response) {
          
         }

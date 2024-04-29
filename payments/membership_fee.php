@@ -33,7 +33,7 @@ $server->adminAuthentication();
       <main class="content px-3 py-2">
         <!-- conten header -->
         <section class="content-header d-flex justify-content-between align-items-center mb-3">
-        <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
+          <a href="../admin-panel/dashboard.php"><i class='bx bx-arrow-back text-secondary bx-tada-hover fs-2 fw-bold'></i></a>
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="../admin-panel/dashboard.php">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Payments</a></li>
@@ -60,7 +60,10 @@ $server->adminAuthentication();
                           <!-- <a href="#" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a> -->
                         </div>
                         <div class="col d-flex justify-content-end">
-                          <a href="../archive/membership_fee_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
+                          <a class="btn btn-success btn-sm btn-flat mx-2" id="archive">Archive</a>
+                          <button class="btn btn-secondary btn-sm btn-flat mx-2" id="toggle_archive">Select Archive</button>
+
+                          <a href="../archive/membership_fee_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive List</a>
                         </div>
                       </div>
 
@@ -77,6 +80,7 @@ $server->adminAuthentication();
                                 <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
                                 <th></th>
+                                <th width="5%"></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -141,11 +145,12 @@ $server->adminAuthentication();
                                         <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a id="view_payment" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" href="#membership_fee_view" data-bs-toggle="modal" class="dropdown-item">View</a></li>
-                                          <li><a id="archive_btn" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" data-homeowners='<?php echo $homeowners_id; ?>' data-remarks='<?php echo $remarks; ?>' href="#archive_membershipFee" data-bs-toggle="modal" class="dropdown-item">Archive</a></li>
+                                          <!-- <li><a id="archive_btn" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>" data-homeowners='<?php echo $homeowners_id; ?>' data-remarks='<?php echo $remarks; ?>' href="#archive_membershipFee" data-bs-toggle="modal" class="dropdown-item">Archive</a></li> -->
                                         </ul>
                                       </div>
                                     </td>
-                                    <td><?php echo date("n-j-Y H:i",strtotime($date_paid)); ?></td>
+                                    <td><?php echo date("n-j-Y H:i", strtotime($date_paid)); ?></td>
+                                    <td><input type="checkbox" class="form-check-input archive_checkbox" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>"></td>
                                   </tr>
                               <?php
                                 }
@@ -161,6 +166,7 @@ $server->adminAuthentication();
                                 <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
                                 <th></th>
+                                <th width="5%"></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -228,39 +234,39 @@ $server->adminAuthentication();
 
 
 
-      //  Archive Payment
-      $("#membershipFeeTable").on('click', "#archive_btn", function() {
-        var payment_id = $(this).attr('data-id');
-        var transaction_number = $(this).attr('data-tnumber');
-        var homeowners_id = $(this).attr('data-homeowners');
-        var remarks = $(this).attr('data-remarks');
-        var archive_status = "INACTIVE";
-
-       
-
-        $("#payment_id").val(payment_id);
-        $("#transaction_number").val(transaction_number);
-        $("#homeowners_id").val(homeowners_id);
-        $("#remarks_status").val(remarks);
-        
+      // //  Archive Payment
+      // $("#membershipFeeTable").on('click', "#archive_btn", function() {
+      //   var payment_id = $(this).attr('data-id');
+      //   var transaction_number = $(this).attr('data-tnumber');
+      //   var homeowners_id = $(this).attr('data-homeowners');
+      //   var remarks = $(this).attr('data-remarks');
+      //   var archive_status = "INACTIVE";
 
 
-        swal({
-            title: "Archive Confirmation",
-            text: "Do you want to archive this payment?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              
-            } else {
-              swal("Archiving Canceled!");
-              $("#archive_membershipFee").modal('hide');
-            }
-          })
-      });
+
+      //   $("#payment_id").val(payment_id);
+      //   $("#transaction_number").val(transaction_number);
+      //   $("#homeowners_id").val(homeowners_id);
+      //   $("#remarks_status").val(remarks);
+
+
+
+      //   swal({
+      //       title: "Archive Confirmation",
+      //       text: "Do you want to archive this payment?",
+      //       icon: "warning",
+      //       buttons: true,
+      //       dangerMode: true,
+      //     })
+      //     .then((willDelete) => {
+      //       if (willDelete) {
+
+      //       } else {
+      //         swal("Archiving Canceled!");
+      //         $("#archive_membershipFee").modal('hide');
+      //       }
+      //     })
+      // });
 
 
 
@@ -277,7 +283,81 @@ $server->adminAuthentication();
 
       const TABLE = $("#membershipFeeTable").DataTable();
       TABLE.columns(6).visible(false);
+      TABLE.columns(7).visible(false);
 
+      $("#archive").prop('hidden', true);
+      var payment_id_arr = [];
+      // // SElect archive toggle
+      $("#toggle_archive").on('click', function() {
+        $("#cancel_archive, #archive").prop('hidden', function(i, val) {
+          if (val) {
+            TABLE.columns(7).visible(true);
+            $("#toggle_archive").html("Cancel Archive");
+          } else {
+            TABLE.columns(7).visible(false);
+            $("#toggle_archive").html("Select Archive");
+
+            location.reload();
+          }
+          $("#toggle_archive").toggleClass("btn-danger");
+          return !val;
+        });
+      });
+
+
+        // Archive Checkbox
+        $("#membershipFeeTable").on('change', '.archive_checkbox', function() {
+        var payment_id = $(this).attr("data-id");
+        if (this.checked) {
+          payment_id_arr.push(payment_id);
+        } else {
+          for (var i = 0; i <= payment_id_arr.length - 1; i++) {
+            if (payment_id === payment_id_arr[i]) {
+              payment_id_arr.splice(i, 1);
+            }
+          }
+        }
+      });
+
+
+      //  Archive Payment
+      $("#archive").on('click', function() {
+       
+        var transaction_number = $(this).attr('data-tnumber');
+        var homeowners_id = $(this).attr('data-homeowners');
+        var remarks = $(this).attr('data-remarks');
+        var archive_status = "INACTIVE";
+
+
+
+        $("#payment_id").val(payment_id_arr.join(" "));
+        $("#transaction_number").val(transaction_number);
+        $("#homeowners_id").val(homeowners_id);
+        $("#remarks_status").val(remarks);
+
+        if(payment_id_arr.length != 0 ){
+          $("#archive_membershipFee").modal('show');
+          swal({
+            title: "Archive Confirmation",
+            text: "Do you want to archive this payment?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+
+            } else {
+              swal("Archiving Canceled!");
+              $("#archive_membershipFee").modal('hide');
+            }
+          });
+        } else {
+          swal("No item has been selected", "", "error");
+        }
+
+        
+      });
 
     });
   </script>
