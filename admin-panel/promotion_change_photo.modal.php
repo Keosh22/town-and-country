@@ -19,7 +19,7 @@ DATE_DEFAULT_TIMEZONE_SET('Asia/Manila');
             <input type="hidden" name="change_photo_id" id="change_photo_id">
             <input type="hidden" class="form-control" name="photo_name" id="photo_name">
             <div class="col-12">
-              <label for="change_photo">Choose Photo:</label>
+              <label for="change_photo">Choose Photo: <span class="text-secondary">jpeg/format (max: 25MB)</span></label>
               <input type="file" class="form-control" name="change_photo" id="change_photo" accept="image/jpeg, image/png" required>
             </div>
           </div>

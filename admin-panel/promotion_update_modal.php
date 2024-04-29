@@ -26,7 +26,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
 
             <div class="col-md-6">
               <label for="update_business_name" class="form-label">Business Name:</label>
-              <input type="text" name="update_business_name" id="update_business_name" class="form-control" maxlength="35" required>
+              <input type="text" name="update_business_name" id="update_business_name" placeholder="max: 35 characters" class="form-control" maxlength="35" required>
             </div>
             <div class="col-md-6">
               <label for="update_promotion_due" class="form-label">Promotion Due:</label>
@@ -46,7 +46,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
             </div>
             <div class="col">
               <label for="update_promotion_content" class="form-label">Content:</label>
-              <textarea name="update_promotion_content" id="update_promotion_content" rows="10" wrap="hard" class="form-control" required></textarea>
+              <textarea name="update_promotion_content" id="update_promotion_content" rows="10" wrap="hard" placeholder="max: 200 characters" class="form-control" maxlength="200" required></textarea>
             </div>
 
             <div class="modal-footer">

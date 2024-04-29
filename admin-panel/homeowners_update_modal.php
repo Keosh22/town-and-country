@@ -56,7 +56,7 @@ require_once("../libs/server.php");
                 <option value="President">President</option>
                 <option value="Vice-President">Vice-President</option>
                 <option value="Secretary">Secretary</option>
-                <option value="Secretary">Treasurer</option>
+                <option value="Treasurer">Treasurer</option>
                 <option value="B.O.D">B.O.D</option>
               </select>
             </div>

@@ -24,14 +24,14 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
           <div class="row gy-3">
             <div class="col-md-6">
               <label for="business_name" class="form-label">Business Name:</label>
-              <input type="text" name="business_name" id="business_name" class="form-control" maxlength="35" required>
+              <input type="text" name="business_name" id="business_name" class="form-control" placeholder="max: 35 characters" maxlength="35" required>
             </div>
             <div class="col-md-6">
               <label for="promotion_due" class="form-label">Promotion Due:</label>
               <input value="<?php echo $default_date; ?>" name="promotion_due" id="promotion_due" class="form-control" required>
             </div>
             <div class="col-md-6">
-              <label for="promotion_photo" class="form-label">Photo:</label>
+              <label for="promotion_photo" class="form-label">Photo:<span class="text-secondary">jpeg/format (max: 25MB)</span></label>
               <input type="file" id="promotion_photo" name="promotion_photo" class="form-control" accept="image/jpeg, image/png" required>
             </div>
             <div class="col-md-6">
@@ -39,7 +39,7 @@ $default_date = date("Y/m/d g:i A", strtotime("now"));
             </div>
             <div class="col">
               <label for="promotion_content" class="form-label">Content:</label>
-              <textarea name="promotion_content" id="promotion_content" rows="10" wrap="hard" class="form-control" maxlength="200" required></textarea>
+              <textarea name="promotion_content" id="promotion_content" rows="10" wrap="hard" class="form-control" placeholder="max: 200 characters" maxlength="200" required></textarea>
             </div>
 
 
