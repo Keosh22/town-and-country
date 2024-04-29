@@ -1201,7 +1201,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
     $ACTIVE = "ACTIVE";
 
     // Count the Due collection during 10th to 12th day of the month
-    if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 11, $year_email))) {
+    if ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 10, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 12, $year_email))) {
       // Phase 1
       $phase_1 = "Phase 1";
       $query = "SELECT COUNT(collection_list.email_status) FROM collection_list INNER JOIN property_list ON collection_list.property_id = property_list.id WHERE collection_list.status = :due AND collection_list.month = :current_month AND collection_list.email_status = :not_sent AND property_list.phase = :phase AND collection_list.archive = :ACTIVE";
@@ -1212,7 +1212,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 17th to 19th day of the month
-    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 18, $year_email))) {
+    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 17, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 19, $year_email))) {
       // Phase 2
       $phase_2 = "Phase 2";
       // $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
@@ -1224,7 +1224,7 @@ FROM collection_list INNER JOIN property_list WHERE collection_list.property_id 
       return $count = $stmt->fetchColumn();
     }
     // Count the Due collection during 23th to 25th day of the month
-    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 23, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 24, $year_email))) {
+    elseif ($day_email >= date("j", mktime(0, 0, 0, $current_month_num, 23, $year_email)) && $day_email <= date("j", mktime(0, 0, 0, $current_month_num, 25, $year_email))) {
       $phase_3 = "Phase 3";
       // Phase 3
       // $query = "SELECT COUNT(email_status) FROM collection_list WHERE status = :due AND month = :current_month AND email_status = :not_sent";
