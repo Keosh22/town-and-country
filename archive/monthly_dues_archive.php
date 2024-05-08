@@ -41,6 +41,7 @@ if (isset($_POST['payment_id']) && isset($_POST['transaction_number'])) {
     $stmt2->execute($data2);
     if ($stmt2->rowCount() > 0) {
 
+
       $_SESSION['status'] = "Success";
       $_SESSION['text'] = "The log has been archived successfully";
       $_SESSION['status_code'] = "success";

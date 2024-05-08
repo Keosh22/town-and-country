@@ -60,6 +60,9 @@ $server->adminAuthentication();
                           <a href="../payments/additional_payment_process.php" data-bs-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class='bx bx-plus bx-xs bx-tada-hover'></i>New</a>
                         </div>
                         <div class="col d-flex justify-content-end">
+
+                          <a class="btn btn-success btn-sm btn-flat mx-2" id="archive">Archive</a>
+                          <button class="btn btn-secondary btn-sm btn-flat mx-2" id="toggle_archive">Select Archive</button>
                           <a href="../archive/additional_payment_archive_list.php" class="btn btn-warning btn-sm btn-flat"><i class='bx bx-archive bx-xs bx-tada-hover'></i>Archive</a>
                         </div>
                       </div>
@@ -76,6 +79,7 @@ $server->adminAuthentication();
                                 <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
                                 <th></th>
+                                <th width="5%"></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -131,11 +135,12 @@ $server->adminAuthentication();
                                         <a type="button" class="dropdown-toggle btn btn-secondary" data-bs-toggle="dropdown">Action</a>
                                         <ul class="dropdown-menu">
                                           <li><a class="dropdown-item" id="view_btn" href="#additional_payment_view" data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-collection-id="<?php echo $collection_fee_id; ?>">View</a></li>
-                                          <li><a class="dropdown-item" id="archive_btn" href="#arhive_additionalPayment"  data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-collection-id="<?php echo $collection_fee_id; ?>">Archive</a></li>
+                                          <li><a class="dropdown-item" id="archive_btn" href="#arhive_additionalPayment" data-bs-toggle="modal" data-id="<?php echo $payment_id; ?>" data-tnum="<?php echo $transaction_number; ?>" data-collection-id="<?php echo $collection_fee_id; ?>">Archive</a></li>
                                         </ul>
                                       </div>
                                     </td>
-                                    <td><?php echo date("n-j-Y H:i",strtotime($date_created)); ?></td>
+                                    <td><?php echo date("n-j-Y H:i", strtotime($date_created)); ?></td>
+                                    <td><input type="checkbox" class="form-check-input archive_checkbox" data-tnumber="<?php echo $transaction_number; ?>" data-id="<?php echo $payment_id; ?>"></td>
                                   </tr>
                               <?php
                                 }
@@ -151,6 +156,7 @@ $server->adminAuthentication();
                                 <th width="5%">Paid Amount</th>
                                 <th scope="col" width="5%">Action</th>
                                 <th></th>
+                                <th width="5%"></th>
                               </tr>
                             </tfoot>
                           </table>
@@ -189,6 +195,82 @@ $server->adminAuthentication();
       });
       const TABLE = $("#additionalPaymentTable").DataTable();
       TABLE.columns(5).visible(false);
+      TABLE.columns(6).visible(false);
+
+
+      $("#archive").prop('hidden', true);
+      var payment_id_arr = [];
+      // // SElect archive toggle
+      $("#toggle_archive").on('click', function() {
+        $("#cancel_archive, #archive").prop('hidden', function(i, val) {
+          if (val) {
+            TABLE.columns(6).visible(true);
+            $("#toggle_archive").html("Cancel Archive");
+          } else {
+            TABLE.columns(6).visible(false);
+            $("#toggle_archive").html("Select Archive");
+
+            location.reload();
+          }
+          $("#toggle_archive").toggleClass("btn-danger");
+          return !val;
+        });
+      });
+
+      // Archive Checkbox
+      $("#additionalPaymentTable").on('change', '.archive_checkbox', function() {
+        var payment_id = $(this).attr("data-id");
+        if (this.checked) {
+          payment_id_arr.push(payment_id);
+        } else {
+          for (var i = 0; i <= payment_id_arr.length - 1; i++) {
+            if (payment_id === payment_id_arr[i]) {
+              payment_id_arr.splice(i, 1);
+            }
+          }
+        }
+      });
+
+
+      // ARchive
+      $("#archive").on('click', function() {
+        var payment_id = $(this).attr('data-id');
+        var transaction_number = $(this).attr('data-tnum');
+
+
+        $("#payment_id").val(payment_id_arr.join(' '));
+        $("#transaction_number").val(transaction_number);
+        $("collection_id").val(collection_fee_id);
+
+        if (payment_id_arr.length != 0) {
+          $("#arhive_additionalPayment").modal("show");
+          swal({
+              title: "Archive Confirmation",
+              text: "Do you want to archive this payment?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+
+              } else {
+                swal("Archiving Canceled!");
+                $("#arhive_additionalPayment").modal('hide');
+              }
+            });
+
+        } else {
+          swal("No item has been selected", "", "error");
+          // $("#arhive_additionalPayment").modal("hide");
+        }
+
+
+
+      });
+
+
+
 
       $("#additionalPaymentTable").on('click', '#view_btn', function() {
         var payment_id = $(this).attr('data-id');
@@ -223,31 +305,31 @@ $server->adminAuthentication();
       })
 
 
-      // ARchive
-      $("#additionalPaymentTable").on('click', "#archive_btn", function () {
-        var payment_id = $(this).attr('data-id');
-        var transaction_number = $(this).attr('data-tnum');
-        var collection_fee_id = $(this).attr('data-collection-id')
+      // // ARchive
+      // $("#additionalPaymentTable").on('click', "#archive_btn", function () {
+      //   var payment_id = $(this).attr('data-id');
+      //   var transaction_number = $(this).attr('data-tnum');
+      //   var collection_fee_id = $(this).attr('data-collection-id')
 
-        $("#payment_id").val(payment_id);
-        $("#transaction_number").val(transaction_number);
-        $("collection_id").val(collection_fee_id);
-        swal({
-            title: "Archive Confirmation",
-            text: "Do you want to archive this payment?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
+      //   $("#payment_id").val(payment_id);
+      //   $("#transaction_number").val(transaction_number);
+      //   $("collection_id").val(collection_fee_id);
+      //   swal({
+      //       title: "Archive Confirmation",
+      //       text: "Do you want to archive this payment?",
+      //       icon: "warning",
+      //       buttons: true,
+      //       dangerMode: true,
+      //     })
+      //     .then((willDelete) => {
+      //       if (willDelete) {
 
-            } else {
-              swal("Archiving Canceled!");
-              $("#arhive_additionalPayment").modal('hide');
-            }
-          })
-      })
+      //       } else {
+      //         swal("Archiving Canceled!");
+      //         $("#arhive_additionalPayment").modal('hide');
+      //       }
+      //     });
+      // });
 
 
     });

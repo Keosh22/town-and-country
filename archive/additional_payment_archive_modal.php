@@ -26,17 +26,19 @@
   $(document).ready(function() {
 
 
-
     $("#additional_payment_archive_btn").on('click', function() {
       var payment_id = $("#payment_id").val();
+      var id_arr = payment_id.split(' ');
+
       var transaction_number = $("#transaction_number").val();
       var password = $("#archive_monthlyDues_password").val();
       var collection_id = $("#collection_id").val();
+
       $.ajax({
-        url: '../archive/additional_payment_archive.php',
+        url: '../archive/select_archive_additional_payment.php',
         type: 'POST',
         data: {
-          payment_id: payment_id,
+          id_arr: id_arr,
           transaction_number: transaction_number,
           password: password,
           collection_id: collection_id
